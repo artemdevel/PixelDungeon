@@ -359,14 +359,6 @@ public class Item implements Bundlable {
         return levelKnown ? level : 0;
     }
 
-    public boolean visiblyCursed() {
-        return cursed && cursedKnown;
-    }
-
-    public boolean visiblyBroken() {
-        return levelKnown && isBroken();
-    }
-
     public boolean isUpgradable() {
         return true;
     }

@@ -169,10 +169,6 @@ public class Armor extends EquipableItem {
         return super.upgrade();
     }
 
-    public Item safeUpgrade() {
-        return upgrade( glyph != null );
-    }
-
     @Override
     public Item degrade() {
         STR++;
@@ -317,10 +313,6 @@ public class Armor extends EquipableItem {
         }
 
         return inscribe( gl );
-    }
-
-    public boolean isInscribed() {
-        return glyph != null;
     }
 
     @Override

@@ -149,10 +149,10 @@ public class Visual extends Gizmo {
         return am + aa;
     }
 
-    public void invert() {
-        rm = gm = bm = -1f;
-        ra = ga = ba = +1f;
-    }
+//    public void invert() {
+//        rm = gm = bm = -1f;
+//        ra = ga = ba = +1f;
+//    }
 
     public void lightness( float value ) {
         if (value < 0.5f) {

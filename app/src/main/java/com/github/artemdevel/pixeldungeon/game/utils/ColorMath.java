@@ -44,16 +44,6 @@ public class ColorMath {
         return (r << 16) + (g << 8) + b;
     }
 
-    public static int interpolate( float p,  int... colors ) {
-        if (p <= 0) {
-            return colors[0];
-        } else if (p >= 1) {
-            return colors[colors.length-1];
-        }
-        int segment = (int)(colors.length * p);
-        return interpolate( colors[segment], colors[segment+1], (p * (colors.length - 1)) % 1 );
-    }
-
     public static int random( int a, int b ) {
         return interpolate( a, b, Random.Float() );
     }

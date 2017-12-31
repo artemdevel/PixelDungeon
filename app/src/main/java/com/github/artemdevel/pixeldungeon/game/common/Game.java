@@ -240,9 +240,9 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         instance = null;
     }
 
-    public static void resetScene() {
-        switchScene( instance.sceneClass );
-    }
+//    public static void resetScene() {
+//        switchScene( instance.sceneClass );
+//    }
 
     public static void switchScene( Class<? extends Scene> c ) {
         instance.sceneClass = c;

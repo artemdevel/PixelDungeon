@@ -17,9 +17,6 @@
 
 package com.github.artemdevel.pixeldungeon.game.utils;
 
-import android.annotation.SuppressLint;
-
-@SuppressLint("FloatMath")
 public class PointF {
 
     public static final float PI    = 3.1415926f;

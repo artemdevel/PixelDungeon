@@ -101,14 +101,14 @@ public enum Sample implements SoundPool.OnLoadCompleteListener {
         }
     }
 
-    public void unload( Object src ) {
-
-        if (ids.containsKey( src )) {
-
-            pool.unload( ids.get( src ) );
-            ids.remove( src );
-        }
-    }
+//    public void unload( Object src ) {
+//
+//        if (ids.containsKey( src )) {
+//
+//            pool.unload( ids.get( src ) );
+//            ids.remove( src );
+//        }
+//    }
 
     public int play( Object id ) {
         return play( id, 1, 1, 1 );
@@ -130,9 +130,9 @@ public enum Sample implements SoundPool.OnLoadCompleteListener {
         enabled = value;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+//    public boolean isEnabled() {
+//        return enabled;
+//    }
 
     @Override
     public void onLoadComplete( SoundPool soundPool, int sampleId, int status ) {

@@ -80,9 +80,9 @@ public class Group extends Gizmo {
         super.kill();
     }
 
-    public int indexOf( Gizmo g ) {
-        return members.indexOf( g );
-    }
+//    public int indexOf( Gizmo g ) {
+//        return members.indexOf( g );
+//    }
 
     public Gizmo add( Gizmo g ) {
 
@@ -216,19 +216,19 @@ public class Group extends Gizmo {
         return count;
     }
 
-    public int countDead() {
-
-        int count = 0;
-
-        for (int i=0; i < length; i++) {
-            Gizmo g = members.get( i );
-            if (g != null && !g.alive) {
-                count++;
-            }
-        }
-
-        return count;
-    }
+//    public int countDead() {
+//
+//        int count = 0;
+//
+//        for (int i=0; i < length; i++) {
+//            Gizmo g = members.get( i );
+//            if (g != null && !g.alive) {
+//                count++;
+//            }
+//        }
+//
+//        return count;
+//    }
 
     public Gizmo random() {
         if (length > 0) {

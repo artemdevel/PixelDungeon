@@ -818,14 +818,6 @@ public class Badges {
         }
     }
 
-    public static void validateSupporter() {
-
-        global.add( Badge.SUPPORTER );
-        saveNeeded = true;
-
-        PixelScene.showBadge( Badge.SUPPORTER );
-    }
-
     public static void validateGamesPlayed() {
         Badge badge = null;
         if (Rankings.INSTANCE.totalNumber >= 10) {
@@ -880,12 +872,6 @@ public class Badges {
 
     public static boolean isUnlocked( Badge badge ) {
         return global.contains( badge );
-    }
-
-    public static void disown( Badge badge ) {
-        loadGlobal();
-        global.remove( badge );
-        saveNeeded = true;
     }
 
     public static List<Badge> filtered( boolean global ) {

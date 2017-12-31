@@ -53,15 +53,6 @@ public class Signal<T> {
         listeners.clear();
     }
 
-    public void replace( Listener<T> listener ) {
-        removeAll();
-        add( listener );
-    }
-
-    public int numListeners() {
-        return listeners.size();
-    }
-
     public void dispatch( T t ) {
 
         @SuppressWarnings("unchecked")

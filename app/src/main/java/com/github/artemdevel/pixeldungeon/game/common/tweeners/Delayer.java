@@ -17,6 +17,7 @@
 
 package com.github.artemdevel.pixeldungeon.game.common.tweeners;
 
+// The whole class is unused
 public class Delayer extends Tweener {
 
     public Delayer() {

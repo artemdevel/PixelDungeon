@@ -162,14 +162,9 @@ public class ItemSpriteSheet {
     public static final int HOLSTER    = 111;
     public static final int KEYRING    = 126;
 
-    // UNUSED
-    public static final int SPARK_UPGRADE    = 117;
-    public static final int SPARK_ENCHANT    = 118;
-
     // Misc
     public static final int ANKH    = 1;
     public static final int GOLD    = 14;
-    public static final int STYLUS    = 80;
     public static final int DEWDROP    = 81;
     public static final int MASTERY    = 82;
     public static final int TORCH    = 84;

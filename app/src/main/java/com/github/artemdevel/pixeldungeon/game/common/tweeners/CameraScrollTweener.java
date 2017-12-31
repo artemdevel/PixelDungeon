@@ -20,6 +20,7 @@ package com.github.artemdevel.pixeldungeon.game.common.tweeners;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.utils.PointF;
 
+// The whole class is unused
 public class CameraScrollTweener extends Tweener {
 
     public Camera camera;

@@ -70,11 +70,11 @@ public class Matrix {
         m[5] += -m[1] * t;
     }
 
-    public static void skewY( float[] m, float a ) {
-        double t = Math.tan( a * G2RAD );
-        m[0] += m[4] * t;
-        m[1] += m[5] * t;
-    }
+//    public static void skewY( float[] m, float a ) {
+//        double t = Math.tan( a * G2RAD );
+//        m[0] += m[4] * t;
+//        m[1] += m[5] * t;
+//    }
 
     public static void scale( float[] m, float x, float y ) {
         m[0] *= x;
@@ -93,7 +93,7 @@ public class Matrix {
         m[13] += m[1] * x + m[5] * y;
     }
 
-    public static void multiply( float[] left, float right[], float[] result ) {
-        android.opengl.Matrix.multiplyMM( result, 0, left, 0, right, 0 );
-    }
+//    public static void multiply( float[] left, float right[], float[] result ) {
+//        android.opengl.Matrix.multiplyMM( result, 0, left, 0, right, 0 );
+//    }
 }

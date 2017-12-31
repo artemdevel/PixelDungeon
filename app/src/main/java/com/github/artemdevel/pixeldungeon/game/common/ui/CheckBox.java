@@ -21,9 +21,9 @@ public class CheckBox extends Button {
 
     protected boolean checked;
 
-    public boolean checked() {
-        return checked;
-    }
+//    public boolean checked() {
+//        return checked;
+//    }
 
     public void checked( boolean value ) {
         if (checked != value) {

@@ -37,16 +37,16 @@ public class Renderbuffer {
         return id;
     }
 
-    public void bind() {
-        GLES20.glBindRenderbuffer( GLES20.GL_RENDERBUFFER, id );
-    }
+//    public void bind() {
+//        GLES20.glBindRenderbuffer( GLES20.GL_RENDERBUFFER, id );
+//    }
 
     public void delete() {
         int[] buffers = {id};
         GLES20.glDeleteRenderbuffers( 1, buffers, 0 );
     }
 
-    public void storage( int format, int width, int height ) {
-        GLES20.glRenderbufferStorage( GLES20.GL_RENDERBUFFER, format , width, height );
-    }
+//    public void storage( int format, int width, int height ) {
+//        GLES20.glRenderbufferStorage( GLES20.GL_RENDERBUFFER, format , width, height );
+//    }
 }

@@ -17,7 +17,6 @@
  */
 package com.github.artemdevel.pixeldungeon.effects;
 
-import android.annotation.SuppressLint;
 import android.util.SparseArray;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
@@ -298,7 +297,6 @@ public class Speck extends Image {
         left = lifespan;
     }
 
-    @SuppressLint("FloatMath")
     @Override
     public void update() {
         super.update();

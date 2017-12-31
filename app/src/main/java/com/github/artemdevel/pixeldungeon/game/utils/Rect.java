@@ -99,14 +99,6 @@ public class Rect {
         }
     }
 
-    public Rect union( Point p ) {
-        return union( p.x, p.y );
-    }
-
-    public boolean inside( Point p ) {
-        return p.x >= left && p.x < right && p.y >= top && p.y < bottom;
-    }
-
     public Rect shrink( int d ) {
         return new Rect( left + d, top + d, right - d, bottom - d );
     }

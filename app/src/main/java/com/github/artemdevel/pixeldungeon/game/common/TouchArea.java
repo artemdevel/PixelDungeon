@@ -23,7 +23,7 @@ import com.github.artemdevel.pixeldungeon.game.utils.Signal;
 
 public class TouchArea extends Visual implements Signal.Listener<Touchscreen.Touch> {
 
-    // Its target can be toucharea itself
+    // Its target can be touch area itself
     public Visual target;
 
     protected Touchscreen.Touch touch = null;

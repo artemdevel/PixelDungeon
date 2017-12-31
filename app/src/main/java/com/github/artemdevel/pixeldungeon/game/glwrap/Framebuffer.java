@@ -19,6 +19,7 @@ package com.github.artemdevel.pixeldungeon.game.glwrap;
 
 import android.opengl.GLES20;
 
+// The whole class isn't used
 public class Framebuffer {
 
     public static final int COLOR    = GLES20.GL_COLOR_ATTACHMENT0;

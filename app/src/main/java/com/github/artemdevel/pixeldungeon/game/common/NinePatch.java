@@ -141,21 +141,21 @@ public class NinePatch extends Visual {
         return marginTop + marginBottom;
     }
 
-    public float innerWidth() {
-        return width - marginLeft - marginRight;
-    }
-
-    public float innerHeight() {
-        return height - marginTop - marginBottom;
-    }
-
-    public float innerRight() {
-        return width - marginRight;
-    }
-
-    public float innerBottom() {
-        return height - marginBottom;
-    }
+//    public float innerWidth() {
+//        return width - marginLeft - marginRight;
+//    }
+//
+//    public float innerHeight() {
+//        return height - marginTop - marginBottom;
+//    }
+//
+//    public float innerRight() {
+//        return width - marginRight;
+//    }
+//
+//    public float innerBottom() {
+//        return height - marginBottom;
+//    }
 
     public void size( float width, float height ) {
         this.width = width;

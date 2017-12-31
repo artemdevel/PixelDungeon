@@ -172,9 +172,9 @@ public class Camera extends Gizmo {
         return new PointF( width / 2, height / 2 );
     }
 
-    public boolean hitTest( float x, float y ) {
-        return x >= this.x && y >= this.y && x < this.x + screenWidth && y < this.y + screenHeight;
-    }
+//    public boolean hitTest( float x, float y ) {
+//        return x >= this.x && y >= this.y && x < this.x + screenWidth && y < this.y + screenHeight;
+//    }
 
     public void focusOn( float x, float y ) {
         scroll.set( x - width / 2, y - height / 2 );

@@ -167,22 +167,14 @@ public abstract class Char extends Actor {
             if (!enemy.isAlive() && visibleFight) {
                 if (enemy == Dungeon.hero) {
 
-                    if (Dungeon.hero.killerGlyph != null) {
-
-                    // FIXME
-                    //    Dungeon.fail( Utils.format( ResultDescriptions.GLYPH, Dungeon.hero.killerGlyph.name(), Dungeon.depth ) );
-                    //    GLog.n( TXT_KILL, Dungeon.hero.killerGlyph.name() );
-
+                    if (Bestiary.isBoss( this )) {
+                        Dungeon.fail( Utils.format( ResultDescriptions.BOSS, name, Dungeon.depth ) );
                     } else {
-                        if (Bestiary.isBoss( this )) {
-                            Dungeon.fail( Utils.format( ResultDescriptions.BOSS, name, Dungeon.depth ) );
-                        } else {
-                            Dungeon.fail( Utils.format( ResultDescriptions.MOB,
-                                Utils.indefinite( name ), Dungeon.depth ) );
-                        }
-
-                        GLog.n( TXT_KILL, name );
+                        Dungeon.fail( Utils.format( ResultDescriptions.MOB,
+                            Utils.indefinite( name ), Dungeon.depth ) );
                     }
+
+                    GLog.n( TXT_KILL, name );
 
                 } else {
                     GLog.i( TXT_DEFEAT, name, enemy.name );
