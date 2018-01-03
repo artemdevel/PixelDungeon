@@ -37,9 +37,15 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Shaman extends Mob implements Callback {
 
-    private static final float TIME_TO_ZAP    = 2f;
+    private static final float TIME_TO_ZAP = 2f;
 
     private static final String TXT_LIGHTNING_KILLED = "%s's lightning bolt killed you...";
+
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(LightningTrap.Electricity.class);
+    }
 
     {
         name = "gnoll shaman";
@@ -57,11 +63,11 @@ public class Shaman extends Mob implements Callback {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 2, 6 );
+        return Random.NormalIntRange(2, 6);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 11;
     }
 
@@ -71,48 +77,43 @@ public class Shaman extends Mob implements Callback {
     }
 
     @Override
-    protected boolean canAttack( Char enemy ) {
-        return Ballistica.cast( pos, enemy.pos, false, true ) == enemy.pos;
+    protected boolean canAttack(Char enemy) {
+        return Ballistica.cast(pos, enemy.pos, false, true) == enemy.pos;
     }
 
     @Override
-    protected boolean doAttack( Char enemy ) {
-
-        if (Level.distance( pos, enemy.pos ) <= 1) {
-
-            return super.doAttack( enemy );
-
+    protected boolean doAttack(Char enemy) {
+        if (Level.distance(pos, enemy.pos) <= 1) {
+            return super.doAttack(enemy);
         } else {
-
             boolean visible = Level.fieldOfView[pos] || Level.fieldOfView[enemy.pos];
             if (visible) {
-                ((ShamanSprite)sprite).zap( enemy.pos );
+                sprite.zap(enemy.pos);
             }
 
-            spend( TIME_TO_ZAP );
+            spend(TIME_TO_ZAP);
 
-            if (hit( this, enemy, true )) {
-                int dmg = Random.Int( 2, 12 );
+            if (hit(this, enemy, true)) {
+                int dmg = Random.Int(2, 12);
                 if (Level.water[enemy.pos] && !enemy.flying) {
                     dmg *= 1.5f;
                 }
-                enemy.damage( dmg, LightningTrap.LIGHTNING );
+                enemy.damage(dmg, LightningTrap.LIGHTNING);
 
-                enemy.sprite.centerEmitter().burst( SparkParticle.FACTORY, 3 );
+                enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
                 enemy.sprite.flash();
 
                 if (enemy == Dungeon.hero) {
-
-                    Camera.main.shake( 2, 0.3f );
+                    Camera.main.shake(2, 0.3f);
 
                     if (!enemy.isAlive()) {
-                        Dungeon.fail( Utils.format( ResultDescriptions.MOB,
-                            Utils.indefinite( name ), Dungeon.depth ) );
-                        GLog.n( TXT_LIGHTNING_KILLED, name );
+                        Dungeon.fail(Utils.format(ResultDescriptions.MOB,
+                                Utils.indefinite(name), Dungeon.depth));
+                        GLog.n(TXT_LIGHTNING_KILLED, name);
                     }
                 }
             } else {
-                enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+                enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
             }
 
             return !visible;
@@ -126,15 +127,9 @@ public class Shaman extends Mob implements Callback {
 
     @Override
     public String description() {
-        return
-            "The most intelligent gnolls can master shamanistic magic. Gnoll shamans prefer " +
+        return "The most intelligent gnolls can master shamanistic magic. Gnoll shamans prefer " +
             "battle spells to compensate for lack of might, not hesitating to use them " +
             "on those who question their status in a tribe.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( LightningTrap.Electricity.class );
     }
 
     @Override

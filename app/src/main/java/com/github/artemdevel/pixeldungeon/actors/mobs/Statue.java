@@ -36,6 +36,17 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Statue extends Mob {
 
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(ToxicGas.class);
+        RESISTANCES.add(Poison.class);
+        RESISTANCES.add(Death.class);
+        RESISTANCES.add(ScrollOfPsionicBlast.class);
+        IMMUNITIES.add(Leech.class);
+    }
+
     {
         name = "animated statue";
         spriteClass = StatueSprite.class;
@@ -50,7 +61,7 @@ public class Statue extends Mob {
         super();
 
         do {
-            weapon = (Weapon)Generator.random( Generator.Category.WEAPON );
+            weapon = (Weapon) Generator.random(Generator.Category.WEAPON);
         } while (!(weapon instanceof MeleeWeapon) || weapon.level() < 0);
 
         weapon.identify();
@@ -60,36 +71,36 @@ public class Statue extends Mob {
         defenseSkill = 4 + Dungeon.depth;
     }
 
-    private static final String WEAPON    = "weapon";
+    private static final String WEAPON = "weapon";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( WEAPON, weapon );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(WEAPON, weapon);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        weapon = (Weapon)bundle.get( WEAPON );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        weapon = (Weapon) bundle.get(WEAPON);
     }
 
     @Override
     protected boolean act() {
         if (Dungeon.visible[pos]) {
-            Journal.add( Journal.Feature.STATUE );
+            Journal.add(Journal.Feature.STATUE);
         }
         return super.act();
     }
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( weapon.min(), weapon.max() );
+        return Random.NormalIntRange(weapon.min(), weapon.max());
     }
 
     @Override
-    public int attackSkill( Char target ) {
-        return (int)((9 + Dungeon.depth) * weapon.ACU);
+    public int attackSkill(Char target) {
+        return (int) ((9 + Dungeon.depth) * weapon.ACU);
     }
 
     @Override
@@ -103,35 +114,34 @@ public class Statue extends Mob {
     }
 
     @Override
-    public void damage( int dmg, Object src ) {
-
+    public void damage(int dmg, Object src) {
         if (state == PASSIVE) {
             state = HUNTING;
         }
 
-        super.damage( dmg, src );
+        super.damage(dmg, src);
     }
 
     @Override
-    public int attackProc( Char enemy, int damage ) {
-        weapon.proc( this, enemy, damage );
+    public int attackProc(Char enemy, int damage) {
+        weapon.process(this, enemy, damage);
         return damage;
     }
 
     @Override
-    public void beckon( int cell ) {
+    public void beckon(int cell) {
         // Do nothing
     }
 
     @Override
-    public void die( Object cause ) {
-        Dungeon.level.drop( weapon, pos ).sprite.drop();
-        super.die( cause );
+    public void die(Object cause) {
+        Dungeon.level.drop(weapon, pos).sprite.drop();
+        super.die(cause);
     }
 
     @Override
     public void destroy() {
-        Journal.remove( Journal.Feature.STATUE );
+        Journal.remove(Journal.Feature.STATUE);
         super.destroy();
     }
 
@@ -143,19 +153,8 @@ public class Statue extends Mob {
 
     @Override
     public String description() {
-        return
-            "You would think that it's just another ugly statue of this dungeon, but its red glowing eyes give itself away. " +
+        return "You would think that it's just another ugly statue of this dungeon, but its red glowing eyes give itself away. " +
             "While the statue itself is made of stone, the _" + weapon.name() + "_, it's wielding, looks real.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( ToxicGas.class );
-        RESISTANCES.add( Poison.class );
-        RESISTANCES.add( Death.class );
-        RESISTANCES.add( ScrollOfPsionicBlast.class );
-        IMMUNITIES.add( Leech.class );
     }
 
     @Override

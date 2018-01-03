@@ -37,13 +37,13 @@ public class Firebloom extends Plant {
     }
 
     @Override
-    public void activate( Char ch ) {
-        super.activate( ch );
+    public void activate(Char ch) {
+        super.activate(ch);
 
-        GameScene.add( Blob.seed( pos, 2, Fire.class ) );
+        GameScene.add(Blob.seed(pos, 2, Fire.class));
 
         if (Dungeon.visible[pos]) {
-            CellEmitter.get( pos ).burst( FlameParticle.FACTORY, 5 );
+            CellEmitter.get(pos).burst(FlameParticle.FACTORY, 5);
         }
     }
 

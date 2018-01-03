@@ -40,47 +40,41 @@ public class Amulet extends Item {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_END );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_END);
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
+    public void execute(Hero hero, String action) {
         if (action.equals(AC_END)) {
-
-            showAmuletScene( false );
-
+            showAmuletScene(false);
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
     @Override
-    public boolean doPickUp( Hero hero ) {
-        if (super.doPickUp( hero )) {
-
+    public boolean doPickUp(Hero hero) {
+        if (super.doPickUp(hero)) {
             if (!Statistics.amuletObtained) {
                 Statistics.amuletObtained = true;
                 Badges.validateVictory();
 
-                showAmuletScene( true );
+                showAmuletScene(true);
             }
-
             return true;
         } else {
             return false;
         }
     }
 
-    private void showAmuletScene( boolean showText ) {
+    private void showAmuletScene(boolean showText) {
         try {
             Dungeon.saveAll();
             AmuletScene.noText = !showText;
-            Game.switchScene( AmuletScene.class );
+            Game.switchScene(AmuletScene.class);
         } catch (IOException e) {
         }
     }

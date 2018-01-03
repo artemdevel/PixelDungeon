@@ -28,10 +28,10 @@ import com.github.artemdevel.pixeldungeon.utils.GLog;
 public class ScrollOfTeleportation extends Scroll {
 
     public static final String TXT_TELEPORTED =
-        "In a blink of an eye you were teleported to another location of the level.";
+            "In a blink of an eye you were teleported to another location of the level.";
 
     public static final String TXT_NO_TELEPORT =
-        "Strong magic aura of this place prevents you from teleporting!";
+            "Strong magic aura of this place prevents you from teleporting!";
 
     {
         name = "Scroll of Teleportation";
@@ -39,18 +39,16 @@ public class ScrollOfTeleportation extends Scroll {
 
     @Override
     protected void doRead() {
-
-        Sample.INSTANCE.play( Assets.SND_READ );
+        Sample.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
-        teleportHero( curUser );
+        teleportHero(curUser);
         setKnown();
 
         readAnimation();
     }
 
-    public static void teleportHero( Hero  hero ) {
-
+    public static void teleportHero(Hero hero) {
         int count = 10;
         int pos;
         do {
@@ -61,17 +59,13 @@ public class ScrollOfTeleportation extends Scroll {
         } while (pos == -1);
 
         if (pos == -1) {
-
-            GLog.w( TXT_NO_TELEPORT );
-
+            GLog.w(TXT_NO_TELEPORT);
         } else {
-
-            WandOfBlink.appear( hero, pos );
-            Dungeon.level.press( pos, hero );
+            WandOfBlink.appear(hero, pos);
+            Dungeon.level.press(pos, hero);
             Dungeon.observe();
 
-            GLog.i( TXT_TELEPORTED );
-
+            GLog.i(TXT_TELEPORTED);
         }
     }
 

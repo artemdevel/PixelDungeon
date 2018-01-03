@@ -40,16 +40,16 @@ public class Earthroot extends Plant {
     }
 
     @Override
-    public void activate( Char ch ) {
-        super.activate( ch );
+    public void activate(Char ch) {
+        super.activate(ch);
 
         if (ch != null) {
-            Buff.affect( ch, Armor.class ).level = ch.HT;
+            Buff.affect(ch, Armor.class).level = ch.HT;
         }
 
         if (Dungeon.visible[pos]) {
-            CellEmitter.bottom( pos ).start( EarthParticle.FACTORY, 0.05f, 8 );
-            Camera.main.shake( 1, 0.4f );
+            CellEmitter.bottom(pos).start(EarthParticle.FACTORY, 0.05f, 8);
+            Camera.main.shake(1, 0.4f);
         }
     }
 
@@ -83,9 +83,9 @@ public class Earthroot extends Plant {
         private int level;
 
         @Override
-        public boolean attachTo( Char target ) {
+        public boolean attachTo(Char target) {
             pos = target.pos;
-            return super.attachTo( target );
+            return super.attachTo(target);
         }
 
         @Override
@@ -93,11 +93,11 @@ public class Earthroot extends Plant {
             if (target.pos != pos) {
                 detach();
             }
-            spend( STEP );
+            spend(STEP);
             return true;
         }
 
-        public int absorb( int damage ) {
+        public int absorb(int damage) {
             if (damage >= level) {
                 detach();
                 return damage - level;
@@ -107,7 +107,7 @@ public class Earthroot extends Plant {
             }
         }
 
-        public void level( int value ) {
+        public void level(int value) {
             if (level < value) {
                 level = value;
             }
@@ -123,21 +123,21 @@ public class Earthroot extends Plant {
             return "Herbal armor";
         }
 
-        private static final String POS        = "pos";
-        private static final String LEVEL    = "level";
+        private static final String POS = "pos";
+        private static final String LEVEL = "level";
 
         @Override
-        public void storeInBundle( Bundle bundle ) {
-            super.storeInBundle( bundle );
-            bundle.put( POS, pos );
-            bundle.put( LEVEL, level );
+        public void storeInBundle(Bundle bundle) {
+            super.storeInBundle(bundle);
+            bundle.put(POS, pos);
+            bundle.put(LEVEL, level);
         }
 
         @Override
-        public void restoreFromBundle( Bundle bundle ) {
-            super.restoreFromBundle( bundle );
-            pos = bundle.getInt( POS );
-            level = bundle.getInt( LEVEL );
+        public void restoreFromBundle(Bundle bundle) {
+            super.restoreFromBundle(bundle);
+            pos = bundle.getInt(POS);
+            level = bundle.getInt(LEVEL);
         }
     }
 }

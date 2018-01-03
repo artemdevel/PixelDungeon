@@ -23,11 +23,11 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 
 public class Invisibility extends FlavourBuff {
 
-    public static final float DURATION    = 15f;
+    public static final float DURATION = 15f;
 
     @Override
-    public boolean attachTo( Char target ) {
-        if (super.attachTo( target )) {
+    public boolean attachTo(Char target) {
+        if (super.attachTo(target)) {
             target.invisible++;
             return true;
         } else {
@@ -52,7 +52,7 @@ public class Invisibility extends FlavourBuff {
     }
 
     public static void dispel() {
-        Invisibility buff = Dungeon.hero.buff( Invisibility.class );
+        Invisibility buff = Dungeon.hero.buff(Invisibility.class);
         if (buff != null && Dungeon.hero.visibleEnemies() > 0) {
             buff.detach();
         }

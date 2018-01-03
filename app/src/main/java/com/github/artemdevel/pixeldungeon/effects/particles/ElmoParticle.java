@@ -25,25 +25,26 @@ public class ElmoParticle extends PixelParticle.Shrinking {
 
     public static final Emitter.Factory FACTORY = new Factory() {
         @Override
-        public void emit( Emitter emitter, int index, float x, float y ) {
-            ((ElmoParticle)emitter.recycle( ElmoParticle.class )).reset( x, y );
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((ElmoParticle) emitter.recycle(ElmoParticle.class)).reset(x, y);
         }
+
         @Override
         public boolean lightMode() {
             return true;
-        };
+        }
     };
 
     public ElmoParticle() {
         super();
 
-        color( 0x22EE66 );
+        color(0x22EE66);
         lifespan = 0.6f;
 
-        acc.set( 0, -80 );
+        acc.set(0, -80);
     }
 
-    public void reset( float x, float y ) {
+    public void reset(float x, float y) {
         revive();
 
         this.x = x;
@@ -52,7 +53,7 @@ public class ElmoParticle extends PixelParticle.Shrinking {
         left = lifespan;
 
         size = 4;
-        speed.set( 0 );
+        speed.set(0);
     }
 
     @Override

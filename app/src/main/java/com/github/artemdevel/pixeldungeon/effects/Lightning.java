@@ -46,13 +46,12 @@ public class Lightning extends Group {
 
     private Callback callback;
 
-    public Lightning( int[] cells, int length, Callback callback ) {
-
+    public Lightning(int[] cells, int length, Callback callback) {
         super();
 
         this.callback = callback;
 
-        Image proto = Effects.get( Effects.Type.LIGHTNING );
+        Image proto = Effects.get(Effects.Type.LIGHTNING);
         float ox = 0;
         float oy = proto.height / 2;
 
@@ -60,7 +59,7 @@ public class Lightning extends Group {
         cx = new float[length];
         cy = new float[length];
 
-        for (int i=0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             int c = cells[i];
             cx[i] = (c % Level.WIDTH + 0.5f) * DungeonTilemap.SIZE;
             cy[i] = (c / Level.WIDTH + 0.5f) * DungeonTilemap.SIZE;
@@ -68,23 +67,22 @@ public class Lightning extends Group {
 
         arcsS = new Image[length - 1];
         arcsE = new Image[length - 1];
-        for (int i=0; i < length - 1; i++) {
-
-            Image arc = arcsS[i] = new Image( proto );
+        for (int i = 0; i < length - 1; i++) {
+            Image arc = arcsS[i] = new Image(proto);
 
             arc.x = cx[i] - arc.origin.x;
             arc.y = cy[i] - arc.origin.y;
-            arc.origin.set( ox, oy );
-            add( arc );
+            arc.origin.set(ox, oy);
+            add(arc);
 
-            arc = arcsE[i] = new Image( proto );
-            arc.origin.set( ox, oy );
-            add( arc );
+            arc = arcsE[i] = new Image(proto);
+            arc.origin.set(ox, oy);
+            add(arc);
         }
 
         life = DURATION;
 
-        Sample.INSTANCE.play( Assets.SND_LIGHTNING );
+        Sample.INSTANCE.play(Assets.SND_LIGHTNING);
     }
 
     private static final double A = 180 / Math.PI;
@@ -94,39 +92,36 @@ public class Lightning extends Group {
         super.update();
 
         if ((life -= Game.elapsed) < 0) {
-
             killAndErase();
             if (callback != null) {
                 callback.call();
             }
-
         } else {
-
             float alpha = life / DURATION;
 
-            for (int i=0; i < length - 1; i++) {
+            for (int i = 0; i < length - 1; i++) {
 
                 float sx = cx[i];
                 float sy = cy[i];
-                float ex = cx[i+1];
-                float ey = cy[i+1];
+                float ex = cx[i + 1];
+                float ey = cy[i + 1];
 
-                float x2 = (sx + ex) / 2 + Random.Float( -4, +4 );
-                float y2 = (sy + ey) / 2 + Random.Float( -4, +4 );
+                float x2 = (sx + ex) / 2 + Random.Float(-4, +4);
+                float y2 = (sy + ey) / 2 + Random.Float(-4, +4);
 
                 float dx = x2 - sx;
                 float dy = y2 - sy;
                 Image arc = arcsS[i];
                 arc.am = alpha;
-                arc.angle = (float)(Math.atan2( dy, dx ) * A);
-                arc.scale.x = (float)Math.sqrt( dx * dx + dy * dy ) / arc.width;
+                arc.angle = (float) (Math.atan2(dy, dx) * A);
+                arc.scale.x = (float) Math.sqrt(dx * dx + dy * dy) / arc.width;
 
                 dx = ex - x2;
                 dy = ey - y2;
                 arc = arcsE[i];
                 arc.am = alpha;
-                arc.angle = (float)(Math.atan2( dy, dx ) * A);
-                arc.scale.x = (float)Math.sqrt( dx * dx + dy * dy ) / arc.width;
+                arc.angle = (float) (Math.atan2(dy, dx) * A);
+                arc.scale.x = (float) Math.sqrt(dx * dx + dy * dy) / arc.width;
                 arc.x = x2 - arc.origin.x;
                 arc.y = y2 - arc.origin.x;
             }
@@ -135,8 +130,8 @@ public class Lightning extends Group {
 
     @Override
     public void draw() {
-        GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE );
+        GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
         super.draw();
-        GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA );
+        GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
     }
 }

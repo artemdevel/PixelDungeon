@@ -41,13 +41,15 @@ import com.github.artemdevel.pixeldungeon.game.utils.Callback;
 
 public class Pickaxe extends Weapon {
 
-    public static final String AC_MINE    = "MINE";
+    private static final String BLOODSTAINED = "bloodStained";
+
+    public static final String AC_MINE = "MINE";
 
     public static final float TIME_TO_MINE = 2;
 
     private static final String TXT_NO_VEIN = "There is no dark gold vein near you to mine";
 
-    private static final Glowing BLOODY = new Glowing( 0x550000 );
+    private static final Glowing BLOODY = new Glowing(0x550000);
 
     {
         name = "pickaxe";
@@ -73,68 +75,61 @@ public class Pickaxe extends Weapon {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_MINE );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_MINE);
         return actions;
     }
 
     @Override
-    public void execute( final Hero hero, String action ) {
-
-        if (action == AC_MINE) {
-
+    public void execute(final Hero hero, String action) {
+        if (action.equals(AC_MINE)) {
             if (Dungeon.depth < 11 || Dungeon.depth > 15) {
-                GLog.w( TXT_NO_VEIN );
+                GLog.w(TXT_NO_VEIN);
                 return;
             }
 
-            for (int i=0; i < Level.NEIGHBOURS8.length; i++) {
-
+            for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
                 final int pos = hero.pos + Level.NEIGHBOURS8[i];
                 if (Dungeon.level.map[pos] == Terrain.WALL_DECO) {
-
-                    hero.spend( TIME_TO_MINE );
+                    hero.spend(TIME_TO_MINE);
                     hero.busy();
 
-                    hero.sprite.attack( pos, new Callback() {
+                    hero.sprite.attack(pos, new Callback() {
 
                         @Override
                         public void call() {
 
-                            CellEmitter.center( pos ).burst( Speck.factory( Speck.STAR ), 7 );
-                            Sample.INSTANCE.play( Assets.SND_EVOKE );
+                            CellEmitter.center(pos).burst(Speck.factory(Speck.STAR), 7);
+                            Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-                            Level.set( pos, Terrain.WALL );
-                            GameScene.updateMap( pos );
+                            Level.set(pos, Terrain.WALL);
+                            GameScene.updateMap(pos);
 
                             DarkGold gold = new DarkGold();
-                            if (gold.doPickUp( Dungeon.hero )) {
-                                GLog.i( Hero.TXT_YOU_NOW_HAVE, gold.name() );
+                            if (gold.doPickUp(Dungeon.hero)) {
+                                GLog.i(Hero.TXT_YOU_NOW_HAVE, gold.name());
                             } else {
-                                Dungeon.level.drop( gold, hero.pos ).sprite.drop();
+                                Dungeon.level.drop(gold, hero.pos).sprite.drop();
                             }
 
-                            Hunger hunger = hero.buff( Hunger.class );
+                            Hunger hunger = hero.buff(Hunger.class);
                             if (hunger != null && !hunger.isStarving()) {
-                                hunger.satisfy( -Hunger.STARVING / 10 );
+                                hunger.satisfy(-Hunger.STARVING / 10);
                                 BuffIndicator.refreshHero();
                             }
 
                             hero.onOperateComplete();
                         }
-                    } );
+                    });
 
                     return;
                 }
             }
 
-            GLog.w( TXT_NO_VEIN );
-
+            GLog.w(TXT_NO_VEIN);
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
@@ -149,27 +144,25 @@ public class Pickaxe extends Weapon {
     }
 
     @Override
-    public void proc( Char attacker, Char defender, int damage ) {
+    public void process(Char attacker, Char defender, int damage) {
         if (!bloodStained && defender instanceof Bat && (defender.HP <= damage)) {
             bloodStained = true;
-            updateQuickslot();
+            updateQuickSlot();
         }
     }
 
-    private static final String BLOODSTAINED = "bloodStained";
-
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
 
-        bundle.put( BLOODSTAINED, bloodStained );
+        bundle.put(BLOODSTAINED, bloodStained);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
 
-        bloodStained = bundle.getBoolean( BLOODSTAINED );
+        bloodStained = bundle.getBoolean(BLOODSTAINED);
     }
 
     @Override
@@ -179,7 +172,6 @@ public class Pickaxe extends Weapon {
 
     @Override
     public String info() {
-        return
-            "This is a large and sturdy tool for breaking rocks. Probably it can be used as a weapon.";
+        return "This is a large and sturdy tool for breaking rocks. Probably it can be used as a weapon.";
     }
 }

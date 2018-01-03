@@ -40,11 +40,11 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class ScrollOfWipeOut extends Item {
 
-    private static final String TXT_BLINDED    = "You can't read a scroll while blinded";
+    private static final String TXT_BLINDED = "You can't read a scroll while blinded";
 
-    public static final String AC_READ    = "READ";
+    public static final String AC_READ = "READ";
 
-    protected static final float TIME_TO_READ    = 1f;
+    protected static final float TIME_TO_READ = 1f;
 
     {
         name = "Scroll of Wipe Out";
@@ -55,63 +55,59 @@ public class ScrollOfWipeOut extends Item {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_READ );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_READ);
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
-        if (action.equals( AC_READ )) {
-
-            if (hero.buff( Blindness.class ) != null) {
-                GLog.w( TXT_BLINDED );
+    public void execute(Hero hero, String action) {
+        if (action.equals(AC_READ)) {
+            if (hero.buff(Blindness.class) != null) {
+                GLog.w(TXT_BLINDED);
             } else {
                 curUser = hero;
-                curItem = detach( hero.belongings.backpack );
+                curItem = detach(hero.belongings.backpack);
                 doRead();
             }
-
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
     private void doRead() {
-        GameScene.flash( 0xFF6644 );
+        GameScene.flash(0xFF6644);
 
         Invisibility.dispel();
 
-        for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-            if (!Bestiary.isBoss( mob )) {
-                Sample.INSTANCE.play( Assets.SND_CURSED, 0.3f, 0.3f, Random.Float( 0.6f, 0.9f ) );
-                mob.die( this );
+        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+            if (!Bestiary.isBoss(mob)) {
+                Sample.INSTANCE.play(Assets.SND_CURSED, 0.3f, 0.3f, Random.Float(0.6f, 0.9f));
+                mob.die(this);
             }
         }
 
         for (Heap heap : Dungeon.level.heaps.values()) {
             switch (heap.type) {
-            case FOR_SALE:
-                heap.type = Type.HEAP;
-                if (Dungeon.visible[heap.pos]) {
-                    CellEmitter.center( heap.pos ).burst( Speck.factory( Speck.COIN ), 2 );
-                }
-                break;
-            case MIMIC:
-                heap.type = Type.HEAP;
-                heap.sprite.link();
-                Sample.INSTANCE.play( Assets.SND_CURSED, 0.3f, 0.3f, Random.Float( 0.6f, 0.9f ) );
-                break;
-            default:
+                case FOR_SALE:
+                    heap.type = Type.HEAP;
+                    if (Dungeon.visible[heap.pos]) {
+                        CellEmitter.center(heap.pos).burst(Speck.factory(Speck.COIN), 2);
+                    }
+                    break;
+                case MIMIC:
+                    heap.type = Type.HEAP;
+                    heap.sprite.link();
+                    Sample.INSTANCE.play(Assets.SND_CURSED, 0.3f, 0.3f, Random.Float(0.6f, 0.9f));
+                    break;
+                default:
             }
         }
 
-        curUser.spend( TIME_TO_READ );
+        curUser.spend(TIME_TO_READ);
         curUser.busy();
-        ((HeroSprite)curUser.sprite).read();
+        ((HeroSprite) curUser.sprite).read();
     }
 
     @Override

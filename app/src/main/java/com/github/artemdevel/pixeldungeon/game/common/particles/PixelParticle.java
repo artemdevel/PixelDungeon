@@ -30,17 +30,17 @@ public class PixelParticle extends PseudoPixel {
     public PixelParticle() {
         super();
 
-        origin.set( +0.5f );
+        origin.set(+0.5f);
     }
 
-    public void reset( float x, float y, int color, float size, float lifespan ) {
+    public void reset(float x, float y, int color, float size, float lifespan) {
         revive();
 
         this.x = x;
         this.y = y;
 
-        color( color );
-        size( this.size = size );
+        color(color);
+        size(this.size = size);
 
         this.left = this.lifespan = lifespan;
     }
@@ -58,7 +58,7 @@ public class PixelParticle extends PseudoPixel {
         @Override
         public void update() {
             super.update();
-            size( size * left / lifespan );
+            size(size * left / lifespan);
         }
     }
 }

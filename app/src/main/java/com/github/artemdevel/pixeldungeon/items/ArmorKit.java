@@ -33,8 +33,8 @@ import com.github.artemdevel.pixeldungeon.windows.WndBag;
 
 public class ArmorKit extends Item {
 
-    private static final String TXT_SELECT_ARMOR    = "Select an armor to upgrade";
-    private static final String TXT_UPGRADED        = "you applied the armor kit to upgrade your %s";
+    private static final String TXT_SELECT_ARMOR = "Select an armor to upgrade";
+    private static final String TXT_UPGRADED = "you applied the armor kit to upgrade your %s";
 
     private static final float TIME_TO_UPGRADE = 2;
 
@@ -48,23 +48,19 @@ public class ArmorKit extends Item {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_APPLY );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_APPLY);
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
-        if (action == AC_APPLY) {
-
+    public void execute(Hero hero, String action) {
+        if (action.equals(AC_APPLY)) {
             curUser = hero;
-            GameScene.selectItem( itemSelector, WndBag.Mode.ARMOR, TXT_SELECT_ARMOR );
-
+            GameScene.selectItem(itemSelector, WndBag.Mode.ARMOR, TXT_SELECT_ARMOR);
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
@@ -78,31 +74,26 @@ public class ArmorKit extends Item {
         return true;
     }
 
-    private void upgrade( Armor armor ) {
+    private void upgrade(Armor armor) {
+        detach(curUser.belongings.backpack);
 
-        detach( curUser.belongings.backpack );
-
-        curUser.sprite.centerEmitter().start( Speck.factory( Speck.KIT ), 0.05f, 10 );
-        curUser.spend( TIME_TO_UPGRADE );
+        curUser.sprite.centerEmitter().start(Speck.factory(Speck.KIT), 0.05f, 10);
+        curUser.spend(TIME_TO_UPGRADE);
         curUser.busy();
 
-        GLog.w( TXT_UPGRADED, armor.name() );
+        GLog.w(TXT_UPGRADED, armor.name());
 
-        ClassArmor classArmor = ClassArmor.upgrade( curUser, armor );
+        ClassArmor classArmor = ClassArmor.upgrade(curUser, armor);
         if (curUser.belongings.armor == armor) {
-
             curUser.belongings.armor = classArmor;
-            ((HeroSprite)curUser.sprite).updateArmor();
-
+            ((HeroSprite) curUser.sprite).updateArmor();
         } else {
-
-            armor.detach( curUser.belongings.backpack );
-            classArmor.collect( curUser.belongings.backpack );
-
+            armor.detach(curUser.belongings.backpack);
+            classArmor.collect(curUser.belongings.backpack);
         }
 
-        curUser.sprite.operate( curUser.pos );
-        Sample.INSTANCE.play( Assets.SND_EVOKE );
+        curUser.sprite.operate(curUser.pos);
+        Sample.INSTANCE.play(Assets.SND_EVOKE);
     }
 
     @Override
@@ -115,9 +106,9 @@ public class ArmorKit extends Item {
 
     private final WndBag.Listener itemSelector = new WndBag.Listener() {
         @Override
-        public void onSelect( Item item ) {
+        public void onSelect(Item item) {
             if (item != null) {
-                ArmorKit.this.upgrade( (Armor)item );
+                ArmorKit.this.upgrade((Armor) item);
             }
         }
     };

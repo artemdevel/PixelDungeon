@@ -23,8 +23,8 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 public class Roots extends FlavourBuff {
 
     @Override
-    public boolean attachTo( Char target ) {
-        if (!target.flying && super.attachTo( target )) {
+    public boolean attachTo(Char target) {
+        if (!target.flying && super.attachTo(target)) {
             target.rooted = true;
             return true;
         } else {

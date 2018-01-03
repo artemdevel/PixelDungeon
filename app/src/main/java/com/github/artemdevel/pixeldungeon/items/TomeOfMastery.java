@@ -38,11 +38,11 @@ import com.github.artemdevel.pixeldungeon.windows.WndChooseWay;
 
 public class TomeOfMastery extends Item {
 
-    private static final String TXT_BLINDED    = "You can't read while blinded";
+    private static final String TXT_BLINDED = "You can't read while blinded";
 
     public static final float TIME_TO_READ = 10;
 
-    public static final String AC_READ    = "READ";
+    public static final String AC_READ = "READ";
 
     {
         stackable = false;
@@ -53,47 +53,45 @@ public class TomeOfMastery extends Item {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_READ );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_READ);
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
-        if (action.equals( AC_READ )) {
-
-            if (hero.buff( Blindness.class ) != null) {
-                GLog.w( TXT_BLINDED );
+    public void execute(Hero hero, String action) {
+        if (action.equals(AC_READ)) {
+            if (hero.buff(Blindness.class) != null) {
+                GLog.w(TXT_BLINDED);
                 return;
             }
 
             curUser = hero;
 
             switch (hero.heroClass) {
-            case WARRIOR:
-                read( hero, HeroSubClass.GLADIATOR, HeroSubClass.BERSERKER );
-                break;
-            case MAGE:
-                read( hero, HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK );
-                break;
-            case ROGUE:
-                read( hero, HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER );
-                break;
-            case HUNTRESS:
-                read( hero, HeroSubClass.SNIPER, HeroSubClass.WARDEN );
-                break;
+                case WARRIOR:
+                    read(hero, HeroSubClass.GLADIATOR, HeroSubClass.BERSERKER);
+                    break;
+                case MAGE:
+                    read(hero, HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK);
+                    break;
+                case ROGUE:
+                    read(hero, HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER);
+                    break;
+                case HUNTRESS:
+                    read(hero, HeroSubClass.SNIPER, HeroSubClass.WARDEN);
+                    break;
             }
-
         } else {
-            super.execute( hero, action );
+            super.execute(hero, action);
         }
     }
 
     @Override
-    public boolean doPickUp( Hero hero ) {
+    public boolean doPickUp(Hero hero) {
         Badges.validateMastery();
-        return super.doPickUp( hero );
+        return super.doPickUp(hero);
     }
 
     @Override
@@ -108,40 +106,38 @@ public class TomeOfMastery extends Item {
 
     @Override
     public String info() {
-        return
-            "This worn leather book is not that thick, but you feel somehow, " +
+        return "This worn leather book is not that thick, but you feel somehow, " +
             "that you can gather a lot from it. Remember though that reading " +
             "this tome may require some time.";
     }
 
-    private void read( Hero hero, HeroSubClass sc1, HeroSubClass sc2 ) {
+    private void read(Hero hero, HeroSubClass sc1, HeroSubClass sc2) {
         if (hero.subClass == sc1) {
-            GameScene.show( new WndChooseWay( this, sc2 ) );
+            GameScene.show(new WndChooseWay(this, sc2));
         } else if (hero.subClass == sc2) {
-            GameScene.show( new WndChooseWay( this, sc1 ) );
+            GameScene.show(new WndChooseWay(this, sc1));
         } else {
-            GameScene.show( new WndChooseWay( this, sc1, sc2 ) );
+            GameScene.show(new WndChooseWay(this, sc1, sc2));
         }
     }
 
-    public void choose( HeroSubClass way ) {
+    public void choose(HeroSubClass way) {
+        detach(curUser.belongings.backpack);
 
-        detach( curUser.belongings.backpack );
-
-        curUser.spend( TomeOfMastery.TIME_TO_READ );
+        curUser.spend(TomeOfMastery.TIME_TO_READ);
         curUser.busy();
 
         curUser.subClass = way;
 
-        curUser.sprite.operate( curUser.pos );
-        Sample.INSTANCE.play( Assets.SND_MASTERY );
+        curUser.sprite.operate(curUser.pos);
+        Sample.INSTANCE.play(Assets.SND_MASTERY);
 
-        SpellSprite.show( curUser, SpellSprite.MASTERY );
-        curUser.sprite.emitter().burst( Speck.factory( Speck.MASTERY ), 12 );
-        GLog.w( "You have chosen the way of the %s!", Utils.capitalize( way.title() ) );
+        SpellSprite.show(curUser, SpellSprite.MASTERY);
+        curUser.sprite.emitter().burst(Speck.factory(Speck.MASTERY), 12);
+        GLog.w("You have chosen the way of the %s!", Utils.capitalize(way.title()));
 
         if (way == HeroSubClass.BERSERKER && curUser.HP <= curUser.HT * Fury.LEVEL) {
-            Buff.affect( curUser, Fury.class );
+            Buff.affect(curUser, Fury.class);
         }
     }
 }

@@ -26,16 +26,12 @@ public class Barkskin extends Buff {
     @Override
     public boolean act() {
         if (target.isAlive()) {
-
-            spend( TICK );
+            spend(TICK);
             if (--level <= 0) {
                 detach();
             }
-
         } else {
-
             detach();
-
         }
 
         return true;
@@ -45,7 +41,7 @@ public class Barkskin extends Buff {
         return level;
     }
 
-    public void level( int value ) {
+    public void level(int value) {
         if (level < value) {
             level = value;
         }

@@ -38,14 +38,14 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class WandOfMagicMissile extends Wand {
 
-    public static final String AC_DISENCHANT    = "DISENCHANT";
+    public static final String AC_DISENCHANT = "DISENCHANT";
 
-    private static final String TXT_SELECT_WAND    = "Select a wand to upgrade";
+    private static final String TXT_SELECT_WAND = "Select a wand to upgrade";
 
     private static final String TXT_DISENCHANTED =
-        "you disenchanted the Wand of Magic Missile and used its essence to upgrade your %s";
+            "you disenchanted the Wand of Magic Missile and used its essence to upgrade your %s";
 
-    private static final float TIME_TO_DISENCHANT    = 2f;
+    private static final float TIME_TO_DISENCHANT = 2f;
 
     private boolean disenchantEquipped;
 
@@ -55,52 +55,46 @@ public class WandOfMagicMissile extends Wand {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
         if (level() > 0) {
-            actions.add( AC_DISENCHANT );
+            actions.add(AC_DISENCHANT);
         }
         return actions;
     }
 
     @Override
-    protected void onZap( int cell ) {
-
-        Char ch = Actor.findChar( cell );
+    protected void onZap(int cell) {
+        Char ch = Actor.findChar(cell);
         if (ch != null) {
-
             int level = power();
 
-            ch.damage( Random.Int( 1, 6 + level * 2 ), this );
-            ch.sprite.burst( 0xFF99CCFF, level / 2 + 2 );
+            ch.damage(Random.Int(1, 6 + level * 2), this);
+            ch.sprite.burst(0xFF99CCFF, level / 2 + 2);
 
             if (ch == curUser && !ch.isAlive()) {
-                Dungeon.fail( Utils.format( ResultDescriptions.WAND, name, Dungeon.depth ) );
-                GLog.n( "You killed yourself with your own Wand of Magic Missile..." );
+                Dungeon.fail(Utils.format(ResultDescriptions.WAND, name, Dungeon.depth));
+                GLog.n("You killed yourself with your own Wand of Magic Missile...");
             }
         }
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
-        if (action.equals( AC_DISENCHANT )) {
-
+    public void execute(Hero hero, String action) {
+        if (action.equals(AC_DISENCHANT)) {
             if (hero.belongings.weapon == this) {
                 disenchantEquipped = true;
                 hero.belongings.weapon = null;
-                updateQuickslot();
+                updateQuickSlot();
             } else {
                 disenchantEquipped = false;
-                detach( hero.belongings.backpack );
+                detach(hero.belongings.backpack);
             }
 
             curUser = hero;
-            GameScene.selectItem( itemSelector, WndBag.Mode.WAND, TXT_SELECT_WAND );
-
+            GameScene.selectItem(itemSelector, WndBag.Mode.WAND, TXT_SELECT_WAND);
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
@@ -119,32 +113,29 @@ public class WandOfMagicMissile extends Wand {
 
     @Override
     public String desc() {
-        return
-            "This wand launches missiles of pure magical energy, dealing moderate damage to a target creature.";
+        return "This wand launches missiles of pure magical energy, dealing moderate damage to a target creature.";
     }
 
     private final WndBag.Listener itemSelector = new WndBag.Listener() {
         @Override
-        public void onSelect( Item item ) {
+        public void onSelect(Item item) {
             if (item != null) {
+                Sample.INSTANCE.play(Assets.SND_EVOKE);
+                ScrollOfUpgrade.upgrade(curUser);
+                evoke(curUser);
 
-                Sample.INSTANCE.play( Assets.SND_EVOKE );
-                ScrollOfUpgrade.upgrade( curUser );
-                evoke( curUser );
-
-                GLog.w( TXT_DISENCHANTED, item.name() );
+                GLog.w(TXT_DISENCHANTED, item.name());
 
                 item.upgrade();
-                curUser.spendAndNext( TIME_TO_DISENCHANT );
+                curUser.spendAndNext(TIME_TO_DISENCHANT);
 
-                Badges.validateItemLevelAquired( item );
-
+                Badges.validateItemLevelAcquired(item);
             } else {
                 if (disenchantEquipped) {
                     curUser.belongings.weapon = WandOfMagicMissile.this;
-                    WandOfMagicMissile.this.updateQuickslot();
+                    WandOfMagicMissile.this.updateQuickSlot();
                 } else {
-                    collect( curUser.belongings.backpack );
+                    collect(curUser.belongings.backpack);
                 }
             }
         }

@@ -34,10 +34,10 @@ public class Javelin extends MissileWeapon {
     }
 
     public Javelin() {
-        this( 1 );
+        this(1);
     }
 
-    public Javelin( int number ) {
+    public Javelin(int number) {
         super();
         quantity = number;
     }
@@ -53,9 +53,9 @@ public class Javelin extends MissileWeapon {
     }
 
     @Override
-    public void proc( Char attacker, Char defender, int damage ) {
-        super.proc( attacker, defender, damage );
-        Buff.prolong( defender, Cripple.class, Cripple.DURATION );
+    public void process(Char attacker, Char defender, int damage) {
+        super.process(attacker, defender, damage);
+        Buff.prolong(defender, Cripple.class, Cripple.DURATION);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Javelin extends MissileWeapon {
 
     @Override
     public Item random() {
-        quantity = Random.Int( 5, 15 );
+        quantity = Random.Int(5, 15);
         return this;
     }
 

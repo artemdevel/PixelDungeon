@@ -49,13 +49,13 @@ public class Visual extends Gizmo {
     public float angle;
     public float angularSpeed;
 
-    public Visual( float x, float y, float width, float height ) {
+    public Visual(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
 
-        scale = new PointF( 1, 1 );
+        scale = new PointF(1, 1);
         origin = new PointF();
 
         matrix = new float[16];
@@ -77,39 +77,39 @@ public class Visual extends Gizmo {
     }
 
     protected void updateMatrix() {
-        Matrix.setIdentity( matrix );
-        Matrix.translate( matrix, x, y );
-        Matrix.translate( matrix, origin.x, origin.y );
+        Matrix.setIdentity(matrix);
+        Matrix.translate(matrix, x, y);
+        Matrix.translate(matrix, origin.x, origin.y);
         if (angle != 0) {
-            Matrix.rotate( matrix, angle );
+            Matrix.rotate(matrix, angle);
         }
         if (scale.x != 1 || scale.y != 1) {
-            Matrix.scale( matrix, scale.x, scale.y );
+            Matrix.scale(matrix, scale.x, scale.y);
         }
-        Matrix.translate( matrix, -origin.x, -origin.y );
+        Matrix.translate(matrix, -origin.x, -origin.y);
     }
 
     public PointF point() {
-        return new PointF( x, y );
+        return new PointF(x, y);
     }
 
-    public PointF point( PointF p ) {
+    public PointF point(PointF p) {
         x = p.x;
         y = p.y;
         return p;
     }
 
-    public Point point( Point p ) {
+    public Point point(Point p) {
         x = p.x;
         y = p.y;
         return p;
     }
 
     public PointF center() {
-        return new PointF( x + width / 2, y + height / 2 );
+        return new PointF(x + width / 2, y + height / 2);
     }
 
-    public PointF center( PointF p ) {
+    public PointF center(PointF p) {
         x = p.x - width / 2;
         y = p.y - height / 2;
         return p;
@@ -124,15 +124,14 @@ public class Visual extends Gizmo {
     }
 
     protected void updateMotion() {
-
         float elapsed = Game.elapsed;
 
-        float d = (GameMath.speed( speed.x, acc.x ) - speed.x) / 2;
+        float d = (GameMath.speed(speed.x, acc.x) - speed.x) / 2;
         speed.x += d;
         x += speed.x * elapsed;
         speed.x += d;
 
-        d = (GameMath.speed( speed.y, acc.y ) - speed.y) / 2;
+        d = (GameMath.speed(speed.y, acc.y) - speed.y) / 2;
         speed.y += d;
         y += speed.y * elapsed;
         speed.y += d;
@@ -140,7 +139,7 @@ public class Visual extends Gizmo {
         angle += angularSpeed * elapsed;
     }
 
-    public void alpha( float value ) {
+    public void alpha(float value) {
         am = value;
         aa = 0;
     }
@@ -154,7 +153,7 @@ public class Visual extends Gizmo {
 //        ra = ga = ba = +1f;
 //    }
 
-    public void lightness( float value ) {
+    public void lightness(float value) {
         if (value < 0.5f) {
             rm = gm = bm = value * 2f;
             ra = ga = ba = 0;
@@ -164,44 +163,44 @@ public class Visual extends Gizmo {
         }
     }
 
-    public void brightness( float value ) {
+    public void brightness(float value) {
         rm = gm = bm = value;
     }
 
-    public void tint( float r, float g, float b, float strength ) {
+    public void tint(float r, float g, float b, float strength) {
         rm = gm = bm = 1f - strength;
         ra = r * strength;
         ga = g * strength;
         ba = b * strength;
     }
 
-    public void tint( int color, float strength ) {
+    public void tint(int color, float strength) {
         rm = gm = bm = 1f - strength;
         ra = ((color >> 16) & 0xFF) / 255f * strength;
         ga = ((color >> 8) & 0xFF) / 255f * strength;
         ba = (color & 0xFF) / 255f * strength;
     }
 
-    public void color( float r, float g, float b ) {
+    public void color(float r, float g, float b) {
         rm = gm = bm = 0;
         ra = r;
         ga = g;
         ba = b;
     }
 
-    public void color( int color ) {
-        color( ((color >> 16) & 0xFF) / 255f, ((color >> 8) & 0xFF) / 255f, (color & 0xFF) / 255f );
+    public void color(int color) {
+        color(((color >> 16) & 0xFF) / 255f, ((color >> 8) & 0xFF) / 255f, (color & 0xFF) / 255f);
     }
 
-    public void hardlight( float r, float g, float b ) {
+    public void hardlight(float r, float g, float b) {
         ra = ga = ba = 0;
         rm = r;
         gm = g;
         bm = b;
     }
 
-    public void hardlight( int color ) {
-        hardlight( (color >> 16) / 255f, ((color >> 8) & 0xFF) / 255f, (color & 0xFF) / 255f );
+    public void hardlight(int color) {
+        hardlight((color >> 16) / 255f, ((color >> 8) & 0xFF) / 255f, (color & 0xFF) / 255f);
     }
 
     public void resetColor() {
@@ -209,23 +208,23 @@ public class Visual extends Gizmo {
         ra = ga = ba = aa = 0;
     }
 
-    public boolean overlapsPoint( float x, float y ) {
+    public boolean overlapsPoint(float x, float y) {
         return x >= this.x && x < this.x + width * scale.x && y >= this.y && y < this.y + height * scale.y;
     }
 
-    public boolean overlapsScreenPoint( int x, int y ) {
-        Camera c = camera();
+    public boolean overlapsScreenPoint(int x, int y) {
+        Camera c = getCamera();
         if (c != null) {
-            PointF p = c.screenToCamera( x, y );
-            return overlapsPoint( p.x, p.y );
+            PointF p = c.screenToCamera(x, y);
+            return overlapsPoint(p.x, p.y);
         } else {
             return false;
         }
     }
 
-    // true if its bounding box intersects its camera's bounds
+    // true if its bounding box intersects its getCamera's bounds
     public boolean isVisible() {
-        Camera c = camera();
+        Camera c = getCamera();
         float cx = c.scroll.x;
         float cy = c.scroll.y;
         float w = width();

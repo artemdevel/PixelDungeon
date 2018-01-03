@@ -28,25 +28,25 @@ public class Shadows extends Invisibility {
 
     protected float left;
 
-    private static final String LEFT    = "left";
+    private static final String LEFT = "left";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( LEFT, left );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(LEFT, left);
 
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        left = bundle.getFloat( LEFT );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        left = bundle.getFloat(LEFT);
     }
 
     @Override
-    public boolean attachTo( Char target ) {
-        if (super.attachTo( target )) {
-            Sample.INSTANCE.play( Assets.SND_MELD );
+    public boolean attachTo(Char target) {
+        if (super.attachTo(target)) {
+            Sample.INSTANCE.play(Assets.SND_MELD);
             Dungeon.observe();
             return true;
         } else {
@@ -63,17 +63,14 @@ public class Shadows extends Invisibility {
     @Override
     public boolean act() {
         if (target.isAlive()) {
-
-            spend( TICK * 2 );
+            spend(TICK * 2);
 
             if (--left <= 0 || Dungeon.hero.visibleEnemies() > 0) {
                 detach();
             }
 
         } else {
-
             detach();
-
         }
 
         return true;

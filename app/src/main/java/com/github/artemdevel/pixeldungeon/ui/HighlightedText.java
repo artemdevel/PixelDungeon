@@ -13,14 +13,14 @@ public class HighlightedText extends Component {
     protected int nColor = 0xFFFFFF;
     protected int hColor = 0xFFFF44;
 
-    public HighlightedText( float size ) {
-        normal = PixelScene.createMultiline( size );
-        add( normal );
+    public HighlightedText(float size) {
+        normal = PixelScene.createMultiline(size);
+        add(normal);
 
-        highlighted = PixelScene.createMultiline( size );
-        add( highlighted );
+        highlighted = PixelScene.createMultiline(size);
+        add(highlighted);
 
-        setColor( 0xFFFFFF, 0xFFFF44 );
+        setColor(0xFFFFFF, 0xFFFF44);
     }
 
     @Override
@@ -29,17 +29,17 @@ public class HighlightedText extends Component {
         normal.y = highlighted.y = y;
     }
 
-    public void text( String value, int maxWidth ) {
-        Highlighter hl = new Highlighter( value );
+    public void text(String value, int maxWidth) {
+        Highlighter hl = new Highlighter(value);
 
-        normal.text( hl.text );
+        normal.text(hl.text);
         normal.maxWidth = maxWidth;
         normal.measure();
 
         if (hl.isHighlighted()) {
             normal.mask = hl.inverted();
 
-            highlighted.text( hl.text );
+            highlighted.text(hl.text);
             highlighted.maxWidth = maxWidth;
             highlighted.measure();
 
@@ -53,8 +53,8 @@ public class HighlightedText extends Component {
         height = normal.height();
     }
 
-    public void setColor( int n, int h ) {
-        normal.hardlight( n );
-        highlighted.hardlight( h );
+    public void setColor(int n, int h) {
+        normal.hardlight(n);
+        highlighted.hardlight(h);
     }
 }

@@ -34,8 +34,8 @@ public class IronKey extends Key {
     }
 
     @Override
-    public boolean collect( Bag bag ) {
-        boolean result = super.collect( bag );
+    public boolean collect(Bag bag) {
+        boolean result = super.collect(bag);
         if (result && depth == Dungeon.depth && Dungeon.hero != null) {
             Dungeon.hero.belongings.countIronKeys();
         }
@@ -43,7 +43,7 @@ public class IronKey extends Key {
     }
 
     @Override
-    public void onDetach( ) {
+    public void onDetach() {
         if (depth == Dungeon.depth) {
             Dungeon.hero.belongings.countIronKeys();
         }
@@ -51,13 +51,12 @@ public class IronKey extends Key {
 
     @Override
     public String toString() {
-        return Utils.format( TXT_FROM_DEPTH, depth );
+        return Utils.format(TXT_FROM_DEPTH, depth);
     }
 
     @Override
     public String info() {
-        return
-            "The notches on this ancient iron key are well worn; its leather lanyard " +
+        return "The notches on this ancient iron key are well worn; its leather lanyard " +
             "is battered by age. What door might it open?";
     }
 }

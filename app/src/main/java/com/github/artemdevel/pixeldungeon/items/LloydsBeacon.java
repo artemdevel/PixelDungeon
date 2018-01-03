@@ -36,6 +36,8 @@ import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 
 public class LloydsBeacon extends Item {
 
+    private static final Glowing WHITE = new Glowing(0xFFFFFF);
+
     private static final String TXT_PREVENTING =
         "Strong magic aura of this place prevents you from using the lloyd's beacon!";
 
@@ -53,10 +55,10 @@ public class LloydsBeacon extends Item {
 
     public static final float TIME_TO_USE = 1;
 
-    public static final String AC_SET        = "SET";
-    public static final String AC_RETURN    = "RETURN";
+    public static final String AC_SET = "SET";
+    public static final String AC_RETURN = "RETURN";
 
-    private int returnDepth    = -1;
+    private int returnDepth = -1;
     private int returnPos;
 
     {
@@ -66,87 +68,78 @@ public class LloydsBeacon extends Item {
         unique = true;
     }
 
-    private static final String DEPTH    = "depth";
-    private static final String POS        = "pos";
+    private static final String DEPTH = "depth";
+    private static final String POS = "pos";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( DEPTH, returnDepth );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(DEPTH, returnDepth);
         if (returnDepth != -1) {
-            bundle.put( POS, returnPos );
+            bundle.put(POS, returnPos);
         }
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
+    public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
-        returnDepth    = bundle.getInt( DEPTH );
-        returnPos    = bundle.getInt( POS );
+        returnDepth = bundle.getInt(DEPTH);
+        returnPos = bundle.getInt(POS);
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_SET );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_SET);
         if (returnDepth != -1) {
-            actions.add( AC_RETURN );
+            actions.add(AC_RETURN);
         }
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
-
+    public void execute(Hero hero, String action) {
         if (action.equals(AC_SET) || action.equals(AC_RETURN)) {
-
             if (Dungeon.bossLevel()) {
-                hero.spend( LloydsBeacon.TIME_TO_USE );
-                GLog.w( TXT_PREVENTING );
+                hero.spend(LloydsBeacon.TIME_TO_USE);
+                GLog.w(TXT_PREVENTING);
                 return;
             }
 
-            for (int i=0; i < Level.NEIGHBOURS8.length; i++) {
-                if (Actor.findChar( hero.pos + Level.NEIGHBOURS8[i] ) != null) {
-                    GLog.w( TXT_CREATURES );
+            for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
+                if (Actor.findChar(hero.pos + Level.NEIGHBOURS8[i]) != null) {
+                    GLog.w(TXT_CREATURES);
                     return;
                 }
             }
         }
 
         if (action.equals(AC_SET)) {
-
             returnDepth = Dungeon.depth;
             returnPos = hero.pos;
 
-            hero.spend( LloydsBeacon.TIME_TO_USE );
+            hero.spend(LloydsBeacon.TIME_TO_USE);
             hero.busy();
 
-            hero.sprite.operate( hero.pos );
-            Sample.INSTANCE.play( Assets.SND_BEACON );
+            hero.sprite.operate(hero.pos);
+            Sample.INSTANCE.play(Assets.SND_BEACON);
 
-            GLog.i( TXT_RETURN );
-
+            GLog.i(TXT_RETURN);
         } else if (action.equals(AC_RETURN)) {
-
             if (returnDepth == Dungeon.depth) {
                 reset();
-                WandOfBlink.appear( hero, returnPos );
-                Dungeon.level.press( returnPos, hero );
+                WandOfBlink.appear(hero, returnPos);
+                Dungeon.level.press(returnPos, hero);
                 Dungeon.observe();
             } else {
                 InterlevelScene.mode = InterlevelScene.Mode.RETURN;
                 InterlevelScene.returnDepth = returnDepth;
                 InterlevelScene.returnPos = returnPos;
                 reset();
-                Game.switchScene( InterlevelScene.class );
+                Game.switchScene(InterlevelScene.class);
             }
-
-
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
@@ -164,8 +157,6 @@ public class LloydsBeacon extends Item {
         return true;
     }
 
-    private static final Glowing WHITE = new Glowing( 0xFFFFFF );
-
     @Override
     public Glowing glowing() {
         return returnDepth != -1 ? WHITE : null;
@@ -173,6 +164,6 @@ public class LloydsBeacon extends Item {
 
     @Override
     public String info() {
-        return TXT_INFO + (returnDepth == -1 ? "" : Utils.format( TXT_SET, returnDepth ) );
+        return TXT_INFO + (returnDepth == -1 ? "" : Utils.format(TXT_SET, returnDepth));
     }
 }

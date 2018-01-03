@@ -33,6 +33,13 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class MirrorImage extends NPC {
 
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(ToxicGas.class);
+        IMMUNITIES.add(Burning.class);
+    }
+
     {
         name = "mirror image";
         spriteClass = MirrorSprite.class;
@@ -45,34 +52,34 @@ public class MirrorImage extends NPC {
     private int attack;
     private int damage;
 
-    private static final String TIER    = "tier";
-    private static final String ATTACK    = "attack";
-    private static final String DAMAGE    = "damage";
+    private static final String TIER = "tier";
+    private static final String ATTACK = "attack";
+    private static final String DAMAGE = "damage";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( TIER, tier );
-        bundle.put( ATTACK, attack );
-        bundle.put( DAMAGE, damage );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(TIER, tier);
+        bundle.put(ATTACK, attack);
+        bundle.put(DAMAGE, damage);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        tier = bundle.getInt( TIER );
-        attack = bundle.getInt( ATTACK );
-        damage = bundle.getInt( DAMAGE );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        tier = bundle.getInt(TIER);
+        attack = bundle.getInt(ATTACK);
+        damage = bundle.getInt(DAMAGE);
     }
 
-    public void duplicate( Hero hero ) {
+    public void duplicate(Hero hero) {
         tier = hero.tier();
-        attack = hero.attackSkill( hero );
+        attack = hero.attackSkill(hero);
         damage = hero.damageRoll();
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return attack;
     }
 
@@ -82,8 +89,8 @@ public class MirrorImage extends NPC {
     }
 
     @Override
-    public int attackProc( Char enemy, int damage ) {
-        int dmg = super.attackProc( enemy, damage );
+    public int attackProc(Char enemy, int damage) {
+        int dmg = super.attackProc(enemy, damage);
 
         destroy();
         sprite.die();
@@ -92,54 +99,43 @@ public class MirrorImage extends NPC {
     }
 
     protected Char chooseEnemy() {
-
         if (enemy == null || !enemy.isAlive()) {
             HashSet<Mob> enemies = new HashSet<Mob>();
-            for (Mob mob:Dungeon.level.mobs) {
+            for (Mob mob : Dungeon.level.mobs) {
                 if (mob.hostile && Level.fieldOfView[mob.pos]) {
-                    enemies.add( mob );
+                    enemies.add(mob);
                 }
             }
-
-            return enemies.size() > 0 ? Random.element( enemies ) : null;
+            return enemies.size() > 0 ? Random.element(enemies) : null;
         }
-
         return enemy;
     }
 
     @Override
     public String description() {
-        return
-            "This illusion bears a close resemblance to you, " +
+        return "This illusion bears a close resemblance to you, " +
             "but it's paler and twitches a little.";
     }
 
     @Override
     public CharSprite sprite() {
         CharSprite s = super.sprite();
-        ((MirrorSprite)s).updateArmor( tier );
+        ((MirrorSprite) s).updateArmor(tier);
         return s;
     }
 
     @Override
     public void interact() {
-
         int curPos = pos;
 
-        moveSprite( pos, Dungeon.hero.pos );
-        move( Dungeon.hero.pos );
+        moveSprite(pos, Dungeon.hero.pos);
+        move(Dungeon.hero.pos);
 
-        Dungeon.hero.sprite.move( Dungeon.hero.pos, curPos );
-        Dungeon.hero.move( curPos );
+        Dungeon.hero.sprite.move(Dungeon.hero.pos, curPos);
+        Dungeon.hero.move(curPos);
 
-        Dungeon.hero.spend( 1 / Dungeon.hero.speed() );
+        Dungeon.hero.spend(1 / Dungeon.hero.speed());
         Dungeon.hero.busy();
-    }
-
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( ToxicGas.class );
-        IMMUNITIES.add( Burning.class );
     }
 
     @Override

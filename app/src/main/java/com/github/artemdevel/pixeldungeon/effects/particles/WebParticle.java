@@ -26,9 +26,9 @@ public class WebParticle extends PixelParticle {
 
     public static final Emitter.Factory FACTORY = new Factory() {
         @Override
-        public void emit( Emitter emitter, int index, float x, float y ) {
-            for (int i=0; i < 3; i++) {
-                ((WebParticle)emitter.recycle( WebParticle.class )).reset( x, y );
+        public void emit(Emitter emitter, int index, float x, float y) {
+            for (int i = 0; i < 3; i++) {
+                ((WebParticle) emitter.recycle(WebParticle.class)).reset(x, y);
             }
         }
     };
@@ -36,18 +36,18 @@ public class WebParticle extends PixelParticle {
     public WebParticle() {
         super();
 
-        color( 0xCCCCCC );
+        color(0xCCCCCC);
         lifespan = 2f;
     }
 
-    public void reset( float x, float y ) {
+    public void reset(float x, float y) {
         revive();
 
         this.x = x;
         this.y = y;
 
         left = lifespan;
-        angle = Random.Float( 360 );
+        angle = Random.Float(360);
     }
 
     @Override

@@ -43,7 +43,15 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Goo extends Mob {
 
-    private static final float PUMP_UP_DELAY    = 2f;
+    private static final float PUMP_UP_DELAY = 2f;
+
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(ToxicGas.class);
+        RESISTANCES.add(Death.class);
+        RESISTANCES.add(ScrollOfPsionicBlast.class);
+    }
 
     {
         name = Dungeon.depth == Statistics.deepestFloor ? "Goo" : "spawn of Goo";
@@ -57,20 +65,20 @@ public class Goo extends Mob {
         lootChance = 0.333f;
     }
 
-    private boolean pumpedUp    = false;
-    private boolean jumped        = false;
+    private boolean pumpedUp = false;
+    private boolean jumped = false;
 
     @Override
     public int damageRoll() {
         if (pumpedUp) {
-            return Random.NormalIntRange( 5, 30 );
+            return Random.NormalIntRange(5, 30);
         } else {
-            return Random.NormalIntRange( 2, 12 );
+            return Random.NormalIntRange(2, 12);
         }
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return pumpedUp && !jumped ? 30 : 15;
     }
 
@@ -81,9 +89,8 @@ public class Goo extends Mob {
 
     @Override
     public boolean act() {
-
         if (Level.water[pos] && HP < HT) {
-            sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+            sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
             HP++;
         }
 
@@ -91,81 +98,69 @@ public class Goo extends Mob {
     }
 
     @Override
-    protected boolean canAttack( Char enemy ) {
-        return pumpedUp ? distance( enemy ) <= 2 : super.canAttack( enemy );
+    protected boolean canAttack(Char enemy) {
+        return pumpedUp ? distance(enemy) <= 2 : super.canAttack(enemy);
     }
 
     @Override
-    public int attackProc( Char enemy, int damage ) {
-        if (Random.Int( 3 ) == 0) {
-            Buff.affect( enemy, Ooze.class );
-            enemy.sprite.burst( 0x000000, 5 );
+    public int attackProc(Char enemy, int damage) {
+        if (Random.Int(3) == 0) {
+            Buff.affect(enemy, Ooze.class);
+            enemy.sprite.burst(0x000000, 5);
         }
 
         return damage;
     }
 
     @Override
-    protected boolean doAttack( final Char enemy ) {
+    protected boolean doAttack(final Char enemy) {
         if (pumpedUp) {
-
-            if (Level.adjacent( pos, enemy.pos )) {
-
+            if (Level.adjacent(pos, enemy.pos)) {
                 // Pumped up attack WITHOUT accuracy penalty
                 jumped = false;
-                return super.doAttack( enemy );
-
+                return super.doAttack(enemy);
             } else {
-
                 // Pumped up attack WITH accuracy penalty
                 jumped = true;
-                if (Ballistica.cast( pos, enemy.pos, false, true ) == enemy.pos) {
+                if (Ballistica.cast(pos, enemy.pos, false, true) == enemy.pos) {
                     final int dest = Ballistica.trace[Ballistica.distance - 2];
 
                     Callback afterJump = new Callback() {
                         @Override
                         public void call() {
-                            move( dest );
-                            Dungeon.level.mobPress( Goo.this );
-                            Goo.super.doAttack( enemy );
+                            move(dest);
+                            Dungeon.level.mobPress(Goo.this);
+                            Goo.super.doAttack(enemy);
                         }
                     };
 
                     if (Dungeon.visible[pos] || Dungeon.visible[dest]) {
-
-                        sprite.jump( pos, dest, afterJump );
+                        sprite.jump(pos, dest, afterJump);
                         return false;
-
                     } else {
-
                         afterJump.call();
                         return true;
-
                     }
                 } else {
-
                     sprite.idle();
                     pumpedUp = false;
                     return true;
                 }
             }
 
-        } else if (Random.Int( 3 ) > 0) {
-
+        } else if (Random.Int(3) > 0) {
             // Normal attack
-            return super.doAttack( enemy );
-
+            return super.doAttack(enemy);
         } else {
-
             // Pumping up
             pumpedUp = true;
-            spend( PUMP_UP_DELAY );
+            spend(PUMP_UP_DELAY);
 
-            ((GooSprite)sprite).pumpUp();
+            ((GooSprite) sprite).pumpUp();
 
             if (Dungeon.visible[pos]) {
-                sprite.showStatus( CharSprite.NEGATIVE, "!!!" );
-                GLog.n( "Goo is pumping itself up!" );
+                sprite.showStatus(CharSprite.NEGATIVE, "!!!");
+                GLog.n("Goo is pumping itself up!");
             }
 
             return true;
@@ -173,57 +168,48 @@ public class Goo extends Mob {
     }
 
     @Override
-    public boolean attack( Char enemy ) {
-        boolean result = super.attack( enemy );
+    public boolean attack(Char enemy) {
+        boolean result = super.attack(enemy);
         pumpedUp = false;
         return result;
     }
 
     @Override
-    protected boolean getCloser( int target ) {
+    protected boolean getCloser(int target) {
         pumpedUp = false;
-        return super.getCloser( target );
+        return super.getCloser(target);
     }
 
     @Override
-    public void move( int step ) {
-        ((SewerBossLevel)Dungeon.level).seal();
-        super.move( step );
+    public void move(int step) {
+        ((SewerBossLevel) Dungeon.level).seal();
+        super.move(step);
     }
 
     @Override
-    public void die( Object cause ) {
+    public void die(Object cause) {
+        super.die(cause);
 
-        super.die( cause );
-
-        ((SewerBossLevel)Dungeon.level).unseal();
+        ((SewerBossLevel) Dungeon.level).unseal();
 
         GameScene.bossSlain();
-        Dungeon.level.drop( new SkeletonKey(), pos ).sprite.drop();
+        Dungeon.level.drop(new SkeletonKey(), pos).sprite.drop();
 
         Badges.validateBossSlain();
 
-        yell( "glurp... glurp..." );
+        yell("glurp... glurp...");
     }
 
     @Override
     public void notice() {
         super.notice();
-        yell( "GLURP-GLURP!" );
+        yell("GLURP-GLURP!");
     }
 
     @Override
     public String description() {
-        return
-            "Little known about The Goo. It's quite possible that it is not even a creature, but rather a " +
+        return "Little known about The Goo. It's quite possible that it is not even a creature, but rather a " +
             "conglomerate of substances from the sewers that gained rudiments of free will.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( ToxicGas.class );
-        RESISTANCES.add( Death.class );
-        RESISTANCES.add( ScrollOfPsionicBlast.class );
     }
 
     @Override

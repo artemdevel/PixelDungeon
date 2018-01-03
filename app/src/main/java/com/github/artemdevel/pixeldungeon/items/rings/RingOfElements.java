@@ -22,9 +22,9 @@ import java.util.HashSet;
 import com.github.artemdevel.pixeldungeon.actors.blobs.ToxicGas;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Burning;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Poison;
+import com.github.artemdevel.pixeldungeon.actors.mobs.BurningFist;
 import com.github.artemdevel.pixeldungeon.actors.mobs.Eye;
 import com.github.artemdevel.pixeldungeon.actors.mobs.Warlock;
-import com.github.artemdevel.pixeldungeon.actors.mobs.Yog;
 import com.github.artemdevel.pixeldungeon.levels.traps.LightningTrap;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
@@ -35,7 +35,7 @@ public class RingOfElements extends Ring {
     }
 
     @Override
-    protected RingBuff buff( ) {
+    protected RingBuff buff() {
         return new Resistance();
     }
 
@@ -47,23 +47,24 @@ public class RingOfElements extends Ring {
             super.desc();
     }
 
-    private static final HashSet<Class<?>> EMPTY = new HashSet<Class<?>>();
+    private static final HashSet<Class<?>> EMPTY = new HashSet<>();
     private static final HashSet<Class<?>> FULL;
+
     static {
-        FULL = new HashSet<Class<?>>();
-        FULL.add( Burning.class );
-        FULL.add( ToxicGas.class );
-        FULL.add( Poison.class );
-        FULL.add( LightningTrap.Electricity.class );
-        FULL.add( Warlock.class );
-        FULL.add( Eye.class );
-        FULL.add( Yog.BurningFist.class );
+        FULL = new HashSet<>();
+        FULL.add(Burning.class);
+        FULL.add(ToxicGas.class);
+        FULL.add(Poison.class);
+        FULL.add(LightningTrap.Electricity.class);
+        FULL.add(Warlock.class);
+        FULL.add(Eye.class);
+        FULL.add(BurningFist.class);
     }
 
     public class Resistance extends RingBuff {
 
         public HashSet<Class<?>> resistances() {
-            if (Random.Int( level + 3 ) >= 3) {
+            if (Random.Int(level + 3) >= 3) {
                 return FULL;
             } else {
                 return EMPTY;

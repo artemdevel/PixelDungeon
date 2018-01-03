@@ -37,16 +37,16 @@ public class Icecap extends Plant {
     }
 
     @Override
-    public void activate( Char ch ) {
-        super.activate( ch );
+    public void activate(Char ch) {
+        super.activate(ch);
 
-        PathFinder.buildDistanceMap( pos, BArray.not( Level.losBlocking, null ), 1 );
+        PathFinder.buildDistanceMap(pos, BArray.not(Level.losBlocking, null), 1);
 
-        Fire fire = (Fire)Dungeon.level.blobs.get( Fire.class );
+        Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
 
-        for (int i=0; i < Level.LENGTH; i++) {
+        for (int i = 0; i < Level.LENGTH; i++) {
             if (PathFinder.distance[i] < Integer.MAX_VALUE) {
-                Freezing.affect( i, fire );
+                Freezing.affect(i, fire);
             }
         }
     }

@@ -37,15 +37,15 @@ public class ScrollOfTerror extends Scroll {
     @Override
     protected void doRead() {
 
-        new Flare( 5, 32 ).color( 0xFF0000, true ).show( curUser.sprite, 2f );
-        Sample.INSTANCE.play( Assets.SND_READ );
+        new Flare(5, 32).color(0xFF0000, true).show(curUser.sprite, 2f);
+        Sample.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         int count = 0;
         Mob affected = null;
-        for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
             if (Level.fieldOfView[mob.pos]) {
-                Buff.affect( mob, Terror.class, Terror.DURATION ).object = curUser.id();
+                Buff.affect(mob, Terror.class, Terror.DURATION).object = curUser.id();
 
                 count++;
                 affected = mob;
@@ -53,14 +53,14 @@ public class ScrollOfTerror extends Scroll {
         }
 
         switch (count) {
-        case 0:
-            GLog.i( "The scroll emits a brilliant flash of red light" );
-            break;
-        case 1:
-            GLog.i( "The scroll emits a brilliant flash of red light and the " + affected.name + " flees!" );
-            break;
-        default:
-            GLog.i( "The scroll emits a brilliant flash of red light and the monsters flee!" );
+            case 0:
+                GLog.i("The scroll emits a brilliant flash of red light");
+                break;
+            case 1:
+                GLog.i("The scroll emits a brilliant flash of red light and the " + affected.name + " flees!");
+                break;
+            default:
+                GLog.i("The scroll emits a brilliant flash of red light and the monsters flee!");
         }
         setKnown();
 

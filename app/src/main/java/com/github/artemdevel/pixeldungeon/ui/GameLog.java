@@ -32,7 +32,7 @@ public class GameLog extends Component implements Signal.Listener<String> {
 
     private static final int MAX_LINES = 3;
 
-    private static final Pattern PUNCTUATION = Pattern.compile( ".*[.,;?! ]$" );
+    private static final Pattern PUNCTUATION = Pattern.compile(".*[.,;?! ]$");
 
     private BitmapTextMultiline lastEntry;
     private int lastColor;
@@ -41,16 +41,16 @@ public class GameLog extends Component implements Signal.Listener<String> {
 
     public GameLog() {
         super();
-        GLog.update.add( this );
+        GLog.update.add(this);
 
         recreateLines();
     }
 
     private void recreateLines() {
         for (Entry entry : entries) {
-            lastEntry = PixelScene.createMultiline( entry.text, 6 );
-            lastEntry.hardlight( lastColor = entry.color );
-            add( lastEntry );
+            lastEntry = PixelScene.createMultiline(entry.text, 6);
+            lastEntry.hardlight(lastColor = entry.color);
+            add(lastEntry);
         }
     }
 
@@ -59,46 +59,38 @@ public class GameLog extends Component implements Signal.Listener<String> {
     }
 
     @Override
-    public void onSignal( String text ) {
-
+    public void onSignal(String text) {
         int color = CharSprite.DEFAULT;
-        if (text.startsWith( GLog.POSITIVE )) {
-            text = text.substring( GLog.POSITIVE.length() );
+        if (text.startsWith(GLog.POSITIVE)) {
+            text = text.substring(GLog.POSITIVE.length());
             color = CharSprite.POSITIVE;
-        } else
-        if (text.startsWith( GLog.NEGATIVE )) {
-            text = text.substring( GLog.NEGATIVE.length() );
+        } else if (text.startsWith(GLog.NEGATIVE)) {
+            text = text.substring(GLog.NEGATIVE.length());
             color = CharSprite.NEGATIVE;
-        } else
-        if (text.startsWith( GLog.WARNING )) {
-            text = text.substring( GLog.WARNING.length() );
+        } else if (text.startsWith(GLog.WARNING)) {
+            text = text.substring(GLog.WARNING.length());
             color = CharSprite.WARNING;
-        } else
-        if (text.startsWith( GLog.HIGHLIGHT )) {
-            text = text.substring( GLog.HIGHLIGHT.length() );
+        } else if (text.startsWith(GLog.HIGHLIGHT)) {
+            text = text.substring(GLog.HIGHLIGHT.length());
             color = CharSprite.NEUTRAL;
         }
 
-        text = Utils.capitalize( text ) +
-            (PUNCTUATION.matcher( text ).matches() ? "" : ".");
+        text = Utils.capitalize(text) +
+                (PUNCTUATION.matcher(text).matches() ? "" : ".");
 
         if (lastEntry != null && color == lastColor && lastEntry.nLines < MAX_LINES) {
-
             String lastMessage = lastEntry.text();
-            lastEntry.text( lastMessage.length() == 0 ? text : lastMessage + " " + text );
+            lastEntry.text(lastMessage.length() == 0 ? text : lastMessage + " " + text);
             lastEntry.measure();
 
-            entries.get( entries.size() - 1 ).text = lastEntry.text();
-
+            entries.get(entries.size() - 1).text = lastEntry.text();
         } else {
-
-            lastEntry = PixelScene.createMultiline( text, 6 );
-            lastEntry.hardlight( color );
+            lastEntry = PixelScene.createMultiline(text, 6);
+            lastEntry.hardlight(color);
             lastColor = color;
-            add( lastEntry );
+            add(lastEntry);
 
-            entries.add( new Entry( text, color ) );
-
+            entries.add(new Entry(text, color));
         }
 
         if (length > 0) {
@@ -112,7 +104,7 @@ public class GameLog extends Component implements Signal.Listener<String> {
                 if (nLines > MAX_LINES) {
                     remove(members.get(0));
 
-                    entries.remove( 0 );
+                    entries.remove(0);
                 }
             } while (nLines > MAX_LINES);
             if (entries.isEmpty()) {
@@ -126,9 +118,9 @@ public class GameLog extends Component implements Signal.Listener<String> {
     @Override
     protected void layout() {
         float pos = y;
-        for (int i=length-1; i >= 0; i--) {
-            BitmapTextMultiline entry = (BitmapTextMultiline)members.get( i );
-            entry.maxWidth = (int)width;
+        for (int i = length - 1; i >= 0; i--) {
+            BitmapTextMultiline entry = (BitmapTextMultiline) members.get(i);
+            entry.maxWidth = (int) width;
             entry.measure();
             entry.x = x;
             entry.y = pos - entry.height();
@@ -138,14 +130,15 @@ public class GameLog extends Component implements Signal.Listener<String> {
 
     @Override
     public void destroy() {
-        GLog.update.remove( this );
+        GLog.update.remove(this);
         super.destroy();
     }
 
     private static class Entry {
         public String text;
         public int color;
-        public Entry( String text, int color ) {
+
+        public Entry(String text, int color) {
             this.text = text;
             this.color = color;
         }

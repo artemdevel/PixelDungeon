@@ -25,35 +25,33 @@ public class Scene extends Group {
     private Signal.Listener<Keys.Key> keyListener;
 
     public void create() {
-        Keys.event.add( keyListener = new Signal.Listener<Keys.Key>() {
+        Keys.event.add(keyListener = new Signal.Listener<Keys.Key>() {
             @Override
-            public void onSignal( Keys.Key key ) {
+            public void onSignal(Keys.Key key) {
                 if (Game.instance != null && key.pressed) {
                     switch (key.code) {
-                    case Keys.BACK:
-                        onBackPressed();
-                        break;
-                    case Keys.MENU:
-                        onMenuPressed();
-                        break;
+                        case Keys.BACK:
+                            onBackPressed();
+                            break;
+                        case Keys.MENU:
+                            onMenuPressed();
+                            break;
                     }
                 }
             }
-        } );
+        });
     }
 
     @Override
     public void destroy() {
-        Keys.event.remove( keyListener );
+        Keys.event.remove(keyListener);
         super.destroy();
     }
 
     public void pause() {
-
     }
 
     public void resume() {
-
     }
 
     @Override
@@ -62,7 +60,7 @@ public class Scene extends Group {
     }
 
     @Override
-    public Camera camera() {
+    public Camera getCamera() {
         return Camera.main;
     }
 
@@ -71,7 +69,6 @@ public class Scene extends Group {
     }
 
     protected void onMenuPressed() {
-
     }
 
 }

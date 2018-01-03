@@ -42,17 +42,17 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class SacrificialFire extends Blob {
 
-    private static final String TXT_WORTHY        = "\"Your sacrifice is worthy...\" ";
-    private static final String TXT_UNWORTHY    = "\"Your sacrifice is unworthy...\" ";
-    private static final String TXT_REWARD        = "\"Your sacrifice is worthy and so you are!\" ";
+    private static final String TXT_WORTHY = "\"Your sacrifice is worthy...\" ";
+    private static final String TXT_UNWORTHY = "\"Your sacrifice is unworthy...\" ";
+    private static final String TXT_REWARD = "\"Your sacrifice is worthy and so you are!\" ";
 
     protected int pos;
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
 
-        for (int i=0; i < LENGTH; i++) {
+        for (int i = 0; i < LENGTH; i++) {
             if (cur[i] > 0) {
                 pos = i;
                 break;
@@ -63,64 +63,63 @@ public class SacrificialFire extends Blob {
     @Override
     protected void evolve() {
         volume = off[pos] = cur[pos];
-        Char ch = Actor.findChar( pos );
+        Char ch = Actor.findChar(pos);
         if (ch != null) {
-            if (Dungeon.visible[pos] && ch.buff( Marked.class ) == null) {
-                ch.sprite.emitter().burst( SacrificialParticle.FACTORY, 20 );
-                Sample.INSTANCE.play( Assets.SND_BURNING );
+            if (Dungeon.visible[pos] && ch.buff(Marked.class) == null) {
+                ch.sprite.emitter().burst(SacrificialParticle.FACTORY, 20);
+                Sample.INSTANCE.play(Assets.SND_BURNING);
             }
-            Buff.prolong( ch, Marked.class, Marked.DURATION );
+            Buff.prolong(ch, Marked.class, Marked.DURATION);
         }
         if (Dungeon.visible[pos]) {
-            Journal.add( Feature.SACRIFICIAL_FIRE );
+            Journal.add(Feature.SACRIFICIAL_FIRE);
         }
     }
 
     @Override
-    public void seed( int cell, int amount ) {
+    public void seed(int cell, int amount) {
         cur[pos] = 0;
         pos = cell;
         volume = cur[pos] = amount;
     }
 
     @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
+    public void use(BlobEmitter emitter) {
+        super.use(emitter);
 
-        emitter.pour( SacrificialParticle.FACTORY, 0.04f );
+        emitter.pour(SacrificialParticle.FACTORY, 0.04f);
     }
 
-    public static void sacrifice( Char ch ) {
+    public static void sacrifice(Char ch) {
+        Wound.hit(ch);
 
-        Wound.hit( ch );
-
-        SacrificialFire fire = (SacrificialFire)Dungeon.level.blobs.get( SacrificialFire.class );
+        SacrificialFire fire = (SacrificialFire) Dungeon.level.blobs.get(SacrificialFire.class);
         if (fire != null) {
 
             int exp = 0;
             if (ch instanceof Mob) {
-                exp = ((Mob)ch).exp() * Random.IntRange( 1, 3 );
+                exp = ((Mob) ch).exp() * Random.IntRange(1, 3);
             } else if (ch instanceof Hero) {
-                exp = ((Hero)ch).maxExp();
+                exp = ((Hero) ch).maxExp();
             }
 
             if (exp > 0) {
 
                 int volume = fire.volume - exp;
                 if (volume > 0) {
-                    fire.seed( fire.pos, volume );
-                    GLog.w( TXT_WORTHY );
+                    fire.seed(fire.pos, volume);
+                    GLog.w(TXT_WORTHY);
                 } else {
-                    fire.seed( fire.pos, 0 );
-                    Journal.remove( Feature.SACRIFICIAL_FIRE );
+                    fire.seed(fire.pos, 0);
+                    Journal.remove(Feature.SACRIFICIAL_FIRE);
 
-                    GLog.w( TXT_REWARD );
-                    GameScene.effect( new Flare( 7, 32 ).color( 0x66FFFF, true ).show( ch.sprite.parent, DungeonTilemap.tileCenterToWorld( fire.pos ), 2f ) );
-                    Dungeon.level.drop( new ScrollOfWipeOut(), fire.pos ).sprite.drop();
+                    GLog.w(TXT_REWARD);
+                    GameScene.effect(new Flare(7, 32).color(0x66FFFF, true).show(ch.sprite.parent, DungeonTilemap.tileCenterToWorld(fire.pos), 2f));
+                    Dungeon.level.drop(new ScrollOfWipeOut(), fire.pos).sprite.drop();
                 }
             } else {
 
-                GLog.w( TXT_UNWORTHY );
+                GLog.w(TXT_UNWORTHY);
 
             }
         }
@@ -133,7 +132,7 @@ public class SacrificialFire extends Blob {
 
     public static class Marked extends FlavourBuff {
 
-        public static final float DURATION    = 5f;
+        public static final float DURATION = 5f;
 
         @Override
         public int icon() {
@@ -148,7 +147,7 @@ public class SacrificialFire extends Blob {
         @Override
         public void detach() {
             if (!target.isAlive()) {
-                sacrifice( target );
+                sacrifice(target);
             }
             super.detach();
         }

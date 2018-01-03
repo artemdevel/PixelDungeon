@@ -30,19 +30,18 @@ public class Acidic extends Scorpio {
     }
 
     @Override
-    public int defenseProc( Char enemy, int damage ) {
-
-        int dmg = Random.IntRange( 0, damage );
+    public int defenseProc(Char enemy, int damage) {
+        int dmg = Random.IntRange(0, damage);
         if (dmg > 0) {
-            enemy.damage( dmg, this );
+            enemy.damage(dmg, this);
         }
 
-        return super.defenseProc( enemy, damage );
+        return super.defenseProc(enemy, damage);
     }
 
     @Override
-    public void die( Object cause ) {
-        super.die( cause );
-        Badges.validateRare( this );
+    public void die(Object cause) {
+        super.die(cause);
+        Badges.validateRare(this);
     }
 }

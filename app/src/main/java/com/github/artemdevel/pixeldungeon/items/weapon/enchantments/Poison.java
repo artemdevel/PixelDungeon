@@ -26,21 +26,20 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Poison extends Weapon.Enchantment {
 
-    private static final String TXT_VENOMOUS    = "venomous %s";
+    private static final String TXT_VENOMOUS = "venomous %s";
 
-    private static ItemSprite.Glowing PURPLE = new ItemSprite.Glowing( 0x4400AA );
+    private static ItemSprite.Glowing PURPLE = new ItemSprite.Glowing(0x4400AA);
 
     @Override
-    public boolean proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+    public boolean process(Weapon weapon, Char attacker, Char defender, int damage) {
         // lvl 0 - 33%
         // lvl 1 - 50%
         // lvl 2 - 60%
-        int level = Math.max( 0, weapon.effectiveLevel() );
+        int level = Math.max(0, weapon.effectiveLevel());
 
-        if (Random.Int( level + 3 ) >= 2) {
-
-            Buff.affect( defender, com.github.artemdevel.pixeldungeon.actors.buffs.Poison.class ).
-                set( com.github.artemdevel.pixeldungeon.actors.buffs.Poison.durationFactor( defender ) * (level + 1) );
+        if (Random.Int(level + 3) >= 2) {
+            Buff.affect(defender, com.github.artemdevel.pixeldungeon.actors.buffs.Poison.class).
+                    set(com.github.artemdevel.pixeldungeon.actors.buffs.Poison.durationFactor(defender) * (level + 1));
 
             return true;
         } else {
@@ -54,8 +53,8 @@ public class Poison extends Weapon.Enchantment {
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_VENOMOUS, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_VENOMOUS, weaponName);
     }
 
 }

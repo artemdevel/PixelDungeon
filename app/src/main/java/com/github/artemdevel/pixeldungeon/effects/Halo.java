@@ -29,7 +29,7 @@ public class Halo extends Image {
 
     private static final Object CACHE_KEY = Halo.class;
 
-    protected static final int RADIUS    = 64;
+    protected static final int RADIUS = 64;
 
     protected float radius = RADIUS;
     protected float brightness = 1;
@@ -37,38 +37,37 @@ public class Halo extends Image {
     public Halo() {
         super();
 
-        if (!TextureCache.contains( CACHE_KEY )) {
-            Bitmap bmp = Bitmap.createBitmap( RADIUS * 2, RADIUS * 2, Bitmap.Config.ARGB_8888 );
-            Canvas canvas = new Canvas( bmp );
+        if (!TextureCache.contains(CACHE_KEY)) {
+            Bitmap bmp = Bitmap.createBitmap(RADIUS * 2, RADIUS * 2, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
             Paint paint = new Paint();
-            paint.setColor( 0xFFFFFFFF );
-            canvas.drawCircle( RADIUS, RADIUS, RADIUS * 0.75f, paint );
-            paint.setColor( 0x88FFFFFF );
-            canvas.drawCircle( RADIUS, RADIUS, RADIUS, paint );
-            TextureCache.add( CACHE_KEY, new SmartTexture( bmp ) );
+            paint.setColor(0xFFFFFFFF);
+            canvas.drawCircle(RADIUS, RADIUS, RADIUS * 0.75f, paint);
+            paint.setColor(0x88FFFFFF);
+            canvas.drawCircle(RADIUS, RADIUS, RADIUS, paint);
+            TextureCache.add(CACHE_KEY, new SmartTexture(bmp));
         }
 
-        texture( CACHE_KEY );
+        texture(CACHE_KEY);
 
-        origin.set( RADIUS );
+        origin.set(RADIUS);
     }
 
-    public Halo( float radius, int color, float brightness ) {
-
+    public Halo(float radius, int color, float brightness) {
         this();
 
-        hardlight( color );
-        alpha( this.brightness = brightness );
-        radius( radius );
+        hardlight(color);
+        alpha(this.brightness = brightness);
+        radius(radius);
     }
 
-    public Halo point( float x, float y ) {
+    public Halo point(float x, float y) {
         this.x = x - RADIUS;
         this.y = y - RADIUS;
         return this;
     }
 
-    public void radius( float value ) {
-        scale.set(  (this.radius = value) / RADIUS );
+    public void radius(float value) {
+        scale.set((this.radius = value) / RADIUS);
     }
 }

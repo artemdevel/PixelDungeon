@@ -27,7 +27,7 @@ import java.util.Comparator;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.actors.hero.HeroClass;
 import com.github.artemdevel.pixeldungeon.utils.Utils;
-import com.github.artemdevel.pixeldungeon.game.utils.Bundlable;
+import com.github.artemdevel.pixeldungeon.game.utils.BundleAble;
 import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 import com.github.artemdevel.pixeldungeon.game.utils.SystemTime;
 
@@ -35,7 +35,7 @@ public enum Rankings {
 
     INSTANCE;
 
-    public static final int TABLE_SIZE    = 6;
+    public static final int TABLE_SIZE = 6;
 
     public static final String RANKINGS_FILE = "rankings.dat";
     public static final String DETAILS_FILE = "game_%d.dat";
@@ -45,44 +45,43 @@ public enum Rankings {
     public int totalNumber;
     public int wonNumber;
 
-    public void submit( boolean win ) {
-
+    public void submit(boolean win) {
         load();
 
         Record rec = new Record();
 
-        rec.info    = Dungeon.resultDescription;
-        rec.win        = win;
-        rec.heroClass    = Dungeon.hero.heroClass;
-        rec.armorTier    = Dungeon.hero.tier();
-        rec.score    = score( win );
+        rec.info = Dungeon.resultDescription;
+        rec.win = win;
+        rec.heroClass = Dungeon.hero.heroClass;
+        rec.armorTier = Dungeon.hero.tier();
+        rec.score = score(win);
 
-        String gameFile = Utils.format( DETAILS_FILE, SystemTime.now );
+        String gameFile = Utils.format(DETAILS_FILE, SystemTime.now);
         try {
-            Dungeon.saveGame( gameFile );
+            Dungeon.saveGame(gameFile);
             rec.gameFile = gameFile;
         } catch (IOException e) {
             rec.gameFile = "";
         }
 
-        records.add( rec );
+        records.add(rec);
 
-        Collections.sort( records, scoreComparator );
+        Collections.sort(records, scoreComparator);
 
-        lastRecord = records.indexOf( rec );
+        lastRecord = records.indexOf(rec);
         int size = records.size();
         if (size > TABLE_SIZE) {
 
             Record removedGame;
             if (lastRecord == size - 1) {
-                removedGame = records.remove( size - 2 );
+                removedGame = records.remove(size - 2);
                 lastRecord--;
             } else {
-                removedGame = records.remove( size - 1 );
+                removedGame = records.remove(size - 1);
             }
 
             if (removedGame.gameFile.length() > 0) {
-                Game.instance.deleteFile( removedGame.gameFile );
+                Game.instance.deleteFile(removedGame.gameFile);
             }
         }
 
@@ -96,25 +95,25 @@ public enum Rankings {
         save();
     }
 
-    private int score( boolean win ) {
+    private int score(boolean win) {
         return (Statistics.goldCollected + Dungeon.hero.lvl * Statistics.deepestFloor * 100) * (win ? 2 : 1);
     }
 
-    private static final String RECORDS    = "records";
-    private static final String LATEST    = "latest";
-    private static final String TOTAL    = "total";
-    private static final String WON        = "won";
+    private static final String RECORDS = "records";
+    private static final String LATEST = "latest";
+    private static final String TOTAL = "total";
+    private static final String WON = "won";
 
     public void save() {
         Bundle bundle = new Bundle();
-        bundle.put( RECORDS, records );
-        bundle.put( LATEST, lastRecord );
-        bundle.put( TOTAL, totalNumber );
-        bundle.put( WON, wonNumber );
+        bundle.put(RECORDS, records);
+        bundle.put(LATEST, lastRecord);
+        bundle.put(TOTAL, totalNumber);
+        bundle.put(WON, wonNumber);
 
         try {
-            OutputStream output = Game.instance.openFileOutput( RANKINGS_FILE, Game.MODE_PRIVATE );
-            Bundle.write( bundle, output );
+            OutputStream output = Game.instance.openFileOutput(RANKINGS_FILE, Game.MODE_PRIVATE);
+            Bundle.write(bundle, output);
             output.close();
         } catch (Exception e) {
         }
@@ -126,24 +125,24 @@ public enum Rankings {
             return;
         }
 
-        records = new ArrayList<Rankings.Record>();
+        records = new ArrayList<>();
 
         try {
-            InputStream input = Game.instance.openFileInput( RANKINGS_FILE );
-            Bundle bundle = Bundle.read( input );
+            InputStream input = Game.instance.openFileInput(RANKINGS_FILE);
+            Bundle bundle = Bundle.read(input);
             input.close();
 
-            for (Bundlable record : bundle.getCollection( RECORDS )) {
-                records.add( (Record)record );
+            for (BundleAble record : bundle.getCollection(RECORDS)) {
+                records.add((Record) record);
             }
-            lastRecord = bundle.getInt( LATEST );
+            lastRecord = bundle.getInt(LATEST);
 
-            totalNumber = bundle.getInt( TOTAL );
+            totalNumber = bundle.getInt(TOTAL);
             if (totalNumber == 0) {
                 totalNumber = records.size();
             }
 
-            wonNumber = bundle.getInt( WON );
+            wonNumber = bundle.getInt(WON);
             if (wonNumber == 0) {
                 for (Record rec : records) {
                     if (rec.win) {
@@ -156,13 +155,13 @@ public enum Rankings {
         }
     }
 
-    public static class Record implements Bundlable {
+    public static class Record implements BundleAble {
 
-        private static final String REASON    = "reason";
-        private static final String WIN        = "win";
-        private static final String SCORE    = "score";
-        private static final String TIER    = "tier";
-        private static final String GAME    = "gameFile";
+        private static final String REASON = "reason";
+        private static final String WIN = "win";
+        private static final String SCORE = "score";
+        private static final String TIER = "tier";
+        private static final String GAME = "gameFile";
 
         public String info;
         public boolean win;
@@ -175,36 +174,36 @@ public enum Rankings {
         public String gameFile;
 
         @Override
-        public void restoreFromBundle( Bundle bundle ) {
+        public void restoreFromBundle(Bundle bundle) {
 
-            info    = bundle.getString( REASON );
-            win        = bundle.getBoolean( WIN );
-            score    = bundle.getInt( SCORE );
+            info = bundle.getString(REASON);
+            win = bundle.getBoolean(WIN);
+            score = bundle.getInt(SCORE);
 
-            heroClass    = HeroClass.restoreInBundle( bundle );
-            armorTier    = bundle.getInt( TIER );
+            heroClass = HeroClass.restoreInBundle(bundle);
+            armorTier = bundle.getInt(TIER);
 
-            gameFile    = bundle.getString( GAME );
+            gameFile = bundle.getString(GAME);
         }
 
         @Override
-        public void storeInBundle( Bundle bundle ) {
+        public void storeInBundle(Bundle bundle) {
 
-            bundle.put( REASON, info );
-            bundle.put( WIN, win );
-            bundle.put( SCORE, score );
+            bundle.put(REASON, info);
+            bundle.put(WIN, win);
+            bundle.put(SCORE, score);
 
-            heroClass.storeInBundle( bundle );
-            bundle.put( TIER, armorTier );
+            heroClass.storeInBundle(bundle);
+            bundle.put(TIER, armorTier);
 
-            bundle.put( GAME, gameFile );
+            bundle.put(GAME, gameFile);
         }
     }
 
     private static final Comparator<Record> scoreComparator = new Comparator<Rankings.Record>() {
         @Override
-        public int compare( Record lhs, Record rhs ) {
-            return (int)Math.signum( rhs.score - lhs.score );
+        public int compare(Record lhs, Record rhs) {
+            return (int) Math.signum(rhs.score - lhs.score);
         }
     };
 }

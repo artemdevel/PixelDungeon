@@ -21,50 +21,49 @@ import java.util.LinkedList;
 
 public class Signal<T> {
 
-    private LinkedList<Listener<T>> listeners = new LinkedList<Signal.Listener<T>>();
+    private LinkedList<Listener<T>> listeners = new LinkedList<>();
 
     private boolean canceled;
 
     private boolean stackMode;
 
     public Signal() {
-        this( false );
+        this(false);
     }
 
-    public Signal( boolean stackMode ) {
+    public Signal(boolean stackMode) {
         this.stackMode = stackMode;
     }
 
-    public void add( Listener<T> listener ) {
-        if (!listeners.contains( listener )) {
+    public void add(Listener<T> listener) {
+        if (!listeners.contains(listener)) {
             if (stackMode) {
-                listeners.addFirst( listener );
+                listeners.addFirst(listener);
             } else {
-                listeners.addLast( listener );
+                listeners.addLast(listener);
             }
         }
     }
 
-    public void remove( Listener<T> listener ) {
-        listeners.remove( listener );
+    public void remove(Listener<T> listener) {
+        listeners.remove(listener);
     }
 
     public void removeAll() {
         listeners.clear();
     }
 
-    public void dispatch( T t ) {
+    public void dispatch(T t) {
 
         @SuppressWarnings("unchecked")
-        Listener<T>[] list = listeners.toArray( new Listener[0] );
+        Listener<T>[] list = listeners.toArray(new Listener[0]);
 
         canceled = false;
-        for (int i=0; i < list.length; i++) {
-
+        for (int i = 0; i < list.length; i++) {
             Listener<T> listener = list[i];
 
-            if (listeners.contains( listener )) {
-                listener.onSignal( t );
+            if (listeners.contains(listener)) {
+                listener.onSignal(t);
                 if (canceled) {
                     return;
                 }
@@ -77,7 +76,7 @@ public class Signal<T> {
         canceled = true;
     }
 
-    public static interface Listener<T> {
-        public void onSignal( T t );
+    public interface Listener<T> {
+        void onSignal(T t);
     }
 }

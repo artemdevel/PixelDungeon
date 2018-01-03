@@ -28,24 +28,22 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 
 public class Frost extends FlavourBuff {
 
-    private static final float DURATION    = 5f;
+    private static final float DURATION = 5f;
 
     @Override
-    public boolean attachTo( Char target ) {
-        if (super.attachTo( target )) {
-
+    public boolean attachTo(Char target) {
+        if (super.attachTo(target)) {
             target.paralysed = true;
-            Burning.detach( target, Burning.class );
+            Burning.detach(target, Burning.class);
 
             if (target instanceof Hero) {
-                Hero hero = (Hero)target;
+                Hero hero = (Hero) target;
                 Item item = hero.belongings.randomUnequipped();
                 if (item instanceof MysteryMeat) {
-
-                    item = item.detach( hero.belongings.backpack );
+                    item = item.detach(hero.belongings.backpack);
                     FrozenCarpaccio carpaccio = new FrozenCarpaccio();
-                    if (!carpaccio.collect( hero.belongings.backpack )) {
-                        Dungeon.level.drop( carpaccio, target.pos ).sprite.drop();
+                    if (!carpaccio.collect(hero.belongings.backpack)) {
+                        Dungeon.level.drop(carpaccio, target.pos).sprite.drop();
                     }
                 }
             }
@@ -59,7 +57,7 @@ public class Frost extends FlavourBuff {
     @Override
     public void detach() {
         super.detach();
-        Paralysis.unfreeze( target );
+        Paralysis.unfreeze(target);
     }
 
     @Override
@@ -72,8 +70,8 @@ public class Frost extends FlavourBuff {
         return "Frozen";
     }
 
-    public static float duration( Char ch ) {
-        Resistance r = ch.buff( Resistance.class );
+    public static float duration(Char ch) {
+        Resistance r = ch.buff(Resistance.class);
         return r != null ? r.durationFactor() * DURATION : DURATION;
     }
 }

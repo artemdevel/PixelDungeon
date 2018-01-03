@@ -28,19 +28,18 @@ public class Paralysis extends Weapon.Enchantment {
 
     private static final String TXT_STUNNING = "stunning %s";
 
-    private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xCCAA44 );
+    private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing(0xCCAA44);
 
     @Override
-    public boolean proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+    public boolean process(Weapon weapon, Char attacker, Char defender, int damage) {
         // lvl 0 - 13%
         // lvl 1 - 22%
         // lvl 2 - 30%
-        int level = Math.max( 0, weapon.effectiveLevel() );
+        int level = Math.max(0, weapon.effectiveLevel());
 
-        if (Random.Int( level + 8 ) >= 7) {
-
-            Buff.prolong( defender, com.github.artemdevel.pixeldungeon.actors.buffs.Paralysis.class,
-                Random.Float( 1, 1.5f + level ) );
+        if (Random.Int(level + 8) >= 7) {
+            Buff.prolong(defender, com.github.artemdevel.pixeldungeon.actors.buffs.Paralysis.class,
+                    Random.Float(1, 1.5f + level));
 
             return true;
         } else {
@@ -54,8 +53,8 @@ public class Paralysis extends Weapon.Enchantment {
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_STUNNING, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_STUNNING, weaponName);
     }
 
 }

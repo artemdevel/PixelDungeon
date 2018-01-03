@@ -36,9 +36,9 @@ import com.github.artemdevel.pixeldungeon.windows.WndBag;
 
 public class Weightstone extends Item {
 
-    private static final String TXT_SELECT_WEAPON    = "Select a weapon to balance";
-    private static final String TXT_FAST            = "you balanced your %s to make it faster";
-    private static final String TXT_ACCURATE        = "you balanced your %s to make it more accurate";
+    private static final String TXT_SELECT_WEAPON = "Select a weapon to balance";
+    private static final String TXT_FAST = "you balanced your %s to make it faster";
+    private static final String TXT_ACCURATE = "you balanced your %s to make it more accurate";
 
     private static final float TIME_TO_APPLY = 2;
 
@@ -52,23 +52,19 @@ public class Weightstone extends Item {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_APPLY );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_APPLY);
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
+    public void execute(Hero hero, String action) {
         if (action.equals(AC_APPLY)) {
-
             curUser = hero;
-            GameScene.selectItem( itemSelector, WndBag.Mode.WEAPON, TXT_SELECT_WEAPON );
-
+            GameScene.selectItem(itemSelector, WndBag.Mode.WEAPON, TXT_SELECT_WEAPON);
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
@@ -82,23 +78,22 @@ public class Weightstone extends Item {
         return true;
     }
 
-    private void apply( Weapon weapon, boolean forSpeed ) {
-
-        detach( curUser.belongings.backpack );
+    private void apply(Weapon weapon, boolean forSpeed) {
+        detach(curUser.belongings.backpack);
 
         weapon.fix();
         if (forSpeed) {
             weapon.imbue = Weapon.Imbue.SPEED;
-            GLog.p( TXT_FAST, weapon.name() );
+            GLog.p(TXT_FAST, weapon.name());
         } else {
             weapon.imbue = Weapon.Imbue.ACCURACY;
-            GLog.p( TXT_ACCURATE, weapon.name() );
+            GLog.p(TXT_ACCURATE, weapon.name());
         }
 
-        curUser.sprite.operate( curUser.pos );
-        Sample.INSTANCE.play( Assets.SND_MISS );
+        curUser.sprite.operate(curUser.pos);
+        Sample.INSTANCE.play(Assets.SND_MISS);
 
-        curUser.spend( TIME_TO_APPLY );
+        curUser.spend(TIME_TO_APPLY);
         curUser.busy();
     }
 
@@ -109,15 +104,14 @@ public class Weightstone extends Item {
 
     @Override
     public String info() {
-        return
-            "Using a weightstone, you can balance your melee weapon to increase its speed or accuracy.";
+        return "Using a weightstone, you can balance your melee weapon to increase its speed or accuracy.";
     }
 
     private final WndBag.Listener itemSelector = new WndBag.Listener() {
         @Override
-        public void onSelect( Item item ) {
+        public void onSelect(Item item) {
             if (item != null) {
-                GameScene.show( new WndBalance( (Weapon)item ) );
+                GameScene.show(new WndBalance((Weapon) item));
             }
         }
     };
@@ -126,71 +120,72 @@ public class Weightstone extends Item {
 
         private static final String TXT_CHOICE = "How would you like to balance your %s?";
 
-        private static final String TXT_SPEED        = "For speed";
-        private static final String TXT_ACCURACY    = "For accuracy";
-        private static final String TXT_CANCEL        = "Never mind";
+        private static final String TXT_SPEED = "For speed";
+        private static final String TXT_ACCURACY = "For accuracy";
+        private static final String TXT_CANCEL = "Never mind";
 
-        private static final int WIDTH            = 120;
-        private static final int MARGIN         = 2;
-        private static final int BUTTON_WIDTH    = WIDTH - MARGIN * 2;
-        private static final int BUTTON_HEIGHT    = 20;
+        private static final int WIDTH = 120;
+        private static final int MARGIN = 2;
+        private static final int BUTTON_WIDTH = WIDTH - MARGIN * 2;
+        private static final int BUTTON_HEIGHT = 20;
 
-        public WndBalance( final Weapon weapon ) {
+        public WndBalance(final Weapon weapon) {
             super();
 
-            IconTitle titlebar = new IconTitle( weapon );
-            titlebar.setRect( 0, 0, WIDTH, 0 );
-            add( titlebar );
+            IconTitle titlebar = new IconTitle(weapon);
+            titlebar.setRect(0, 0, WIDTH, 0);
+            add(titlebar);
 
-            BitmapTextMultiline tfMesage = PixelScene.createMultiline( Utils.format( TXT_CHOICE, weapon.name() ), 8 );
+            BitmapTextMultiline tfMesage = PixelScene.createMultiline(Utils.format(TXT_CHOICE, weapon.name()), 8);
             tfMesage.maxWidth = WIDTH - MARGIN * 2;
             tfMesage.measure();
             tfMesage.x = MARGIN;
             tfMesage.y = titlebar.bottom() + MARGIN;
-            add( tfMesage );
+            add(tfMesage);
 
             float pos = tfMesage.y + tfMesage.height();
 
             if (weapon.imbue != Weapon.Imbue.SPEED) {
-                RedButton btnSpeed = new RedButton( TXT_SPEED ) {
+                RedButton btnSpeed = new RedButton(TXT_SPEED) {
                     @Override
                     protected void onClick() {
                         hide();
-                        Weightstone.this.apply( weapon, true );
+                        Weightstone.this.apply(weapon, true);
                     }
                 };
-                btnSpeed.setRect( MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT );
-                add( btnSpeed );
+                btnSpeed.setRect(MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                add(btnSpeed);
 
                 pos = btnSpeed.bottom();
             }
 
             if (weapon.imbue != Weapon.Imbue.ACCURACY) {
-                RedButton btnAccuracy = new RedButton( TXT_ACCURACY ) {
+                RedButton btnAccuracy = new RedButton(TXT_ACCURACY) {
                     @Override
                     protected void onClick() {
                         hide();
-                        Weightstone.this.apply( weapon, false );
+                        Weightstone.this.apply(weapon, false);
                     }
                 };
-                btnAccuracy.setRect( MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT );
-                add( btnAccuracy );
+                btnAccuracy.setRect(MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                add(btnAccuracy);
 
                 pos = btnAccuracy.bottom();
             }
 
-            RedButton btnCancel = new RedButton( TXT_CANCEL ) {
+            RedButton btnCancel = new RedButton(TXT_CANCEL) {
                 @Override
                 protected void onClick() {
                     hide();
                 }
             };
-            btnCancel.setRect( MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT );
-            add( btnCancel );
+            btnCancel.setRect(MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+            add(btnCancel);
 
-            resize( WIDTH, (int)btnCancel.bottom() + MARGIN );
+            resize(WIDTH, (int) btnCancel.bottom() + MARGIN);
         }
 
-        protected void onSelect( int index ) {};
+        protected void onSelect(int index) {
+        }
     }
 }

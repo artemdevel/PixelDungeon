@@ -29,17 +29,17 @@ public class Ripple extends Image {
     private float time;
 
     public Ripple() {
-        super( Effects.get( Effects.Type.RIPPLE ) );
+        super(Effects.get(Effects.Type.RIPPLE));
     }
 
-    public void reset( int p ) {
+    public void reset(int p) {
         revive();
 
         x = (p % Level.WIDTH) * DungeonTilemap.SIZE;
         y = (p / Level.WIDTH) * DungeonTilemap.SIZE;
 
-        origin.set( width / 2, height / 2 );
-        scale.set( 0 );
+        origin.set(width / 2, height / 2);
+        scale.set(0);
 
         time = TIME_TO_FADE;
     }
@@ -52,8 +52,8 @@ public class Ripple extends Image {
             kill();
         } else {
             float p = time / TIME_TO_FADE;
-            scale.set( 1 - p );
-            alpha( p );
+            scale.set(1 - p);
+            alpha(p);
         }
     }
 }

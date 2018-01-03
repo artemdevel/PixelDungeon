@@ -29,18 +29,15 @@ public class WndMessage extends Window {
 
     private static final int MARGIN = 4;
 
-    public WndMessage( String text ) {
-
+    public WndMessage(String text) {
         super();
 
-        BitmapTextMultiline info = PixelScene.createMultiline( text, 6 );
+        BitmapTextMultiline info = PixelScene.createMultiline(text, 6);
         info.maxWidth = (PixelDungeon.landscape() ? WIDTH_L : WIDTH_P) - MARGIN * 2;
         info.measure();
         info.x = info.y = MARGIN;
-        add( info );
+        add(info);
 
-        resize(
-            (int)info.width() + MARGIN * 2,
-            (int)info.height() + MARGIN * 2 );
+        resize((int) info.width() + MARGIN * 2, (int) info.height() + MARGIN * 2);
     }
 }

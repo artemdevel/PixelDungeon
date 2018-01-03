@@ -50,15 +50,15 @@ public class Emitter extends Group {
 
     protected Factory factory;
 
-    public void pos( float x, float y ) {
-        pos( x, y, 0, 0 );
+    public void pos(float x, float y) {
+        pos(x, y, 0, 0);
     }
 
-    public void pos( PointF p ) {
-        pos( p.x, p.y, 0, 0 );
+    public void pos(PointF p) {
+        pos(p.x, p.y, 0, 0);
     }
 
-    public void pos( float x, float y, float width, float height ) {
+    public void pos(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -67,20 +67,19 @@ public class Emitter extends Group {
         target = null;
     }
 
-    public void pos( Visual target ) {
+    public void pos(Visual target) {
         this.target = target;
     }
 
-    public void burst( Factory factory, int quantity ) {
-        start( factory, 0, quantity );
+    public void burst(Factory factory, int quantity) {
+        start(factory, 0, quantity);
     }
 
-    public void pour( Factory factory, float interval ) {
-        start( factory, interval, 0 );
+    public void pour(Factory factory, float interval) {
+        start(factory, interval, 0);
     }
 
-    public void start( Factory factory, float interval, int quantity ) {
-
+    public void start(Factory factory, float interval, int quantity) {
         this.factory = factory;
         this.lightMode = factory.lightMode();
 
@@ -88,19 +87,18 @@ public class Emitter extends Group {
         this.quantity = quantity;
 
         count = 0;
-        time = Random.Float( interval );
+        time = Random.Float(interval);
 
         on = true;
     }
 
     @Override
     public void update() {
-
         if (on) {
             time += Game.elapsed;
             while (time > interval) {
                 time -= interval;
-                emit( count++ );
+                emit(count++);
                 if (quantity > 0 && count >= quantity) {
                     on = false;
                     break;
@@ -113,28 +111,28 @@ public class Emitter extends Group {
         super.update();
     }
 
-    protected void emit( int index ) {
+    protected void emit(int index) {
         if (target == null) {
             factory.emit(
-                this,
-                index,
-                x + Random.Float( width ),
-                y + Random.Float( height ) );
+                    this,
+                    index,
+                    x + Random.Float(width),
+                    y + Random.Float(height));
         } else {
             factory.emit(
-                this,
-                index,
-                target.x + Random.Float( target.width ),
-                target.y + Random.Float( target.height ) );
+                    this,
+                    index,
+                    target.x + Random.Float(target.width),
+                    target.y + Random.Float(target.height));
         }
     }
 
     @Override
     public void draw() {
         if (lightMode) {
-            GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE );
+            GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
             super.draw();
-            GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA );
+            GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         } else {
             super.draw();
         }
@@ -142,7 +140,7 @@ public class Emitter extends Group {
 
     abstract public static class Factory {
 
-        abstract public void emit( Emitter emitter, int index, float x, float y );
+        abstract public void emit(Emitter emitter, int index, float x, float y);
 
         public boolean lightMode() {
             return false;

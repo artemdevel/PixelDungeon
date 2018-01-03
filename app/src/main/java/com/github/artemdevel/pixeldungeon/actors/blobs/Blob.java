@@ -29,9 +29,12 @@ import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 
 public class Blob extends Actor {
 
-    public static final int WIDTH    = Level.WIDTH;
-    public static final int HEIGHT    = Level.HEIGHT;
-    public static final int LENGTH    = Level.LENGTH;
+    private static final String CUR = "cur";
+    private static final String START = "start";
+
+    public static final int WIDTH = Level.WIDTH;
+    public static final int HEIGHT = Level.HEIGHT;
+    public static final int LENGTH = Level.LENGTH;
 
     public int volume = 0;
 
@@ -41,57 +44,52 @@ public class Blob extends Actor {
     public BlobEmitter emitter;
 
     protected Blob() {
-
         cur = new int[LENGTH];
         off = new int[LENGTH];
 
         volume = 0;
     }
 
-    private static final String CUR        = "cur";
-    private static final String START    = "start";
-
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
 
         if (volume > 0) {
 
             int start;
-            for (start=0; start < LENGTH; start++) {
+            for (start = 0; start < LENGTH; start++) {
                 if (cur[start] > 0) {
                     break;
                 }
             }
             int end;
-            for (end=LENGTH-1; end > start; end--) {
+            for (end = LENGTH - 1; end > start; end--) {
                 if (cur[end] > 0) {
                     break;
                 }
             }
 
-            bundle.put( START, start );
-            bundle.put( CUR, trim( start, end + 1 ) );
+            bundle.put(START, start);
+            bundle.put(CUR, trim(start, end + 1));
 
         }
     }
 
-    private int[] trim( int start, int end ) {
+    private int[] trim(int start, int end) {
         int len = end - start;
         int[] copy = new int[len];
-        System.arraycopy( cur, start, copy, 0, len );
+        System.arraycopy(cur, start, copy, 0, len);
         return copy;
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
 
-        super.restoreFromBundle( bundle );
-
-        int[] data = bundle.getIntArray( CUR );
+        int[] data = bundle.getIntArray(CUR);
         if (data != null) {
-            int start = bundle.getInt( START );
-            for (int i=0; i < data.length; i++) {
+            int start = bundle.getInt(START);
+            for (int i = 0; i < data.length; i++) {
                 cur[i + start] = data[i];
                 volume += data[i];
             }
@@ -99,11 +97,11 @@ public class Blob extends Actor {
 
         if (Level.resizingNeeded) {
             int[] cur = new int[Level.LENGTH];
-            Arrays.fill( cur, 0 );
+            Arrays.fill(cur, 0);
 
             int loadedMapSize = Level.loadedMapSize;
-            for (int i=0; i < loadedMapSize; i++) {
-                System.arraycopy( this.cur, i * loadedMapSize, cur, i * Level.WIDTH, loadedMapSize );
+            for (int i = 0; i < loadedMapSize; i++) {
+                System.arraycopy(this.cur, i * loadedMapSize, cur, i * Level.WIDTH, loadedMapSize);
             }
 
             this.cur = cur;
@@ -112,56 +110,52 @@ public class Blob extends Actor {
 
     @Override
     public boolean act() {
-
-        spend( TICK );
+        spend(TICK);
 
         if (volume > 0) {
-
             volume = 0;
             evolve();
 
             int[] tmp = off;
             off = cur;
             cur = tmp;
-
         }
 
         return true;
     }
 
-    public void use( BlobEmitter emitter ) {
+    public void use(BlobEmitter emitter) {
         this.emitter = emitter;
     }
 
     protected void evolve() {
+        boolean[] notBlocking = BArray.not(Level.solid, null);
 
-        boolean[] notBlocking = BArray.not( Level.solid, null );
-
-        for (int i=1; i < HEIGHT-1; i++) {
+        for (int i = 1; i < HEIGHT - 1; i++) {
 
             int from = i * WIDTH + 1;
             int to = from + WIDTH - 2;
 
-            for (int pos=from; pos < to; pos++) {
+            for (int pos = from; pos < to; pos++) {
                 if (notBlocking[pos]) {
 
                     int count = 1;
                     int sum = cur[pos];
 
-                    if (notBlocking[pos-1]) {
-                        sum += cur[pos-1];
+                    if (notBlocking[pos - 1]) {
+                        sum += cur[pos - 1];
                         count++;
                     }
-                    if (notBlocking[pos+1]) {
-                        sum += cur[pos+1];
+                    if (notBlocking[pos + 1]) {
+                        sum += cur[pos + 1];
                         count++;
                     }
-                    if (notBlocking[pos-WIDTH]) {
-                        sum += cur[pos-WIDTH];
+                    if (notBlocking[pos - WIDTH]) {
+                        sum += cur[pos - WIDTH];
                         count++;
                     }
-                    if (notBlocking[pos+WIDTH]) {
-                        sum += cur[pos+WIDTH];
+                    if (notBlocking[pos + WIDTH]) {
+                        sum += cur[pos + WIDTH];
                         count++;
                     }
 
@@ -176,12 +170,12 @@ public class Blob extends Actor {
         }
     }
 
-    public void seed( int cell, int amount ) {
+    public void seed(int cell, int amount) {
         cur[cell] += amount;
         volume += amount;
     }
 
-    public void clear( int cell ) {
+    public void clear(int cell) {
         volume -= cur[cell];
         cur[cell] = 0;
     }
@@ -191,21 +185,20 @@ public class Blob extends Actor {
     }
 
     @SuppressWarnings("unchecked")
-    public static<T extends Blob> T seed( int cell, int amount, Class<T> type ) {
+    public static <T extends Blob> T seed(int cell, int amount, Class<T> type) {
         try {
-
-            T gas = (T)Dungeon.level.blobs.get( type );
+            T gas = (T) Dungeon.level.blobs.get(type);
             if (gas == null) {
                 gas = type.newInstance();
-                Dungeon.level.blobs.put( type, gas );
+                Dungeon.level.blobs.put(type, gas);
             }
 
-            gas.seed( cell, amount );
+            gas.seed(cell, amount);
 
             return gas;
 
         } catch (Exception e) {
-            PixelDungeon.reportException( e );
+            PixelDungeon.reportException(e);
             return null;
         }
     }

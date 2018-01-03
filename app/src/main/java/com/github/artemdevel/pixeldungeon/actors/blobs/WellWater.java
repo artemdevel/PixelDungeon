@@ -34,10 +34,10 @@ public class WellWater extends Blob {
     protected int pos;
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
 
-        for (int i=0; i < LENGTH; i++) {
+        for (int i = 0; i < LENGTH; i++) {
             if (cur[i] > 0) {
                 pos = i;
                 break;
@@ -51,92 +51,78 @@ public class WellWater extends Blob {
 
         if (Dungeon.visible[pos]) {
             if (this instanceof WaterOfAwareness) {
-                Journal.add( Feature.WELL_OF_AWARENESS );
+                Journal.add(Feature.WELL_OF_AWARENESS);
             } else if (this instanceof WaterOfHealth) {
-                Journal.add( Feature.WELL_OF_HEALTH );
+                Journal.add(Feature.WELL_OF_HEALTH);
             } else if (this instanceof WaterOfTransmutation) {
-                Journal.add( Feature.WELL_OF_TRANSMUTATION );
+                Journal.add(Feature.WELL_OF_TRANSMUTATION);
             }
         }
     }
 
     protected boolean affect() {
-
         Heap heap;
 
-        if (pos == Dungeon.hero.pos && affectHero( Dungeon.hero )) {
-
+        if (pos == Dungeon.hero.pos && affectHero(Dungeon.hero)) {
             volume = off[pos] = cur[pos] = 0;
             return true;
-
-        } else if ((heap = Dungeon.level.heaps.get( pos )) != null) {
-
+        } else if ((heap = Dungeon.level.heaps.get(pos)) != null) {
             Item oldItem = heap.peek();
-            Item newItem = affectItem( oldItem );
+            Item newItem = affectItem(oldItem);
 
             if (newItem != null) {
-
                 if (newItem != oldItem && oldItem.quantity() > 1) {
-
-                    oldItem.quantity( oldItem.quantity() - 1 );
-                    heap.drop( newItem );
-
+                    oldItem.quantity(oldItem.quantity() - 1);
+                    heap.drop(newItem);
                 } else {
-                    heap.replace( oldItem, newItem );
+                    heap.replace(oldItem, newItem);
                 }
 
                 heap.sprite.link();
                 volume = off[pos] = cur[pos] = 0;
 
                 return true;
-
             } else {
-
                 int newPlace;
                 do {
-                    newPlace = pos + Level.NEIGHBOURS8[Random.Int( 8 )];
+                    newPlace = pos + Level.NEIGHBOURS8[Random.Int(8)];
                 } while (!Level.passable[newPlace] && !Level.avoid[newPlace]);
-                Dungeon.level.drop( heap.pickUp(), newPlace ).sprite.drop( pos );
+                Dungeon.level.drop(heap.pickUp(), newPlace).sprite.drop(pos);
 
                 return false;
-
             }
-
         } else {
-
             return false;
-
         }
     }
 
-    protected boolean affectHero( Hero hero ) {
+    protected boolean affectHero(Hero hero) {
         return false;
     }
 
-    protected Item affectItem( Item item ) {
+    protected Item affectItem(Item item) {
         return null;
     }
 
     @Override
-    public void seed( int cell, int amount ) {
+    public void seed(int cell, int amount) {
         cur[pos] = 0;
         pos = cell;
         volume = cur[pos] = amount;
     }
 
-    public static void affectCell( int cell ) {
-
+    public static void affectCell(int cell) {
         Class<?>[] waters = {WaterOfHealth.class, WaterOfAwareness.class, WaterOfTransmutation.class};
 
-        for (Class<?>waterClass : waters) {
-            WellWater water = (WellWater)Dungeon.level.blobs.get( waterClass );
+        for (Class<?> waterClass : waters) {
+            WellWater water = (WellWater) Dungeon.level.blobs.get(waterClass);
             if (water != null &&
-                water.volume > 0 &&
-                water.pos == cell &&
-                water.affect()) {
+                    water.volume > 0 &&
+                    water.pos == cell &&
+                    water.affect()) {
 
-                Level.set( cell, Terrain.EMPTY_WELL );
-                GameScene.updateMap( cell );
+                Level.set(cell, Terrain.EMPTY_WELL);
+                GameScene.updateMap(cell);
 
                 return;
             }

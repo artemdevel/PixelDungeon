@@ -25,7 +25,7 @@ import com.github.artemdevel.pixeldungeon.sprites.CharSprite;
 
 public class HealthIndicator extends Component {
 
-    private static final float HEIGHT    = 2;
+    private static final float HEIGHT = 2;
 
     public static HealthIndicator instance;
 
@@ -42,13 +42,13 @@ public class HealthIndicator extends Component {
 
     @Override
     protected void createChildren() {
-        bg = new Image( TextureCache.createSolid( 0xFFcc0000 ) );
+        bg = new Image(TextureCache.createSolid(0xFFcc0000));
         bg.scale.y = HEIGHT;
-        add( bg );
+        add(bg);
 
-        level = new Image( TextureCache.createSolid( 0xFF00cc00 ) );
+        level = new Image(TextureCache.createSolid(0xFF00cc00));
         level.scale.y = HEIGHT;
-        add( level );
+        add(level);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class HealthIndicator extends Component {
         }
     }
 
-    public void target( Char ch ) {
+    public void target(Char ch) {
         if (ch != null && ch.isAlive()) {
             target = ch;
         } else {

@@ -24,12 +24,12 @@ import com.github.artemdevel.pixeldungeon.sprites.ItemSprite.Glowing;
 
 public class Tempering extends Weapon.Enchantment {
 
-    private static final String TXT_TEMPERED    = "tempered %s";
+    private static final String TXT_TEMPERED = "tempered %s";
 
-    private static ItemSprite.Glowing GRAY = new ItemSprite.Glowing( 0xCC8888 );
+    private static ItemSprite.Glowing GRAY = new ItemSprite.Glowing(0xCC8888);
 
     @Override
-    public boolean proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+    public boolean process(Weapon weapon, Char attacker, Char defender, int damage) {
         weapon.polish();
         return true;
     }
@@ -40,8 +40,8 @@ public class Tempering extends Weapon.Enchantment {
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_TEMPERED, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_TEMPERED, weaponName);
     }
 
 }

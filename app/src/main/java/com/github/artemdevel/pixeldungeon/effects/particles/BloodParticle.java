@@ -25,21 +25,21 @@ public class BloodParticle extends PixelParticle.Shrinking {
 
     public static final Emitter.Factory FACTORY = new Factory() {
         @Override
-        public void emit( Emitter emitter, int index, float x, float y ) {
-            ((BloodParticle)emitter.recycle( BloodParticle.class )).reset( x, y );
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((BloodParticle) emitter.recycle(BloodParticle.class)).reset(x, y);
         }
     };
 
     public BloodParticle() {
         super();
 
-        color( 0xCC0000 );
+        color(0xCC0000);
         lifespan = 0.8f;
 
-        acc.set( 0, +40 );
+        acc.set(0, +40);
     }
 
-    public void reset( float x, float y ) {
+    public void reset(float x, float y) {
         revive();
 
         this.x = x;
@@ -48,7 +48,7 @@ public class BloodParticle extends PixelParticle.Shrinking {
         left = lifespan;
 
         size = 4;
-        speed.set( 0 );
+        speed.set(0);
     }
 
     @Override

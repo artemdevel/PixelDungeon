@@ -35,34 +35,33 @@ import com.github.artemdevel.pixeldungeon.utils.GLog;
 
 public class WaterOfHealth extends WellWater {
 
-    private static final String TXT_PROCCED =
-        "As you take a sip, you feel your wounds heal completely.";
+    private static final String TXT_PROCEED = "As you take a sip, you feel your wounds heal completely.";
 
     @Override
-    protected boolean affectHero( Hero hero ) {
+    protected boolean affectHero(Hero hero) {
 
-        Sample.INSTANCE.play( Assets.SND_DRINK );
+        Sample.INSTANCE.play(Assets.SND_DRINK);
 
-        PotionOfHealing.heal( hero );
+        PotionOfHealing.heal(hero);
         hero.belongings.uncurseEquipped();
-        ((Hunger)hero.buff( Hunger.class )).satisfy( Hunger.STARVING );
+        hero.buff(Hunger.class).satisfy(Hunger.STARVING);
 
-        CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
+        CellEmitter.get(pos).start(ShaftParticle.FACTORY, 0.2f, 3);
 
         Dungeon.hero.interrupt();
 
-        GLog.p( TXT_PROCCED );
+        GLog.p(TXT_PROCEED);
 
-        Journal.remove( Feature.WELL_OF_HEALTH );
+        Journal.remove(Feature.WELL_OF_HEALTH);
 
         return true;
     }
 
     @Override
-    protected Item affectItem( Item item ) {
-        if (item instanceof DewVial && !((DewVial)item).isFull()) {
-            ((DewVial)item).fill();
-            Journal.remove( Feature.WELL_OF_HEALTH );
+    protected Item affectItem(Item item) {
+        if (item instanceof DewVial && !((DewVial) item).isFull()) {
+            ((DewVial) item).fill();
+            Journal.remove(Feature.WELL_OF_HEALTH);
             return item;
         }
 
@@ -70,15 +69,14 @@ public class WaterOfHealth extends WellWater {
     }
 
     @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
-        emitter.start( Speck.factory( Speck.HEALING ), 0.5f, 0 );
+    public void use(BlobEmitter emitter) {
+        super.use(emitter);
+        emitter.start(Speck.factory(Speck.HEALING), 0.5f, 0);
     }
 
     @Override
     public String tileDesc() {
-        return
-            "Power of health radiates from the water of this well. " +
+        return "Power of health radiates from the water of this well. " +
             "Take a sip from it to heal your wounds and satisfy hunger.";
     }
 }

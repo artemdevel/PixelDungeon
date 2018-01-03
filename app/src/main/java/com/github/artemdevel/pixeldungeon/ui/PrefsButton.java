@@ -39,7 +39,7 @@ public class PrefsButton extends Button {
         super.createChildren();
 
         image = Icons.PREFS.get();
-        add( image );
+        add(image);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class PrefsButton extends Button {
 
     @Override
     protected void onTouchDown() {
-        image.brightness( 1.5f );
-        Sample.INSTANCE.play( Assets.SND_CLICK );
+        image.brightness(1.5f);
+        Sample.INSTANCE.play(Assets.SND_CLICK);
     }
 
     @Override
@@ -63,6 +63,6 @@ public class PrefsButton extends Button {
 
     @Override
     protected void onClick() {
-        parent.add( new WndSettings( false ) );
+        parent.add(new WndSettings(false));
     }
 }

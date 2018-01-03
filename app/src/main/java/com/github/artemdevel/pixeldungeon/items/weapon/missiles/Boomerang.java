@@ -52,61 +52,57 @@ public class Boomerang extends MissileWeapon {
 
     @Override
     public Item upgrade() {
-        return upgrade( false );
+        return upgrade(false);
     }
 
     @Override
-    public Item upgrade( boolean enchant ) {
-        super.upgrade( enchant );
+    public Item upgrade(boolean enchant) {
+        super.upgrade(enchant);
 
-        updateQuickslot();
+        updateQuickSlot();
 
         return this;
     }
 
     @Override
-    public int maxDurability( int lvl ) {
+    public int maxDurability(int lvl) {
         return 8 * (lvl < 16 ? 16 - lvl : 1);
     }
 
     @Override
-    public void proc( Char attacker, Char defender, int damage ) {
-        super.proc( attacker, defender, damage );
-        if (attacker instanceof Hero && ((Hero)attacker).rangedWeapon == this) {
-            circleBack( defender.pos, (Hero)attacker );
+    public void process(Char attacker, Char defender, int damage) {
+        super.process(attacker, defender, damage);
+        if (attacker instanceof Hero && ((Hero) attacker).rangedWeapon == this) {
+            circleBack(defender.pos, (Hero) attacker);
         }
     }
 
     @Override
-    protected void miss( int cell ) {
-        circleBack( cell, curUser );
+    protected void miss(int cell) {
+        circleBack(cell, curUser);
     }
 
-    private void circleBack( int from, Hero owner ) {
-
-        ((MissileSprite)curUser.sprite.parent.recycle( MissileSprite.class )).
-            reset( from, curUser.pos, curItem, null );
+    private void circleBack(int from, Hero owner) {
+        ((MissileSprite) curUser.sprite.parent.recycle(MissileSprite.class)).reset(from, curUser.pos, curItem, null);
 
         if (throwEquiped) {
             owner.belongings.weapon = this;
-            owner.spend( -TIME_TO_EQUIP );
-        } else
-        if (!collect( curUser.belongings.backpack )) {
-            Dungeon.level.drop( this, owner.pos ).sprite.drop();
+            owner.spend(-TIME_TO_EQUIP);
+        } else if (!collect(curUser.belongings.backpack)) {
+            Dungeon.level.drop(this, owner.pos).sprite.drop();
         }
     }
 
     private boolean throwEquiped;
 
     @Override
-    public void cast( Hero user, int dst ) {
-        throwEquiped = isEquipped( user );
-        super.cast( user, dst );
+    public void cast(Hero user, int dst) {
+        throwEquiped = isEquipped(user);
+        super.cast(user, dst);
     }
 
     @Override
     public String desc() {
-        return
-            "Thrown to the enemy this flat curved wooden missile will return to the hands of its thrower.";
+        return "Thrown to the enemy this flat curved wooden missile will return to the hands of its thrower.";
     }
 }

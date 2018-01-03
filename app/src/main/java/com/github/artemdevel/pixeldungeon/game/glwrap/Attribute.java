@@ -25,7 +25,7 @@ public class Attribute {
 
     private int location;
 
-    public Attribute( int location ) {
+    public Attribute(int location) {
         this.location = location;
     }
 
@@ -34,14 +34,14 @@ public class Attribute {
 //    }
 
     public void enable() {
-        GLES20.glEnableVertexAttribArray( location );
+        GLES20.glEnableVertexAttribArray(location);
     }
 
 //    public void disable() {
-//        GLES20.glDisableVertexAttribArray( location );
+//        GLES20.glDisableVertexAttribArray(location);
 //    }
 
-    public void vertexPointer( int size, int stride, FloatBuffer ptr ) {
-        GLES20.glVertexAttribPointer( location, size, GLES20.GL_FLOAT, false, stride * Float.SIZE / 8, ptr );
+    public void vertexPointer(int size, int stride, FloatBuffer ptr) {
+        GLES20.glVertexAttribPointer(location, size, GLES20.GL_FLOAT, false, stride * Float.SIZE / 8, ptr);
     }
 }

@@ -40,10 +40,10 @@ public class IncendiaryDart extends MissileWeapon {
     }
 
     public IncendiaryDart() {
-        this( 1 );
+        this(1);
     }
 
-    public IncendiaryDart( int number ) {
+    public IncendiaryDart(int number) {
         super();
         quantity = number;
     }
@@ -59,25 +59,25 @@ public class IncendiaryDart extends MissileWeapon {
     }
 
     @Override
-    protected void onThrow( int cell ) {
-        Char enemy = Actor.findChar( cell );
+    protected void onThrow(int cell) {
+        Char enemy = Actor.findChar(cell);
         if (enemy == null || enemy == curUser) {
-            if (Level.flamable[cell]) {
-                GameScene.add( Blob.seed( cell, 4, Fire.class ) );
+            if (Level.flammable[cell]) {
+                GameScene.add(Blob.seed(cell, 4, Fire.class));
             } else {
-                super.onThrow( cell );
+                super.onThrow(cell);
             }
         } else {
-            if (!curUser.shoot( enemy, this )) {
-                Dungeon.level.drop( this, cell ).sprite.drop();
+            if (!curUser.shoot(enemy, this)) {
+                Dungeon.level.drop(this, cell).sprite.drop();
             }
         }
     }
 
     @Override
-    public void proc( Char attacker, Char defender, int damage ) {
-        Buff.affect( defender, Burning.class ).reignite( defender );
-        super.proc( attacker, defender, damage );
+    public void process(Char attacker, Char defender, int damage) {
+        Buff.affect(defender, Burning.class).reignite(defender);
+        super.process(attacker, defender, damage);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class IncendiaryDart extends MissileWeapon {
 
     @Override
     public Item random() {
-        quantity = Random.Int( 3, 6 );
+        quantity = Random.Int(3, 6);
         return this;
     }
 

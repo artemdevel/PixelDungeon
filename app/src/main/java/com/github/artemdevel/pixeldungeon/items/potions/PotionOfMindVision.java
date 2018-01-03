@@ -30,15 +30,15 @@ public class PotionOfMindVision extends Potion {
     }
 
     @Override
-    protected void apply( Hero hero ) {
+    protected void apply(Hero hero) {
         setKnown();
-        Buff.affect( hero, MindVision.class, MindVision.DURATION );
+        Buff.affect(hero, MindVision.class, MindVision.DURATION);
         Dungeon.observe();
 
         if (Dungeon.level.mobs.size() > 0) {
-            GLog.i( "You can somehow feel the presence of other creatures' minds!" );
+            GLog.i("You can somehow feel the presence of other creatures' minds!");
         } else {
-            GLog.i( "You can somehow tell that you are alone on this level at the moment." );
+            GLog.i("You can somehow tell that you are alone on this level at the moment.");
         }
     }
 

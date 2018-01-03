@@ -28,13 +28,12 @@ public class PlateArmor extends Armor {
     }
 
     public PlateArmor() {
-        super( 5 );
+        super(5);
     }
 
     @Override
     public String desc() {
-        return
-            "Enormous plates of metal are joined together into a suit that provides " +
+        return "Enormous plates of metal are joined together into a suit that provides " +
             "unmatched protection to any adventurer strong enough to bear its staggering weight.";
     }
 }

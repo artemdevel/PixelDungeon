@@ -22,11 +22,10 @@ import com.github.artemdevel.pixeldungeon.levels.Level;
 
 public class Ballistica {
 
-    public static int[] trace = new int[Math.max( Level.WIDTH, Level.HEIGHT )];
+    public static int[] trace = new int[Math.max(Level.WIDTH, Level.HEIGHT)];
     public static int distance;
 
-    public static int cast( int from, int to, boolean magic, boolean hitChars ) {
-
+    public static int cast(int from, int to, boolean magic, boolean hitChars) {
         int w = Level.WIDTH;
 
         int x0 = from % w;
@@ -40,8 +39,8 @@ public class Ballistica {
         int stepX = dx > 0 ? +1 : -1;
         int stepY = dy > 0 ? +1 : -1;
 
-        dx = Math.abs( dx );
-        dy = Math.abs( dy );
+        dx = Math.abs(dx);
+        dy = Math.abs(dy);
 
         int stepA;
         int stepB;
@@ -49,19 +48,15 @@ public class Ballistica {
         int dB;
 
         if (dx > dy) {
-
             stepA = stepX;
             stepB = stepY * w;
             dA = dx;
             dB = dy;
-
         } else {
-
             stepA = stepY * w;
             stepB = stepX;
             dA = dy;
             dB = dx;
-
         }
 
         distance = 1;
@@ -71,7 +66,6 @@ public class Ballistica {
 
         int err = dA / 2;
         while (cell != to || magic) {
-
             cell += stepA;
 
             err += dB;
@@ -86,7 +80,7 @@ public class Ballistica {
                 return trace[--distance - 1];
             }
 
-            if (Level.losBlocking[cell] || (hitChars && Actor.findChar( cell ) != null)) {
+            if (Level.losBlocking[cell] || (hitChars && Actor.findChar(cell) != null)) {
                 return cell;
             }
         }

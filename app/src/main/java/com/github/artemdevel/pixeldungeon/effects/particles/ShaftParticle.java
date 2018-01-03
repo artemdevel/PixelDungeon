@@ -26,9 +26,10 @@ public class ShaftParticle extends PixelParticle {
 
     public static final Emitter.Factory FACTORY = new Factory() {
         @Override
-        public void emit( Emitter emitter, int index, float x, float y ) {
-            ((ShaftParticle)emitter.recycle( ShaftParticle.class )).reset( x, y );
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((ShaftParticle) emitter.recycle(ShaftParticle.class)).reset(x, y);
         }
+
         @Override
         public boolean lightMode() {
             return true;
@@ -39,18 +40,18 @@ public class ShaftParticle extends PixelParticle {
         super();
 
         lifespan = 1.2f;
-        speed.set( 0, -6 );
+        speed.set(0, -6);
     }
 
     private float offs;
 
-    public void reset( float x, float y ) {
+    public void reset(float x, float y) {
         revive();
 
         this.x = x;
         this.y = y;
 
-        offs = -Random.Float( lifespan );
+        offs = -Random.Float(lifespan);
         left = lifespan - offs;
     }
 

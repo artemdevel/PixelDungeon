@@ -26,18 +26,17 @@ public class CursePersonificationSprite extends WraithSprite {
     private Emitter cloud;
 
     @Override
-    public void link( Char ch ) {
-        super.link( ch );
+    public void link(Char ch) {
+        super.link(ch);
 
         if (cloud == null) {
             cloud = emitter();
-            cloud.pour( ShadowParticle.UP, 0.1f );
+            cloud.pour(ShadowParticle.UP, 0.1f);
         }
     }
 
     @Override
     public void update() {
-
         super.update();
 
         if (cloud != null) {

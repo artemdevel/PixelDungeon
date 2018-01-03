@@ -40,8 +40,8 @@ public class Shielded extends Brute {
     }
 
     @Override
-    public void die( Object cause ) {
-        super.die( cause );
-        Badges.validateRare( this );
+    public void die(Object cause) {
+        super.die(cause);
+        Badges.validateRare(this);
     }
 }

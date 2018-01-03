@@ -41,11 +41,11 @@ public class Gnoll extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 2, 5 );
+        return Random.NormalIntRange(2, 5);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 11;
     }
 
@@ -55,15 +55,14 @@ public class Gnoll extends Mob {
     }
 
     @Override
-    public void die( Object cause ) {
-        Ghost.Quest.processSewersKill( pos );
-        super.die( cause );
+    public void die(Object cause) {
+        Ghost.Quest.processSewersKill(pos);
+        super.die(cause);
     }
 
     @Override
     public String description() {
-        return
-            "Gnolls are hyena-like humanoids. They dwell in sewers and dungeons, venturing up to raid the surface from time to time. " +
+        return "Gnolls are hyena-like humanoids. They dwell in sewers and dungeons, venturing up to raid the surface from time to time. " +
             "Gnoll scouts are regular members of their pack, they are not as strong as brutes and not as intelligent as shamans.";
     }
 }

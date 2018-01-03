@@ -29,8 +29,8 @@ import com.github.artemdevel.pixeldungeon.game.utils.SparseArray;
 
 public class FloatingText extends BitmapText {
 
-    private static final float LIFESPAN    = 1f;
-    private static final float DISTANCE    = DungeonTilemap.SIZE;
+    private static final float LIFESPAN = 1f;
+    private static final float DISTANCE = DungeonTilemap.SIZE;
 
     private float timeLeft;
 
@@ -42,7 +42,7 @@ public class FloatingText extends BitmapText {
 
     public FloatingText() {
         super();
-        speed.y = - DISTANCE / LIFESPAN;
+        speed.y = -DISTANCE / LIFESPAN;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FloatingText extends BitmapText {
                 kill();
             } else {
                 float p = timeLeft / LIFESPAN;
-                alpha( p > 0.5f ? 1 : p * 2 );
+                alpha(p > 0.5f ? 1 : p * 2);
             }
         }
     }
@@ -62,7 +62,7 @@ public class FloatingText extends BitmapText {
     @Override
     public void kill() {
         if (key != -1) {
-            stacks.get( key ).remove( this );
+            stacks.get(key).remove(this);
             key = -1;
         }
         super.kill();
@@ -74,54 +74,50 @@ public class FloatingText extends BitmapText {
         super.destroy();
     }
 
-    public void reset( float x, float y, String text, int color ) {
-
+    public void reset(float x, float y, String text, int color) {
         revive();
 
         if (cameraZoom != Camera.main.zoom) {
             cameraZoom = Camera.main.zoom;
-            PixelScene.chooseFont( 9, cameraZoom );
+            PixelScene.chooseFont(9, cameraZoom);
             font = PixelScene.font;
-            scale.set( PixelScene.scale );
+            scale.set(PixelScene.scale);
         }
 
-        text( text );
-        hardlight( color );
+        text(text);
+        hardlight(color);
 
         measure();
-        this.x = PixelScene.align( x - width() / 2 );
+        this.x = PixelScene.align(x - width() / 2);
         this.y = y - height();
 
         timeLeft = LIFESPAN;
     }
 
-    /* STATIC METHODS */
-
-    public static void show( float x, float y, String text, int color ) {
-        GameScene.status().reset( x,  y,  text, color );
+    public static void show(float x, float y, String text, int color) {
+        GameScene.status().reset(x, y, text, color);
     }
 
-    public static void show( float x, float y, int key, String text, int color ) {
+    public static void show(float x, float y, int key, String text, int color) {
         FloatingText txt = GameScene.status();
-        txt.reset( x,  y,  text, color );
-        push( txt, key );
+        txt.reset(x, y, text, color);
+        push(txt, key);
     }
 
-    private static void push( FloatingText txt, int key ) {
-
+    private static void push(FloatingText txt, int key) {
         txt.key = key;
 
-        ArrayList<FloatingText> stack = stacks.get( key );
+        ArrayList<FloatingText> stack = stacks.get(key);
         if (stack == null) {
-            stack = new ArrayList<FloatingText>();
-            stacks.put( key, stack );
+            stack = new ArrayList<>();
+            stacks.put(key, stack);
         }
 
         if (stack.size() > 0) {
             FloatingText below = txt;
             int aboveIndex = stack.size() - 1;
             while (aboveIndex >= 0) {
-                FloatingText above = stack.get( aboveIndex );
+                FloatingText above = stack.get(aboveIndex);
                 if (above.y + above.height() > below.y) {
                     above.y = below.y - above.height();
 
@@ -133,6 +129,6 @@ public class FloatingText extends BitmapText {
             }
         }
 
-        stack.add( txt );
+        stack.add(txt);
     }
 }

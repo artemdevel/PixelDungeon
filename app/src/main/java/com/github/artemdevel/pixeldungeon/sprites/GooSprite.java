@@ -35,42 +35,42 @@ public class GooSprite extends MobSprite {
     public GooSprite() {
         super();
 
-        texture( Assets.GOO );
+        texture(Assets.GOO);
 
-        TextureFilm frames = new TextureFilm( texture, 20, 14 );
+        TextureFilm frames = new TextureFilm(texture, 20, 14);
 
-        idle = new Animation( 10, true );
-        idle.frames( frames, 0, 1 );
+        idle = new Animation(10, true);
+        idle.frames(frames, 0, 1);
 
-        run = new Animation( 10, true );
-        run.frames( frames, 0, 1 );
+        run = new Animation(10, true);
+        run.frames(frames, 0, 1);
 
-        pump = new Animation( 20, true );
-        pump.frames( frames, 0, 1 );
+        pump = new Animation(20, true);
+        pump.frames(frames, 0, 1);
 
-        jump = new Animation( 1, true );
-        jump.frames( frames, 6 );
+        jump = new Animation(1, true);
+        jump.frames(frames, 6);
 
-        attack = new Animation( 10, false );
-        attack.frames( frames, 5, 0, 6 );
+        attack = new Animation(10, false);
+        attack.frames(frames, 5, 0, 6);
 
-        die = new Animation( 10, false );
-        die.frames( frames, 2, 3, 4 );
+        die = new Animation(10, false);
+        die.frames(frames, 2, 3, 4);
 
-        play( idle );
+        play(idle);
     }
 
     public void pumpUp() {
-        play( pump );
+        play(pump);
     }
 
     @Override
-    public void play( Animation anim, boolean force ) {
-        super.play( anim, force );
+    public void play(Animation anim, boolean force) {
+        super.play(anim, force);
 
         if (anim == pump) {
             spray = centerEmitter();
-            spray.pour( GooParticle.FACTORY, 0.04f );
+            spray.pour(GooParticle.FACTORY, 0.04f);
         } else if (spray != null) {
             spray.on = false;
             spray = null;
@@ -86,21 +86,21 @@ public class GooSprite extends MobSprite {
 
         public static final Emitter.Factory FACTORY = new Factory() {
             @Override
-            public void emit( Emitter emitter, int index, float x, float y ) {
-                ((GooParticle)emitter.recycle( GooParticle.class )).reset( x, y );
+            public void emit(Emitter emitter, int index, float x, float y) {
+                ((GooParticle) emitter.recycle(GooParticle.class)).reset(x, y);
             }
         };
 
         public GooParticle() {
             super();
 
-            color( 0x000000 );
+            color(0x000000);
             lifespan = 0.3f;
 
-            acc.set( 0, +50 );
+            acc.set(0, +50);
         }
 
-        public void reset( float x, float y ) {
+        public void reset(float x, float y) {
             revive();
 
             this.x = x;
@@ -109,7 +109,7 @@ public class GooSprite extends MobSprite {
             left = lifespan;
 
             size = 4;
-            speed.polar( -Random.Float( PointF.PI ), Random.Float( 32, 48 ) );
+            speed.polar(-Random.Float(PointF.PI), Random.Float(32, 48));
         }
 
         @Override

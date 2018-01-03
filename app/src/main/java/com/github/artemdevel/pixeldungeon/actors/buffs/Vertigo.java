@@ -23,7 +23,7 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 
 public class Vertigo extends FlavourBuff {
 
-    public static final float DURATION    = 10f;
+    public static final float DURATION = 10f;
 
     @Override
     public int icon() {
@@ -35,8 +35,8 @@ public class Vertigo extends FlavourBuff {
         return "Vertigo";
     }
 
-    public static float duration( Char ch ) {
-        Resistance r = ch.buff( Resistance.class );
+    public static float duration(Char ch) {
+        Resistance r = ch.buff(Resistance.class);
         return r != null ? r.durationFactor() * DURATION : DURATION;
     }
 }

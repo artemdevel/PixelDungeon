@@ -37,9 +37,15 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Warlock extends Mob implements Callback {
 
-    private static final float TIME_TO_ZAP    = 1f;
+    private static final float TIME_TO_ZAP = 1f;
 
     private static final String TXT_SHADOWBOLT_KILLED = "%s's shadow bolt killed you...";
+
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(Death.class);
+    }
 
     {
         name = "dwarf warlock";
@@ -57,11 +63,11 @@ public class Warlock extends Mob implements Callback {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 12, 20 );
+        return Random.NormalIntRange(12, 20);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 25;
     }
 
@@ -71,21 +77,17 @@ public class Warlock extends Mob implements Callback {
     }
 
     @Override
-    protected boolean canAttack( Char enemy ) {
-        return Ballistica.cast( pos, enemy.pos, false, true ) == enemy.pos;
+    protected boolean canAttack(Char enemy) {
+        return Ballistica.cast(pos, enemy.pos, false, true) == enemy.pos;
     }
 
-    protected boolean doAttack( Char enemy ) {
-
-        if (Level.adjacent( pos, enemy.pos )) {
-
-            return super.doAttack( enemy );
-
+    protected boolean doAttack(Char enemy) {
+        if (Level.adjacent(pos, enemy.pos)) {
+            return super.doAttack(enemy);
         } else {
-
             boolean visible = Level.fieldOfView[pos] || Level.fieldOfView[enemy.pos];
             if (visible) {
-                ((WarlockSprite)sprite).zap( enemy.pos );
+                sprite.zap(enemy.pos);
             } else {
                 zap();
             }
@@ -95,23 +97,23 @@ public class Warlock extends Mob implements Callback {
     }
 
     private void zap() {
-        spend( TIME_TO_ZAP );
+        spend(TIME_TO_ZAP);
 
-        if (hit( this, enemy, true )) {
-            if (enemy == Dungeon.hero && Random.Int( 2 ) == 0) {
-                Buff.prolong( enemy, Weakness.class, Weakness.duration( enemy ) );
+        if (hit(this, enemy, true)) {
+            if (enemy == Dungeon.hero && Random.Int(2) == 0) {
+                Buff.prolong(enemy, Weakness.class, Weakness.duration(enemy));
             }
 
-            int dmg = Random.Int( 12, 18 );
-            enemy.damage( dmg, this );
+            int dmg = Random.Int(12, 18);
+            enemy.damage(dmg, this);
 
             if (!enemy.isAlive() && enemy == Dungeon.hero) {
-                Dungeon.fail( Utils.format( ResultDescriptions.MOB,
-                    Utils.indefinite( name ), Dungeon.depth ) );
-                GLog.n( TXT_SHADOWBOLT_KILLED, name );
+                Dungeon.fail(Utils.format(ResultDescriptions.MOB,
+                        Utils.indefinite(name), Dungeon.depth));
+                GLog.n(TXT_SHADOWBOLT_KILLED, name);
             }
         } else {
-            enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+            enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
         }
     }
 
@@ -127,15 +129,9 @@ public class Warlock extends Mob implements Callback {
 
     @Override
     public String description() {
-        return
-            "When dwarves' interests have shifted from engineering to arcane arts, " +
+        return "When dwarves' interests have shifted from engineering to arcane arts, " +
             "warlocks have come to power in the city. They started with elemental magic, " +
             "but soon switched to demonology and necromancy.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( Death.class );
     }
 
     @Override

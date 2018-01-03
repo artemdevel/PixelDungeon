@@ -35,6 +35,13 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Scorpio extends Mob {
 
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(Leech.class);
+        RESISTANCES.add(Poison.class);
+    }
+
     {
         name = "scorpio";
         spriteClass = ScorpioSprite.class;
@@ -52,11 +59,11 @@ public class Scorpio extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 20, 32 );
+        return Random.NormalIntRange(20, 32);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 36;
     }
 
@@ -66,48 +73,41 @@ public class Scorpio extends Mob {
     }
 
     @Override
-    protected boolean canAttack( Char enemy ) {
-        return !Level.adjacent( pos, enemy.pos ) && Ballistica.cast( pos, enemy.pos, false, true ) == enemy.pos;
+    protected boolean canAttack(Char enemy) {
+        return !Level.adjacent(pos, enemy.pos) && Ballistica.cast(pos, enemy.pos, false, true) == enemy.pos;
     }
 
     @Override
-    public int attackProc( Char enemy, int damage ) {
-        if (Random.Int( 2 ) == 0) {
-            Buff.prolong( enemy, Cripple.class, Cripple.DURATION );
+    public int attackProc(Char enemy, int damage) {
+        if (Random.Int(2) == 0) {
+            Buff.prolong(enemy, Cripple.class, Cripple.DURATION);
         }
 
         return damage;
     }
 
     @Override
-    protected boolean getCloser( int target ) {
+    protected boolean getCloser(int target) {
         if (state == HUNTING) {
-            return enemySeen && getFurther( target );
+            return enemySeen && getFurther(target);
         } else {
-            return super.getCloser( target );
+            return super.getCloser(target);
         }
     }
 
     @Override
     protected void dropLoot() {
-        if (Random.Int( 8 ) == 0) {
-            Dungeon.level.drop( new PotionOfHealing(), pos ).sprite.drop();
-        } else if (Random.Int( 6 ) == 0) {
-            Dungeon.level.drop( new MysteryMeat(), pos ).sprite.drop();
+        if (Random.Int(8) == 0) {
+            Dungeon.level.drop(new PotionOfHealing(), pos).sprite.drop();
+        } else if (Random.Int(6) == 0) {
+            Dungeon.level.drop(new MysteryMeat(), pos).sprite.drop();
         }
     }
 
     @Override
     public String description() {
-        return
-            "These huge arachnid-like demonic creatures avoid close combat by all means, " +
+        return "These huge arachnid-like demonic creatures avoid close combat by all means, " +
             "firing crippling serrated spikes from long distances.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( Leech.class );
-        RESISTANCES.add( Poison.class );
     }
 
     @Override

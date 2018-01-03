@@ -41,11 +41,10 @@ public class Identification extends Group {
          0, +3
     };
 
-    public Identification( PointF p ) {
-
-        for (int i=0; i < DOTS.length; i += 2) {
-            add( new Speck( p.x, p.y, DOTS[i], DOTS[i+1] ) );
-            add( new Speck( p.x, p.y, DOTS[i], DOTS[i+1] ) );
+    public Identification(PointF p) {
+        for (int i = 0; i < DOTS.length; i += 2) {
+            add(new Speck(p.x, p.y, DOTS[i], DOTS[i + 1]));
+            add(new Speck(p.x, p.y, DOTS[i], DOTS[i + 1]));
         }
     }
 
@@ -59,9 +58,9 @@ public class Identification extends Group {
 
     @Override
     public void draw() {
-        GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE );
+        GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
         super.draw();
-        GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA );
+        GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     public static class Speck extends PixelParticle {
@@ -69,15 +68,14 @@ public class Identification extends Group {
         private static final int COLOR = 0x4488CC;
         private static final int SIZE = 3;
 
-        public Speck( float x0, float y0, int mx, int my ) {
-
+        public Speck(float x0, float y0, int mx, int my) {
             super();
-            color( COLOR );
+            color(COLOR);
 
             float x1 = x0 + mx * SIZE;
             float y1 = y0 + my * SIZE;
 
-            PointF p = new PointF().polar( Random.Float( 2 * PointF.PI ), 8 );
+            PointF p = new PointF().polar(Random.Float(2 * PointF.PI), 8);
             x0 += p.x;
             y0 += p.y;
 
@@ -86,8 +84,8 @@ public class Identification extends Group {
 
             x = x0;
             y = y0;
-            speed.set( dx, dy );
-            acc.set( -dx / 4, -dy / 4 );
+            speed.set(dx, dy);
+            acc.set(-dx / 4, -dy / 4);
 
             left = lifespan = 2f;
         }
@@ -96,9 +94,9 @@ public class Identification extends Group {
         public void update() {
             super.update();
 
-            am = 1 - Math.abs( left / lifespan - 0.5f ) * 2;
+            am = 1 - Math.abs(left / lifespan - 0.5f) * 2;
             am *= am;
-            size( am * SIZE );
+            size(am * SIZE);
         }
     }
 }

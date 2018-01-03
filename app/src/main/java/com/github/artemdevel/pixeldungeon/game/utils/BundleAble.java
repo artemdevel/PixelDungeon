@@ -17,9 +17,10 @@
 
 package com.github.artemdevel.pixeldungeon.game.utils;
 
-public interface Bundlable {
+public interface BundleAble {
 
-    void restoreFromBundle( Bundle bundle );
-    void storeInBundle( Bundle bundle );
+    void restoreFromBundle(Bundle bundle);
+
+    void storeInBundle(Bundle bundle);
 
 }

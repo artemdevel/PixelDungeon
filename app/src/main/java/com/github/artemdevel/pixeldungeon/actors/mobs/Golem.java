@@ -30,6 +30,20 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Golem extends Mob {
 
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(ScrollOfPsionicBlast.class);
+    }
+
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(Amok.class);
+        IMMUNITIES.add(Terror.class);
+        IMMUNITIES.add(Sleep.class);
+    }
+
     {
         name = "golem";
         spriteClass = GolemSprite.class;
@@ -43,11 +57,11 @@ public class Golem extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 20, 40 );
+        return Random.NormalIntRange(20, 40);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 28;
     }
 
@@ -67,35 +81,22 @@ public class Golem extends Mob {
     }
 
     @Override
-    public void die( Object cause ) {
-        Imp.Quest.process( this );
+    public void die(Object cause) {
+        Imp.Quest.process(this);
 
-        super.die( cause );
+        super.die(cause);
     }
 
     @Override
     public String description() {
-        return
-            "The Dwarves tried to combine their knowledge of mechanisms with their newfound power of elemental binding. " +
+        return "The Dwarves tried to combine their knowledge of mechanisms with their newfound power of elemental binding. " +
             "They used spirits of earth as the \"soul\" for the mechanical bodies of golems, which were believed to be " +
             "most controllable of all. Despite this, the tiniest mistake in the ritual could cause an outbreak.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( ScrollOfPsionicBlast.class );
     }
 
     @Override
     public HashSet<Class<?>> resistances() {
         return RESISTANCES;
-    }
-
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( Amok.class );
-        IMMUNITIES.add( Terror.class );
-        IMMUNITIES.add( Sleep.class );
     }
 
     @Override

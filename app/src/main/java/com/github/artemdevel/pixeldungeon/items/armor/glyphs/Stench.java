@@ -30,27 +30,24 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Stench extends Glyph {
 
-    private static final String TXT_STENCH    = "%s of stench";
+    private static final String TXT_STENCH = "%s of stench";
 
-    private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing( 0x22CC44 );
+    private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing(0x22CC44);
 
     @Override
-    public int proc( Armor armor, Char attacker, Char defender, int damage) {
+    public int process(Armor armor, Char attacker, Char defender, int damage) {
+        int level = Math.max(0, armor.effectiveLevel());
 
-        int level = Math.max( 0, armor.effectiveLevel() );
-
-        if (Level.adjacent( attacker.pos, defender.pos ) && Random.Int( level + 5 ) >= 4) {
-
-            GameScene.add( Blob.seed( attacker.pos, 20, ToxicGas.class ) );
-
+        if (Level.adjacent(attacker.pos, defender.pos) && Random.Int(level + 5) >= 4) {
+            GameScene.add(Blob.seed(attacker.pos, 20, ToxicGas.class));
         }
 
         return damage;
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_STENCH, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_STENCH, weaponName);
     }
 
     @Override

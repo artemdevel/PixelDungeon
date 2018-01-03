@@ -29,12 +29,12 @@ public class PotionOfStrength extends Potion {
     }
 
     @Override
-    protected void apply( Hero hero ) {
+    protected void apply(Hero hero) {
         setKnown();
 
         hero.STR++;
-        hero.sprite.showStatus( CharSprite.POSITIVE, "+1 str" );
-        GLog.p( "Newfound strength surges through your body." );
+        hero.sprite.showStatus(CharSprite.POSITIVE, "+1 str");
+        GLog.p("New found strength surges through your body.");
 
         Badges.validateStrengthAttained();
     }

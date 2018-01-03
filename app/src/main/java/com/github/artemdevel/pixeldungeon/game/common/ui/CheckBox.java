@@ -17,6 +17,7 @@
 
 package com.github.artemdevel.pixeldungeon.game.common.ui;
 
+// The whole class isn't used
 public class CheckBox extends Button {
 
     protected boolean checked;
@@ -25,7 +26,7 @@ public class CheckBox extends Button {
 //        return checked;
 //    }
 
-    public void checked( boolean value ) {
+    public void checked(boolean value) {
         if (checked != value) {
             checked = value;
             updateState();
@@ -33,12 +34,11 @@ public class CheckBox extends Button {
     }
 
     protected void updateState() {
-
     }
 
     @Override
     protected void onClick() {
-        checked( !checked );
+        checked(!checked);
         onChange();
     }
 

@@ -37,28 +37,28 @@ public class WandmakerSprite extends MobSprite {
     public WandmakerSprite() {
         super();
 
-        texture( Assets.MAKER );
+        texture(Assets.MAKER);
 
-        TextureFilm frames = new TextureFilm( texture, 12, 14 );
+        TextureFilm frames = new TextureFilm(texture, 12, 14);
 
-        idle = new Animation( 10, true );
-        idle.frames( frames, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 3, 3, 2, 1 );
+        idle = new Animation(10, true);
+        idle.frames(frames, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 3, 3, 2, 1);
 
-        run = new Animation( 20, true );
-        run.frames( frames, 0 );
+        run = new Animation(20, true);
+        run.frames(frames, 0);
 
-        die = new Animation( 20, false );
-        die.frames( frames, 0 );
+        die = new Animation(20, false);
+        die.frames(frames, 0);
 
-        play( idle );
+        play(idle);
     }
 
     @Override
-    public void link( Char ch ) {
-        super.link( ch );
+    public void link(Char ch) {
+        super.link(ch);
 
         if (shield == null) {
-            parent.add( shield = new Shield() );
+            parent.add(shield = new Shield());
         }
     }
 
@@ -69,10 +69,10 @@ public class WandmakerSprite extends MobSprite {
         if (shield != null) {
             shield.putOut();
         }
-        emitter().start( ElmoParticle.FACTORY, 0.03f, 60 );
+        emitter().start(ElmoParticle.FACTORY, 0.03f, 60);
 
         if (visible) {
-            Sample.INSTANCE.play( Assets.SND_BURNING );
+            Sample.INSTANCE.play(Assets.SND_BURNING);
         }
     }
 
@@ -82,7 +82,7 @@ public class WandmakerSprite extends MobSprite {
 
         public Shield() {
 
-            super( 14, 0xBBAACC, 1f );
+            super(14, 0xBBAACC, 1f);
 
             am = -1;
             aa = +1;
@@ -98,7 +98,7 @@ public class WandmakerSprite extends MobSprite {
                 if ((phase -= Game.elapsed) <= 0) {
                     killAndErase();
                 } else {
-                    scale.set( (2 - phase) * radius / RADIUS );
+                    scale.set((2 - phase) * radius / RADIUS);
                     am = phase * (-1);
                     aa = phase * (+1);
                 }
@@ -106,15 +106,15 @@ public class WandmakerSprite extends MobSprite {
 
             if (visible = WandmakerSprite.this.visible) {
                 PointF p = WandmakerSprite.this.center();
-                point(p.x, p.y );
+                point(p.x, p.y);
             }
         }
 
         @Override
         public void draw() {
-            GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE );
+            GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
             super.draw();
-            GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA );
+            GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         }
 
         public void putOut() {

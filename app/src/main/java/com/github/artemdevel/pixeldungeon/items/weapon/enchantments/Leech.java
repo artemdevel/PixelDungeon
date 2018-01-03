@@ -27,29 +27,26 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Leech extends Weapon.Enchantment {
 
-    private static final String TXT_VAMPIRIC    = "vampiric %s";
+    private static final String TXT_VAMPIRIC = "vampiric %s";
 
-    private static ItemSprite.Glowing RED = new ItemSprite.Glowing( 0x660022 );
+    private static ItemSprite.Glowing RED = new ItemSprite.Glowing(0x660022);
 
     @Override
-    public boolean proc( Weapon weapon, Char attacker, Char defender, int damage ) {
-
-        int level = Math.max( 0, weapon.effectiveLevel() );
+    public boolean process(Weapon weapon, Char attacker, Char defender, int damage) {
+        int level = Math.max(0, weapon.effectiveLevel());
 
         // lvl 0 - 33%
         // lvl 1 - 43%
         // lvl 2 - 50%
         int maxValue = damage * (level + 2) / (level + 6);
-        int effValue = Math.min( Random.IntRange( 0, maxValue ), attacker.HT - attacker.HP );
+        int effValue = Math.min(Random.IntRange(0, maxValue), attacker.HT - attacker.HP);
 
         if (effValue > 0) {
-
             attacker.HP += effValue;
-            attacker.sprite.emitter().start( Speck.factory( Speck.HEALING ), 0.4f, 1 );
-            attacker.sprite.showStatus( CharSprite.POSITIVE, Integer.toString( effValue ) );
+            attacker.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 1);
+            attacker.sprite.showStatus(CharSprite.POSITIVE, Integer.toString(effValue));
 
             return true;
-
         } else {
             return false;
         }
@@ -61,8 +58,8 @@ public class Leech extends Weapon.Enchantment {
     }
 
     @Override
-    public String name( String weaponName ) {
-        return String.format( TXT_VAMPIRIC, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_VAMPIRIC, weaponName);
     }
 
 }

@@ -39,7 +39,6 @@ public class ScrollOfMagicMapping extends Scroll {
 
     @Override
     protected void doRead() {
-
         int length = Level.LENGTH;
         int[] map = Dungeon.level.map;
         boolean[] mapped = Dungeon.level.mapped;
@@ -47,21 +46,18 @@ public class ScrollOfMagicMapping extends Scroll {
 
         boolean noticed = false;
 
-        for (int i=0; i < length; i++) {
-
+        for (int i = 0; i < length; i++) {
             int terr = map[i];
 
             if (discoverable[i]) {
-
                 mapped[i] = true;
                 if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
-
-                    Level.set( i, Terrain.discover( terr ) );
-                    GameScene.updateMap( i );
+                    Level.set(i, Terrain.discover(terr));
+                    GameScene.updateMap(i);
 
                     if (Dungeon.visible[i]) {
-                        GameScene.discoverTile( i, terr );
-                        discover( i );
+                        GameScene.discoverTile(i, terr);
+                        discover(i);
 
                         noticed = true;
                     }
@@ -70,13 +66,13 @@ public class ScrollOfMagicMapping extends Scroll {
         }
         Dungeon.observe();
 
-        GLog.i( TXT_LAYOUT );
+        GLog.i(TXT_LAYOUT);
         if (noticed) {
-            Sample.INSTANCE.play( Assets.SND_SECRET );
+            Sample.INSTANCE.play(Assets.SND_SECRET);
         }
 
-        SpellSprite.show( curUser, SpellSprite.MAP );
-        Sample.INSTANCE.play( Assets.SND_READ );
+        SpellSprite.show(curUser, SpellSprite.MAP);
+        Sample.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         setKnown();
@@ -97,7 +93,7 @@ public class ScrollOfMagicMapping extends Scroll {
         return isKnown() ? 25 * quantity : super.price();
     }
 
-    public static void discover( int cell ) {
-        CellEmitter.get( cell ).start( Speck.factory( Speck.DISCOVER ), 0.1f, 4 );
+    public static void discover(int cell) {
+        CellEmitter.get(cell).start(Speck.factory(Speck.DISCOVER), 0.1f, 4);
     }
 }

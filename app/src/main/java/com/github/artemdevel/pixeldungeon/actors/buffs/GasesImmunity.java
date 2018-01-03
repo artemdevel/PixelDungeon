@@ -24,7 +24,7 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 
 public class GasesImmunity extends FlavourBuff {
 
-    public static final float DURATION    = 5f;
+    public static final float DURATION = 5f;
 
     @Override
     public int icon() {
@@ -37,9 +37,10 @@ public class GasesImmunity extends FlavourBuff {
     }
 
     public static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
+
     static {
-        IMMUNITIES.add( Paralysis.class );
-        IMMUNITIES.add( ToxicGas.class );
-        IMMUNITIES.add( Vertigo.class );
+        IMMUNITIES.add(Paralysis.class);
+        IMMUNITIES.add(ToxicGas.class);
+        IMMUNITIES.add(Vertigo.class);
     }
 }

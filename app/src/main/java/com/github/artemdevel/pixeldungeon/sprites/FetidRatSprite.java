@@ -26,18 +26,17 @@ public class FetidRatSprite extends RatSprite {
     private Emitter cloud;
 
     @Override
-    public void link( Char ch ) {
-        super.link( ch );
+    public void link(Char ch) {
+        super.link(ch);
 
         if (cloud == null) {
             cloud = emitter();
-            cloud.pour( Speck.factory( Speck.PARALYSIS ), 0.7f );
+            cloud.pour(Speck.factory(Speck.PARALYSIS), 0.7f);
         }
     }
 
     @Override
     public void update() {
-
         super.update();
 
         if (cloud != null) {

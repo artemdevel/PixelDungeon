@@ -21,7 +21,7 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 
 public class Cripple extends FlavourBuff {
 
-    public static final float DURATION    = 10f;
+    public static final float DURATION = 10f;
 
     @Override
     public int icon() {

@@ -28,6 +28,12 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Bat extends Mob {
 
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(Leech.class);
+    }
+
     {
         name = "vampire bat";
         spriteClass = BatSprite.class;
@@ -47,11 +53,11 @@ public class Bat extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 6, 12 );
+        return Random.NormalIntRange(6, 12);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 16;
     }
 
@@ -66,13 +72,12 @@ public class Bat extends Mob {
     }
 
     @Override
-    public int attackProc( Char enemy, int damage ) {
-
-        int reg = Math.min( damage, HT - HP );
+    public int attackProc(Char enemy, int damage) {
+        int reg = Math.min(damage, HT - HP);
 
         if (reg > 0) {
             HP += reg;
-            sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+            sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
         }
 
         return damage;
@@ -80,14 +85,8 @@ public class Bat extends Mob {
 
     @Override
     public String description() {
-        return
-            "These brisk and tenacious inhabitants of cave domes may defeat much larger opponents by " +
+        return "These brisk and tenacious inhabitants of cave domes may defeat much larger opponents by " +
             "replenishing their health with each successful attack.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( Leech.class );
     }
 
     @Override

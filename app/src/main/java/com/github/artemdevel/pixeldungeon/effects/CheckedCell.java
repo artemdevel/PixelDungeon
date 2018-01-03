@@ -26,14 +26,14 @@ public class CheckedCell extends Image {
 
     private float alpha;
 
-    public CheckedCell( int pos ) {
-        super( TextureCache.createSolid( 0xFF55AAFF ) );
+    public CheckedCell(int pos) {
+        super(TextureCache.createSolid(0xFF55AAFF));
 
-        origin.set( 0.5f );
+        origin.set(0.5f);
 
-        point( DungeonTilemap.tileToWorld( pos ).offset(
-            DungeonTilemap.SIZE / 2,
-            DungeonTilemap.SIZE / 2 ) );
+        point(DungeonTilemap.tileToWorld(pos).offset(
+                DungeonTilemap.SIZE / 2,
+                DungeonTilemap.SIZE / 2));
 
         alpha = 0.8f;
     }
@@ -41,8 +41,8 @@ public class CheckedCell extends Image {
     @Override
     public void update() {
         if ((alpha -= Game.elapsed) > 0) {
-            alpha( alpha );
-            scale.set( DungeonTilemap.SIZE * alpha );
+            alpha(alpha);
+            scale.set(DungeonTilemap.SIZE * alpha);
         } else {
             killAndErase();
         }

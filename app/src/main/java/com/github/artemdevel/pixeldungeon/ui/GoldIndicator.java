@@ -25,7 +25,7 @@ import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 
 public class GoldIndicator extends Component {
 
-    private static final float TIME    = 2f;
+    private static final float TIME = 2f;
 
     private int lastValue = 0;
 
@@ -35,9 +35,9 @@ public class GoldIndicator extends Component {
 
     @Override
     protected void createChildren() {
-        tf = new BitmapText( PixelScene.font1x );
-        tf.hardlight( 0xFFFF00 );
-        add( tf );
+        tf = new BitmapText(PixelScene.font1x);
+        tf.hardlight(0xFFFF00);
+        add(tf);
 
         visible = false;
     }
@@ -53,21 +53,18 @@ public class GoldIndicator extends Component {
         super.update();
 
         if (visible) {
-
             time -= Game.elapsed;
             if (time > 0) {
-                tf.alpha( time > TIME / 2 ? 1f : time * 2 / TIME );
+                tf.alpha(time > TIME / 2 ? 1f : time * 2 / TIME);
             } else {
                 visible = false;
             }
-
         }
 
         if (Dungeon.gold != lastValue) {
-
             lastValue = Dungeon.gold;
 
-            tf.text( Integer.toString( lastValue ) );
+            tf.text(Integer.toString(lastValue));
             tf.measure();
 
             visible = true;

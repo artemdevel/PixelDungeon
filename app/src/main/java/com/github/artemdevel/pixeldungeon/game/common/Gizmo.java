@@ -29,10 +29,10 @@ public class Gizmo {
     public Camera camera;
 
     public Gizmo() {
-        exists    = true;
-        alive    = true;
-        active    = true;
-        visible    = true;
+        exists = true;
+        alive = true;
+        active = true;
+        visible = true;
     }
 
     public void destroy() {
@@ -56,11 +56,11 @@ public class Gizmo {
         exists = true;
     }
 
-    public Camera camera() {
+    public Camera getCamera() {
         if (camera != null) {
             return camera;
         } else if (parent != null) {
-            return parent.camera();
+            return parent.getCamera();
         } else {
             return null;
         }
@@ -85,13 +85,13 @@ public class Gizmo {
     public void killAndErase() {
         kill();
         if (parent != null) {
-            parent.erase( this );
+            parent.erase(this);
         }
     }
 
     public void remove() {
         if (parent != null) {
-            parent.remove( this );
+            parent.remove(this);
         }
     }
 }

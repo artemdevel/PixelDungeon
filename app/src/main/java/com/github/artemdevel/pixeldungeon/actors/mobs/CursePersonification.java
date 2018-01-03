@@ -34,6 +34,15 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class CursePersonification extends Mob {
 
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(Death.class);
+        IMMUNITIES.add(Terror.class);
+        IMMUNITIES.add(Paralysis.class);
+        IMMUNITIES.add(Roots.class);
+    }
+
     {
         name = "curse personification";
         spriteClass = CursePersonificationSprite.class;
@@ -51,11 +60,11 @@ public class CursePersonification extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 3, 5 );
+        return Random.NormalIntRange(3, 5);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 10 + Dungeon.depth;
     }
 
@@ -66,21 +75,20 @@ public class CursePersonification extends Mob {
 
     @Override
     public int attackProc(Char enemy, int damage) {
-
-        for (int i=0; i < Level.NEIGHBOURS8.length; i++) {
+        for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
             int ofs = Level.NEIGHBOURS8[i];
             if (enemy.pos - pos == ofs) {
                 int newPos = enemy.pos + ofs;
-                if ((Level.passable[newPos] || Level.avoid[newPos]) && Actor.findChar( newPos ) == null) {
+                if ((Level.passable[newPos] || Level.avoid[newPos]) && Actor.findChar(newPos) == null) {
 
-                    Actor.addDelayed( new Pushing( enemy, enemy.pos, newPos ), -1 );
+                    Actor.addDelayed(new Pushing(enemy, enemy.pos, newPos), -1);
 
                     enemy.pos = newPos;
                     // FIXME
                     if (enemy instanceof Mob) {
-                        Dungeon.level.mobPress( (Mob)enemy );
+                        Dungeon.level.mobPress((Mob) enemy);
                     } else {
-                        Dungeon.level.press( newPos, enemy );
+                        Dungeon.level.press(newPos, enemy);
                     }
 
                 }
@@ -88,7 +96,7 @@ public class CursePersonification extends Mob {
             }
         }
 
-        return super.attackProc( enemy, damage );
+        return super.attackProc(enemy, damage);
     }
 
     @Override
@@ -100,25 +108,16 @@ public class CursePersonification extends Mob {
     }
 
     @Override
-    public void die( Object cause ) {
+    public void die(Object cause) {
         Ghost ghost = new Ghost();
         ghost.state = ghost.PASSIVE;
-        Ghost.replace( this, ghost );
+        Ghost.replace(this, ghost);
     }
 
     @Override
     public String description() {
-        return
-            "This creature resembles the sad ghost, but it swirls with darkness. " +
+        return "This creature resembles the sad ghost, but it swirls with darkness. " +
             "Its face bears an expression of despair.";
-    }
-
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( Death.class );
-        IMMUNITIES.add( Terror.class );
-        IMMUNITIES.add( Paralysis.class );
-        IMMUNITIES.add( Roots.class );
     }
 
     @Override

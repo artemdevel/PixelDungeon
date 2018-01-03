@@ -27,8 +27,8 @@ public class PosTweener extends Tweener {
     public PointF start;
     public PointF end;
 
-    public PosTweener( Visual visual, PointF pos, float time ) {
-        super( visual, time );
+    public PosTweener(Visual visual, PointF pos, float time) {
+        super(visual, time);
 
         this.visual = visual;
         start = visual.point();
@@ -36,7 +36,7 @@ public class PosTweener extends Tweener {
     }
 
     @Override
-    protected void updateValues( float progress ) {
-        visual.point( PointF.inter( start, end, progress ) );
+    protected void updateValues(float progress) {
+        visual.point(PointF.inter(start, end, progress));
     }
 }

@@ -27,19 +27,18 @@ public class Terror extends FlavourBuff {
 
     public int object = 0;
 
-    private static final String OBJECT    = "object";
+    private static final String OBJECT = "object";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( OBJECT, object );
-
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(OBJECT, object);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        object = bundle.getInt( OBJECT );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        object = bundle.getInt(OBJECT);
     }
 
     @Override
@@ -52,10 +51,10 @@ public class Terror extends FlavourBuff {
         return "Terror";
     }
 
-    public static void recover( Char target ) {
-        Terror terror = target.buff( Terror.class );
+    public static void recover(Char target) {
+        Terror terror = target.buff(Terror.class);
         if (terror != null && terror.cooldown() < DURATION) {
-            target.remove( terror );
+            target.remove(terror);
         }
     }
 }

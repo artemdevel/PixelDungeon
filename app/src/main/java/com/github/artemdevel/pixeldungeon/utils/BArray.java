@@ -19,60 +19,56 @@ package com.github.artemdevel.pixeldungeon.utils;
 
 public class BArray {
 
-    public static boolean[] and( boolean[] a, boolean[] b, boolean[] result ) {
-
+    public static boolean[] and(boolean[] a, boolean[] b, boolean[] result) {
         int length = a.length;
 
         if (result == null) {
             result = new boolean[length];
         }
 
-        for (int i=0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             result[i] = a[i] && b[i];
         }
 
         return result;
     }
 
-    public static boolean[] or( boolean[] a, boolean[] b, boolean[] result ) {
-
+    public static boolean[] or(boolean[] a, boolean[] b, boolean[] result) {
         int length = a.length;
 
         if (result == null) {
             result = new boolean[length];
         }
 
-        for (int i=0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             result[i] = a[i] || b[i];
         }
 
         return result;
     }
 
-    public static boolean[] not( boolean[] a, boolean[] result ) {
-
+    public static boolean[] not(boolean[] a, boolean[] result) {
         int length = a.length;
 
         if (result == null) {
             result = new boolean[length];
         }
 
-        for (int i=0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             result[i] = !a[i];
         }
 
         return result;
     }
 
-    public static boolean[] is( int[] a, boolean[] result, int v1 ) {
-
+    public static boolean[] is(int[] a, boolean[] result, int v1) {
         int length = a.length;
 
         if (result == null) {
             result = new boolean[length];
         }
 
-        for (int i=0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             result[i] = a[i] == v1;
         }
 

@@ -32,40 +32,38 @@ public class Fire extends Blob {
 
     @Override
     protected void evolve() {
-
-        boolean[] flamable = Level.flamable;
+        boolean[] flamable = Level.flammable;
 
         int from = WIDTH + 1;
         int to = Level.LENGTH - WIDTH - 1;
 
         boolean observe = false;
 
-        for (int pos=from; pos < to; pos++) {
-
+        for (int pos = from; pos < to; pos++) {
             int fire;
 
             if (cur[pos] > 0) {
 
-                burn( pos );
+                burn(pos);
 
                 fire = cur[pos] - 1;
                 if (fire <= 0 && flamable[pos]) {
 
                     int oldTile = Dungeon.level.map[pos];
-                    Dungeon.level.destroy( pos );
+                    Dungeon.level.destroy(pos);
 
                     observe = true;
-                    GameScene.updateMap( pos );
+                    GameScene.updateMap(pos);
                     if (Dungeon.visible[pos]) {
-                        GameScene.discoverTile( pos, oldTile );
+                        GameScene.discoverTile(pos, oldTile);
                     }
                 }
 
             } else {
 
-                if (flamable[pos] && (cur[pos-1] > 0 || cur[pos+1] > 0 || cur[pos-WIDTH] > 0 || cur[pos+WIDTH] > 0)) {
+                if (flamable[pos] && (cur[pos - 1] > 0 || cur[pos + 1] > 0 || cur[pos - WIDTH] > 0 || cur[pos + WIDTH] > 0)) {
                     fire = 4;
-                    burn( pos );
+                    burn(pos);
                 } else {
                     fire = 0;
                 }
@@ -81,19 +79,19 @@ public class Fire extends Blob {
         }
     }
 
-    private void burn( int pos ) {
-        Char ch = Actor.findChar( pos );
+    private void burn(int pos) {
+        Char ch = Actor.findChar(pos);
         if (ch != null) {
-            Buff.affect( ch, Burning.class ).reignite( ch );
+            Buff.affect(ch, Burning.class).reignite(ch);
         }
 
-        Heap heap = Dungeon.level.heaps.get( pos );
+        Heap heap = Dungeon.level.heaps.get(pos);
         if (heap != null) {
             heap.burn();
         }
     }
 
-    public void seed( int cell, int amount ) {
+    public void seed(int cell, int amount) {
         if (cur[cell] == 0) {
             volume += amount;
             cur[cell] = amount;
@@ -101,9 +99,9 @@ public class Fire extends Blob {
     }
 
     @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
-        emitter.start( FlameParticle.FACTORY, 0.03f, 0 );
+    public void use(BlobEmitter emitter) {
+        super.use(emitter);
+        emitter.start(FlameParticle.FACTORY, 0.03f, 0);
     }
 
     @Override

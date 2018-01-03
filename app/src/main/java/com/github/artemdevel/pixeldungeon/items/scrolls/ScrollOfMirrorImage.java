@@ -31,7 +31,7 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class ScrollOfMirrorImage extends Scroll {
 
-    private static final int NIMAGES    = 3;
+    private static final int NIMAGES = 3;
 
     {
         name = "Scroll of Mirror Image";
@@ -39,26 +39,25 @@ public class ScrollOfMirrorImage extends Scroll {
 
     @Override
     protected void doRead() {
+        ArrayList<Integer> respawnPoints = new ArrayList<>();
 
-        ArrayList<Integer> respawnPoints = new ArrayList<Integer>();
-
-        for (int i=0; i < Level.NEIGHBOURS8.length; i++) {
+        for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
             int p = curUser.pos + Level.NEIGHBOURS8[i];
-            if (Actor.findChar( p ) == null && (Level.passable[p] || Level.avoid[p])) {
-                respawnPoints.add( p );
+            if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+                respawnPoints.add(p);
             }
         }
 
         int nImages = NIMAGES;
         while (nImages > 0 && respawnPoints.size() > 0) {
-            int index = Random.index( respawnPoints );
+            int index = Random.index(respawnPoints);
 
             MirrorImage mob = new MirrorImage();
-            mob.duplicate( curUser );
-            GameScene.add( mob );
-            WandOfBlink.appear( mob, respawnPoints.get( index ) );
+            mob.duplicate(curUser);
+            GameScene.add(mob);
+            WandOfBlink.appear(mob, respawnPoints.get(index));
 
-            respawnPoints.remove( index );
+            respawnPoints.remove(index);
             nImages--;
         }
 
@@ -66,7 +65,7 @@ public class ScrollOfMirrorImage extends Scroll {
             setKnown();
         }
 
-        Sample.INSTANCE.play( Assets.SND_READ );
+        Sample.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         readAnimation();

@@ -35,40 +35,37 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Viscosity extends Glyph {
 
-    private static final String TXT_VISCOSITY    = "%s of viscosity";
+    private static final String TXT_VISCOSITY = "%s of viscosity";
 
-    private static ItemSprite.Glowing PURPLE = new ItemSprite.Glowing( 0x8844CC );
+    private static ItemSprite.Glowing PURPLE = new ItemSprite.Glowing(0x8844CC);
 
     @Override
-    public int proc( Armor armor, Char attacker, Char defender, int damage ) {
-
+    public int process(Armor armor, Char attacker, Char defender, int damage) {
         if (damage == 0) {
             return 0;
         }
 
-        int level = Math.max( 0, armor.effectiveLevel() );
+        int level = Math.max(0, armor.effectiveLevel());
 
-        if (Random.Int( level + 7 ) >= 6) {
-
-            DeferedDamage debuff = defender.buff( DeferedDamage.class );
+        if (Random.Int(level + 7) >= 6) {
+            DeferredDamage debuff = defender.buff(DeferredDamage.class);
             if (debuff == null) {
-                debuff = new DeferedDamage();
-                debuff.attachTo( defender );
+                debuff = new DeferredDamage();
+                debuff.attachTo(defender);
             }
-            debuff.prolong( damage );
+            debuff.prolong(damage);
 
-            defender.sprite.showStatus( CharSprite.WARNING, "deferred %d", damage );
+            defender.sprite.showStatus(CharSprite.WARNING, "deferred %d", damage);
 
             return 0;
-
         } else {
             return damage;
         }
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_VISCOSITY, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_VISCOSITY, weaponName);
     }
 
     @Override
@@ -76,38 +73,37 @@ public class Viscosity extends Glyph {
         return PURPLE;
     }
 
-    public static class DeferedDamage extends Buff {
+    public static class DeferredDamage extends Buff {
 
         protected int damage = 0;
 
-        private static final String DAMAGE    = "damage";
+        private static final String DAMAGE = "damage";
 
         @Override
-        public void storeInBundle( Bundle bundle ) {
-            super.storeInBundle( bundle );
-            bundle.put( DAMAGE, damage );
-
+        public void storeInBundle(Bundle bundle) {
+            super.storeInBundle(bundle);
+            bundle.put(DAMAGE, damage);
         }
 
         @Override
-        public void restoreFromBundle( Bundle bundle ) {
-            super.restoreFromBundle( bundle );
-            damage = bundle.getInt( DAMAGE );
+        public void restoreFromBundle(Bundle bundle) {
+            super.restoreFromBundle(bundle);
+            damage = bundle.getInt(DAMAGE);
         }
 
         @Override
-        public boolean attachTo( Char target ) {
-            if (super.attachTo( target )) {
-                postpone( TICK );
+        public boolean attachTo(Char target) {
+            if (super.attachTo(target)) {
+                postpone(TICK);
                 return true;
             } else {
                 return false;
             }
         }
 
-        public void prolong( int damage ) {
+        public void prolong(int damage) {
             this.damage += damage;
-        };
+        }
 
         @Override
         public int icon() {
@@ -116,31 +112,27 @@ public class Viscosity extends Glyph {
 
         @Override
         public String toString() {
-            return Utils.format( "Defered damage (%d)", damage );
+            return Utils.format("Deferred damage (%d)", damage);
         }
 
         @Override
         public boolean act() {
             if (target.isAlive()) {
-
-                target.damage( 1, this );
+                target.damage(1, this);
                 if (target == Dungeon.hero && !target.isAlive()) {
                     // FIXME
-                    Dungeon.fail( Utils.format( ResultDescriptions.GLYPH, "enchantment of viscosity", Dungeon.depth ) );
-                    GLog.n( "The enchantment of viscosity killed you..." );
+                    Dungeon.fail(Utils.format(ResultDescriptions.GLYPH, "enchantment of viscosity", Dungeon.depth));
+                    GLog.n("The enchantment of viscosity killed you...");
 
                     Badges.validateDeathFromGlyph();
                 }
-                spend( TICK );
+                spend(TICK);
 
                 if (--damage <= 0) {
                     detach();
                 }
-
             } else {
-
                 detach();
-
             }
             return true;
         }

@@ -31,36 +31,36 @@ public class WindParticle extends PixelParticle {
 
     public static final Emitter.Factory FACTORY = new Factory() {
         @Override
-        public void emit( Emitter emitter, int index, float x, float y ) {
-            ((WindParticle)emitter.recycle( WindParticle.class )).reset( x, y );
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((WindParticle) emitter.recycle(WindParticle.class)).reset(x, y);
         }
     };
 
-    private static float angle = Random.Float( PointF.PI2 );
-    private static PointF speed = new PointF().polar( angle, 5 );
+    private static float angle = Random.Float(PointF.PI2);
+    private static PointF speed = new PointF().polar(angle, 5);
 
     private float size;
 
     public WindParticle() {
         super();
 
-        lifespan = Random.Float( 1, 2 );
-        scale.set( size = Random.Float( 3 ) );
+        lifespan = Random.Float(1, 2);
+        scale.set(size = Random.Float(3));
     }
 
-    public void reset( float x, float y ) {
+    public void reset(float x, float y) {
         revive();
 
         left = lifespan;
 
-        super.speed.set( WindParticle.speed );
-        super.speed.scale( size );
+        super.speed.set(WindParticle.speed);
+        super.speed.scale(size);
 
         this.x = x - super.speed.x * lifespan / 2;
         this.y = y - super.speed.y * lifespan / 2;
 
-        angle += Random.Float( -0.1f, +0.1f );
-        speed = new PointF().polar( angle, 5 );
+        angle += Random.Float(-0.1f, +0.1f);
+        speed = new PointF().polar(angle, 5);
 
         am = 0;
     }
@@ -82,31 +82,26 @@ public class WindParticle extends PixelParticle {
 
         private float delay;
 
-        public Wind( int pos ) {
+        public Wind(int pos) {
             super();
 
             this.pos = pos;
-            PointF p = DungeonTilemap.tileToWorld( pos );
+            PointF p = DungeonTilemap.tileToWorld(pos);
             x = p.x;
             y = p.y;
 
-            delay = Random.Float( 5 );
+            delay = Random.Float(5);
         }
 
         @Override
         public void update() {
-
             if (visible = Dungeon.visible[pos]) {
-
                 super.update();
-
                 if ((delay -= Game.elapsed) <= 0) {
-
-                    delay = Random.Float( 5 );
-
-                    ((WindParticle)recycle( WindParticle.class )).reset(
-                        x + Random.Float( DungeonTilemap.SIZE ),
-                        y + Random.Float( DungeonTilemap.SIZE ) );
+                    delay = Random.Float(5);
+                    ((WindParticle) recycle(WindParticle.class)).reset(
+                            x + Random.Float(DungeonTilemap.SIZE),
+                            y + Random.Float(DungeonTilemap.SIZE));
                 }
             }
         }

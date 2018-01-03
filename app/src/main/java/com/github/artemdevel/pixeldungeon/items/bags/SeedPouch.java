@@ -31,7 +31,7 @@ public class SeedPouch extends Bag {
     }
 
     @Override
-    public boolean grab( Item item ) {
+    public boolean grab(Item item) {
         return item instanceof Plant.Seed;
     }
 
@@ -42,7 +42,6 @@ public class SeedPouch extends Bag {
 
     @Override
     public String info() {
-        return
-            "This small velvet pouch allows you to store any number of seeds in it. Very convenient.";
+        return "This small velvet pouch allows you to store any number of seeds in it. Very convenient.";
     }
 }

@@ -35,8 +35,8 @@ public class Slow extends FlavourBuff {
         return "Slowed";
     }
 
-    public static float duration( Char ch ) {
-        Resistance r = ch.buff( Resistance.class );
+    public static float duration(Char ch) {
+        Resistance r = ch.buff(Resistance.class);
         return r != null ? r.durationFactor() * DURATION : DURATION;
     }
 }

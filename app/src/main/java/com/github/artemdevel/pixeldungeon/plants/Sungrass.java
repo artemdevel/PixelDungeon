@@ -38,15 +38,15 @@ public class Sungrass extends Plant {
     }
 
     @Override
-    public void activate( Char ch ) {
-        super.activate( ch );
+    public void activate(Char ch) {
+        super.activate(ch);
 
         if (ch != null) {
-            Buff.affect( ch, Health.class );
+            Buff.affect(ch, Health.class);
         }
 
         if (Dungeon.visible[pos]) {
-            CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
+            CellEmitter.get(pos).start(ShaftParticle.FACTORY, 0.2f, 3);
         }
     }
 
@@ -79,9 +79,9 @@ public class Sungrass extends Plant {
         private int pos;
 
         @Override
-        public boolean attachTo( Char target ) {
+        public boolean attachTo(Char target) {
             pos = target.pos;
-            return super.attachTo( target );
+            return super.attachTo(target);
         }
 
         @Override
@@ -89,10 +89,10 @@ public class Sungrass extends Plant {
             if (target.pos != pos || target.HP >= target.HT) {
                 detach();
             } else {
-                target.HP = Math.min( target.HT, target.HP + target.HT / 10 );
-                target.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+                target.HP = Math.min(target.HT, target.HP + target.HT / 10);
+                target.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
             }
-            spend( STEP );
+            spend(STEP);
             return true;
         }
 
@@ -106,18 +106,18 @@ public class Sungrass extends Plant {
             return "Herbal healing";
         }
 
-        private static final String POS    = "pos";
+        private static final String POS = "pos";
 
         @Override
-        public void storeInBundle( Bundle bundle ) {
-            super.storeInBundle( bundle );
-            bundle.put( POS, pos );
+        public void storeInBundle(Bundle bundle) {
+            super.storeInBundle(bundle);
+            bundle.put(POS, pos);
         }
 
         @Override
-        public void restoreFromBundle( Bundle bundle ) {
-            super.restoreFromBundle( bundle );
-            pos = bundle.getInt( POS );
+        public void restoreFromBundle(Bundle bundle) {
+            super.restoreFromBundle(bundle);
+            pos = bundle.getInt(POS);
         }
     }
 }

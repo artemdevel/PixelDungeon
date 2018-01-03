@@ -30,25 +30,25 @@ public class ScorpioSprite extends MobSprite {
     public ScorpioSprite() {
         super();
 
-        texture( Assets.SCORPIO );
+        texture(Assets.SCORPIO);
 
-        TextureFilm frames = new TextureFilm( texture, 18, 17 );
+        TextureFilm frames = new TextureFilm(texture, 18, 17);
 
-        idle = new Animation( 12, true );
-        idle.frames( frames, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2 );
+        idle = new Animation(12, true);
+        idle.frames(frames, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2);
 
-        run = new Animation( 8, true );
-        run.frames( frames, 5, 5, 6, 6 );
+        run = new Animation(8, true);
+        run.frames(frames, 5, 5, 6, 6);
 
-        attack = new Animation( 15, false );
-        attack.frames( frames, 0, 3, 4 );
+        attack = new Animation(15, false);
+        attack.frames(frames, 0, 3, 4);
 
         zap = attack.clone();
 
-        die = new Animation( 12, false );
-        die.frames( frames, 0, 7, 8, 9, 10 );
+        die = new Animation(12, false);
+        die.frames(frames, 0, 7, 8, 9, 10);
 
-        play( idle );
+        play(idle);
     }
 
     @Override
@@ -57,34 +57,30 @@ public class ScorpioSprite extends MobSprite {
     }
 
     @Override
-    public void attack( int cell ) {
-        if (!Level.adjacent( cell, ch.pos )) {
-
+    public void attack(int cell) {
+        if (!Level.adjacent(cell, ch.pos)) {
             cellToAttack = cell;
-            turnTo( ch.pos , cell );
-            play( zap );
-
+            turnTo(ch.pos, cell);
+            play(zap);
         } else {
-
-            super.attack( cell );
-
+            super.attack(cell);
         }
     }
 
     @Override
-    public void onComplete( Animation anim ) {
+    public void onComplete(Animation anim) {
         if (anim == zap) {
             idle();
 
-            ((MissileSprite)parent.recycle( MissileSprite.class )).
-            reset( ch.pos, cellToAttack, new Dart(), new Callback() {
-                @Override
-                public void call() {
-                    ch.onAttackComplete();
-                }
-            } );
+            ((MissileSprite) parent.recycle(MissileSprite.class)).
+                    reset(ch.pos, cellToAttack, new Dart(), new Callback() {
+                        @Override
+                        public void call() {
+                            ch.onAttackComplete();
+                        }
+                    });
         } else {
-            super.onComplete( anim );
+            super.onComplete(anim);
         }
     }
 }

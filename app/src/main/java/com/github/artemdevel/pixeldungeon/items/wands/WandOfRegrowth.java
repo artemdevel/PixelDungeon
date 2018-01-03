@@ -37,19 +37,18 @@ public class WandOfRegrowth extends Wand {
     }
 
     @Override
-    protected void onZap( int cell ) {
-
-        for (int i=1; i < Ballistica.distance-1; i++) {
+    protected void onZap(int cell) {
+        for (int i = 1; i < Ballistica.distance - 1; i++) {
             int p = Ballistica.trace[i];
             int c = Dungeon.level.map[p];
             if (c == Terrain.EMPTY ||
-                c == Terrain.EMBERS ||
-                c == Terrain.EMPTY_DECO) {
+                    c == Terrain.EMBERS ||
+                    c == Terrain.EMPTY_DECO) {
 
-                Level.set( p, Terrain.GRASS );
-                GameScene.updateMap( p );
+                Level.set(p, Terrain.GRASS);
+                GameScene.updateMap(p);
                 if (Dungeon.visible[p]) {
-                    GameScene.discoverTile( p, c );
+                    GameScene.discoverTile(p, c);
                 }
 
             }
@@ -57,23 +56,20 @@ public class WandOfRegrowth extends Wand {
 
         int c = Dungeon.level.map[cell];
         if (c == Terrain.EMPTY ||
-            c == Terrain.EMBERS ||
-            c == Terrain.EMPTY_DECO ||
-            c == Terrain.GRASS ||
-            c == Terrain.HIGH_GRASS) {
+                c == Terrain.EMBERS ||
+                c == Terrain.EMPTY_DECO ||
+                c == Terrain.GRASS ||
+                c == Terrain.HIGH_GRASS) {
 
-            GameScene.add( Blob.seed( cell, (power() + 2) * 20, Regrowth.class ) );
-
+            GameScene.add(Blob.seed(cell, (power() + 2) * 20, Regrowth.class));
         } else {
-
-            GLog.i( "nothing happened" );
-
+            GLog.i("nothing happened");
         }
     }
 
-    protected void fx( int cell, Callback callback ) {
-        MagicMissile.foliage( curUser.sprite.parent, curUser.pos, cell, callback );
-        Sample.INSTANCE.play( Assets.SND_ZAP );
+    protected void fx(int cell, Callback callback) {
+        MagicMissile.foliage(curUser.sprite.parent, curUser.pos, cell, callback);
+        Sample.INSTANCE.play(Assets.SND_ZAP);
     }
 
     @Override

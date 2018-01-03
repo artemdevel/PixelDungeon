@@ -29,14 +29,13 @@ import com.github.artemdevel.pixeldungeon.ui.Window;
 
 public class WndInfoCell extends Window {
 
-    private static final float GAP    = 2;
+    private static final float GAP = 2;
 
     private static final int WIDTH = 120;
 
-    private static final String TXT_NOTHING    = "There is nothing here.";
+    private static final String TXT_NOTHING = "There is nothing here.";
 
-    public WndInfoCell( int cell ) {
-
+    public WndInfoCell(int cell) {
         super();
 
         int tile = Dungeon.level.map[cell];
@@ -48,37 +47,37 @@ public class WndInfoCell extends Window {
 
         IconTitle titlebar = new IconTitle();
         if (tile == Terrain.WATER) {
-            Image water = new Image( Dungeon.level.waterTex() );
-            water.frame( 0, 0, DungeonTilemap.SIZE, DungeonTilemap.SIZE );
-            titlebar.icon( water );
+            Image water = new Image(Dungeon.level.waterTex());
+            water.frame(0, 0, DungeonTilemap.SIZE, DungeonTilemap.SIZE);
+            titlebar.icon(water);
         } else {
-            titlebar.icon( DungeonTilemap.tile( tile ) );
+            titlebar.icon(DungeonTilemap.tile(tile));
         }
-        titlebar.label( Dungeon.level.tileName( tile ) );
-        titlebar.setRect( 0, 0, WIDTH, 0 );
-        add( titlebar );
+        titlebar.label(Dungeon.level.tileName(tile));
+        titlebar.setRect(0, 0, WIDTH, 0);
+        add(titlebar);
 
-        BitmapTextMultiline info = PixelScene.createMultiline( 6 );
-        add( info );
+        BitmapTextMultiline info = PixelScene.createMultiline(6);
+        add(info);
 
-        StringBuilder desc = new StringBuilder( Dungeon.level.tileDesc( tile ) );
+        StringBuilder desc = new StringBuilder(Dungeon.level.tileDesc(tile));
 
         final char newLine = '\n';
-        for (Blob blob:Dungeon.level.blobs.values()) {
+        for (Blob blob : Dungeon.level.blobs.values()) {
             if (blob.cur[cell] > 0 && blob.tileDesc() != null) {
                 if (desc.length() > 0) {
-                    desc.append( newLine );
+                    desc.append(newLine);
                 }
-                desc.append( blob.tileDesc() );
+                desc.append(blob.tileDesc());
             }
         }
 
-        info.text( desc.length() > 0 ? desc.toString() : TXT_NOTHING );
+        info.text(desc.length() > 0 ? desc.toString() : TXT_NOTHING);
         info.maxWidth = WIDTH;
         info.measure();
         info.x = titlebar.left();
         info.y = titlebar.bottom() + GAP;
 
-        resize( WIDTH, (int)(info.y + info.height()) );
+        resize(WIDTH, (int) (info.y + info.height()));
     }
 }

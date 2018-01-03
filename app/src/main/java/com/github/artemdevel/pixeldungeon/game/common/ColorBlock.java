@@ -21,15 +21,15 @@ import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 
 public class ColorBlock extends Image implements Resizable {
 
-    public ColorBlock( float width, float height, int color ) {
-        super( TextureCache.createSolid( color ) );
-        scale.set( width, height );
-        origin.set( 0, 0 );
+    public ColorBlock(float width, float height, int color) {
+        super(TextureCache.createSolid(color));
+        scale.set(width, height);
+        origin.set(0, 0);
     }
 
     @Override
-    public void size( float width, float height ) {
-        scale.set( width, height );
+    public void size(float width, float height) {
+        scale.set(width, height);
     }
 
     @Override

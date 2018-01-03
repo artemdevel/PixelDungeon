@@ -31,7 +31,7 @@ public class Component extends Group {
         createChildren();
     }
 
-    public Component setPos( float x, float y ) {
+    public Component setPos(float x, float y) {
         this.x = x;
         this.y = y;
         layout();
@@ -39,7 +39,7 @@ public class Component extends Group {
         return this;
     }
 
-    public Component setSize( float width, float height ) {
+    public Component setSize(float width, float height) {
         this.width = width;
         this.height = height;
         layout();
@@ -47,7 +47,7 @@ public class Component extends Group {
         return this;
     }
 
-    public Component setRect( float x, float y, float width, float height ) {
+    public Component setRect(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -57,12 +57,12 @@ public class Component extends Group {
         return this;
     }
 
-    public boolean inside( float x, float y ) {
+    public boolean inside(float x, float y) {
         return x >= this.x && y >= this.y && x < this.x + width && y < this.y + height;
     }
 
-    public void fill( Component c ) {
-        setRect( c.x, c.y, c.width, c.height );
+    public void fill(Component c) {
+        setRect(c.x, c.y, c.width, c.height);
     }
 
     public float left() {

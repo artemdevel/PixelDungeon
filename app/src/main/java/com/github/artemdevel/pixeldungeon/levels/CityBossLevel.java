@@ -41,13 +41,13 @@ public class CityBossLevel extends Level {
         color2 = 0xf2f2f2;
     }
 
-    private static final int TOP            = 2;
-    private static final int HALL_WIDTH        = 7;
-    private static final int HALL_HEIGHT    = 15;
-    private static final int CHAMBER_HEIGHT    = 3;
+    private static final int TOP = 2;
+    private static final int HALL_WIDTH = 7;
+    private static final int HALL_HEIGHT = 15;
+    private static final int CHAMBER_HEIGHT = 3;
 
-    private static final int LEFT    = (WIDTH - HALL_WIDTH) / 2;
-    private static final int CENTER    = LEFT + HALL_WIDTH / 2;
+    private static final int LEFT = (WIDTH - HALL_WIDTH) / 2;
+    private static final int CENTER = LEFT + HALL_WIDTH / 2;
 
     private int arenaDoor;
     private boolean enteredArena = false;
@@ -63,31 +63,30 @@ public class CityBossLevel extends Level {
         return Assets.WATER_CITY;
     }
 
-    private static final String DOOR    = "door";
-    private static final String ENTERED    = "entered";
-    private static final String DROPPED    = "droppped";
+    private static final String DOOR = "door";
+    private static final String ENTERED = "entered";
+    private static final String DROPPED = "droppped";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( DOOR, arenaDoor );
-        bundle.put( ENTERED, enteredArena );
-        bundle.put( DROPPED, keyDropped );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(DOOR, arenaDoor);
+        bundle.put(ENTERED, enteredArena);
+        bundle.put(DROPPED, keyDropped);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        arenaDoor = bundle.getInt( DOOR );
-        enteredArena = bundle.getBoolean( ENTERED );
-        keyDropped = bundle.getBoolean( DROPPED );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        arenaDoor = bundle.getInt(DOOR);
+        enteredArena = bundle.getBoolean(ENTERED);
+        keyDropped = bundle.getBoolean(DROPPED);
     }
 
     @Override
     protected boolean build() {
-
-        Painter.fill( this, LEFT, TOP, HALL_WIDTH, HALL_HEIGHT, Terrain.EMPTY );
-        Painter.fill( this, CENTER, TOP, 1, HALL_HEIGHT, Terrain.EMPTY_SP );
+        Painter.fill(this, LEFT, TOP, HALL_WIDTH, HALL_HEIGHT, Terrain.EMPTY);
+        Painter.fill(this, CENTER, TOP, 1, HALL_HEIGHT, Terrain.EMPTY_SP);
 
         int y = TOP + 1;
         while (y < TOP + HALL_HEIGHT) {
@@ -96,10 +95,10 @@ public class CityBossLevel extends Level {
             y += 2;
         }
 
-        int left = pedestal( true );
-        int right = pedestal( false );
+        int left = pedestal(true);
+        int right = pedestal(false);
         map[left] = map[right] = Terrain.PEDESTAL;
-        for (int i=left+1; i < right; i++) {
+        for (int i = left + 1; i < right; i++) {
             map[i] = Terrain.EMPTY_SP;
         }
 
@@ -109,11 +108,11 @@ public class CityBossLevel extends Level {
         arenaDoor = (TOP + HALL_HEIGHT) * WIDTH + CENTER;
         map[arenaDoor] = Terrain.DOOR;
 
-        Painter.fill( this, LEFT, TOP + HALL_HEIGHT + 1, HALL_WIDTH, CHAMBER_HEIGHT, Terrain.EMPTY );
-        Painter.fill( this, LEFT, TOP + HALL_HEIGHT + 1, 1, CHAMBER_HEIGHT, Terrain.BOOKSHELF );
-        Painter.fill( this, LEFT + HALL_WIDTH - 1, TOP + HALL_HEIGHT + 1, 1, CHAMBER_HEIGHT, Terrain.BOOKSHELF );
+        Painter.fill(this, LEFT, TOP + HALL_HEIGHT + 1, HALL_WIDTH, CHAMBER_HEIGHT, Terrain.EMPTY);
+        Painter.fill(this, LEFT, TOP + HALL_HEIGHT + 1, 1, CHAMBER_HEIGHT, Terrain.BOOKSHELF);
+        Painter.fill(this, LEFT + HALL_WIDTH - 1, TOP + HALL_HEIGHT + 1, 1, CHAMBER_HEIGHT, Terrain.BOOKSHELF);
 
-        entrance = (TOP + HALL_HEIGHT + 2 + Random.Int( CHAMBER_HEIGHT - 1 )) * WIDTH + LEFT + (/*1 +*/ Random.Int( HALL_WIDTH-2 ));
+        entrance = (TOP + HALL_HEIGHT + 2 + Random.Int(CHAMBER_HEIGHT - 1)) * WIDTH + LEFT + (/*1 +*/ Random.Int(HALL_WIDTH - 2));
         map[entrance] = Terrain.ENTRANCE;
 
         return true;
@@ -121,11 +120,10 @@ public class CityBossLevel extends Level {
 
     @Override
     protected void decorate() {
-
-        for (int i=0; i < LENGTH; i++) {
-            if (map[i] == Terrain.EMPTY && Random.Int( 10 ) == 0) {
+        for (int i = 0; i < LENGTH; i++) {
+            if (map[i] == Terrain.EMPTY && Random.Int(10) == 0) {
                 map[i] = Terrain.EMPTY_DECO;
-            } else if (map[i] == Terrain.WALL && Random.Int( 8 ) == 0) {
+            } else if (map[i] == Terrain.WALL && Random.Int(8) == 0) {
                 map[i] = Terrain.WALL_DECO;
             }
         }
@@ -134,7 +132,7 @@ public class CityBossLevel extends Level {
         map[sign] = Terrain.SIGN;
     }
 
-    public static int pedestal( boolean left ) {
+    public static int pedestal(boolean left) {
         if (left) {
             return (TOP + HALL_HEIGHT / 2) * WIDTH + CENTER - 2;
         } else {
@@ -156,11 +154,10 @@ public class CityBossLevel extends Level {
         if (item != null) {
             int pos;
             do {
-                pos =
-                    Random.IntRange( LEFT + 1, LEFT + HALL_WIDTH - 2 ) +
-                    Random.IntRange( TOP + HALL_HEIGHT + 1, TOP + HALL_HEIGHT  + CHAMBER_HEIGHT ) * WIDTH;
+                pos = Random.IntRange(LEFT + 1, LEFT + HALL_WIDTH - 2) +
+                Random.IntRange(TOP + HALL_HEIGHT + 1, TOP + HALL_HEIGHT + CHAMBER_HEIGHT) * WIDTH;
             } while (pos == entrance || map[pos] == Terrain.SIGN);
-            drop( item, pos ).type = Heap.Type.SKELETON;
+            drop(item, pos).type = Heap.Type.SKELETON;
         }
     }
 
@@ -170,92 +167,85 @@ public class CityBossLevel extends Level {
     }
 
     @Override
-    public void press( int cell, Char hero ) {
+    public void press(int cell, Char hero) {
+        super.press(cell, hero);
 
-        super.press( cell, hero );
-
-        if (!enteredArena && outsideEntraceRoom( cell ) && hero == Dungeon.hero) {
-
+        if (!enteredArena && outsideEntraceRoom(cell) && hero == Dungeon.hero) {
             enteredArena = true;
 
-            Mob boss = Bestiary.mob( Dungeon.depth );
+            Mob boss = Bestiary.mob(Dungeon.depth);
             boss.state = boss.HUNTING;
             int count = 0;
             do {
-                boss.pos = Random.Int( LENGTH );
-            } while (
-                !passable[boss.pos] ||
-                !outsideEntraceRoom( boss.pos ) ||
-                (Dungeon.visible[boss.pos] && count++ < 20));
-            GameScene.add( boss );
+                boss.pos = Random.Int(LENGTH);
+            } while (!passable[boss.pos] || !outsideEntraceRoom(boss.pos) || (Dungeon.visible[boss.pos] && count++ < 20));
+            GameScene.add(boss);
 
             if (Dungeon.visible[boss.pos]) {
                 boss.notice();
-                boss.sprite.alpha( 0 );
-                boss.sprite.parent.add( new AlphaTweener( boss.sprite, 1, 0.1f ) );
+                boss.sprite.alpha(0);
+                boss.sprite.parent.add(new AlphaTweener(boss.sprite, 1, 0.1f));
             }
 
-            set( arenaDoor, Terrain.LOCKED_DOOR );
-            GameScene.updateMap( arenaDoor );
+            set(arenaDoor, Terrain.LOCKED_DOOR);
+            GameScene.updateMap(arenaDoor);
             Dungeon.observe();
         }
     }
 
     @Override
-    public Heap drop( Item item, int cell ) {
-
+    public Heap drop(Item item, int cell) {
         if (!keyDropped && item instanceof SkeletonKey) {
-
             keyDropped = true;
 
-            set( arenaDoor, Terrain.DOOR );
-            GameScene.updateMap( arenaDoor );
+            set(arenaDoor, Terrain.DOOR);
+            GameScene.updateMap(arenaDoor);
             Dungeon.observe();
         }
 
-        return super.drop( item, cell );
+        return super.drop(item, cell);
     }
 
-    private boolean outsideEntraceRoom( int cell ) {
+    private boolean outsideEntraceRoom(int cell) {
         return cell / WIDTH < arenaDoor / WIDTH;
     }
 
     @Override
-    public String tileName( int tile ) {
+    public String tileName(int tile) {
         switch (tile) {
-        case Terrain.WATER:
-            return "Suspiciously colored water";
-        case Terrain.HIGH_GRASS:
-            return "High blooming flowers";
-        default:
-            return super.tileName( tile );
+            case Terrain.WATER:
+                return "Suspiciously colored water";
+            case Terrain.HIGH_GRASS:
+                return "High blooming flowers";
+            default:
+                return super.tileName(tile);
         }
     }
 
     @Override
     public String tileDesc(int tile) {
         switch (tile) {
-        case Terrain.ENTRANCE:
-            return "A ramp leads up to the upper depth.";
-        case Terrain.EXIT:
-            return "A ramp leads down to the lower depth.";
-        case Terrain.WALL_DECO:
-        case Terrain.EMPTY_DECO:
-            return "Several tiles are missing here.";
-        case Terrain.EMPTY_SP:
-            return "Thick carpet covers the floor.";
-        case Terrain.STATUE:
-        case Terrain.STATUE_SP:
-            return "The statue depicts some dwarf standing in a heroic stance.";
-        case Terrain.BOOKSHELF:
-            return "The rows of books on different disciplines fill the bookshelf.";
-        default:
-            return super.tileDesc( tile );
+            case Terrain.ENTRANCE:
+                return "A ramp leads up to the upper depth.";
+            case Terrain.EXIT:
+                return "A ramp leads down to the lower depth.";
+            case Terrain.WALL_DECO:
+            case Terrain.EMPTY_DECO:
+                return "Several tiles are missing here.";
+            case Terrain.EMPTY_SP:
+                return "Thick carpet covers the floor.";
+            case Terrain.STATUE:
+            case Terrain.STATUE_SP:
+                return "The statue depicts some dwarf standing in a heroic stance.";
+            case Terrain.BOOKSHELF:
+                return "The rows of books on different disciplines fill the bookshelf.";
+            default:
+                return super.tileDesc(tile);
         }
     }
 
     @Override
-    public void addVisuals( Scene scene ) {
-        CityLevel.addVisuals( this, scene );
+    public void addVisuals(Scene scene) {
+        CityLevel.addVisuals(this, scene);
     }
 }

@@ -28,19 +28,18 @@ public class Slow extends Weapon.Enchantment {
 
     private static final String TXT_CHILLING = "chilling %s";
 
-    private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing( 0x0044FF );
+    private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing(0x0044FF);
 
     @Override
-    public boolean proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+    public boolean process(Weapon weapon, Char attacker, Char defender, int damage) {
         // lvl 0 - 25%
         // lvl 1 - 40%
         // lvl 2 - 50%
-        int level = Math.max( 0, weapon.effectiveLevel() );
+        int level = Math.max(0, weapon.effectiveLevel());
 
-        if (Random.Int( level + 4 ) >= 3) {
-
-            Buff.prolong( defender, com.github.artemdevel.pixeldungeon.actors.buffs.Slow.class,
-                Random.Float( 1, 1.5f + level ) );
+        if (Random.Int(level + 4) >= 3) {
+            Buff.prolong(defender, com.github.artemdevel.pixeldungeon.actors.buffs.Slow.class,
+                    Random.Float(1, 1.5f + level));
 
             return true;
         } else {
@@ -54,8 +53,8 @@ public class Slow extends Weapon.Enchantment {
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_CHILLING, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_CHILLING, weaponName);
     }
 
 }

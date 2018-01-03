@@ -26,8 +26,7 @@ import com.github.artemdevel.pixeldungeon.sprites.ItemSpriteSheet;
 
 public class Dreamweed extends Plant {
 
-    private static final String TXT_DESC =
-        "Upon touching a Dreamweed it secretes a glittering cloud of confusing gas.";
+    private static final String TXT_DESC = "Upon touching a Dreamweed it secretes a glittering cloud of confusing gas.";
 
     {
         image = 3;
@@ -35,11 +34,11 @@ public class Dreamweed extends Plant {
     }
 
     @Override
-    public void activate( Char ch ) {
-        super.activate( ch );
+    public void activate(Char ch) {
+        super.activate(ch);
 
         if (ch != null) {
-            GameScene.add( Blob.seed( pos, 400, ConfusionGas.class ) );
+            GameScene.add(Blob.seed(pos, 400, ConfusionGas.class));
         }
     }
 

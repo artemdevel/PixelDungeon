@@ -24,7 +24,7 @@ import com.github.artemdevel.pixeldungeon.items.Item;
 import com.github.artemdevel.pixeldungeon.sprites.ItemSpriteSheet;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
-public class Tamahawk extends MissileWeapon {
+public class Tomahawk extends MissileWeapon {
 
     {
         name = "tomahawk";
@@ -33,11 +33,11 @@ public class Tamahawk extends MissileWeapon {
         STR = 17;
     }
 
-    public Tamahawk() {
-        this( 1 );
+    public Tomahawk() {
+        this(1);
     }
 
-    public Tamahawk( int number ) {
+    public Tomahawk(int number) {
         super();
         quantity = number;
     }
@@ -53,9 +53,9 @@ public class Tamahawk extends MissileWeapon {
     }
 
     @Override
-    public void proc( Char attacker, Char defender, int damage ) {
-        super.proc( attacker, defender, damage );
-        Buff.affect( defender, Bleeding.class ).set( damage );
+    public void process(Char attacker, Char defender, int damage) {
+        super.process(attacker, defender, damage);
+        Buff.affect(defender, Bleeding.class).set(damage);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Tamahawk extends MissileWeapon {
 
     @Override
     public Item random() {
-        quantity = Random.Int( 5, 12 );
+        quantity = Random.Int(5, 12);
         return this;
     }
 

@@ -42,6 +42,20 @@ public class Eye extends Mob {
 
     private static final String TXT_DEATHGAZE_KILLED = "%s's deathgaze killed you...";
 
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(WandOfDisintegration.class);
+        RESISTANCES.add(Death.class);
+        RESISTANCES.add(Leech.class);
+    }
+
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(Terror.class);
+    }
+
     {
         name = "evil eye";
         spriteClass = EyeSprite.class;
@@ -67,11 +81,10 @@ public class Eye extends Mob {
     private int hitCell;
 
     @Override
-    protected boolean canAttack( Char enemy ) {
+    protected boolean canAttack(Char enemy) {
+        hitCell = Ballistica.cast(pos, enemy.pos, true, false);
 
-        hitCell = Ballistica.cast( pos, enemy.pos, true, false );
-
-        for (int i=1; i < Ballistica.distance; i++) {
+        for (int i = 1; i < Ballistica.distance; i++) {
             if (Ballistica.trace[i] == enemy.pos) {
                 return true;
             }
@@ -80,7 +93,7 @@ public class Eye extends Mob {
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 30;
     }
 
@@ -90,53 +103,51 @@ public class Eye extends Mob {
     }
 
     @Override
-    protected boolean doAttack( Char enemy ) {
-
-        spend( attackDelay() );
+    protected boolean doAttack(Char enemy) {
+        spend(attackDelay());
 
         boolean rayVisible = false;
 
-        for (int i=0; i < Ballistica.distance; i++) {
+        for (int i = 0; i < Ballistica.distance; i++) {
             if (Dungeon.visible[Ballistica.trace[i]]) {
                 rayVisible = true;
             }
         }
 
         if (rayVisible) {
-            sprite.attack( hitCell );
+            sprite.attack(hitCell);
             return false;
         } else {
-            attack( enemy );
+            attack(enemy);
             return true;
         }
     }
 
     @Override
-    public boolean attack( Char enemy ) {
-
-        for (int i=1; i < Ballistica.distance; i++) {
+    public boolean attack(Char enemy) {
+        for (int i = 1; i < Ballistica.distance; i++) {
 
             int pos = Ballistica.trace[i];
 
-            Char ch = Actor.findChar( pos );
+            Char ch = Actor.findChar(pos);
             if (ch == null) {
                 continue;
             }
 
-            if (hit( this, ch, true )) {
-                ch.damage( Random.NormalIntRange( 14, 20 ), this );
+            if (hit(this, ch, true)) {
+                ch.damage(Random.NormalIntRange(14, 20), this);
 
                 if (Dungeon.visible[pos]) {
                     ch.sprite.flash();
-                    CellEmitter.center( pos ).burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
+                    CellEmitter.center(pos).burst(PurpleParticle.BURST, Random.IntRange(1, 2));
                 }
 
                 if (!ch.isAlive() && ch == Dungeon.hero) {
-                    Dungeon.fail( Utils.format( ResultDescriptions.MOB, Utils.indefinite( name ), Dungeon.depth ) );
-                    GLog.n( TXT_DEATHGAZE_KILLED, name );
+                    Dungeon.fail(Utils.format(ResultDescriptions.MOB, Utils.indefinite(name), Dungeon.depth));
+                    GLog.n(TXT_DEATHGAZE_KILLED, name);
                 }
             } else {
-                ch.sprite.showStatus( CharSprite.NEUTRAL,  ch.defenseVerb() );
+                ch.sprite.showStatus(CharSprite.NEUTRAL, ch.defenseVerb());
             }
         }
 
@@ -145,26 +156,13 @@ public class Eye extends Mob {
 
     @Override
     public String description() {
-        return
-            "One of this demon's other names is \"orb of hatred\", because when it sees an enemy, " +
+        return "One of this demon's other names is \"orb of hatred\", because when it sees an enemy, " +
             "it uses its deathgaze recklessly, often ignoring its allies and wounding them.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( WandOfDisintegration.class );
-        RESISTANCES.add( Death.class );
-        RESISTANCES.add( Leech.class );
     }
 
     @Override
     public HashSet<Class<?>> resistances() {
         return RESISTANCES;
-    }
-
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( Terror.class );
     }
 
     @Override

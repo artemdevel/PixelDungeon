@@ -33,10 +33,10 @@ public class Shuriken extends MissileWeapon {
     }
 
     public Shuriken() {
-        this( 1 );
+        this(1);
     }
 
-    public Shuriken( int number ) {
+    public Shuriken(int number) {
         super();
         quantity = number;
     }
@@ -60,7 +60,7 @@ public class Shuriken extends MissileWeapon {
 
     @Override
     public Item random() {
-        quantity = Random.Int( 5, 15 );
+        quantity = Random.Int(5, 15);
         return this;
     }
 

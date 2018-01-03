@@ -26,12 +26,12 @@ import com.github.artemdevel.pixeldungeon.sprites.ItemSprite.Glowing;
 
 public class AutoRepair extends Glyph {
 
-    private static final String TXT_AUTO_REPAIR    = "%s of auto-repair";
+    private static final String TXT_AUTO_REPAIR = "%s of auto-repair";
 
-    private static Glowing GRAY = new Glowing( 0xCC8888 );
+    private static Glowing GRAY = new Glowing(0xCC8888);
 
     @Override
-    public int proc( Armor armor, Char attacker, Char defender, int damage) {
+    public int process(Armor armor, Char attacker, Char defender, int damage) {
         if (defender instanceof Hero && Dungeon.gold >= armor.tier) {
             Dungeon.gold -= armor.tier;
             armor.polish();
@@ -40,8 +40,8 @@ public class AutoRepair extends Glyph {
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_AUTO_REPAIR, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_AUTO_REPAIR, weaponName);
     }
 
     @Override

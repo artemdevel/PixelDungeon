@@ -47,6 +47,19 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class DM300 extends Mob {
 
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(Death.class);
+        RESISTANCES.add(ScrollOfPsionicBlast.class);
+    }
+
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(ToxicGas.class);
+    }
+
     {
         name = Dungeon.depth == Statistics.deepestFloor ? "DM-300" : "DM-350";
         spriteClass = DM300Sprite.class;
@@ -61,11 +74,11 @@ public class DM300 extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 18, 24 );
+        return Random.NormalIntRange(18, 24);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 28;
     }
 
@@ -76,93 +89,80 @@ public class DM300 extends Mob {
 
     @Override
     public boolean act() {
-        GameScene.add( Blob.seed( pos, 30, ToxicGas.class ) );
+        GameScene.add(Blob.seed(pos, 30, ToxicGas.class));
         return super.act();
     }
 
     @Override
-    public void move( int step ) {
-        super.move( step );
+    public void move(int step) {
+        super.move(step);
 
         if (Dungeon.level.map[step] == Terrain.INACTIVE_TRAP && HP < HT) {
 
-            HP += Random.Int( 1, HT - HP );
-            sprite.emitter().burst( ElmoParticle.FACTORY, 5 );
+            HP += Random.Int(1, HT - HP);
+            sprite.emitter().burst(ElmoParticle.FACTORY, 5);
 
             if (Dungeon.visible[step] && Dungeon.hero.isAlive()) {
-                GLog.n( "DM-300 repairs itself!" );
+                GLog.n("DM-300 repairs itself!");
             }
         }
 
         int[] cells = {
-            step-1, step+1, step-Level.WIDTH, step+Level.WIDTH,
-            step-1-Level.WIDTH,
-            step-1+Level.WIDTH,
-            step+1-Level.WIDTH,
-            step+1+Level.WIDTH
+            step - 1, step + 1, step - Level.WIDTH, step + Level.WIDTH,
+            step - 1 - Level.WIDTH,
+            step - 1 + Level.WIDTH,
+            step + 1 - Level.WIDTH,
+            step + 1 + Level.WIDTH
         };
-        int cell = cells[Random.Int( cells.length )];
+        int cell = cells[Random.Int(cells.length)];
 
         if (Dungeon.visible[cell]) {
-            CellEmitter.get( cell ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
-            Camera.main.shake( 3, 0.7f );
-            Sample.INSTANCE.play( Assets.SND_ROCKS );
+            CellEmitter.get(cell).start(Speck.factory(Speck.ROCK), 0.07f, 10);
+            Camera.main.shake(3, 0.7f);
+            Sample.INSTANCE.play(Assets.SND_ROCKS);
 
             if (Level.water[cell]) {
-                GameScene.ripple( cell );
+                GameScene.ripple(cell);
             } else if (Dungeon.level.map[cell] == Terrain.EMPTY) {
-                Level.set( cell, Terrain.EMPTY_DECO );
-                GameScene.updateMap( cell );
+                Level.set(cell, Terrain.EMPTY_DECO);
+                GameScene.updateMap(cell);
             }
         }
 
-        Char ch = Actor.findChar( cell );
+        Char ch = Actor.findChar(cell);
         if (ch != null && ch != this) {
-            Buff.prolong( ch, Paralysis.class, 2 );
+            Buff.prolong(ch, Paralysis.class, 2);
         }
     }
 
     @Override
-    public void die( Object cause ) {
-
-        super.die( cause );
+    public void die(Object cause) {
+        super.die(cause);
 
         GameScene.bossSlain();
-        Dungeon.level.drop( new SkeletonKey(), pos ).sprite.drop();
+        Dungeon.level.drop(new SkeletonKey(), pos).sprite.drop();
 
         Badges.validateBossSlain();
 
-        yell( "Mission failed. Shutting down." );
+        yell("Mission failed. Shutting down.");
     }
 
     @Override
     public void notice() {
         super.notice();
-        yell( "Unauthorised personnel detected." );
+        yell("Unauthorised personnel detected.");
     }
 
     @Override
     public String description() {
-        return
-            "This machine was created by the Dwarves several centuries ago. Later, Dwarves started to replace machines with " +
+        return "This machine was created by the Dwarves several centuries ago. Later, Dwarves started to replace machines with " +
             "golems, elementals and even demons. Eventually it led their civilization to the decline. The DM-300 and similar " +
             "machines were typically used for construction and mining, and in some cases, for city defense.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( Death.class );
-        RESISTANCES.add( ScrollOfPsionicBlast.class );
     }
 
     @Override
     public HashSet<Class<?>> resistances() {
         return RESISTANCES;
-    }
-
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( ToxicGas.class );
     }
 
     @Override

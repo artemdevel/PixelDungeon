@@ -28,7 +28,7 @@ public class Ooze extends Buff {
 
     private static final String TXT_HERO_KILLED = "%s killed you...";
 
-    public int damage    = 1;
+    public int damage = 1;
 
     @Override
     public int icon() {
@@ -43,12 +43,12 @@ public class Ooze extends Buff {
     @Override
     public boolean act() {
         if (target.isAlive()) {
-            target.damage( damage, this );
+            target.damage(damage, this);
             if (!target.isAlive() && target == Dungeon.hero) {
-                Dungeon.fail( Utils.format( ResultDescriptions.OOZE, Dungeon.depth ) );
-                GLog.n( TXT_HERO_KILLED, toString() );
+                Dungeon.fail(Utils.format(ResultDescriptions.OOZE, Dungeon.depth));
+                GLog.n(TXT_HERO_KILLED, toString());
             }
-            spend( TICK );
+            spend(TICK);
         }
         if (Level.water[target.pos]) {
             detach();

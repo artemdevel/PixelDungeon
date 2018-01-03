@@ -33,45 +33,39 @@ public class TextureCache {
 
     public static Context context;
 
-    private static HashMap<Object,SmartTexture> all = new HashMap<Object, SmartTexture>();
+    private static HashMap<Object, SmartTexture> all = new HashMap<>();
 
     // No dithering, no scaling, 32 bits per pixel
     private static BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+
     static {
         bitmapOptions.inScaled = false;
         bitmapOptions.inDither = false;
         bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;
     }
 
-    public static SmartTexture createSolid( int color ) {
+    public static SmartTexture createSolid(int color) {
         final String key = "1x1:" + color;
 
-        if (all.containsKey( key )) {
-
-            return all.get( key );
-
+        if (all.containsKey(key)) {
+            return all.get(key);
         } else {
+            Bitmap bmp = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            bmp.eraseColor(color);
 
-            Bitmap bmp = Bitmap.createBitmap( 1, 1, Bitmap.Config.ARGB_8888 );
-            bmp.eraseColor( color );
-
-            SmartTexture tx = new SmartTexture( bmp );
-            all.put( key, tx );
+            SmartTexture tx = new SmartTexture(bmp);
+            all.put(key, tx);
 
             return tx;
         }
     }
 
 //    public static SmartTexture createGradient( int width, int height, int... colors ) {
-//
 //        final String key = "" + width + "x" + height + ":" + colors;
 //
 //        if (all.containsKey( key )) {
-//
 //            return all.get( key );
-//
 //        } else {
-//
 //            Bitmap bmp = Bitmap.createBitmap( width, height, Bitmap.Config.ARGB_8888 );
 //            Canvas canvas = new Canvas( bmp );
 //            Paint paint = new Paint();
@@ -82,79 +76,56 @@ public class TextureCache {
 //            all.put( key, tx );
 //            return tx;
 //        }
-//
 //    }
 
-    public static void add( Object key, SmartTexture tx ) {
-        all.put( key, tx );
+    public static void add(Object key, SmartTexture tx) {
+        all.put(key, tx);
     }
 
-    public static SmartTexture get( Object src ) {
-
-        if (all.containsKey( src )) {
-
-            return all.get( src );
-
+    public static SmartTexture get(Object src) {
+        if (all.containsKey(src)) {
+            return all.get(src);
         } else if (src instanceof SmartTexture) {
-
-            return (SmartTexture)src;
-
+            return (SmartTexture) src;
         } else {
-
-            SmartTexture tx = new SmartTexture( getBitmap( src ) );
-            all.put( src, tx );
+            SmartTexture tx = new SmartTexture(getBitmap(src));
+            all.put(src, tx);
             return tx;
         }
-
     }
 
     public static void clear() {
-
-        for (Texture txt:all.values()) {
+        for (Texture txt : all.values()) {
             txt.delete();
         }
         all.clear();
-
     }
 
     public static void reload() {
-        for (SmartTexture tx:all.values()) {
+        for (SmartTexture tx : all.values()) {
             tx.reload();
         }
     }
 
-    public static Bitmap getBitmap( Object src ) {
-
+    public static Bitmap getBitmap(Object src) {
         try {
-            if (src instanceof Integer){
-
-                return BitmapFactory.decodeResource(
-                    context.getResources(), (Integer)src, bitmapOptions );
-
+            if (src instanceof Integer) {
+                return BitmapFactory.decodeResource(context.getResources(), (Integer) src, bitmapOptions);
             } else if (src instanceof String) {
-
-                return BitmapFactory.decodeStream(
-                    context.getAssets().open( (String)src ), null, bitmapOptions );
-
+                return BitmapFactory.decodeStream(context.getAssets().open((String) src), null, bitmapOptions);
             } else if (src instanceof Bitmap) {
-
-                return (Bitmap)src;
-
+                return (Bitmap) src;
             } else {
-
                 return null;
-
             }
         } catch (Exception e) {
-
             e.printStackTrace();
             return null;
-
         }
     }
 
-    public static boolean contains( Object key ) {
-        return all.containsKey( key );
+    public static boolean contains(Object key) {
+        return all.containsKey(key);
     }
 
 }

@@ -32,10 +32,10 @@ public class RedButton extends Button {
     protected BitmapText text;
     protected Image icon;
 
-    public RedButton( String label ) {
+    public RedButton(String label) {
         super();
 
-        text.text( label );
+        text.text(label);
         text.measure();
     }
 
@@ -43,64 +43,63 @@ public class RedButton extends Button {
     protected void createChildren() {
         super.createChildren();
 
-        bg = Chrome.get( Chrome.Type.BUTTON );
-        add( bg );
+        bg = Chrome.get(Chrome.Type.BUTTON);
+        add(bg);
 
-        text = PixelScene.createText( 9 );
-        add( text );
+        text = PixelScene.createText(9);
+        add(text);
     }
 
     @Override
     protected void layout() {
-
         super.layout();
 
         bg.x = x;
         bg.y = y;
-        bg.size( width, height );
+        bg.size(width, height);
 
-        text.x = x + (int)(width - text.width()) / 2;
-        text.y = y + (int)(height - text.baseLine()) / 2;
+        text.x = x + (int) (width - text.width()) / 2;
+        text.y = y + (int) (height - text.baseLine()) / 2;
 
         if (icon != null) {
             icon.x = x + text.x - icon.width() - 2;
             icon.y = y + (height - icon.height()) / 2;
         }
-    };
+    }
 
     @Override
     protected void onTouchDown() {
-        bg.brightness( 1.2f );
-        Sample.INSTANCE.play( Assets.SND_CLICK );
-    };
+        bg.brightness(1.2f);
+        Sample.INSTANCE.play(Assets.SND_CLICK);
+    }
 
     @Override
     protected void onTouchUp() {
         bg.resetColor();
-    };
-
-    public void enable( boolean value ) {
-        active = value;
-        text.alpha( value ? 1.0f : 0.3f );
     }
 
-    public void text( String value ) {
-        text.text( value );
+    public void enable(boolean value) {
+        active = value;
+        text.alpha(value ? 1.0f : 0.3f);
+    }
+
+    public void text(String value) {
+        text.text(value);
         text.measure();
         layout();
     }
 
-    public void textColor( int value ) {
-        text.hardlight( value );
+    public void textColor(int value) {
+        text.hardlight(value);
     }
 
-    public void icon( Image icon ) {
+    public void icon(Image icon) {
         if (this.icon != null) {
-            remove( this.icon );
+            remove(this.icon);
         }
         this.icon = icon;
         if (this.icon != null) {
-            add( this.icon );
+            add(this.icon);
             layout();
         }
     }

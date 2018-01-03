@@ -27,7 +27,7 @@ public class WarHammer extends MeleeWeapon {
     }
 
     public WarHammer() {
-        super( 5, 1.2f, 1f );
+        super(5, 1.2f, 1f);
     }
 
     @Override

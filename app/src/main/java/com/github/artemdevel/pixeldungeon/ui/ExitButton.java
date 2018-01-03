@@ -41,7 +41,7 @@ public class ExitButton extends Button {
         super.createChildren();
 
         image = Icons.EXIT.get();
-        add( image );
+        add(image);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class ExitButton extends Button {
 
     @Override
     protected void onTouchDown() {
-        image.brightness( 1.5f );
-        Sample.INSTANCE.play( Assets.SND_CLICK );
+        image.brightness(1.5f);
+        Sample.INSTANCE.play(Assets.SND_CLICK);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ExitButton extends Button {
         if (Game.scene() instanceof TitleScene) {
             Game.instance.finish();
         } else {
-            PixelDungeon.switchNoFade( TitleScene.class );
+            PixelDungeon.switchNoFade(TitleScene.class);
         }
     }
 }

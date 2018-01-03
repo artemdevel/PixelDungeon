@@ -32,11 +32,11 @@ import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 
 public abstract class Scroll extends Item {
 
-    private static final String TXT_BLINDED    = "You can't read a scroll while blinded";
+    private static final String TXT_BLINDED = "You can't read a scroll while blinded";
 
-    public static final String AC_READ    = "READ";
+    public static final String AC_READ = "READ";
 
-    protected static final float TIME_TO_READ    = 1f;
+    protected static final float TIME_TO_READ = 1f;
 
     private static final Class<?>[] scrolls = {
         ScrollOfIdentify.class,
@@ -52,8 +52,21 @@ public abstract class Scroll extends Item {
         ScrollOfUpgrade.class,
         ScrollOfEnchantment.class
     };
-    private static final String[] runes =
-        {"KAUNAN", "SOWILO", "LAGUZ", "YNGVI", "GYFU", "RAIDO", "ISAZ", "MANNAZ", "NAUDIZ", "BERKANAN", "ODAL", "TIWAZ"};
+    private static final String[] runes = {
+        "KAUNAN",
+        "SOWILO",
+        "LAGUZ",
+        "YNGVI",
+        "GYFU",
+        "RAIDO",
+        "ISAZ",
+        "MANNAZ",
+        "NAUDIZ",
+        "BERKANAN",
+        "ODAL",
+        "TIWAZ"
+    };
+
     private static final Integer[] images = {
         ItemSpriteSheet.SCROLL_KAUNAN,
         ItemSpriteSheet.SCROLL_SOWILO,
@@ -79,65 +92,61 @@ public abstract class Scroll extends Item {
 
     @SuppressWarnings("unchecked")
     public static void initLabels() {
-        handler = new ItemStatusHandler<Scroll>( (Class<? extends Scroll>[])scrolls, runes, images );
+        handler = new ItemStatusHandler<>((Class<? extends Scroll>[]) scrolls, runes, images);
     }
 
-    public static void save( Bundle bundle ) {
-        handler.save( bundle );
+    public static void save(Bundle bundle) {
+        handler.save(bundle);
     }
 
     @SuppressWarnings("unchecked")
-    public static void restore( Bundle bundle ) {
-        handler = new ItemStatusHandler<Scroll>( (Class<? extends Scroll>[])scrolls, runes, images, bundle );
+    public static void restore(Bundle bundle) {
+        handler = new ItemStatusHandler<>((Class<? extends Scroll>[]) scrolls, runes, images, bundle);
     }
 
     public Scroll() {
         super();
-        image = handler.image( this );
-        rune = handler.label( this );
+        image = handler.image(this);
+        rune = handler.label(this);
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_READ );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_READ);
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
-        if (action.equals( AC_READ )) {
-
-            if (hero.buff( Blindness.class ) != null) {
-                GLog.w( TXT_BLINDED );
+    public void execute(Hero hero, String action) {
+        if (action.equals(AC_READ)) {
+            if (hero.buff(Blindness.class) != null) {
+                GLog.w(TXT_BLINDED);
             } else {
                 curUser = hero;
-                curItem = detach( hero.belongings.backpack );
+                curItem = detach(hero.belongings.backpack);
                 doRead();
             }
-
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
     abstract protected void doRead();
 
     protected void readAnimation() {
-        curUser.spend( TIME_TO_READ );
+        curUser.spend(TIME_TO_READ);
         curUser.busy();
-        ((HeroSprite)curUser.sprite).read();
+        ((HeroSprite) curUser.sprite).read();
     }
 
     public boolean isKnown() {
-        return handler.isKnown( this );
+        return handler.isKnown(this);
     }
 
     public void setKnown() {
         if (!isKnown()) {
-            handler.know( this );
+            handler.know(this);
         }
 
         Badges.validateAllScrollsIdentified();

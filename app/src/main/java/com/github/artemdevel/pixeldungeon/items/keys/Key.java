@@ -23,6 +23,8 @@ import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 
 public class Key extends Item {
 
+    private static final String DEPTH = "depth";
+
     public static final float TIME_TO_UNLOCK = 1f;
 
     {
@@ -36,18 +38,16 @@ public class Key extends Item {
         depth = Dungeon.depth;
     }
 
-    private static final String DEPTH = "depth";
-
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( DEPTH, depth );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(DEPTH, depth);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        depth = bundle.getInt( DEPTH );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        depth = bundle.getInt(DEPTH);
     }
 
     @Override
@@ -62,6 +62,7 @@ public class Key extends Item {
 
     @Override
     public String status() {
+        // WTF?
         return depth + "\u007F";
     }
 }

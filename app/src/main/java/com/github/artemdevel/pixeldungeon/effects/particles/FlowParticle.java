@@ -31,8 +31,8 @@ public class FlowParticle extends PixelParticle {
 
     public static final Emitter.Factory FACTORY = new Factory() {
         @Override
-        public void emit( Emitter emitter, int index, float x, float y ) {
-            ((FlowParticle)emitter.recycle( FlowParticle.class )).reset( x, y );
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((FlowParticle) emitter.recycle(FlowParticle.class)).reset(x, y);
         }
     };
 
@@ -40,11 +40,11 @@ public class FlowParticle extends PixelParticle {
         super();
 
         lifespan = 0.6f;
-        acc.set( 0, 32 );
-        angularSpeed = Random.Float( -360, +360 );
+        acc.set(0, 32);
+        angularSpeed = Random.Float(-360, +360);
     }
 
-    public void reset( float x, float y ) {
+    public void reset(float x, float y) {
         revive();
 
         left = lifespan;
@@ -53,8 +53,8 @@ public class FlowParticle extends PixelParticle {
         this.y = y;
 
         am = 0;
-        size( 0 );
-        speed.set( 0 );
+        size(0);
+        speed.set(0);
     }
 
     @Override
@@ -63,12 +63,12 @@ public class FlowParticle extends PixelParticle {
 
         float p = left / lifespan;
         am = (p < 0.5f ? p : 1 - p) * 0.6f;
-        size( (1 - p) * 4 );
+        size((1 - p) * 4);
     }
 
     public static class Flow extends Group {
 
-        private static final float DELAY    = 0.1f;
+        private static final float DELAY = 0.1f;
 
         private int pos;
 
@@ -77,31 +77,25 @@ public class FlowParticle extends PixelParticle {
 
         private float delay;
 
-        public Flow( int pos ) {
+        public Flow(int pos) {
             super();
 
             this.pos = pos;
 
-            PointF p = DungeonTilemap.tileToWorld( pos );
+            PointF p = DungeonTilemap.tileToWorld(pos);
             x = p.x;
             y = p.y + DungeonTilemap.SIZE - 1;
 
-            delay = Random.Float( DELAY );
+            delay = Random.Float(DELAY);
         }
 
         @Override
         public void update() {
-
             if (visible = Dungeon.visible[pos]) {
-
                 super.update();
-
                 if ((delay -= Game.elapsed) <= 0) {
-
-                    delay = Random.Float( DELAY );
-
-                    ((FlowParticle)recycle( FlowParticle.class )).reset(
-                        x + Random.Float( DungeonTilemap.SIZE ), y );
+                    delay = Random.Float(DELAY);
+                    ((FlowParticle) recycle(FlowParticle.class)).reset(x + Random.Float(DungeonTilemap.SIZE), y);
                 }
             }
         }

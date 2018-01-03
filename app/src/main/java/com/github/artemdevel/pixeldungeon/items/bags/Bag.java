@@ -26,12 +26,14 @@ import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
 import com.github.artemdevel.pixeldungeon.items.Item;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
 import com.github.artemdevel.pixeldungeon.windows.WndBag;
-import com.github.artemdevel.pixeldungeon.game.utils.Bundlable;
+import com.github.artemdevel.pixeldungeon.game.utils.BundleAble;
 import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 
 public class Bag extends Item implements Iterable<Item> {
 
-    public static final String AC_OPEN    = "OPEN";
+    private static final String ITEMS = "inventory";
+
+    public static final String AC_OPEN = "OPEN";
 
     {
         image = 11;
@@ -46,38 +48,33 @@ public class Bag extends Item implements Iterable<Item> {
     public int size = 1;
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
-        if (action.equals( AC_OPEN )) {
-
-            GameScene.show( new WndBag( this, null, WndBag.Mode.ALL, null ) );
-
+    public void execute(Hero hero, String action) {
+        if (action.equals(AC_OPEN)) {
+            GameScene.show(new WndBag(this, null, WndBag.Mode.ALL, null));
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
     @Override
-    public boolean collect( Bag container ) {
-        if (super.collect( container )) {
-
+    public boolean collect(Bag container) {
+        if (super.collect(container)) {
             owner = container.owner;
 
-            for (Item item : container.items.toArray( new Item[0] )) {
-                if (grab( item )) {
-                    item.detachAll( container );
-                    item.collect( this );
+            for (Item item : container.items.toArray(new Item[0])) {
+                if (grab(item)) {
+                    item.detachAll(container);
+                    item.collect(this);
                 }
             }
 
-            Badges.validateAllBagsBought( this );
+            Badges.validateAllBagsBought(this);
 
             return true;
         } else {
@@ -86,7 +83,7 @@ public class Bag extends Item implements Iterable<Item> {
     }
 
     @Override
-    public void onDetach( ) {
+    public void onDetach() {
         this.owner = null;
     }
 
@@ -104,34 +101,32 @@ public class Bag extends Item implements Iterable<Item> {
         items.clear();
     }
 
-    private static final String ITEMS    = "inventory";
-
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( ITEMS, items );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(ITEMS, items);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        for (Bundlable item : bundle.getCollection( ITEMS )) {
-            ((Item)item).collect( this );
-        };
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        for (BundleAble item : bundle.getCollection(ITEMS)) {
+            ((Item) item).collect(this);
+        }
     }
 
-    public boolean contains( Item item ) {
+    public boolean contains(Item item) {
         for (Item i : items) {
             if (i == item) {
                 return true;
-            } else if (i instanceof Bag && ((Bag)i).contains( item )) {
+            } else if (i instanceof Bag && ((Bag) i).contains(item)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean grab( Item item ) {
+    public boolean grab(Item item) {
         return false;
     }
 
@@ -157,16 +152,13 @@ public class Bag extends Item implements Iterable<Item> {
         @Override
         public Item next() {
             if (nested != null && nested.hasNext()) {
-
                 return nested.next();
-
             } else {
-
                 nested = null;
 
-                Item item = items.get( index++ );
+                Item item = items.get(index++);
                 if (item instanceof Bag) {
-                    nested = ((Bag)item).iterator();
+                    nested = ((Bag) item).iterator();
                 }
 
                 return item;
@@ -178,7 +170,7 @@ public class Bag extends Item implements Iterable<Item> {
             if (nested != null) {
                 nested.remove();
             } else {
-                items.remove( index );
+                items.remove(index);
             }
         }
     }

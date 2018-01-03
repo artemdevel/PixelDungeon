@@ -49,19 +49,18 @@ public class LastShopLevel extends RegularLevel {
 
     @Override
     protected boolean build() {
-
         initRooms();
 
         int distance;
         int retry = 0;
-        int minDistance = (int)Math.sqrt( rooms.size() );
+        int minDistance = (int) Math.sqrt(rooms.size());
         do {
             int innerRetry = 0;
             do {
                 if (innerRetry++ > 10) {
                     return false;
                 }
-                roomEntrance = Random.element( rooms );
+                roomEntrance = Random.element(rooms);
             } while (roomEntrance.width() < 4 || roomEntrance.height() < 4);
 
             innerRetry = 0;
@@ -69,32 +68,32 @@ public class LastShopLevel extends RegularLevel {
                 if (innerRetry++ > 10) {
                     return false;
                 }
-                roomExit = Random.element( rooms );
-            } while (roomExit == roomEntrance || roomExit.width() < 6 || roomExit.height() < 6 || roomExit.top == 0);
+                roomExit = Random.element(rooms);
+            }
+            while (roomExit == roomEntrance || roomExit.width() < 6 || roomExit.height() < 6 || roomExit.top == 0);
 
-            Graph.buildDistanceMap( rooms, roomExit );
-            distance = Graph.buildPath( rooms, roomEntrance, roomExit ).size();
+            Graph.buildDistanceMap(rooms, roomExit);
+            distance = Graph.buildPath(rooms, roomEntrance, roomExit).size();
 
             if (retry++ > 10) {
                 return false;
             }
-
         } while (distance < minDistance);
 
         roomEntrance.type = Type.ENTRANCE;
         roomExit.type = Type.EXIT;
 
-        Graph.buildDistanceMap( rooms, roomExit );
-        List<Room> path = Graph.buildPath( rooms, roomEntrance, roomExit );
+        Graph.buildDistanceMap(rooms, roomExit);
+        List<Room> path = Graph.buildPath(rooms, roomEntrance, roomExit);
 
-        Graph.setPrice( path, roomEntrance.distance );
+        Graph.setPrice(path, roomEntrance.distance);
 
-        Graph.buildDistanceMap( rooms, roomExit );
-        path = Graph.buildPath( rooms, roomEntrance, roomExit );
+        Graph.buildDistanceMap(rooms, roomExit);
+        path = Graph.buildPath(rooms, roomEntrance, roomExit);
 
         Room room = roomEntrance;
         for (Room next : path) {
-            room.connect( next );
+            room.connect(next);
             room = next;
         }
 
@@ -126,13 +125,12 @@ public class LastShopLevel extends RegularLevel {
 
     @Override
     protected void decorate() {
-
-        for (int i=0; i < LENGTH; i++) {
-            if (map[i] == Terrain.EMPTY && Random.Int( 10 ) == 0) {
+        for (int i = 0; i < LENGTH; i++) {
+            if (map[i] == Terrain.EMPTY && Random.Int(10) == 0) {
 
                 map[i] = Terrain.EMPTY_DECO;
 
-            } else if (map[i] == Terrain.WALL && Random.Int( 8 ) == 0) {
+            } else if (map[i] == Terrain.WALL && Random.Int(8) == 0) {
 
                 map[i] = Terrain.WALL_DECO;
 
@@ -170,7 +168,7 @@ public class LastShopLevel extends RegularLevel {
             do {
                 pos = roomEntrance.random();
             } while (pos == entrance || map[pos] == Terrain.SIGN);
-            drop( item, pos ).type = Heap.Type.SKELETON;
+            drop(item, pos).type = Heap.Type.SKELETON;
         }
     }
 
@@ -180,46 +178,46 @@ public class LastShopLevel extends RegularLevel {
     }
 
     @Override
-    public String tileName( int tile ) {
+    public String tileName(int tile) {
         switch (tile) {
-        case Terrain.WATER:
-            return "Suspiciously colored water";
-        case Terrain.HIGH_GRASS:
-            return "High blooming flowers";
-        default:
-            return super.tileName( tile );
+            case Terrain.WATER:
+                return "Suspiciously colored water";
+            case Terrain.HIGH_GRASS:
+                return "High blooming flowers";
+            default:
+                return super.tileName(tile);
         }
     }
 
     @Override
     public String tileDesc(int tile) {
         switch (tile) {
-        case Terrain.ENTRANCE:
-            return "A ramp leads up to the upper depth.";
-        case Terrain.EXIT:
-            return "A ramp leads down to the Inferno.";
-        case Terrain.WALL_DECO:
-        case Terrain.EMPTY_DECO:
-            return "Several tiles are missing here.";
-        case Terrain.EMPTY_SP:
-            return "Thick carpet covers the floor.";
-        default:
-            return super.tileDesc( tile );
+            case Terrain.ENTRANCE:
+                return "A ramp leads up to the upper depth.";
+            case Terrain.EXIT:
+                return "A ramp leads down to the Inferno.";
+            case Terrain.WALL_DECO:
+            case Terrain.EMPTY_DECO:
+                return "Several tiles are missing here.";
+            case Terrain.EMPTY_SP:
+                return "Thick carpet covers the floor.";
+            default:
+                return super.tileDesc(tile);
         }
     }
 
     @Override
     protected boolean[] water() {
-        return Patch.generate( 0.35f, 4 );
+        return Patch.generate(0.35f, 4);
     }
 
     @Override
     protected boolean[] grass() {
-        return Patch.generate( 0.30f, 3 );
+        return Patch.generate(0.30f, 3);
     }
 
     @Override
-    public void addVisuals( Scene scene ) {
-        CityLevel.addVisuals( this, scene );
+    public void addVisuals(Scene scene) {
+        CityLevel.addVisuals(this, scene);
     }
 }

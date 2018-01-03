@@ -27,7 +27,7 @@ import com.github.artemdevel.pixeldungeon.windows.WndBag;
 
 public class ScrollOfUpgrade extends InventoryScroll {
 
-    private static final String TXT_LOOKS_BETTER    = "your %s certainly looks better now";
+    private static final String TXT_LOOKS_BETTER = "your %s certainly looks better now";
 
     {
         name = "Scroll of Upgrade";
@@ -36,23 +36,22 @@ public class ScrollOfUpgrade extends InventoryScroll {
     }
 
     @Override
-    protected void onItemSelected( Item item ) {
-
-        ScrollOfRemoveCurse.uncurse( Dungeon.hero, item );
+    protected void onItemSelected(Item item) {
+        ScrollOfRemoveCurse.uncurse(Dungeon.hero, item);
         if (item.isBroken()) {
             item.fix();
         } else {
             item.upgrade();
         }
 
-        upgrade( curUser );
-        GLog.p( TXT_LOOKS_BETTER, item.name() );
+        upgrade(curUser);
+        GLog.p(TXT_LOOKS_BETTER, item.name());
 
-        Badges.validateItemLevelAquired( item );
+        Badges.validateItemLevelAcquired(item);
     }
 
-    public static void upgrade( Hero hero ) {
-        hero.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
+    public static void upgrade(Hero hero) {
+        hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
     }
 
     @Override

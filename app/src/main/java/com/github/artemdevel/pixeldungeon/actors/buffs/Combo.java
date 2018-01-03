@@ -38,23 +38,19 @@ public class Combo extends Buff {
         return "Combo";
     }
 
-    public int hit( Char enemy, int damage ) {
-
+    public int hit(Char enemy, int damage) {
         count++;
 
         if (count >= 3) {
+            Badges.validateMasteryCombo(count);
 
-            Badges.validateMasteryCombo( count );
-
-            GLog.p( TXT_COMBO, count );
-            postpone( 1.41f - count / 10f );
-            return (int)(damage * (count - 2) / 5f);
+            GLog.p(TXT_COMBO, count);
+            postpone(1.41f - count / 10f);
+            return (int) (damage * (count - 2) / 5f);
 
         } else {
-
-            postpone( 1.1f );
+            postpone(1.1f);
             return 0;
-
         }
     }
 

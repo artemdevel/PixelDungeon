@@ -34,17 +34,13 @@ public class WandOfTeleportation extends Wand {
     }
 
     @Override
-    protected void onZap( int cell ) {
-
-        Char ch = Actor.findChar( cell );
+    protected void onZap(int cell) {
+        Char ch = Actor.findChar(cell);
 
         if (ch == curUser) {
-
             setKnown();
-            ScrollOfTeleportation.teleportHero( curUser );
-
+            ScrollOfTeleportation.teleportHero(curUser);
         } else if (ch != null) {
-
             int count = 10;
             int pos;
             do {
@@ -55,28 +51,21 @@ public class WandOfTeleportation extends Wand {
             } while (pos == -1);
 
             if (pos == -1) {
-
-                GLog.w( ScrollOfTeleportation.TXT_NO_TELEPORT );
-
+                GLog.w(ScrollOfTeleportation.TXT_NO_TELEPORT);
             } else {
-
                 ch.pos = pos;
-                ch.sprite.place( ch.pos );
+                ch.sprite.place(ch.pos);
                 ch.sprite.visible = Dungeon.visible[pos];
-                GLog.i( curUser.name + " teleported " + ch.name + " to somewhere" );
-
+                GLog.i(curUser.name + " teleported " + ch.name + " to somewhere");
             }
-
         } else {
-
-            GLog.i( "nothing happened" );
-
+            GLog.i("nothing happened");
         }
     }
 
-    protected void fx( int cell, Callback callback ) {
-        MagicMissile.coldLight( curUser.sprite.parent, curUser.pos, cell, callback );
-        Sample.INSTANCE.play( Assets.SND_ZAP );
+    protected void fx(int cell, Callback callback) {
+        MagicMissile.coldLight(curUser.sprite.parent, curUser.pos, cell, callback);
+        Sample.INSTANCE.play(Assets.SND_ZAP);
     }
 
     @Override

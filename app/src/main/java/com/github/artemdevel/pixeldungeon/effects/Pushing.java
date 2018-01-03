@@ -32,7 +32,7 @@ public class Pushing extends Actor {
 
     private Effect effect;
 
-    public Pushing( Char ch, int from, int to ) {
+    public Pushing(Char ch, int from, int to) {
         sprite = ch.sprite;
         this.from = from;
         this.to = to;
@@ -41,15 +41,12 @@ public class Pushing extends Actor {
     @Override
     protected boolean act() {
         if (sprite != null) {
-
             if (effect == null) {
                 new Effect();
             }
             return false;
-
         } else {
-
-            Actor.remove( Pushing.this );
+            Actor.remove(Pushing.this);
             return true;
         }
     }
@@ -63,17 +60,17 @@ public class Pushing extends Actor {
         private float delay;
 
         public Effect() {
-            super( 0, 0, 0, 0 );
+            super(0, 0, 0, 0);
 
-            point( sprite.worldToCamera( from ) );
-            end = sprite.worldToCamera( to );
+            point(sprite.worldToCamera(from));
+            end = sprite.worldToCamera(to);
 
-            speed.set( 2 * (end.x - x) / DELAY, 2 * (end.y - y) / DELAY );
-            acc.set( -speed.x / DELAY, -speed.y / DELAY );
+            speed.set(2 * (end.x - x) / DELAY, 2 * (end.y - y) / DELAY);
+            acc.set(-speed.x / DELAY, -speed.y / DELAY);
 
             delay = 0;
 
-            sprite.parent.add( this );
+            sprite.parent.add(this);
         }
 
         @Override
@@ -87,10 +84,10 @@ public class Pushing extends Actor {
 
             } else {
 
-                sprite.point( end );
+                sprite.point(end);
 
                 killAndErase();
-                Actor.remove( Pushing.this );
+                Actor.remove(Pushing.this);
 
                 next();
             }

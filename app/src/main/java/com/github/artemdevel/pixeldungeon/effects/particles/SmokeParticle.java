@@ -26,27 +26,27 @@ public class SmokeParticle extends PixelParticle {
 
     public static final Emitter.Factory FACTORY = new Factory() {
         @Override
-        public void emit( Emitter emitter, int index, float x, float y ) {
-            ((SmokeParticle)emitter.recycle( SmokeParticle.class )).reset( x, y );
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((SmokeParticle) emitter.recycle(SmokeParticle.class)).reset(x, y);
         }
     };
 
     public SmokeParticle() {
         super();
 
-        color( 0x222222 );
+        color(0x222222);
 
-        acc.set( 0, -40 );
+        acc.set(0, -40);
     }
 
-    public void reset( float x, float y ) {
+    public void reset(float x, float y) {
         revive();
 
         this.x = x;
         this.y = y;
 
-        left = lifespan = Random.Float( 0.6f, 1f );
-        speed.set( Random.Float( -4, +4 ), Random.Float( -8, +8 ) );
+        left = lifespan = Random.Float(0.6f, 1f);
+        speed.set(Random.Float(-4, +4), Random.Float(-8, +8));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class SmokeParticle extends PixelParticle {
         super.update();
 
         float p = left / lifespan;
-        am = p > 0.8f ? 2 - 2*p : p * 0.5f;
-        size( 16 - p * 8 );
+        am = p > 0.8f ? 2 - 2 * p : p * 0.5f;
+        size(16 - p * 8);
     }
 }

@@ -29,10 +29,10 @@ public class Dart extends MissileWeapon {
     }
 
     public Dart() {
-        this( 1 );
+        this(1);
     }
 
-    public Dart( int number ) {
+    public Dart(int number) {
         super();
         quantity = number;
     }
@@ -56,7 +56,7 @@ public class Dart extends MissileWeapon {
 
     @Override
     public Item random() {
-        quantity = Random.Int( 5, 15 );
+        quantity = Random.Int(5, 15);
         return this;
     }
 

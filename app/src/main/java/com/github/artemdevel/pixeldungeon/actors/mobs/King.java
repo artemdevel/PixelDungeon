@@ -27,7 +27,7 @@ import com.github.artemdevel.pixeldungeon.Statistics;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
 import com.github.artemdevel.pixeldungeon.actors.Char;
 import com.github.artemdevel.pixeldungeon.actors.blobs.ToxicGas;
-import com.github.artemdevel.pixeldungeon.actors.buffs.Buff;
+//import com.github.artemdevel.pixeldungeon.actors.buffs.Buff;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Paralysis;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Vertigo;
 import com.github.artemdevel.pixeldungeon.effects.Flare;
@@ -42,14 +42,30 @@ import com.github.artemdevel.pixeldungeon.levels.CityBossLevel;
 import com.github.artemdevel.pixeldungeon.levels.Level;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
 import com.github.artemdevel.pixeldungeon.sprites.KingSprite;
-import com.github.artemdevel.pixeldungeon.sprites.UndeadSprite;
+//import com.github.artemdevel.pixeldungeon.sprites.UndeadSprite;
 import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 import com.github.artemdevel.pixeldungeon.game.utils.PathFinder;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class King extends Mob {
 
-    private static final int MAX_ARMY_SIZE    = 5;
+    private static final int MAX_ARMY_SIZE = 5;
+
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(ToxicGas.class);
+        RESISTANCES.add(Death.class);
+        RESISTANCES.add(ScrollOfPsionicBlast.class);
+        RESISTANCES.add(WandOfDisintegration.class);
+    }
+
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(Paralysis.class);
+        IMMUNITIES.add(Vertigo.class);
+    }
 
     {
         name = Dungeon.depth == Statistics.deepestFloor ? "King of Dwarves" : "undead King of Dwarves";
@@ -67,24 +83,24 @@ public class King extends Mob {
     private static final String PEDESTAL = "pedestal";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( PEDESTAL, nextPedestal );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(PEDESTAL, nextPedestal);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        nextPedestal = bundle.getBoolean( PEDESTAL );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        nextPedestal = bundle.getBoolean(PEDESTAL);
     }
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 20, 38 );
+        return Random.NormalIntRange(20, 38);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 32;
     }
 
@@ -99,22 +115,18 @@ public class King extends Mob {
     }
 
     @Override
-    protected boolean getCloser( int target ) {
-        return canTryToSummon() ?
-            super.getCloser( CityBossLevel.pedestal( nextPedestal ) ) :
-            super.getCloser( target );
+    protected boolean getCloser(int target) {
+        return canTryToSummon() ? super.getCloser(CityBossLevel.pedestal(nextPedestal)) : super.getCloser(target);
     }
 
     @Override
-    protected boolean canAttack( Char enemy ) {
-        return canTryToSummon() ?
-            pos == CityBossLevel.pedestal( nextPedestal ) :
-            Level.adjacent( pos, enemy.pos );
+    protected boolean canAttack(Char enemy) {
+        return canTryToSummon() ? pos == CityBossLevel.pedestal(nextPedestal) : Level.adjacent(pos, enemy.pos);
     }
 
     private boolean canTryToSummon() {
         if (Undead.count < maxArmySize()) {
-            Char ch = Actor.findChar( CityBossLevel.pedestal( nextPedestal ) );
+            Char ch = Actor.findChar(CityBossLevel.pedestal(nextPedestal));
             return ch == this || ch == null;
         } else {
             return false;
@@ -122,12 +134,12 @@ public class King extends Mob {
     }
 
     @Override
-    public boolean attack( Char enemy ) {
-        if (canTryToSummon() && pos == CityBossLevel.pedestal( nextPedestal )) {
+    public boolean attack(Char enemy) {
+        if (canTryToSummon() && pos == CityBossLevel.pedestal(nextPedestal)) {
             summon();
             return true;
         } else {
-            if (Actor.findChar( CityBossLevel.pedestal( nextPedestal ) ) == enemy) {
+            if (Actor.findChar(CityBossLevel.pedestal(nextPedestal)) == enemy) {
                 nextPedestal = !nextPedestal;
             }
             return super.attack(enemy);
@@ -135,16 +147,16 @@ public class King extends Mob {
     }
 
     @Override
-    public void die( Object cause ) {
+    public void die(Object cause) {
         GameScene.bossSlain();
-        Dungeon.level.drop( new ArmorKit(), pos ).sprite.drop();
-        Dungeon.level.drop( new SkeletonKey(), pos ).sprite.drop();
+        Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
+        Dungeon.level.drop(new SkeletonKey(), pos).sprite.drop();
 
-        super.die( cause );
+        super.die(cause);
 
         Badges.validateBossSlain();
 
-        yell( "You cannot kill me, " + Dungeon.hero.heroClass.title() + "... I am... immortal..." );
+        yell("You cannot kill me, " + Dungeon.hero.heroClass.title() + "... I am... immortal...");
     }
 
     private int maxArmySize() {
@@ -152,36 +164,35 @@ public class King extends Mob {
     }
 
     private void summon() {
-
         nextPedestal = !nextPedestal;
 
-        sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.4f, 2 );
-        Sample.INSTANCE.play( Assets.SND_CHALLENGE );
+        sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
+        Sample.INSTANCE.play(Assets.SND_CHALLENGE);
 
         boolean[] passable = Level.passable.clone();
         for (Actor actor : Actor.all()) {
             if (actor instanceof Char) {
-                passable[((Char)actor).pos] = false;
+                passable[((Char) actor).pos] = false;
             }
         }
 
         int undeadsToSummon = maxArmySize() - Undead.count;
-        PathFinder.buildDistanceMap( pos, passable, undeadsToSummon );
+        PathFinder.buildDistanceMap(pos, passable, undeadsToSummon);
         PathFinder.distance[pos] = Integer.MAX_VALUE;
         int dist = 1;
 
-    undeadLabel:
-        for (int i=0; i < undeadsToSummon; i++) {
+        undeadLabel:
+        for (int i = 0; i < undeadsToSummon; i++) {
             do {
-                for (int j=0; j < Level.LENGTH; j++) {
+                for (int j = 0; j < Level.LENGTH; j++) {
                     if (PathFinder.distance[j] == dist) {
 
                         Undead undead = new Undead();
                         undead.pos = j;
-                        GameScene.add( undead );
+                        GameScene.add(undead);
 
-                        WandOfBlink.appear( undead, j );
-                        new Flare( 3, 32 ).color( 0x000000, false ).show( undead.sprite, 2f ) ;
+                        WandOfBlink.appear(undead, j);
+                        new Flare(3, 32).color(0x000000, false).show(undead.sprite, 2f);
 
                         PathFinder.distance[j] = Integer.MAX_VALUE;
 
@@ -192,30 +203,21 @@ public class King extends Mob {
             } while (dist < undeadsToSummon);
         }
 
-        yell( "Arise, slaves!" );
+        yell("Arise, slaves!");
     }
 
     @Override
     public void notice() {
         super.notice();
-        yell( "How dare you!" );
+        yell("How dare you!");
     }
 
     @Override
     public String description() {
-        return
-            "The last king of dwarves was known for his deep understanding of processes of life and death. " +
+        return "The last king of dwarves was known for his deep understanding of processes of life and death. " +
             "He has persuaded members of his court to participate in a ritual, that should have granted them " +
             "eternal youthfulness. In the end he was the only one, who got it - and an army of undead " +
             "as a bonus.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( ToxicGas.class );
-        RESISTANCES.add( Death.class );
-        RESISTANCES.add( ScrollOfPsionicBlast.class );
-        RESISTANCES.add( WandOfDisintegration.class );
     }
 
     @Override
@@ -223,107 +225,9 @@ public class King extends Mob {
         return RESISTANCES;
     }
 
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( Paralysis.class );
-        IMMUNITIES.add( Vertigo.class );
-    }
-
     @Override
     public HashSet<Class<?>> immunities() {
         return IMMUNITIES;
     }
 
-    public static class Undead extends Mob {
-
-        public static int count = 0;
-
-        {
-            name = "undead dwarf";
-            spriteClass = UndeadSprite.class;
-
-            HP = HT = 28;
-            defenseSkill = 15;
-
-            EXP = 0;
-
-            state = WANDERING;
-        }
-
-        @Override
-        protected void onAdd() {
-            count++;
-            super.onAdd();
-        }
-
-        @Override
-        protected void onRemove() {
-            count--;
-            super.onRemove();
-        }
-
-        @Override
-        public int damageRoll() {
-            return Random.NormalIntRange( 12, 16 );
-        }
-
-        @Override
-        public int attackSkill( Char target ) {
-            return 16;
-        }
-
-        @Override
-        public int attackProc( Char enemy, int damage ) {
-            if (Random.Int( MAX_ARMY_SIZE ) == 0) {
-                Buff.prolong( enemy, Paralysis.class, 1 );
-            }
-
-            return damage;
-        }
-
-        @Override
-        public void damage( int dmg, Object src ) {
-            super.damage( dmg, src );
-            if (src instanceof ToxicGas) {
-                ((ToxicGas)src).clear( pos );
-            }
-        }
-
-        @Override
-        public void die( Object cause ) {
-            super.die( cause );
-
-            if (Dungeon.visible[pos]) {
-                Sample.INSTANCE.play( Assets.SND_BONES );
-            }
-        }
-
-        @Override
-        public int dr() {
-            return 5;
-        }
-
-        @Override
-        public String defenseVerb() {
-            return "blocked";
-        }
-
-        @Override
-        public String description() {
-            return
-                "These undead dwarves, risen by the will of the King of Dwarves, were members of his court. " +
-                "They appear as skeletons with a stunning amount of facial hair.";
-        }
-
-        private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-        static {
-            IMMUNITIES.add( Death.class );
-            IMMUNITIES.add( Paralysis.class );
-        }
-
-        @Override
-        public HashSet<Class<?>> immunities() {
-            return IMMUNITIES;
-        }
-    }
 }

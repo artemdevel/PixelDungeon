@@ -29,23 +29,22 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Horror extends Weapon.Enchantment {
 
-    private static final String TXT_ELDRITCH    = "eldritch %s";
+    private static final String TXT_ELDRITCH = "eldritch %s";
 
-    private static ItemSprite.Glowing GREY = new ItemSprite.Glowing( 0x222222 );
+    private static ItemSprite.Glowing GREY = new ItemSprite.Glowing(0x222222);
 
     @Override
-    public boolean proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+    public boolean process(Weapon weapon, Char attacker, Char defender, int damage) {
         // lvl 0 - 20%
         // lvl 1 - 33%
         // lvl 2 - 43%
-        int level = Math.max( 0, weapon.effectiveLevel() );
+        int level = Math.max(0, weapon.effectiveLevel());
 
-        if (Random.Int( level + 5 ) >= 4) {
-
+        if (Random.Int(level + 5) >= 4) {
             if (defender == Dungeon.hero) {
-                Buff.affect( defender, Vertigo.class, Vertigo.duration( defender ) );
+                Buff.affect(defender, Vertigo.class, Vertigo.duration(defender));
             } else {
-                Buff.affect( defender, Terror.class, Terror.DURATION ).object = attacker.id();
+                Buff.affect(defender, Terror.class, Terror.DURATION).object = attacker.id();
             }
 
             return true;
@@ -60,8 +59,8 @@ public class Horror extends Weapon.Enchantment {
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_ELDRITCH, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_ELDRITCH, weaponName);
     }
 
 }

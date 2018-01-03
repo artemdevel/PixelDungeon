@@ -24,9 +24,9 @@ public class BusyIndicator extends Image {
 
     public BusyIndicator() {
         super();
-        copy( Icons.BUSY.get() );
+        copy(Icons.BUSY.get());
 
-        origin.set( width / 2, height / 2 );
+        origin.set(width / 2, height / 2);
         angularSpeed = 720;
     }
 

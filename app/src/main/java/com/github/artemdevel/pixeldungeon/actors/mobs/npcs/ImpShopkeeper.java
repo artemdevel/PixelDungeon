@@ -38,9 +38,8 @@ public class ImpShopkeeper extends Shopkeeper {
 
     @Override
     protected boolean act() {
-
         if (!seenBefore && Dungeon.visible[pos]) {
-            yell( Utils.format( TXT_GREETINGS ) );
+            yell(Utils.format(TXT_GREETINGS));
             seenBefore = true;
         }
 
@@ -49,23 +48,22 @@ public class ImpShopkeeper extends Shopkeeper {
 
     @Override
     protected void flee() {
-        for (Heap heap: Dungeon.level.heaps.values()) {
+        for (Heap heap : Dungeon.level.heaps.values()) {
             if (heap.type == Heap.Type.FOR_SALE) {
-                CellEmitter.get( heap.pos ).burst( ElmoParticle.FACTORY, 4 );
+                CellEmitter.get(heap.pos).burst(ElmoParticle.FACTORY, 4);
                 heap.destroy();
             }
         }
 
         destroy();
 
-        sprite.emitter().burst( Speck.factory( Speck.WOOL ), 15 );
+        sprite.emitter().burst(Speck.factory(Speck.WOOL), 15);
         sprite.killAndErase();
     }
 
     @Override
     public String description() {
-        return
-            "Imps are lesser demons. They are notable for neither their strength nor their magic talent. " +
+        return "Imps are lesser demons. They are notable for neither their strength nor their magic talent. " +
             "But they are quite smart and sociable, and many of imps prefer to live and do business among non-demons.";
     }
 }

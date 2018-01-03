@@ -30,25 +30,24 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Displacement extends Glyph {
 
-    private static final String TXT_DISPLACEMENT    = "%s of displacement";
+    private static final String TXT_DISPLACEMENT = "%s of displacement";
 
-    private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing( 0x66AAFF );
+    private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing(0x66AAFF);
 
     @Override
-    public int proc( Armor armor, Char attacker, Char defender, int damage ) {
-
+    public int process(Armor armor, Char attacker, Char defender, int damage) {
         if (Dungeon.bossLevel()) {
             return damage;
         }
 
         int level = armor.effectiveLevel();
         int nTries = (level < 0 ? 1 : level + 1) * 5;
-        for (int i=0; i < nTries; i++) {
-            int pos = Random.Int( Level.LENGTH );
-            if (Dungeon.visible[pos] && Level.passable[pos] && Actor.findChar( pos ) == null) {
+        for (int i = 0; i < nTries; i++) {
+            int pos = Random.Int(Level.LENGTH);
+            if (Dungeon.visible[pos] && Level.passable[pos] && Actor.findChar(pos) == null) {
 
-                WandOfBlink.appear( defender, pos );
-                Dungeon.level.press( pos, defender );
+                WandOfBlink.appear(defender, pos);
+                Dungeon.level.press(pos, defender);
                 Dungeon.observe();
 
                 break;
@@ -59,8 +58,8 @@ public class Displacement extends Glyph {
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_DISPLACEMENT, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_DISPLACEMENT, weaponName);
     }
 
     @Override

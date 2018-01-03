@@ -26,7 +26,7 @@ import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 
 public class DangerIndicator extends Tag {
 
-    public static final int COLOR    = 0xFF4C4C;
+    public static final int COLOR = 0xFF4C4C;
 
     private BitmapText number;
     private Image icon;
@@ -36,9 +36,9 @@ public class DangerIndicator extends Tag {
     private int lastNumber = -1;
 
     public DangerIndicator() {
-        super( 0xFF4C4C );
+        super(0xFF4C4C);
 
-        setSize( 24, 16 );
+        setSize(24, 16);
 
         visible = false;
     }
@@ -47,11 +47,11 @@ public class DangerIndicator extends Tag {
     protected void createChildren() {
         super.createChildren();
 
-        number = new BitmapText( PixelScene.font1x );
-        add( number );
+        number = new BitmapText(PixelScene.font1x);
+        add(number);
 
         icon = Icons.SKULL.get();
-        add( icon );
+        add(icon);
     }
 
     @Override
@@ -66,18 +66,17 @@ public class DangerIndicator extends Tag {
 
     private void placeNumber() {
         number.x = right() - 11 - number.width();
-        number.y = PixelScene.align( y + (height - number.baseLine()) / 2 );
+        number.y = PixelScene.align(y + (height - number.baseLine()) / 2);
     }
 
     @Override
     public void update() {
-
         if (Dungeon.hero.isAlive()) {
-            int v =  Dungeon.hero.visibleEnemies();
+            int v = Dungeon.hero.visibleEnemies();
             if (v != lastNumber) {
                 lastNumber = v;
                 if (visible = lastNumber > 0) {
-                    number.text( Integer.toString( lastNumber ) );
+                    number.text(Integer.toString(lastNumber));
                     number.measure();
                     placeNumber();
 
@@ -93,12 +92,11 @@ public class DangerIndicator extends Tag {
 
     @Override
     protected void onClick() {
+        Mob target = Dungeon.hero.visibleEnemy(enemyIndex++);
 
-        Mob target = Dungeon.hero.visibleEnemy( enemyIndex++ );
-
-        HealthIndicator.instance.target( target == HealthIndicator.instance.target() ? null : target );
+        HealthIndicator.instance.target(target == HealthIndicator.instance.target() ? null : target);
 
         Camera.main.target = null;
-        Camera.main.focusOn( target.sprite );
+        Camera.main.focusOn(target.sprite);
     }
 }

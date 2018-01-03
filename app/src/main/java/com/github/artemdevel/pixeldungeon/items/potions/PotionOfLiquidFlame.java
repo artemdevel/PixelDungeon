@@ -31,16 +31,15 @@ public class PotionOfLiquidFlame extends Potion {
     }
 
     @Override
-    public void shatter( int cell ) {
-
+    public void shatter(int cell) {
         if (Dungeon.visible[cell]) {
             setKnown();
 
-            splash( cell );
-            Sample.INSTANCE.play( Assets.SND_SHATTER );
+            splash(cell);
+            Sample.INSTANCE.play(Assets.SND_SHATTER);
         }
 
-        GameScene.add( Blob.seed( cell, 2, Fire.class ) );
+        GameScene.add(Blob.seed(cell, 2, Fire.class));
     }
 
     @Override

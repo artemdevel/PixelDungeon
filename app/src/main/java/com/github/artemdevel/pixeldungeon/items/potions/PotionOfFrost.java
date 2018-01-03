@@ -28,29 +28,28 @@ import com.github.artemdevel.pixeldungeon.game.utils.PathFinder;
 
 public class PotionOfFrost extends Potion {
 
-    private static final int DISTANCE    = 2;
+    private static final int DISTANCE = 2;
 
     {
         name = "Potion of Frost";
     }
 
     @Override
-    public void shatter( int cell ) {
+    public void shatter(int cell) {
+        PathFinder.buildDistanceMap(cell, BArray.not(Level.losBlocking, null), DISTANCE);
 
-        PathFinder.buildDistanceMap( cell, BArray.not( Level.losBlocking, null ), DISTANCE );
-
-        Fire fire = (Fire)Dungeon.level.blobs.get( Fire.class );
+        Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
 
         boolean visible = false;
-        for (int i=0; i < Level.LENGTH; i++) {
+        for (int i = 0; i < Level.LENGTH; i++) {
             if (PathFinder.distance[i] < Integer.MAX_VALUE) {
-                visible = Freezing.affect( i, fire ) || visible;
+                visible = Freezing.affect(i, fire) || visible;
             }
         }
 
         if (visible) {
-            splash( cell );
-            Sample.INSTANCE.play( Assets.SND_SHATTER );
+            splash(cell);
+            Sample.INSTANCE.play(Assets.SND_SHATTER);
 
             setKnown();
         }

@@ -26,23 +26,24 @@ public class BlastParticle extends PixelParticle.Shrinking {
 
     public static final Emitter.Factory FACTORY = new Factory() {
         @Override
-        public void emit( Emitter emitter, int index, float x, float y ) {
-            ((BlastParticle)emitter.recycle( BlastParticle.class )).reset( x, y );
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((BlastParticle) emitter.recycle(BlastParticle.class)).reset(x, y);
         }
+
         @Override
         public boolean lightMode() {
             return true;
-        };
+        }
     };
 
     public BlastParticle() {
         super();
 
-        color( 0xEE7722 );
-        acc.set( 0, +50 );
+        color(0xEE7722);
+        acc.set(0, +50);
     }
 
-    public void reset( float x, float y ) {
+    public void reset(float x, float y) {
         revive();
 
         this.x = x;
@@ -51,7 +52,7 @@ public class BlastParticle extends PixelParticle.Shrinking {
         left = lifespan = Random.Float();
 
         size = 8;
-        speed.polar( -Random.Float( 3.1415926f ), Random.Float( 32, 64 ) );
+        speed.polar(-Random.Float(3.1415926f), Random.Float(32, 64));
     }
 
     @Override

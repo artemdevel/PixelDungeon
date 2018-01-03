@@ -34,27 +34,29 @@ public class Button extends Component {
 
     @Override
     protected void createChildren() {
-        hotArea = new TouchArea( 0, 0, 0, 0 ) {
+        hotArea = new TouchArea(0, 0, 0, 0) {
             @Override
             protected void onTouchDown(Touch touch) {
                 pressed = true;
                 pressTime = 0;
                 processed = false;
                 Button.this.onTouchDown();
-            };
+            }
+
             @Override
             protected void onTouchUp(Touch touch) {
                 pressed = false;
                 Button.this.onTouchUp();
-            };
+            }
+
             @Override
-            protected void onClick( Touch touch ) {
+            protected void onClick(Touch touch) {
                 if (!processed) {
                     Button.this.onClick();
                 }
-            };
+            }
         };
-        add( hotArea );
+        add(hotArea);
     }
 
     @Override
@@ -67,24 +69,28 @@ public class Button extends Component {
             if ((pressTime += Game.elapsed) >= longClick) {
                 pressed = false;
                 if (onLongClick()) {
-
                     hotArea.reset();
                     processed = true;
                     onTouchUp();
 
-                    Game.vibrate( 50 );
+                    Game.vibrate(50);
                 }
             }
         }
     }
 
-    protected void onTouchDown() {};
-    protected void onTouchUp() {};
-    protected void onClick() {};
+    protected void onTouchDown() {
+    }
+
+    protected void onTouchUp() {
+    }
+
+    protected void onClick() {
+    }
 
     protected boolean onLongClick() {
         return false;
-    };
+    }
 
     @Override
     protected void layout() {

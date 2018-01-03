@@ -38,29 +38,29 @@ public class Regrowth extends Blob {
 
             boolean mapUpdated = false;
 
-            for (int i=0; i < LENGTH; i++) {
+            for (int i = 0; i < LENGTH; i++) {
                 if (off[i] > 0) {
                     int c = Dungeon.level.map[i];
                     int c1 = c;
                     if (c == Terrain.EMPTY || c == Terrain.EMBERS || c == Terrain.EMPTY_DECO) {
                         c1 = cur[i] > 9 ? Terrain.HIGH_GRASS : Terrain.GRASS;
                     } else if (c == Terrain.GRASS && cur[i] > 9) {
-                        c1 = Terrain.HIGH_GRASS ;
+                        c1 = Terrain.HIGH_GRASS;
                     }
 
                     if (c1 != c) {
-                        Level.set( i, Terrain.HIGH_GRASS );
+                        Level.set(i, Terrain.HIGH_GRASS);
                         mapUpdated = true;
 
-                        GameScene.updateMap( i );
+                        GameScene.updateMap(i);
                         if (Dungeon.visible[i]) {
-                            GameScene.discoverTile( i, c );
+                            GameScene.discoverTile(i, c);
                         }
                     }
 
-                    Char ch = Actor.findChar( i );
+                    Char ch = Actor.findChar(i);
                     if (ch != null) {
-                        Buff.prolong( ch, Roots.class, TICK );
+                        Buff.prolong(ch, Roots.class, TICK);
                     }
                 }
             }
@@ -72,9 +72,9 @@ public class Regrowth extends Blob {
     }
 
     @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
+    public void use(BlobEmitter emitter) {
+        super.use(emitter);
 
-        emitter.start( LeafParticle.LEVEL_SPECIFIC, 0.2f, 0 );
+        emitter.start(LeafParticle.LEVEL_SPECIFIC, 0.2f, 0);
     }
 }

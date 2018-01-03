@@ -31,28 +31,27 @@ public class SkinnedBlock extends Image {
 
     public boolean autoAdjust = false;
 
-    public SkinnedBlock( float width, float height, Object tx ) {
-        super( tx );
+    public SkinnedBlock(float width, float height, Object tx) {
+        super(tx);
 
-        texture.wrap( Texture.REPEAT, Texture.REPEAT );
+        texture.wrap(Texture.REPEAT, Texture.REPEAT);
 
-        size( width, height );
+        size(width, height);
     }
 
     @Override
-    public void frame( RectF frame ) {
+    public void frame(RectF frame) {
         scaleX = 1;
         scaleY = 1;
 
         offsetX = 0;
         offsetY = 0;
 
-        super.frame( new RectF( 0, 0, 1, 1 ) );
+        super.frame(new RectF(0, 0, 1, 1));
     }
 
     @Override
     protected void updateFrame() {
-
         if (autoAdjust) {
             while (offsetX > texture.width) {
                 offsetX -= texture.width;
@@ -76,28 +75,28 @@ public class SkinnedBlock extends Image {
         float u1 = u0 + width * tw / scaleX;
         float v1 = v0 + height * th / scaleY;
 
-        vertices[2]        = u0;
-        vertices[3]        = v0;
+        vertices[2] = u0;
+        vertices[3] = v0;
 
-        vertices[6]        = u1;
-        vertices[7]        = v0;
+        vertices[6] = u1;
+        vertices[7] = v0;
 
-        vertices[10]    = u1;
-        vertices[11]    = v1;
+        vertices[10] = u1;
+        vertices[11] = v1;
 
-        vertices[14]    = u0;
-        vertices[15]    = v1;
+        vertices[14] = u0;
+        vertices[15] = v1;
 
         dirty = true;
     }
 
-    public void offsetTo( float x, float y ) {
+    public void offsetTo(float x, float y) {
         offsetX = x;
         offsetY = y;
         updateFrame();
     }
 
-    public void offset( float x, float y ) {
+    public void offset(float x, float y) {
         offsetX += x;
         offsetY += y;
         updateFrame();
@@ -111,13 +110,13 @@ public class SkinnedBlock extends Image {
         return offsetY;
     }
 
-    public void scale( float x, float y ) {
+    public void scale(float x, float y) {
         scaleX = x;
         scaleY = y;
         updateFrame();
     }
 
-    public void size( float w, float h ) {
+    public void size(float w, float h) {
         this.width = w;
         this.height = h;
         updateFrame();

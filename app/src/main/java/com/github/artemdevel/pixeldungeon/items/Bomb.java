@@ -45,14 +45,14 @@ public class Bomb extends Item {
     }
 
     @Override
-    protected void onThrow( int cell ) {
+    protected void onThrow(int cell) {
         if (Level.pit[cell]) {
-            super.onThrow( cell );
+            super.onThrow(cell);
         } else {
-            Sample.INSTANCE.play( Assets.SND_BLAST, 2 );
+            Sample.INSTANCE.play(Assets.SND_BLAST, 2);
 
             if (Dungeon.visible[cell]) {
-                CellEmitter.center( cell ).burst( BlastParticle.FACTORY, 30 );
+                CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
             }
 
             boolean terrainAffected = false;
@@ -60,25 +60,25 @@ public class Bomb extends Item {
                 int c = cell + n;
                 if (c >= 0 && c < Level.LENGTH) {
                     if (Dungeon.visible[c]) {
-                        CellEmitter.get( c ).burst( SmokeParticle.FACTORY, 4 );
+                        CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
                     }
 
-                    if (Level.flamable[c]) {
-                        Dungeon.level.destroy( c );
-                        GameScene.updateMap( c );
+                    if (Level.flammable[c]) {
+                        Dungeon.level.destroy(c);
+                        GameScene.updateMap(c);
                         terrainAffected = true;
                     }
 
-                    Char ch = Actor.findChar( c );
+                    Char ch = Actor.findChar(c);
                     if (ch != null) {
-                        int dmg = Random.Int( 1 + Dungeon.depth, 10 + Dungeon.depth * 2 ) - Random.Int( ch.dr() );
+                        int dmg = Random.Int(1 + Dungeon.depth, 10 + Dungeon.depth * 2) - Random.Int(ch.dr());
                         if (dmg > 0) {
-                            ch.damage( dmg, this );
+                            ch.damage(dmg, this);
                             if (ch.isAlive()) {
-                                Buff.prolong( ch, Paralysis.class, 2 );
+                                Buff.prolong(ch, Paralysis.class, 2);
                             } else if (ch == Dungeon.hero) {
-                                Dungeon.fail( Utils.format( ResultDescriptions.BOMB, Dungeon.depth ) );
-                                GLog.n( "You killed yourself with a bomb..." );
+                                Dungeon.fail(Utils.format(ResultDescriptions.BOMB, Dungeon.depth));
+                                GLog.n("You killed yourself with a bomb...");
                             }
                         }
                     }
@@ -103,7 +103,7 @@ public class Bomb extends Item {
 
     @Override
     public Item random() {
-        quantity = Random.IntRange( 1, 3 );
+        quantity = Random.IntRange(1, 3);
         return this;
     }
 
@@ -114,7 +114,6 @@ public class Bomb extends Item {
 
     @Override
     public String info() {
-        return
-            "This is a relatively small bomb, filled with black powder. Conveniently, its fuse is lit automatically when the bomb is thrown.";
+        return "This is a relatively small bomb, filled with black powder. Conveniently, its fuse is lit automatically when the bomb is thrown.";
     }
 }

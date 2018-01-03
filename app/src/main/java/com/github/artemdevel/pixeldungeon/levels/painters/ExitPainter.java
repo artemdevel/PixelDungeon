@@ -23,17 +23,16 @@ import com.github.artemdevel.pixeldungeon.levels.Terrain;
 
 public class ExitPainter extends Painter {
 
-    public static void paint( Level level, Room room ) {
-
-        fill( level, room, Terrain.WALL );
-        fill( level, room, 1, Terrain.EMPTY );
+    public static void paint(Level level, Room room) {
+        fill(level, room, Terrain.WALL);
+        fill(level, room, 1, Terrain.EMPTY);
 
         for (Room.Door door : room.connected.values()) {
-            door.set( Room.Door.Type.REGULAR );
+            door.set(Room.Door.Type.REGULAR);
         }
 
-        level.exit = room.random( 1 );
-        set( level, level.exit, Terrain.EXIT );
+        level.exit = room.random(1);
+        set(level, level.exit, Terrain.EXIT);
     }
 
 }

@@ -39,16 +39,13 @@ public class Fadeleaf extends Plant {
     }
 
     @Override
-    public void activate( Char ch ) {
-        super.activate( ch );
+    public void activate(Char ch) {
+        super.activate(ch);
 
         if (ch instanceof Hero) {
-
-            ScrollOfTeleportation.teleportHero( (Hero)ch );
-            ((Hero)ch).curAction = null;
-
+            ScrollOfTeleportation.teleportHero((Hero) ch);
+            ((Hero) ch).curAction = null;
         } else if (ch instanceof Mob) {
-
             int count = 10;
             int newPos;
             do {
@@ -59,17 +56,15 @@ public class Fadeleaf extends Plant {
             } while (newPos == -1);
 
             if (newPos != -1) {
-
                 ch.pos = newPos;
-                ch.sprite.place( ch.pos );
+                ch.sprite.place(ch.pos);
                 ch.sprite.visible = Dungeon.visible[pos];
-
             }
 
         }
 
         if (Dungeon.visible[pos]) {
-            CellEmitter.get( pos ).start( Speck.factory( Speck.LIGHT ), 0.2f, 3 );
+            CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
         }
     }
 

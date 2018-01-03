@@ -24,21 +24,21 @@ import com.github.artemdevel.pixeldungeon.sprites.ItemSprite.Glowing;
 
 public class Luck extends Weapon.Enchantment {
 
-    private static final String TXT_LUCKY    = "lucky %s";
+    private static final String TXT_LUCKY = "lucky %s";
 
-    private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing( 0x00FF00 );
+    private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing(0x00FF00);
 
     @Override
-    public boolean proc( Weapon weapon, Char attacker, Char defender, int damage ) {
-        int level = Math.max( 0, weapon.effectiveLevel() );
+    public boolean process(Weapon weapon, Char attacker, Char defender, int damage) {
+        int level = Math.max(0, weapon.effectiveLevel());
 
         int dmg = damage;
-        for (int i=1; i <= level+1; i++) {
-            dmg = Math.max( dmg, attacker.damageRoll() - i );
+        for (int i = 1; i <= level + 1; i++) {
+            dmg = Math.max(dmg, attacker.damageRoll() - i);
         }
 
         if (dmg > damage) {
-            defender.damage( dmg - damage, this );
+            defender.damage(dmg - damage, this);
             return true;
         } else {
             return false;
@@ -46,8 +46,8 @@ public class Luck extends Weapon.Enchantment {
     }
 
     @Override
-    public String name( String weaponName) {
-        return String.format( TXT_LUCKY, weaponName );
+    public String name(String weaponName) {
+        return String.format(TXT_LUCKY, weaponName);
     }
 
     @Override

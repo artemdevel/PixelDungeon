@@ -27,7 +27,7 @@ public class BattleAxe extends MeleeWeapon {
     }
 
     public BattleAxe() {
-        super( 4, 1.2f, 1f );
+        super(4, 1.2f, 1f);
     }
 
     @Override

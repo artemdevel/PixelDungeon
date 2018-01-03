@@ -41,7 +41,7 @@ public class Foliage extends Blob {
 
         boolean visible = false;
 
-        for (int pos=from; pos < to; pos++) {
+        for (int pos = from; pos < to; pos++) {
             if (cur[pos] > 0) {
 
                 off[pos] = cur[pos];
@@ -61,7 +61,7 @@ public class Foliage extends Blob {
 
         Hero hero = Dungeon.hero;
         if (hero.isAlive() && hero.visibleEnemies() == 0 && cur[hero.pos] > 0) {
-            Buff.affect( hero, Shadows.class ).prolong();
+            Buff.affect(hero, Shadows.class).prolong();
         }
 
         if (regrowth) {
@@ -69,14 +69,14 @@ public class Foliage extends Blob {
         }
 
         if (visible) {
-            Journal.add( Journal.Feature.GARDEN );
+            Journal.add(Journal.Feature.GARDEN);
         }
     }
 
     @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
-        emitter.start( ShaftParticle.FACTORY, 0.9f, 0 );
+    public void use(BlobEmitter emitter) {
+        super.use(emitter);
+        emitter.start(ShaftParticle.FACTORY, 0.9f, 0);
     }
 
     @Override

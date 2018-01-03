@@ -28,13 +28,11 @@ public class PoisonTrap {
 
     // 0xBB66EE
 
-    public static void trigger( int pos, Char ch ) {
-
+    public static void trigger(int pos, Char ch) {
         if (ch != null) {
-            Buff.affect( ch, Poison.class ).set( Poison.durationFactor( ch ) * (4 + Dungeon.depth / 2) );
+            Buff.affect(ch, Poison.class).set(Poison.durationFactor(ch) * (4 + Dungeon.depth / 2));
         }
 
-        CellEmitter.center( pos ).burst( PoisonParticle.SPLASH, 3 );
-
+        CellEmitter.center(pos).burst(PoisonParticle.SPLASH, 3);
     }
 }

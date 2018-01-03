@@ -31,10 +31,11 @@ import com.github.artemdevel.pixeldungeon.utils.Utils;
 import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
-public class Thief extends Mob {
+public class
+Thief extends Mob {
 
-    protected static final String TXT_STOLE    = "%s stole %s from you!";
-    protected static final String TXT_CARRIES    = "\n\n%s is carrying a _%s_. Stolen obviously.";
+    protected static final String TXT_STOLE = "%s stole %s from you!";
+    protected static final String TXT_CARRIES = "\n\n%s is carrying a _%s_. Stolen obviously.";
 
     public Item item;
 
@@ -57,20 +58,20 @@ public class Thief extends Mob {
     private static final String ITEM = "item";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( ITEM, item );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(ITEM, item);
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        item = (Item)bundle.get( ITEM );
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        item = (Item) bundle.get(ITEM);
     }
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 1, 7 );
+        return Random.NormalIntRange(1, 7);
     }
 
     @Override
@@ -79,17 +80,16 @@ public class Thief extends Mob {
     }
 
     @Override
-    public void die( Object cause ) {
-
-        super.die( cause );
+    public void die(Object cause) {
+        super.die(cause);
 
         if (item != null) {
-            Dungeon.level.drop( item, pos ).sprite.drop();
+            Dungeon.level.drop(item, pos).sprite.drop();
         }
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 12;
     }
 
@@ -99,8 +99,8 @@ public class Thief extends Mob {
     }
 
     @Override
-    public int attackProc( Char enemy, int damage ) {
-        if (item == null && enemy instanceof Hero && steal( (Hero)enemy )) {
+    public int attackProc(Char enemy, int damage) {
+        if (item == null && enemy instanceof Hero && steal((Hero) enemy)) {
             state = FLEEING;
         }
 
@@ -110,20 +110,19 @@ public class Thief extends Mob {
     @Override
     public int defenseProc(Char enemy, int damage) {
         if (state == FLEEING) {
-            Dungeon.level.drop( new Gold(), pos ).sprite.drop();
+            Dungeon.level.drop(new Gold(), pos).sprite.drop();
         }
 
         return damage;
     }
 
-    protected boolean steal( Hero hero ) {
-
+    protected boolean steal(Hero hero) {
         Item item = hero.belongings.randomUnequipped();
         if (item != null) {
 
-            GLog.w( TXT_STOLE, this.name, item.name() );
+            GLog.w(TXT_STOLE, this.name, item.name());
 
-            item.detachAll( hero.belongings.backpack );
+            item.detachAll(hero.belongings.backpack);
             this.item = item;
 
             return true;
@@ -134,13 +133,12 @@ public class Thief extends Mob {
 
     @Override
     public String description() {
-        String desc =
-            "Deeper levels of the dungeon have always been a hiding place for all kinds of criminals. " +
+        String desc = "Deeper levels of the dungeon have always been a hiding place for all kinds of criminals. " +
             "Not all of them could keep a clear mind during their extended periods so far from daylight. Long ago, " +
             "these crazy thieves and bandits have forgotten who they are and why they steal.";
 
         if (item != null) {
-            desc += String.format( TXT_CARRIES, Utils.capitalize( this.name ), item.name() );
+            desc += String.format(TXT_CARRIES, Utils.capitalize(this.name), item.name());
         }
 
         return desc;
@@ -149,8 +147,8 @@ public class Thief extends Mob {
     private class Fleeing extends Mob.Fleeing {
         @Override
         protected void nowhereToRun() {
-            if (buff( Terror.class ) == null) {
-                sprite.showStatus( CharSprite.NEGATIVE, TXT_RAGE );
+            if (buff(Terror.class) == null) {
+                sprite.showStatus(CharSprite.NEGATIVE, TXT_RAGE);
                 state = HUNTING;
             } else {
                 super.nowhereToRun();

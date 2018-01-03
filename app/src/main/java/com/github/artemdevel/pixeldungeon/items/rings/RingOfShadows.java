@@ -24,7 +24,7 @@ public class RingOfShadows extends Ring {
     }
 
     @Override
-    protected RingBuff buff( ) {
+    protected RingBuff buff() {
         return new Shadows();
     }
 

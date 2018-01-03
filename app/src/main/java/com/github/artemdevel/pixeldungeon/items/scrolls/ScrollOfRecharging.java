@@ -33,18 +33,17 @@ public class ScrollOfRecharging extends Scroll {
 
     @Override
     protected void doRead() {
+        int count = curUser.belongings.charge(true);
+        charge(curUser);
 
-        int count = curUser.belongings.charge( true );
-        charge( curUser );
-
-        Sample.INSTANCE.play( Assets.SND_READ );
+        Sample.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         if (count > 0) {
-            GLog.i( "a surge of energy courses through your pack, recharging your wand" + (count > 1 ? "s" : "") );
-            SpellSprite.show( curUser, SpellSprite.CHARGE );
+            GLog.i("a surge of energy courses through your pack, recharging your wand" + (count > 1 ? "s" : ""));
+            SpellSprite.show(curUser, SpellSprite.CHARGE);
         } else {
-            GLog.i( "a surge of energy courses through your pack, but nothing happens" );
+            GLog.i("a surge of energy courses through your pack, but nothing happens");
         }
         setKnown();
 
@@ -58,8 +57,8 @@ public class ScrollOfRecharging extends Scroll {
             "recharge all of the reader's wands to full power.";
     }
 
-    public static void charge( Hero hero ) {
-        hero.sprite.centerEmitter().burst( EnergyParticle.FACTORY, 15 );
+    public static void charge(Hero hero) {
+        hero.sprite.centerEmitter().burst(EnergyParticle.FACTORY, 15);
     }
 
     @Override

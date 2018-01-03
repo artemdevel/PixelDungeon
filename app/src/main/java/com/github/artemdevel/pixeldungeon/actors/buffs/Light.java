@@ -23,14 +23,14 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 
 public class Light extends FlavourBuff {
 
-    public static final float DURATION    = 250f;
-    public static final int DISTANCE    = 4;
+    public static final float DURATION = 250f;
+    public static final int DISTANCE = 4;
 
     @Override
-    public boolean attachTo( Char target ) {
-        if (super.attachTo( target )) {
+    public boolean attachTo(Char target) {
+        if (super.attachTo(target)) {
             if (Dungeon.level != null) {
-                target.viewDistance = Math.max( Dungeon.level.viewDistance, DISTANCE );
+                target.viewDistance = Math.max(Dungeon.level.viewDistance, DISTANCE);
                 Dungeon.observe();
             }
             return true;

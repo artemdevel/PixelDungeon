@@ -34,8 +34,8 @@ public class MovieClip extends Image {
         super();
     }
 
-    public MovieClip( Object tx ) {
-        super( tx );
+    public MovieClip(Object tx) {
+        super(tx);
     }
 
     @Override
@@ -48,7 +48,6 @@ public class MovieClip extends Image {
 
     protected void updateAnimation() {
         if (curAnim != null && curAnim.delay > 0 && (curAnim.looped || !finished)) {
-
             int lastFrame = curFrame;
 
             frameTimer += Game.elapsed;
@@ -60,31 +59,29 @@ public class MovieClip extends Image {
                     }
                     finished = true;
                     if (listener != null) {
-                        listener.onComplete( curAnim );
+                        listener.onComplete(curAnim);
                         // This check can probably be removed
                         if (curAnim == null) {
                             return;
                         }
                     }
-
                 } else {
                     curFrame++;
                 }
             }
 
             if (curFrame != lastFrame) {
-                frame( curAnim.frames[curFrame] );
+                frame(curAnim.frames[curFrame]);
             }
 
         }
     }
 
-    public void play( Animation anim ) {
-        play( anim, false );
+    public void play(Animation anim) {
+        play(anim, false);
     }
 
-    public void play( Animation anim, boolean force ) {
-
+    public void play(Animation anim, boolean force) {
         if (!force && (curAnim != null) && (curAnim == anim) && (curAnim.looped || !finished)) {
             return;
         }
@@ -96,7 +93,7 @@ public class MovieClip extends Image {
         frameTimer = 0;
 
         if (anim != null) {
-            frame( anim.frames[curFrame] );
+            frame(anim.frames[curFrame]);
         }
     }
 
@@ -106,30 +103,30 @@ public class MovieClip extends Image {
         public RectF[] frames;
         public boolean looped;
 
-        public Animation( int fps, boolean looped ) {
+        public Animation(int fps, boolean looped) {
             this.delay = 1f / fps;
             this.looped = looped;
         }
 
-        public Animation frames( RectF... frames ) {
+        public Animation frames(RectF... frames) {
             this.frames = frames;
             return this;
         }
 
-        public Animation frames( TextureFilm film, Object... frames ) {
+        public Animation frames(TextureFilm film, Object... frames) {
             this.frames = new RectF[frames.length];
-            for (int i=0; i < frames.length; i++) {
-                this.frames[i] = film.get( frames[i] );
+            for (int i = 0; i < frames.length; i++) {
+                this.frames[i] = film.get(frames[i]);
             }
             return this;
         }
 
         public Animation clone() {
-            return new Animation( Math.round( 1 / delay ), looped ).frames( frames );
+            return new Animation(Math.round(1 / delay), looped).frames(frames);
         }
     }
 
     public interface Listener {
-        void onComplete( Animation anim );
+        void onComplete(Animation anim);
     }
 }

@@ -37,28 +37,26 @@ public class Shopkeeper extends NPC {
 
     @Override
     protected boolean act() {
-
         throwItem();
-
-        sprite.turnTo( pos, Dungeon.hero.pos );
-        spend( TICK );
+        sprite.turnTo(pos, Dungeon.hero.pos);
+        spend(TICK);
         return true;
     }
 
     @Override
-    public void damage( int dmg, Object src ) {
+    public void damage(int dmg, Object src) {
         flee();
     }
 
     @Override
-    public void add( Buff buff ) {
+    public void add(Buff buff) {
         flee();
     }
 
     protected void flee() {
-        for (Heap heap: Dungeon.level.heaps.values()) {
+        for (Heap heap : Dungeon.level.heaps.values()) {
             if (heap.type == Heap.Type.FOR_SALE) {
-                CellEmitter.get( heap.pos ).burst( ElmoParticle.FACTORY, 4 );
+                CellEmitter.get(heap.pos).burst(ElmoParticle.FACTORY, 4);
                 heap.destroy();
             }
         }
@@ -66,7 +64,7 @@ public class Shopkeeper extends NPC {
         destroy();
 
         sprite.killAndErase();
-        CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
+        CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
     }
 
     @Override
@@ -76,21 +74,20 @@ public class Shopkeeper extends NPC {
 
     @Override
     public String description() {
-        return
-            "This stout guy looks more appropriate for a trade district in some large city " +
+        return "This stout guy looks more appropriate for a trade district in some large city " +
             "than for a dungeon. His prices explain why he prefers to do business here.";
     }
 
     public static WndBag sell() {
-        return GameScene.selectItem( itemSelector, WndBag.Mode.FOR_SALE, "Select an item to sell" );
+        return GameScene.selectItem(itemSelector, WndBag.Mode.FOR_SALE, "Select an item to sell");
     }
 
     private static WndBag.Listener itemSelector = new WndBag.Listener() {
         @Override
-        public void onSelect( Item item ) {
+        public void onSelect(Item item) {
             if (item != null) {
                 WndBag parentWnd = sell();
-                GameScene.show( new WndTradeItem( item, parentWnd ) );
+                GameScene.show(new WndTradeItem(item, parentWnd));
             }
         }
     };

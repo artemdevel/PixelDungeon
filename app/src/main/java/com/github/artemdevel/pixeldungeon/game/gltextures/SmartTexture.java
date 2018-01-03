@@ -37,40 +37,39 @@ public class SmartTexture extends Texture {
 
     public Atlas atlas;
 
-    public SmartTexture( Bitmap bitmap ) {
-        this( bitmap, NEAREST, CLAMP );
+    public SmartTexture(Bitmap bitmap) {
+        this(bitmap, NEAREST, CLAMP);
     }
 
-    public SmartTexture( Bitmap bitmap, int filtering, int wrapping ) {
-
+    public SmartTexture(Bitmap bitmap, int filtering, int wrapping) {
         super();
 
-        bitmap( bitmap );
-        filter( filtering, filtering );
-        wrap( wrapping, wrapping );
+        bitmap(bitmap);
+        filter(filtering, filtering);
+        wrap(wrapping, wrapping);
 
     }
 
     @Override
     public void filter(int minMode, int maxMode) {
-        super.filter( fModeMin = minMode, fModeMax = maxMode);
+        super.filter(fModeMin = minMode, fModeMax = maxMode);
     }
 
     @Override
-    public void wrap( int s, int t ) {
-        super.wrap( wModeH = s, wModeV = t );
+    public void wrap(int s, int t) {
+        super.wrap(wModeH = s, wModeV = t);
     }
 
     @Override
-    public void bitmap( Bitmap bitmap ) {
-        bitmap( bitmap, false );
+    public void bitmap(Bitmap bitmap) {
+        bitmap(bitmap, false);
     }
 
-    public void bitmap( Bitmap bitmap, boolean premultiplied ) {
+    public void bitmap(Bitmap bitmap, boolean premultiplied) {
         if (premultiplied) {
-            super.bitmap( bitmap );
+            super.bitmap(bitmap);
         } else {
-            handMade( bitmap, true );
+            handMade(bitmap, true);
         }
 
         this.bitmap = bitmap;
@@ -79,25 +78,24 @@ public class SmartTexture extends Texture {
     }
 
     public void reload() {
-        id = new SmartTexture( bitmap ).id;
-        filter( fModeMin, fModeMax );
-        wrap( wModeH, wModeV );
+        id = new SmartTexture(bitmap).id;
+        filter(fModeMin, fModeMax);
+        wrap(wModeH, wModeV);
     }
 
     @Override
     public void delete() {
-
         super.delete();
 
         bitmap.recycle();
         bitmap = null;
     }
 
-    public RectF uvRect( int left, int top, int right, int bottom ) {
+    public RectF uvRect(int left, int top, int right, int bottom) {
         return new RectF(
-            (float)left        / width,
-            (float)top        / height,
-            (float)right    / width,
-            (float)bottom    / height );
+        (float) left / width,
+        (float) top / height,
+        (float) right / width,
+        (float) bottom / height);
     }
 }

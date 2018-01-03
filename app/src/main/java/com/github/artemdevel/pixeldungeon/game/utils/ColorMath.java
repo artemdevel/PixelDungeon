@@ -19,8 +19,7 @@ package com.github.artemdevel.pixeldungeon.game.utils;
 
 public class ColorMath {
 
-    public static int interpolate( int A, int B, float p ) {
-
+    public static int interpolate(int A, int B, float p) {
         if (p <= 0) {
             return A;
         } else if (p >= 1) {
@@ -37,15 +36,15 @@ public class ColorMath {
 
         float p1 = 1 - p;
 
-        int r = (int)(p1 * ra + p * rb);
-        int g = (int)(p1 * ga + p * gb);
-        int b = (int)(p1 * ba + p * bb);
+        int r = (int) (p1 * ra + p * rb);
+        int g = (int) (p1 * ga + p * gb);
+        int b = (int) (p1 * ba + p * bb);
 
         return (r << 16) + (g << 8) + b;
     }
 
-    public static int random( int a, int b ) {
-        return interpolate( a, b, Random.Float() );
+    public static int random(int a, int b) {
+        return interpolate(a, b, Random.Float());
     }
 
 }

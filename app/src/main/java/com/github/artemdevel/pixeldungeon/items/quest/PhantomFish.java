@@ -30,9 +30,9 @@ import com.github.artemdevel.pixeldungeon.utils.GLog;
 
 public class PhantomFish extends Item {
 
-    private static final String AC_EAT    = "EAT";
+    private static final String AC_EAT = "EAT";
 
-    private static final float TIME_TO_EAT    = 2f;
+    private static final float TIME_TO_EAT = 2f;
 
     {
         name = "phantom fish";
@@ -42,32 +42,28 @@ public class PhantomFish extends Item {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_EAT );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_EAT);
         return actions;
     }
 
     @Override
-    public void execute( final Hero hero, String action ) {
-        if (action.equals( AC_EAT )) {
+    public void execute(final Hero hero, String action) {
+        if (action.equals(AC_EAT)) {
+            detach(hero.belongings.backpack);
 
-            detach( hero.belongings.backpack );
-
-            hero.sprite.operate( hero.pos );
+            hero.sprite.operate(hero.pos);
             hero.busy();
-            Sample.INSTANCE.play( Assets.SND_EAT );
-            Sample.INSTANCE.play( Assets.SND_MELD );
+            Sample.INSTANCE.play(Assets.SND_EAT);
+            Sample.INSTANCE.play(Assets.SND_MELD);
 
-            GLog.i( "You see your hands turn invisible!" );
-            Buff.affect( hero, Invisibility.class, Invisibility.DURATION );
+            GLog.i("You see your hands turn invisible!");
+            Buff.affect(hero, Invisibility.class, Invisibility.DURATION);
 
-            hero.spend( TIME_TO_EAT );
-
+            hero.spend(TIME_TO_EAT);
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 

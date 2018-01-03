@@ -32,20 +32,18 @@ public class ScrollOfIdentify extends InventoryScroll {
     }
 
     @Override
-    protected void onItemSelected( Item item ) {
-
-        curUser.sprite.parent.add( new Identification( curUser.sprite.center().offset( 0, -16 ) ) );
+    protected void onItemSelected(Item item) {
+        curUser.sprite.parent.add(new Identification(curUser.sprite.center().offset(0, -16)));
 
         item.identify();
-        GLog.i( "It is " + item );
+        GLog.i("It is " + item);
 
-        Badges.validateItemLevelAquired( item );
+        Badges.validateItemLevelAcquired(item);
     }
 
     @Override
     public String desc() {
-        return
-            "Permanently reveals all of the secrets of a single item.";
+        return "Permanently reveals all of the secrets of a single item.";
     }
 
     @Override

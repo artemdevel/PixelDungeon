@@ -35,6 +35,16 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Piranha extends Mob {
 
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(Burning.class);
+        IMMUNITIES.add(Paralysis.class);
+        IMMUNITIES.add(ToxicGas.class);
+        IMMUNITIES.add(Roots.class);
+        IMMUNITIES.add(Frost.class);
+    }
+
     {
         name = "giant piranha";
         spriteClass = PiranhaSprite.class;
@@ -54,7 +64,7 @@ public class Piranha extends Mob {
     @Override
     protected boolean act() {
         if (!Level.water[pos]) {
-            die( null );
+            die(null);
             return true;
         } else {
             return super.act();
@@ -63,11 +73,11 @@ public class Piranha extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( Dungeon.depth, 4 + Dungeon.depth * 2 );
+        return Random.NormalIntRange(Dungeon.depth, 4 + Dungeon.depth * 2);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 20 + Dungeon.depth * 2;
     }
 
@@ -77,9 +87,9 @@ public class Piranha extends Mob {
     }
 
     @Override
-    public void die( Object cause ) {
-        Dungeon.level.drop( new MysteryMeat(), pos ).sprite.drop();
-        super.die( cause );
+    public void die(Object cause) {
+        Dungeon.level.drop(new MysteryMeat(), pos).sprite.drop();
+        super.die(cause);
 
         Statistics.piranhasKilled++;
         Badges.validatePiranhasKilled();
@@ -91,17 +101,14 @@ public class Piranha extends Mob {
     }
 
     @Override
-    protected boolean getCloser( int target ) {
-
+    protected boolean getCloser(int target) {
         if (rooted) {
             return false;
         }
 
-        int step = Dungeon.findPath( this, pos, target,
-            Level.water,
-            Level.fieldOfView );
+        int step = Dungeon.findPath(this, pos, target, Level.water, Level.fieldOfView);
         if (step != -1) {
-            move( step );
+            move(step);
             return true;
         } else {
             return false;
@@ -109,12 +116,10 @@ public class Piranha extends Mob {
     }
 
     @Override
-    protected boolean getFurther( int target ) {
-        int step = Dungeon.flee( this, pos, target,
-            Level.water,
-            Level.fieldOfView );
+    protected boolean getFurther(int target) {
+        int step = Dungeon.flee(this, pos, target, Level.water, Level.fieldOfView);
         if (step != -1) {
-            move( step );
+            move(step);
             return true;
         } else {
             return false;
@@ -123,18 +128,8 @@ public class Piranha extends Mob {
 
     @Override
     public String description() {
-        return
-            "These carnivorous fish are not natural inhabitants of underground pools. " +
+        return "These carnivorous fish are not natural inhabitants of underground pools. " +
             "They were bred specifically to protect flooded treasure vaults.";
-    }
-
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( Burning.class );
-        IMMUNITIES.add( Paralysis.class );
-        IMMUNITIES.add( ToxicGas.class );
-        IMMUNITIES.add( Roots.class );
-        IMMUNITIES.add( Frost.class );
     }
 
     @Override

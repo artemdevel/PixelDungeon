@@ -38,9 +38,21 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class Succubus extends Mob {
 
-    private static final int BLINK_DELAY    = 5;
+    private static final int BLINK_DELAY = 5;
 
     private int delay = 0;
+
+    private static final HashSet<Class<?>> RESISTANCES = new HashSet<>();
+
+    static {
+        RESISTANCES.add(Leech.class);
+    }
+
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(Sleep.class);
+    }
 
     {
         name = "succubus";
@@ -59,52 +71,46 @@ public class Succubus extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 15, 25 );
+        return Random.NormalIntRange(15, 25);
     }
 
     @Override
-    public int attackProc( Char enemy, int damage ) {
-
-        if (Random.Int( 3 ) == 0) {
-            Buff.affect( enemy, Charm.class, Charm.durationFactor( enemy ) * Random.IntRange( 3, 7 ) ).object = id();
-            enemy.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
-            Sample.INSTANCE.play( Assets.SND_CHARMS );
+    public int attackProc(Char enemy, int damage) {
+        if (Random.Int(3) == 0) {
+            Buff.affect(enemy, Charm.class, Charm.durationFactor(enemy) * Random.IntRange(3, 7)).object = id();
+            enemy.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
+            Sample.INSTANCE.play(Assets.SND_CHARMS);
         }
 
         return damage;
     }
 
     @Override
-    protected boolean getCloser( int target ) {
-        if (Level.fieldOfView[target] && Level.distance( pos, target ) > 2 && delay <= 0) {
-
-            blink( target );
-            spend( -1 / speed() );
+    protected boolean getCloser(int target) {
+        if (Level.fieldOfView[target] && Level.distance(pos, target) > 2 && delay <= 0) {
+            blink(target);
+            spend(-1 / speed());
             return true;
-
         } else {
-
             delay--;
-            return super.getCloser( target );
-
+            return super.getCloser(target);
         }
     }
 
-    private void blink( int target ) {
+    private void blink(int target) {
+        int cell = Ballistica.cast(pos, target, true, true);
 
-        int cell = Ballistica.cast( pos, target, true, true );
-
-        if (Actor.findChar( cell ) != null && Ballistica.distance > 1) {
+        if (Actor.findChar(cell) != null && Ballistica.distance > 1) {
             cell = Ballistica.trace[Ballistica.distance - 2];
         }
 
-        WandOfBlink.appear( this, cell );
+        WandOfBlink.appear(this, cell);
 
         delay = BLINK_DELAY;
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 40;
     }
 
@@ -115,24 +121,13 @@ public class Succubus extends Mob {
 
     @Override
     public String description() {
-        return
-            "The succubi are demons that look like seductive (in a slightly gothic way) girls. Using its magic, the succubus " +
+        return "The succubi are demons that look like seductive (in a slightly gothic way) girls. Using its magic, the succubus " +
             "can charm a hero, who will become unable to attack anything until the charm wears off.";
-    }
-
-    private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-    static {
-        RESISTANCES.add( Leech.class );
     }
 
     @Override
     public HashSet<Class<?>> resistances() {
         return RESISTANCES;
-    }
-
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( Sleep.class );
     }
 
     @Override

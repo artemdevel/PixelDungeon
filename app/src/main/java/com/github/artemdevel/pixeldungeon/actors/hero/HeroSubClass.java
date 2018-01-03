@@ -21,39 +21,41 @@ import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 
 public enum HeroSubClass {
 
-    NONE( null, null ),
+    NONE(null, null),
 
-    GLADIATOR( "gladiator",
-        "A successful attack with a melee weapon allows the _Gladiator_ to start a combo, " +
-        "in which every subsequent hit inflicts more damage." ),
-    BERSERKER( "berserker",
-        "When severely wounded, the _Berserker_ enters a state of wild fury " +
-        "significantly increasing his damage output." ),
+    GLADIATOR("gladiator",
+            "A successful attack with a melee weapon allows the _Gladiator_ to start a combo, " +
+            "in which every subsequent hit inflicts more damage."),
+    BERSERKER("berserker",
+            "When severely wounded, the _Berserker_ enters a state of wild fury " +
+            "significantly increasing his damage output."),
 
-    WARLOCK( "warlock",
-        "After killing an enemy, the _Warlock_ consumes its soul, " +
-        "healing his wounds and helping satisfy his hunger." ),
-    BATTLEMAGE( "battlemage",
-        "When using a wand as a melee weapon, the _Battlemage_ inflicts additional damage equal to " +
-        "the wand's current number of charges. Every successful hit also restores 1 charge to the wand." ),
+    WARLOCK("warlock",
+            "After killing an enemy, the _Warlock_ consumes its soul, " +
+            "healing his wounds and helping satisfy his hunger."),
+    BATTLEMAGE("battlemage",
+            "When using a wand as a melee weapon, the _Battlemage_ inflicts additional damage equal to " +
+            "the wand's current number of charges. Every successful hit also restores 1 charge to the wand."),
 
-    ASSASSIN( "assassin",
-        "When performing a surprise attack, the _Assassin_ inflicts additional damage to his target." ),
-    FREERUNNER( "freerunner",
-        "When unencumbered by heavy armor and not starving, the _Freerunner_ can move faster than most " +
-        "monsters and is much harder to hit." ),
+    ASSASSIN("assassin",
+            "When performing a surprise attack, the _Assassin_ inflicts additional damage to his target."),
+    FREERUNNER("freerunner",
+            "When unencumbered by heavy armor and not starving, the _Freerunner_ can move faster than most " +
+            "monsters and is much harder to hit."),
 
-    SNIPER( "sniper",
-        "_Snipers_ are able to detect weak points in an enemy's armor, " +
-        "effectively ignoring it when using a missile weapon." ),
-    WARDEN( "warden",
-        "Having a strong connection with forces of nature gives the _Warden_ a higher likelihood of gathering " +
-        "dewdrops and seeds from plants. Trampling high grass also grants her a temporary armor buff." );
+    SNIPER("sniper",
+            "_Snipers_ are able to detect weak points in an enemy's armor, " +
+            "effectively ignoring it when using a missile weapon."),
+    WARDEN("warden",
+            "Having a strong connection with forces of nature gives the _Warden_ a higher likelihood of gathering " +
+            "dewdrops and seeds from plants. Trampling high grass also grants her a temporary armor buff.");
+
+    private static final String SUBCLASS = "subClass";
 
     private String title;
     private String desc;
 
-    private HeroSubClass( String title, String desc ) {
+    HeroSubClass(String title, String desc) {
         this.title = title;
         this.desc = desc;
     }
@@ -66,16 +68,14 @@ public enum HeroSubClass {
         return desc;
     }
 
-    private static final String SUBCLASS    = "subClass";
-
-    public void storeInBundle( Bundle bundle ) {
-        bundle.put( SUBCLASS, toString() );
+    public void storeInBundle(Bundle bundle) {
+        bundle.put(SUBCLASS, toString());
     }
 
-    public static HeroSubClass restoreInBundle( Bundle bundle ) {
-        String value = bundle.getString( SUBCLASS );
+    public static HeroSubClass restoreInBundle(Bundle bundle) {
+        String value = bundle.getString(SUBCLASS);
         try {
-            return valueOf( value );
+            return valueOf(value);
         } catch (Exception e) {
             return NONE;
         }

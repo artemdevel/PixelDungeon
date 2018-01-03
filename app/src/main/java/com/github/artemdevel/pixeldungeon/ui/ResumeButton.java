@@ -26,9 +26,9 @@ public class ResumeButton extends Tag {
     private Image icon;
 
     public ResumeButton() {
-        super( 0xCDD5C0 );
+        super(0xCDD5C0);
 
-        setSize( 24, 22 );
+        setSize(24, 22);
 
         visible = false;
     }
@@ -37,16 +37,16 @@ public class ResumeButton extends Tag {
     protected void createChildren() {
         super.createChildren();
 
-        icon = Icons.get( Icons.RESUME );
-        add( icon );
+        icon = Icons.get(Icons.RESUME);
+        add(icon);
     }
 
     @Override
     protected void layout() {
         super.layout();
 
-        icon.x = PixelScene.align( PixelScene.uiCamera, x+1 + (width - icon.width) / 2 );
-        icon.y = PixelScene.align( PixelScene.uiCamera, y + (height - icon.height) / 2 );
+        icon.x = PixelScene.align(PixelScene.uiCamera, x + 1 + (width - icon.width) / 2);
+        icon.y = PixelScene.align(PixelScene.uiCamera, y + (height - icon.height) / 2);
     }
 
     @Override

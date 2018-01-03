@@ -27,7 +27,7 @@ public class Mace extends MeleeWeapon {
     }
 
     public Mace() {
-        super( 3, 1f, 0.8f );
+        super(3, 1f, 0.8f);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class HallsLevel extends RegularLevel {
     {
         minRoomSize = 6;
 
-        viewDistance = Math.max( 25 - Dungeon.depth, 1 );
+        viewDistance = Math.max(25 - Dungeon.depth, 1);
 
         color1 = 0x801500;
         color2 = 0xa68521;
@@ -45,7 +45,7 @@ public class HallsLevel extends RegularLevel {
 
     @Override
     public void create() {
-        addItemToSpawn( new Torch() );
+        addItemToSpawn(new Torch());
         super.create();
     }
 
@@ -60,37 +60,32 @@ public class HallsLevel extends RegularLevel {
     }
 
     protected boolean[] water() {
-        return Patch.generate( feeling == Feeling.WATER ? 0.55f : 0.40f, 6 );
+        return Patch.generate(feeling == Feeling.WATER ? 0.55f : 0.40f, 6);
     }
 
     protected boolean[] grass() {
-        return Patch.generate( feeling == Feeling.GRASS ? 0.55f : 0.30f, 3 );
+        return Patch.generate(feeling == Feeling.GRASS ? 0.55f : 0.30f, 3);
     }
 
     @Override
     protected void decorate() {
-
-        for (int i=WIDTH + 1; i < LENGTH - WIDTH - 1; i++) {
+        for (int i = WIDTH + 1; i < LENGTH - WIDTH - 1; i++) {
             if (map[i] == Terrain.EMPTY) {
-
                 int count = 0;
-                for (int j=0; j < NEIGHBOURS8.length; j++) {
+                for (int j = 0; j < NEIGHBOURS8.length; j++) {
                     if ((Terrain.flags[map[i + NEIGHBOURS8[j]]] & Terrain.PASSABLE) > 0) {
                         count++;
                     }
                 }
 
-                if (Random.Int( 80 ) < count) {
+                if (Random.Int(80) < count) {
                     map[i] = Terrain.EMPTY_DECO;
                 }
-
-            } else
-            if (map[i] == Terrain.WALL &&
-                map[i-1] != Terrain.WALL_DECO && map[i-WIDTH] != Terrain.WALL_DECO &&
-                Random.Int( 20 ) == 0) {
+            } else if (map[i] == Terrain.WALL &&
+                    map[i - 1] != Terrain.WALL_DECO && map[i - WIDTH] != Terrain.WALL_DECO &&
+                    Random.Int(20) == 0) {
 
                 map[i] = Terrain.WALL_DECO;
-
             }
         }
 
@@ -104,47 +99,47 @@ public class HallsLevel extends RegularLevel {
     }
 
     @Override
-    public String tileName( int tile ) {
+    public String tileName(int tile) {
         switch (tile) {
-        case Terrain.WATER:
-            return "Cold lava";
-        case Terrain.GRASS:
-            return "Embermoss";
-        case Terrain.HIGH_GRASS:
-            return "Emberfungi";
-        case Terrain.STATUE:
-        case Terrain.STATUE_SP:
-            return "Pillar";
-        default:
-            return super.tileName( tile );
+            case Terrain.WATER:
+                return "Cold lava";
+            case Terrain.GRASS:
+                return "Embermoss";
+            case Terrain.HIGH_GRASS:
+                return "Emberfungi";
+            case Terrain.STATUE:
+            case Terrain.STATUE_SP:
+                return "Pillar";
+            default:
+                return super.tileName(tile);
         }
     }
 
     @Override
     public String tileDesc(int tile) {
         switch (tile) {
-        case Terrain.WATER:
-            return "It looks like lava, but it's cold and probably safe to touch.";
-        case Terrain.STATUE:
-        case Terrain.STATUE_SP:
-            return "The pillar is made of real humanoid skulls. Awesome.";
-        case Terrain.BOOKSHELF:
-            return "Books in ancient languages smoulder in the bookshelf.";
-        default:
-            return super.tileDesc( tile );
+            case Terrain.WATER:
+                return "It looks like lava, but it's cold and probably safe to touch.";
+            case Terrain.STATUE:
+            case Terrain.STATUE_SP:
+                return "The pillar is made of real humanoid skulls. Awesome.";
+            case Terrain.BOOKSHELF:
+                return "Books in ancient languages smoulder in the bookshelf.";
+            default:
+                return super.tileDesc(tile);
         }
     }
 
     @Override
-    public void addVisuals( Scene scene ) {
-        super.addVisuals( scene );
-        addVisuals( this, scene );
+    public void addVisuals(Scene scene) {
+        super.addVisuals(scene);
+        addVisuals(this, scene);
     }
 
-    public static void addVisuals( Level level, Scene scene ) {
-        for (int i=0; i < LENGTH; i++) {
+    public static void addVisuals(Level level, Scene scene) {
+        for (int i = 0; i < LENGTH; i++) {
             if (level.map[i] == 63) {
-                scene.add( new Stream( i ) );
+                scene.add(new Stream(i));
             }
         }
     }
@@ -155,38 +150,35 @@ public class HallsLevel extends RegularLevel {
 
         private float delay;
 
-        public Stream( int pos ) {
+        public Stream(int pos) {
             super();
 
             this.pos = pos;
 
-            delay = Random.Float( 2 );
+            delay = Random.Float(2);
         }
 
         @Override
         public void update() {
-
             if (visible = Dungeon.visible[pos]) {
-
                 super.update();
 
                 if ((delay -= Game.elapsed) <= 0) {
+                    delay = Random.Float(2);
 
-                    delay = Random.Float( 2 );
-
-                    PointF p = DungeonTilemap.tileToWorld( pos );
-                    ((FireParticle)recycle( FireParticle.class )).reset(
-                        p.x + Random.Float( DungeonTilemap.SIZE ),
-                        p.y + Random.Float( DungeonTilemap.SIZE ) );
+                    PointF p = DungeonTilemap.tileToWorld(pos);
+                    ((FireParticle) recycle(FireParticle.class)).reset(
+                            p.x + Random.Float(DungeonTilemap.SIZE),
+                            p.y + Random.Float(DungeonTilemap.SIZE));
                 }
             }
         }
 
         @Override
         public void draw() {
-            GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE );
+            GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
             super.draw();
-            GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA );
+            GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         }
     }
 
@@ -195,13 +187,13 @@ public class HallsLevel extends RegularLevel {
         public FireParticle() {
             super();
 
-            color( 0xEE7722 );
+            color(0xEE7722);
             lifespan = 1f;
 
-            acc.set( 0, +80 );
+            acc.set(0, +80);
         }
 
-        public void reset( float x, float y ) {
+        public void reset(float x, float y) {
             revive();
 
             this.x = x;
@@ -209,7 +201,7 @@ public class HallsLevel extends RegularLevel {
 
             left = lifespan;
 
-            speed.set( 0, -40 );
+            speed.set(0, -40);
             size = 4;
         }
 

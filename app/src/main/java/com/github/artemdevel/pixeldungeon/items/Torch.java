@@ -28,7 +28,7 @@ import com.github.artemdevel.pixeldungeon.sprites.ItemSpriteSheet;
 
 public class Torch extends Item {
 
-    public static final String AC_LIGHT    = "LIGHT";
+    public static final String AC_LIGHT = "LIGHT";
 
     public static final float TIME_TO_LIGHT = 1;
 
@@ -42,32 +42,27 @@ public class Torch extends Item {
     }
 
     @Override
-    public ArrayList<String> actions( Hero hero ) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add( AC_LIGHT );
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_LIGHT);
         return actions;
     }
 
     @Override
-    public void execute( Hero hero, String action ) {
-
-        if (action == AC_LIGHT) {
-
-            hero.spend( TIME_TO_LIGHT );
+    public void execute(Hero hero, String action) {
+        if (action.equals(AC_LIGHT)) {
+            hero.spend(TIME_TO_LIGHT);
             hero.busy();
 
-            hero.sprite.operate( hero.pos );
+            hero.sprite.operate(hero.pos);
 
-            detach( hero.belongings.backpack );
-            Buff.affect( hero, Light.class, Light.DURATION );
+            detach(hero.belongings.backpack);
+            Buff.affect(hero, Light.class, Light.DURATION);
 
             Emitter emitter = hero.sprite.centerEmitter();
-            emitter.start( FlameParticle.FACTORY, 0.2f, 3 );
-
+            emitter.start(FlameParticle.FACTORY, 0.2f, 3);
         } else {
-
-            super.execute( hero, action );
-
+            super.execute(hero, action);
         }
     }
 
@@ -88,7 +83,6 @@ public class Torch extends Item {
 
     @Override
     public String info() {
-        return
-            "It's an indispensable item in The Demon Halls, which are notorious for their poor ambient lighting.";
+        return "It's an indispensable item in The Demon Halls, which are notorious for their poor ambient lighting.";
     }
 }

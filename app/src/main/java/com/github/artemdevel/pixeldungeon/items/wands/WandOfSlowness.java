@@ -34,22 +34,18 @@ public class WandOfSlowness extends Wand {
     }
 
     @Override
-    protected void onZap( int cell ) {
-        Char ch = Actor.findChar( cell );
+    protected void onZap(int cell) {
+        Char ch = Actor.findChar(cell);
         if (ch != null) {
-
-            Buff.affect( ch, Slow.class, Slow.duration( ch ) / 3 + power() );
-
+            Buff.affect(ch, Slow.class, Slow.duration(ch) / 3 + power());
         } else {
-
-            GLog.i( "nothing happened" );
-
+            GLog.i("nothing happened");
         }
     }
 
-    protected void fx( int cell, Callback callback ) {
-        MagicMissile.slowness( curUser.sprite.parent, curUser.pos, cell, callback );
-        Sample.INSTANCE.play( Assets.SND_ZAP );
+    protected void fx(int cell, Callback callback) {
+        MagicMissile.slowness(curUser.sprite.parent, curUser.pos, cell, callback);
+        Sample.INSTANCE.play(Assets.SND_ZAP);
     }
 
     @Override

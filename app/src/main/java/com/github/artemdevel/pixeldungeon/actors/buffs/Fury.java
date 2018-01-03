@@ -21,7 +21,7 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 
 public class Fury extends Buff {
 
-    public static float LEVEL    = 0.4f;
+    public static float LEVEL = 0.4f;
 
     @Override
     public boolean act() {
@@ -29,7 +29,7 @@ public class Fury extends Buff {
             detach();
         }
 
-        spend( TICK );
+        spend(TICK);
 
         return true;
     }

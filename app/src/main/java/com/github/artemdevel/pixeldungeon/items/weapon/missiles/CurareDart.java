@@ -26,7 +26,7 @@ import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
 public class CurareDart extends MissileWeapon {
 
-    public static final float DURATION    = 3f;
+    public static final float DURATION = 3f;
 
     {
         name = "curare dart";
@@ -36,10 +36,10 @@ public class CurareDart extends MissileWeapon {
     }
 
     public CurareDart() {
-        this( 1 );
+        this(1);
     }
 
-    public CurareDart( int number ) {
+    public CurareDart(int number) {
         super();
         quantity = number;
     }
@@ -55,9 +55,9 @@ public class CurareDart extends MissileWeapon {
     }
 
     @Override
-    public void proc( Char attacker, Char defender, int damage ) {
-        Buff.prolong( defender, Paralysis.class, DURATION );
-        super.proc( attacker, defender, damage );
+    public void process(Char attacker, Char defender, int damage) {
+        Buff.prolong(defender, Paralysis.class, DURATION);
+        super.process(attacker, defender, damage);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CurareDart extends MissileWeapon {
 
     @Override
     public Item random() {
-        quantity = Random.Int( 2, 5 );
+        quantity = Random.Int(2, 5);
         return this;
     }
 

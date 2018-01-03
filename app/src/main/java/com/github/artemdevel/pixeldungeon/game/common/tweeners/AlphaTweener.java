@@ -26,8 +26,8 @@ public class AlphaTweener extends Tweener {
     public float start;
     public float delta;
 
-    public AlphaTweener( Visual image, float alpha, float time ) {
-        super( image, time );
+    public AlphaTweener(Visual image, float alpha, float time) {
+        super(image, time);
 
         this.image = image;
         start = image.alpha();
@@ -35,7 +35,7 @@ public class AlphaTweener extends Tweener {
     }
 
     @Override
-    protected void updateValues( float progress ) {
-        image.alpha( start + delta * progress );
+    protected void updateValues(float progress) {
+        image.alpha(start + delta * progress);
     }
 }

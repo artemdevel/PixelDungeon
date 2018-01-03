@@ -31,7 +31,7 @@ public class Tag extends Button {
 
     protected float lightness = 0;
 
-    public Tag( int color ) {
+    public Tag(int color) {
         super();
 
         this.r = (color >> 16) / 255f;
@@ -41,21 +41,19 @@ public class Tag extends Button {
 
     @Override
     protected void createChildren() {
-
         super.createChildren();
 
-        bg = Chrome.get( Chrome.Type.TAG );
-        add( bg );
+        bg = Chrome.get(Chrome.Type.TAG);
+        add(bg);
     }
 
     @Override
     protected void layout() {
-
         super.layout();
 
         bg.x = x;
         bg.y = y;
-        bg.size( width, height );
+        bg.size(width, height);
     }
 
     public void flash() {
@@ -73,7 +71,7 @@ public class Tag extends Button {
                 bg.gm = 2 * g * (1 - lightness);
                 bg.bm = 2 * b * (1 - lightness);
             } else {
-                bg.hardlight( r, g, b );
+                bg.hardlight(r, g, b);
             }
         }
     }

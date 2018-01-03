@@ -27,8 +27,8 @@ public class ScaleTweener extends Tweener {
     public PointF start;
     public PointF end;
 
-    public ScaleTweener( Visual visual, PointF scale, float time ) {
-        super( visual, time );
+    public ScaleTweener(Visual visual, PointF scale, float time) {
+        super(visual, time);
 
         this.visual = visual;
         start = visual.scale;
@@ -36,7 +36,7 @@ public class ScaleTweener extends Tweener {
     }
 
     @Override
-    protected void updateValues( float progress ) {
-        visual.scale = PointF.inter( start, end, progress );
+    protected void updateValues(float progress) {
+        visual.scale = PointF.inter(start, end, progress);
     }
 }

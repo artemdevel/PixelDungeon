@@ -28,10 +28,8 @@ public class FireTrap {
 
     // 0xFF7708
 
-    public static void trigger( int pos, Char ch ) {
-
-        GameScene.add( Blob.seed( pos, 2, Fire.class ) );
-        CellEmitter.get( pos ).burst( FlameParticle.FACTORY, 5 );
-
+    public static void trigger(int pos, Char ch) {
+        GameScene.add(Blob.seed(pos, 2, Fire.class));
+        CellEmitter.get(pos).burst(FlameParticle.FACTORY, 5);
     }
 }

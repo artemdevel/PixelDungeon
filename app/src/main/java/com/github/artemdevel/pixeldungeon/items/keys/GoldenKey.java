@@ -28,8 +28,7 @@ public class GoldenKey extends Key {
 
     @Override
     public String info() {
-        return
-            "The notches on this golden key are tiny and intricate. " +
+        return "The notches on this golden key are tiny and intricate. " +
             "Maybe it can open some chest lock?";
     }
 }

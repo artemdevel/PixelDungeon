@@ -28,21 +28,21 @@ public class RingOfHaggler extends Ring {
     }
 
     @Override
-    protected RingBuff buff( ) {
+    protected RingBuff buff() {
         return new Haggling();
     }
 
     @Override
     public Item random() {
-        level( +1 );
+        level(+1);
         return this;
     }
 
     @Override
-    public boolean doPickUp( Hero hero ) {
+    public boolean doPickUp(Hero hero) {
         identify();
         Badges.validateRingOfHaggler();
-        Badges.validateItemLevelAquired( this );
+        Badges.validateItemLevelAcquired(this);
         return super.doPickUp(hero);
     }
 

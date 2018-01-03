@@ -38,29 +38,28 @@ public class ScrollOfChallenge extends Scroll {
 
     @Override
     protected void doRead() {
-
-        for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-            mob.beckon( curUser.pos );
+        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+            mob.beckon(curUser.pos);
             if (Dungeon.visible[mob.pos]) {
-                Buff.affect( mob, Rage.class, Level.distance( curUser.pos, mob.pos ) );
+                Buff.affect(mob, Rage.class, Level.distance(curUser.pos, mob.pos));
             }
         }
 
         for (Heap heap : Dungeon.level.heaps.values()) {
             if (heap.type == Heap.Type.MIMIC) {
-                Mimic m = Mimic.spawnAt( heap.pos, heap.items );
+                Mimic m = Mimic.spawnAt(heap.pos, heap.items);
                 if (m != null) {
-                    m.beckon( curUser.pos );
+                    m.beckon(curUser.pos);
                     heap.destroy();
                 }
             }
         }
 
-        GLog.w( "The scroll emits a challenging roar that echoes throughout the dungeon!" );
+        GLog.w("The scroll emits a challenging roar that echoes throughout the dungeon!");
         setKnown();
 
-        curUser.sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
-        Sample.INSTANCE.play( Assets.SND_CHALLENGE );
+        curUser.sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.3f, 3);
+        Sample.INSTANCE.play(Assets.SND_CHALLENGE);
         Invisibility.dispel();
 
         readAnimation();

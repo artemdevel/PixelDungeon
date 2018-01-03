@@ -31,18 +31,18 @@ public class ParalyticGas extends Blob {
         super.evolve();
 
         Char ch;
-        for (int i=0; i < LENGTH; i++) {
-            if (cur[i] > 0 && (ch = Actor.findChar( i )) != null) {
-                Buff.prolong( ch, Paralysis.class, Paralysis.duration( ch ) );
+        for (int i = 0; i < LENGTH; i++) {
+            if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
+                Buff.prolong(ch, Paralysis.class, Paralysis.duration(ch));
             }
         }
     }
 
     @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
+    public void use(BlobEmitter emitter) {
+        super.use(emitter);
 
-        emitter.pour( Speck.factory( Speck.PARALYSIS ), 0.6f );
+        emitter.pour(Speck.factory(Speck.PARALYSIS), 0.6f);
     }
 
     @Override

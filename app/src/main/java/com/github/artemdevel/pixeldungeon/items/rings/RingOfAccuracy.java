@@ -24,15 +24,13 @@ public class RingOfAccuracy extends Ring {
     }
 
     @Override
-    protected RingBuff buff( ) {
+    protected RingBuff buff() {
         return new Accuracy();
     }
 
     @Override
     public String desc() {
-        return isKnown() ?
-            "This ring increases your chance to hit the enemy." :
-            super.desc();
+        return isKnown() ? "This ring increases your chance to hit the enemy." : super.desc();
     }
 
     public class Accuracy extends RingBuff {

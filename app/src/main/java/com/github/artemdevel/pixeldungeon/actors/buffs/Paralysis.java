@@ -23,11 +23,11 @@ import com.github.artemdevel.pixeldungeon.ui.BuffIndicator;
 
 public class Paralysis extends FlavourBuff {
 
-    private static final float DURATION    = 10f;
+    private static final float DURATION = 10f;
 
     @Override
-    public boolean attachTo( Char target ) {
-        if (super.attachTo( target )) {
+    public boolean attachTo(Char target) {
+        if (super.attachTo(target)) {
             target.paralysed = true;
             return true;
         } else {
@@ -38,7 +38,7 @@ public class Paralysis extends FlavourBuff {
     @Override
     public void detach() {
         super.detach();
-        unfreeze( target );
+        unfreeze(target);
     }
 
     @Override
@@ -51,15 +51,13 @@ public class Paralysis extends FlavourBuff {
         return "Paralysed";
     }
 
-    public static float duration( Char ch ) {
-        Resistance r = ch.buff( Resistance.class );
+    public static float duration(Char ch) {
+        Resistance r = ch.buff(Resistance.class);
         return r != null ? r.durationFactor() * DURATION : DURATION;
     }
 
-    public static void unfreeze( Char ch ) {
-        if (ch.buff( Paralysis.class ) == null &&
-            ch.buff( Frost.class ) == null) {
-
+    public static void unfreeze(Char ch) {
+        if (ch.buff(Paralysis.class) == null && ch.buff(Frost.class) == null) {
             ch.paralysed = false;
         }
     }

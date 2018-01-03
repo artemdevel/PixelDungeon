@@ -28,7 +28,7 @@ public class ClothArmor extends Armor {
     }
 
     public ClothArmor() {
-        super( 1 );
+        super(1);
     }
 
     @Override

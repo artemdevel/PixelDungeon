@@ -37,6 +37,12 @@ public class Skeleton extends Mob {
 
     private static final String TXT_HERO_KILLED = "You were killed by the explosion of bones...";
 
+    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+
+    static {
+        IMMUNITIES.add(Death.class);
+    }
+
     {
         name = "skeleton";
         spriteClass = SkeletonSprite.class;
@@ -50,20 +56,19 @@ public class Skeleton extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 3, 8 );
+        return Random.NormalIntRange(3, 8);
     }
 
     @Override
-    public void die( Object cause ) {
-
-        super.die( cause );
+    public void die(Object cause) {
+        super.die(cause);
 
         boolean heroKilled = false;
-        for (int i=0; i < Level.NEIGHBOURS8.length; i++) {
-            Char ch = findChar( pos + Level.NEIGHBOURS8[i] );
+        for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
+            Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
             if (ch != null && ch.isAlive()) {
-                int damage = Math.max( 0,  damageRoll() - Random.IntRange( 0, ch.dr() / 2 ) );
-                ch.damage( damage, this );
+                int damage = Math.max(0, damageRoll() - Random.IntRange(0, ch.dr() / 2));
+                ch.damage(damage, this);
                 if (ch == Dungeon.hero && !ch.isAlive()) {
                     heroKilled = true;
                 }
@@ -71,31 +76,31 @@ public class Skeleton extends Mob {
         }
 
         if (Dungeon.visible[pos]) {
-            Sample.INSTANCE.play( Assets.SND_BONES );
+            Sample.INSTANCE.play(Assets.SND_BONES);
         }
 
         if (heroKilled) {
-            Dungeon.fail( Utils.format( ResultDescriptions.MOB, Utils.indefinite( name ), Dungeon.depth ) );
-            GLog.n( TXT_HERO_KILLED );
+            Dungeon.fail(Utils.format(ResultDescriptions.MOB, Utils.indefinite(name), Dungeon.depth));
+            GLog.n(TXT_HERO_KILLED);
         }
     }
 
     @Override
     protected void dropLoot() {
-        if (Random.Int( 5 ) == 0) {
-            Item loot = Generator.random( Generator.Category.WEAPON );
-            for (int i=0; i < 2; i++) {
-                Item l = Generator.random( Generator.Category.WEAPON );
+        if (Random.Int(5) == 0) {
+            Item loot = Generator.random(Generator.Category.WEAPON);
+            for (int i = 0; i < 2; i++) {
+                Item l = Generator.random(Generator.Category.WEAPON);
                 if (l.level() < loot.level()) {
                     loot = l;
                 }
             }
-            Dungeon.level.drop( loot, pos ).sprite.drop();
+            Dungeon.level.drop(loot, pos).sprite.drop();
         }
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 12;
     }
 
@@ -111,15 +116,9 @@ public class Skeleton extends Mob {
 
     @Override
     public String description() {
-        return
-            "Skeletons are composed of corpses bones from unlucky adventurers and inhabitants of the dungeon, " +
+        return "Skeletons are composed of corpses bones from unlucky adventurers and inhabitants of the dungeon, " +
             "animated by emanations of evil magic from the depths below. After they have been " +
             "damaged enough, they disintegrate in an explosion of bones.";
-    }
-
-    private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-    static {
-        IMMUNITIES.add( Death.class );
     }
 
     @Override

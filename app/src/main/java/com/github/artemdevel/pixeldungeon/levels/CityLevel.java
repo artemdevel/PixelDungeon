@@ -46,11 +46,11 @@ public class CityLevel extends RegularLevel {
     }
 
     protected boolean[] water() {
-        return Patch.generate( feeling == Feeling.WATER ? 0.65f : 0.45f, 4 );
+        return Patch.generate(feeling == Feeling.WATER ? 0.65f : 0.45f, 4);
     }
 
     protected boolean[] grass() {
-        return Patch.generate( feeling == Feeling.GRASS ? 0.60f : 0.40f, 3 );
+        return Patch.generate(feeling == Feeling.GRASS ? 0.60f : 0.40f, 3);
     }
 
     @Override
@@ -66,11 +66,10 @@ public class CityLevel extends RegularLevel {
 
     @Override
     protected void decorate() {
-
-        for (int i=0; i < LENGTH; i++) {
-            if (map[i] == Terrain.EMPTY && Random.Int( 10 ) == 0) {
+        for (int i = 0; i < LENGTH; i++) {
+            if (map[i] == Terrain.EMPTY && Random.Int(10) == 0) {
                 map[i] = Terrain.EMPTY_DECO;
-            } else if (map[i] == Terrain.WALL && Random.Int( 8 ) == 0) {
+            } else if (map[i] == Terrain.WALL && Random.Int(8) == 0) {
                 map[i] = Terrain.WALL_DECO;
             }
         }
@@ -88,53 +87,53 @@ public class CityLevel extends RegularLevel {
     protected void createItems() {
         super.createItems();
 
-        Imp.Quest.spawn( this, roomEntrance );
+        Imp.Quest.spawn(this, roomEntrance);
     }
 
     @Override
-    public String tileName( int tile ) {
+    public String tileName(int tile) {
         switch (tile) {
-        case Terrain.WATER:
-            return "Suspiciously colored water";
-        case Terrain.HIGH_GRASS:
-            return "High blooming flowers";
-        default:
-            return super.tileName( tile );
+            case Terrain.WATER:
+                return "Suspiciously colored water";
+            case Terrain.HIGH_GRASS:
+                return "High blooming flowers";
+            default:
+                return super.tileName(tile);
         }
     }
 
     @Override
     public String tileDesc(int tile) {
         switch (tile) {
-        case Terrain.ENTRANCE:
-            return "A ramp leads up to the upper depth.";
-        case Terrain.EXIT:
-            return "A ramp leads down to the lower depth.";
-        case Terrain.WALL_DECO:
-        case Terrain.EMPTY_DECO:
-            return "Several tiles are missing here.";
-        case Terrain.EMPTY_SP:
-            return "Thick carpet covers the floor.";
-        case Terrain.STATUE:
-        case Terrain.STATUE_SP:
-            return "The statue depicts some dwarf standing in a heroic stance.";
-        case Terrain.BOOKSHELF:
-            return "The rows of books on different disciplines fill the bookshelf.";
-        default:
-            return super.tileDesc( tile );
+            case Terrain.ENTRANCE:
+                return "A ramp leads up to the upper depth.";
+            case Terrain.EXIT:
+                return "A ramp leads down to the lower depth.";
+            case Terrain.WALL_DECO:
+            case Terrain.EMPTY_DECO:
+                return "Several tiles are missing here.";
+            case Terrain.EMPTY_SP:
+                return "Thick carpet covers the floor.";
+            case Terrain.STATUE:
+            case Terrain.STATUE_SP:
+                return "The statue depicts some dwarf standing in a heroic stance.";
+            case Terrain.BOOKSHELF:
+                return "The rows of books on different disciplines fill the bookshelf.";
+            default:
+                return super.tileDesc(tile);
         }
     }
 
     @Override
-    public void addVisuals( Scene scene ) {
-        super.addVisuals( scene );
-        addVisuals( this, scene );
+    public void addVisuals(Scene scene) {
+        super.addVisuals(scene);
+        addVisuals(this, scene);
     }
 
-    public static void addVisuals( Level level, Scene scene ) {
-        for (int i=0; i < LENGTH; i++) {
+    public static void addVisuals(Level level, Scene scene) {
+        for (int i = 0; i < LENGTH; i++) {
             if (level.map[i] == Terrain.WALL_DECO) {
-                scene.add( new Smoke( i ) );
+                scene.add(new Smoke(i));
             }
         }
     }
@@ -146,21 +145,21 @@ public class CityLevel extends RegularLevel {
         private static final Emitter.Factory factory = new Factory() {
 
             @Override
-            public void emit( Emitter emitter, int index, float x, float y ) {
-                SmokeParticle p = (SmokeParticle)emitter.recycle( SmokeParticle.class );
-                p.reset( x, y );
+            public void emit(Emitter emitter, int index, float x, float y) {
+                SmokeParticle p = (SmokeParticle) emitter.recycle(SmokeParticle.class);
+                p.reset(x, y);
             }
         };
 
-        public Smoke( int pos ) {
+        public Smoke(int pos) {
             super();
 
             this.pos = pos;
 
-            PointF p = DungeonTilemap.tileCenterToWorld( pos );
-            pos( p.x - 4, p.y - 2, 4, 0 );
+            PointF p = DungeonTilemap.tileCenterToWorld(pos);
+            pos(p.x - 4, p.y - 2, 4, 0);
 
-            pour( factory, 0.2f );
+            pour(factory, 0.2f);
         }
 
         @Override
@@ -176,11 +175,11 @@ public class CityLevel extends RegularLevel {
         public SmokeParticle() {
             super();
 
-            color( 0x000000 );
-            speed.set( Random.Float( 8 ), -Random.Float( 8 ) );
+            color(0x000000);
+            speed.set(Random.Float(8), -Random.Float(8));
         }
 
-        public void reset( float x, float y ) {
+        public void reset(float x, float y) {
             revive();
 
             this.x = x;
@@ -194,7 +193,7 @@ public class CityLevel extends RegularLevel {
             super.update();
             float p = left / lifespan;
             am = p > 0.8f ? 1 - p : p * 0.25f;
-            size( 8 - p * 4 );
+            size(8 - p * 4);
         }
     }
 }

@@ -47,11 +47,11 @@ public class PrisonLevel extends RegularLevel {
     }
 
     protected boolean[] water() {
-        return Patch.generate( feeling == Feeling.WATER ? 0.65f : 0.45f, 4 );
+        return Patch.generate(feeling == Feeling.WATER ? 0.65f : 0.45f, 4);
     }
 
     protected boolean[] grass() {
-        return Patch.generate( feeling == Feeling.GRASS ? 0.60f : 0.40f, 3 );
+        return Patch.generate(feeling == Feeling.GRASS ? 0.60f : 0.40f, 3);
     }
 
     @Override
@@ -69,15 +69,13 @@ public class PrisonLevel extends RegularLevel {
     protected void createMobs() {
         super.createMobs();
 
-        Wandmaker.Quest.spawn( this, roomEntrance );
+        Wandmaker.Quest.spawn(this, roomEntrance);
     }
 
     @Override
     protected void decorate() {
-
-        for (int i=WIDTH + 1; i < LENGTH - WIDTH - 1; i++) {
+        for (int i = WIDTH + 1; i < LENGTH - WIDTH - 1; i++) {
             if (map[i] == Terrain.EMPTY) {
-
                 float c = 0.05f;
                 if (map[i + 1] == Terrain.WALL && map[i + WIDTH] == Terrain.WALL) {
                     c += 0.2f;
@@ -98,20 +96,20 @@ public class PrisonLevel extends RegularLevel {
             }
         }
 
-        for (int i=0; i < WIDTH; i++) {
+        for (int i = 0; i < WIDTH; i++) {
             if (map[i] == Terrain.WALL &&
-                (map[i + WIDTH] == Terrain.EMPTY || map[i + WIDTH] == Terrain.EMPTY_SP) &&
-                Random.Int( 6 ) == 0) {
+                    (map[i + WIDTH] == Terrain.EMPTY || map[i + WIDTH] == Terrain.EMPTY_SP) &&
+                    Random.Int(6) == 0) {
 
                 map[i] = Terrain.WALL_DECO;
             }
         }
 
-        for (int i=WIDTH; i < LENGTH - WIDTH; i++) {
+        for (int i = WIDTH; i < LENGTH - WIDTH; i++) {
             if (map[i] == Terrain.WALL &&
-                map[i - WIDTH] == Terrain.WALL &&
-                (map[i + WIDTH] == Terrain.EMPTY || map[i + WIDTH] == Terrain.EMPTY_SP) &&
-                Random.Int( 3 ) == 0) {
+                    map[i - WIDTH] == Terrain.WALL &&
+                    (map[i + WIDTH] == Terrain.EMPTY || map[i + WIDTH] == Terrain.EMPTY_SP) &&
+                    Random.Int(3) == 0) {
 
                 map[i] = Terrain.WALL_DECO;
             }
@@ -127,37 +125,37 @@ public class PrisonLevel extends RegularLevel {
     }
 
     @Override
-    public String tileName( int tile ) {
+    public String tileName(int tile) {
         switch (tile) {
-        case Terrain.WATER:
-            return "Dark cold water.";
-        default:
-            return super.tileName( tile );
+            case Terrain.WATER:
+                return "Dark cold water.";
+            default:
+                return super.tileName(tile);
         }
     }
 
     @Override
     public String tileDesc(int tile) {
         switch (tile) {
-        case Terrain.EMPTY_DECO:
-            return "There are old blood stains on the floor.";
-        case Terrain.BOOKSHELF:
-            return "This is probably a vestige of a prison library. Might it burn?";
-        default:
-            return super.tileDesc( tile );
+            case Terrain.EMPTY_DECO:
+                return "There are old blood stains on the floor.";
+            case Terrain.BOOKSHELF:
+                return "This is probably a vestige of a prison library. Might it burn?";
+            default:
+                return super.tileDesc(tile);
         }
     }
 
     @Override
-    public void addVisuals( Scene scene ) {
-        super.addVisuals( scene );
-        addVisuals( this, scene );
+    public void addVisuals(Scene scene) {
+        super.addVisuals(scene);
+        addVisuals(this, scene);
     }
 
-    public static void addVisuals( Level level, Scene scene ) {
-        for (int i=0; i < LENGTH; i++) {
+    public static void addVisuals(Level level, Scene scene) {
+        for (int i = 0; i < LENGTH; i++) {
             if (level.map[i] == Terrain.WALL_DECO) {
-                scene.add( new Torch( i ) );
+                scene.add(new Torch(i));
             }
         }
     }
@@ -166,17 +164,17 @@ public class PrisonLevel extends RegularLevel {
 
         private int pos;
 
-        public Torch( int pos ) {
+        public Torch(int pos) {
             super();
 
             this.pos = pos;
 
-            PointF p = DungeonTilemap.tileCenterToWorld( pos );
-            pos( p.x - 1, p.y + 3, 2, 0 );
+            PointF p = DungeonTilemap.tileCenterToWorld(pos);
+            pos(p.x - 1, p.y + 3, 2, 0);
 
-            pour( FlameParticle.FACTORY, 0.15f );
+            pour(FlameParticle.FACTORY, 0.15f);
 
-            add( new Halo( 16, 0xFFFFCC, 0.2f ).point( p.x, p.y ) );
+            add(new Halo(16, 0xFFFFCC, 0.2f).point(p.x, p.y));
         }
 
         @Override

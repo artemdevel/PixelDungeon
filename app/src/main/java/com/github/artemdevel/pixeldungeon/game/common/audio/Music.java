@@ -33,12 +33,10 @@ public enum Music implements MediaPlayer.OnPreparedListener, MediaPlayer.OnError
 
     private String lastPlayed;
     private boolean lastLooping;
-
     private boolean enabled = true;
 
-    public void play( String assetName, boolean looping ) {
-
-        if (isPlaying() && lastPlayed.equals( assetName )) {
+    public void play(String assetName, boolean looping) {
+        if (isPlaying() && lastPlayed.equals(assetName)) {
             return;
         }
 
@@ -52,22 +50,18 @@ public enum Music implements MediaPlayer.OnPreparedListener, MediaPlayer.OnError
         }
 
         try {
-
-            AssetFileDescriptor afd = Game.instance.getAssets().openFd( assetName );
+            AssetFileDescriptor afd = Game.instance.getAssets().openFd(assetName);
 
             player = new MediaPlayer();
-            player.setAudioStreamType( AudioManager.STREAM_MUSIC );
-            player.setDataSource( afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength() );
-            player.setOnPreparedListener( this );
-            player.setOnErrorListener( this );
-            player.setLooping( looping );
+            player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            player.setOnPreparedListener(this);
+            player.setOnErrorListener(this);
+            player.setLooping(looping);
             player.prepareAsync();
-
         } catch (IOException e) {
-
             player.release();
             player = null;
-
         }
     }
 
@@ -77,12 +71,12 @@ public enum Music implements MediaPlayer.OnPreparedListener, MediaPlayer.OnError
     }
 
     @Override
-    public void onPrepared( MediaPlayer player ) {
+    public void onPrepared(MediaPlayer player) {
         player.start();
     }
 
     @Override
-    public boolean onError( MediaPlayer mp, int what, int extra ) {
+    public boolean onError(MediaPlayer mp, int what, int extra) {
         if (player != null) {
             player.release();
             player = null;
@@ -110,9 +104,9 @@ public enum Music implements MediaPlayer.OnPreparedListener, MediaPlayer.OnError
         }
     }
 
-    public void volume( float value ) {
+    public void volume(float value) {
         if (player != null) {
-            player.setVolume( value, value );
+            player.setVolume(value, value);
         }
     }
 
@@ -120,17 +114,12 @@ public enum Music implements MediaPlayer.OnPreparedListener, MediaPlayer.OnError
         return player != null && player.isPlaying();
     }
 
-    public void enable( boolean value ) {
+    public void enable(boolean value) {
         enabled = value;
         if (isPlaying() && !value) {
             stop();
-        } else
-        if (!isPlaying() && value) {
-            play( lastPlayed, lastLooping );
+        } else if (!isPlaying() && value) {
+            play(lastPlayed, lastLooping);
         }
     }
-
-//    public boolean isEnabled() {
-//        return enabled;
-//    }
 }

@@ -48,12 +48,11 @@ public class Flare extends Visual {
 
     private int nRays;
 
-    public Flare( int nRays, float radius ) {
-
-        super( 0, 0, 0, 0 );
+    public Flare(int nRays, float radius) {
+        super(0, 0, 0, 0);
 
         int gradient[] = {0xFFFFFFFF, 0x00FFFFFF};
-        texture = new Gradient( gradient );
+        texture = new Gradient(gradient);
 
         this.nRays = nRays;
 
@@ -61,14 +60,14 @@ public class Flare extends Visual {
         angularSpeed = 180;
 
         vertices = ByteBuffer.
-            allocateDirect( (nRays * 2 + 1) * 4 * (Float.SIZE / 8) ).
-            order( ByteOrder.nativeOrder() ).
-            asFloatBuffer();
+                allocateDirect((nRays * 2 + 1) * 4 * (Float.SIZE / 8)).
+                order(ByteOrder.nativeOrder()).
+                asFloatBuffer();
 
         indices = ByteBuffer.
-            allocateDirect( nRays * 3 * Short.SIZE / 8 ).
-            order( ByteOrder.nativeOrder() ).
-            asShortBuffer();
+                allocateDirect(nRays * 3 * Short.SIZE / 8).
+                order(ByteOrder.nativeOrder()).
+                asShortBuffer();
 
         float v[] = new float[4];
 
@@ -76,50 +75,49 @@ public class Flare extends Visual {
         v[1] = 0;
         v[2] = 0.25f;
         v[3] = 0;
-        vertices.put( v );
+        vertices.put(v);
 
         v[2] = 0.75f;
         v[3] = 0;
 
-        for (int i=0; i < nRays; i++) {
-
+        for (int i = 0; i < nRays; i++) {
             float a = i * 3.1415926f * 2 / nRays;
-            v[0] =  (float) Math.cos( a ) * radius;
-            v[1] = (float) Math.sin( a ) * radius;
-            vertices.put( v );
+            v[0] = (float) Math.cos(a) * radius;
+            v[1] = (float) Math.sin(a) * radius;
+            vertices.put(v);
 
             a += 3.1415926f * 2 / nRays / 2;
-            v[0] = (float) Math.cos( a ) * radius;
-            v[1] = (float) Math.sin( a ) * radius;
-            vertices.put( v );
+            v[0] = (float) Math.cos(a) * radius;
+            v[1] = (float) Math.sin(a) * radius;
+            vertices.put(v);
 
-            indices.put( (short)0 );
-            indices.put( (short)(1 + i * 2) );
-            indices.put( (short)(2 + i * 2) );
+            indices.put((short) 0);
+            indices.put((short) (1 + i * 2));
+            indices.put((short) (2 + i * 2));
         }
 
-        indices.position( 0 );
+        indices.position(0);
     }
 
-    public Flare color( int color, boolean lightMode ) {
+    public Flare color(int color, boolean lightMode) {
         this.lightMode = lightMode;
-        hardlight( color );
+        hardlight(color);
 
         return this;
     }
 
-    public Flare show( Visual visual, float duration ) {
-        point( visual.center() );
-        visual.parent.addToBack( this );
+    public Flare show(Visual visual, float duration) {
+        point(visual.center());
+        visual.parent.addToBack(this);
 
         lifespan = this.duration = duration;
 
         return this;
     }
 
-    public Flare show( Group parent, PointF pos, float duration ) {
-        point( pos );
-        parent.add( this );
+    public Flare show(Group parent, PointF pos, float duration) {
+        point(pos);
+        parent.add(this);
 
         lifespan = this.duration = duration;
 
@@ -134,9 +132,9 @@ public class Flare extends Visual {
             if ((lifespan -= Game.elapsed) > 0) {
 
                 float p = 1 - lifespan / duration;    // 0 -> 1
-                p =  p < 0.25f ? p * 4 : (1 - p) * 1.333f;
-                scale.set( p );
-                alpha( p );
+                p = p < 0.25f ? p * 4 : (1 - p) * 1.333f;
+                scale.set(p);
+                alpha(p);
 
             } else {
                 killAndErase();
@@ -146,30 +144,28 @@ public class Flare extends Visual {
 
     @Override
     public void draw() {
-
         super.draw();
 
         if (lightMode) {
-            GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE );
+            GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
             drawRays();
-            GLES20.glBlendFunc( GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA );
+            GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         } else {
             drawRays();
         }
     }
 
     private void drawRays() {
-
         NoosaScript script = NoosaScript.get();
 
         texture.bind();
 
-        script.uModel.valueM4( matrix );
+        script.uModel.valueM4(matrix);
         script.lighting(
-            rm, gm, bm, am,
-            ra, ga, ba, aa );
+                rm, gm, bm, am,
+                ra, ga, ba, aa);
 
-        script.camera( camera );
-        script.drawElements( vertices, indices, nRays * 3 );
+        script.camera(camera);
+        script.drawElements(vertices, indices, nRays * 3);
     }
 }

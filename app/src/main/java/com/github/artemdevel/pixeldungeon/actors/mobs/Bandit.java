@@ -36,10 +36,9 @@ public class Bandit extends Thief {
     }
 
     @Override
-    protected boolean steal( Hero hero ) {
-        if (super.steal( hero )) {
-
-            Buff.prolong( hero, Blindness.class, Random.Int( 5, 12 ) );
+    protected boolean steal(Hero hero) {
+        if (super.steal(hero)) {
+            Buff.prolong(hero, Blindness.class, Random.Int(5, 12));
             Dungeon.observe();
 
             return true;
@@ -49,8 +48,8 @@ public class Bandit extends Thief {
     }
 
     @Override
-    public void die( Object cause ) {
-        super.die( cause );
-        Badges.validateRare( this );
+    public void die(Object cause) {
+        super.die(cause);
+        Badges.validateRare(this);
     }
 }

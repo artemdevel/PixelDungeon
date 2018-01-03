@@ -35,8 +35,7 @@ import com.github.artemdevel.pixeldungeon.ui.Window;
 
 public class AboutScene extends PixelScene {
 
-    private static final String TXT =
-        "Code & graphics: Watabou\n" +
+    private static final String TXT = "Code & graphics: Watabou\n" +
         "Music: Cube_Code\n\n" +
         "This game is inspired by Brian Walker's Brogue. " +
         "Try it on Windows, Mac OS or Linux - it's awesome! ;)\n\n" +
@@ -48,52 +47,52 @@ public class AboutScene extends PixelScene {
     public void create() {
         super.create();
 
-        BitmapTextMultiline text = createMultiline( TXT, 8 );
-        text.maxWidth = Math.min( Camera.main.width, 120 );
+        BitmapTextMultiline text = createMultiline(TXT, 8);
+        text.maxWidth = Math.min(Camera.main.width, 120);
         text.measure();
-        add( text );
+        add(text);
 
-        text.x = align( (Camera.main.width - text.width()) / 2 );
-        text.y = align( (Camera.main.height - text.height()) / 2 );
+        text.x = align((Camera.main.width - text.width()) / 2);
+        text.y = align((Camera.main.height - text.height()) / 2);
 
-        BitmapTextMultiline link = createMultiline( LNK, 8 );
-        link.maxWidth = Math.min( Camera.main.width, 120 );
+        BitmapTextMultiline link = createMultiline(LNK, 8);
+        link.maxWidth = Math.min(Camera.main.width, 120);
         link.measure();
-        link.hardlight( Window.TITLE_COLOR );
-        add( link );
+        link.hardlight(Window.TITLE_COLOR);
+        add(link);
 
         link.x = text.x;
         link.y = text.y + text.height();
 
-        TouchArea hotArea = new TouchArea( link ) {
+        TouchArea hotArea = new TouchArea(link) {
             @Override
-            protected void onClick( Touch touch ) {
-                Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://" + LNK ) );
-                Game.instance.startActivity( intent );
+            protected void onClick(Touch touch) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + LNK));
+                Game.instance.startActivity(intent);
             }
         };
-        add( hotArea );
+        add(hotArea);
 
         Image wata = Icons.WATA.get();
-        wata.x = align( (Camera.main.width - wata.width) / 2 );
+        wata.x = align((Camera.main.width - wata.width) / 2);
         wata.y = text.y - wata.height - 8;
-        add( wata );
+        add(wata);
 
-        new Flare( 7, 64 ).color( 0x112233, true ).show( wata, 0 ).angularSpeed = +20;
+        new Flare(7, 64).color(0x112233, true).show(wata, 0).angularSpeed = +20;
 
         Archs archs = new Archs();
-        archs.setSize( Camera.main.width, Camera.main.height );
-        addToBack( archs );
+        archs.setSize(Camera.main.width, Camera.main.height);
+        addToBack(archs);
 
         ExitButton btnExit = new ExitButton();
-        btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
-        add( btnExit );
+        btnExit.setPos(Camera.main.width - btnExit.width(), 0);
+        add(btnExit);
 
         fadeIn();
     }
 
     @Override
     protected void onBackPressed() {
-        PixelDungeon.switchNoFade( TitleScene.class );
+        PixelDungeon.switchNoFade(TitleScene.class);
     }
 }

@@ -31,42 +31,42 @@ import com.github.artemdevel.pixeldungeon.game.utils.SparseArray;
 
 public class BuffIndicator extends Component {
 
-    public static final int NONE    = -1;
+    public static final int NONE = -1;
 
-    public static final int MIND_VISION    = 0;
-    public static final int LEVITATION    = 1;
-    public static final int FIRE        = 2;
-    public static final int POISON        = 3;
-    public static final int PARALYSIS    = 4;
-    public static final int HUNGER        = 5;
-    public static final int STARVATION    = 6;
-    public static final int SLOW        = 7;
-    public static final int OOZE        = 8;
-    public static final int AMOK        = 9;
-    public static final int TERROR        = 10;
-    public static final int ROOTS        = 11;
-    public static final int INVISIBLE    = 12;
-    public static final int SHADOWS        = 13;
-    public static final int WEAKNESS    = 14;
-    public static final int FROST        = 15;
-    public static final int BLINDNESS    = 16;
-    public static final int COMBO        = 17;
-    public static final int FURY        = 18;
-    public static final int HEALING        = 19;
-    public static final int ARMOR        = 20;
-    public static final int HEART        = 21;
-    public static final int LIGHT        = 22;
-    public static final int CRIPPLE        = 23;
-    public static final int BARKSKIN    = 24;
-    public static final int IMMUNITY    = 25;
-    public static final int BLEEDING    = 26;
-    public static final int MARK        = 27;
-    public static final int DEFERRED    = 28;
-    public static final int VERTIGO        = 29;
-    public static final int RAGE        = 30;
-    public static final int SACRIFICE    = 31;
+    public static final int MIND_VISION = 0;
+    public static final int LEVITATION = 1;
+    public static final int FIRE = 2;
+    public static final int POISON = 3;
+    public static final int PARALYSIS = 4;
+    public static final int HUNGER = 5;
+    public static final int STARVATION = 6;
+    public static final int SLOW = 7;
+    public static final int OOZE = 8;
+    public static final int AMOK = 9;
+    public static final int TERROR = 10;
+    public static final int ROOTS = 11;
+    public static final int INVISIBLE = 12;
+    public static final int SHADOWS = 13;
+    public static final int WEAKNESS = 14;
+    public static final int FROST = 15;
+    public static final int BLINDNESS = 16;
+    public static final int COMBO = 17;
+    public static final int FURY = 18;
+    public static final int HEALING = 19;
+    public static final int ARMOR = 20;
+    public static final int HEART = 21;
+    public static final int LIGHT = 22;
+    public static final int CRIPPLE = 23;
+    public static final int BARKSKIN = 24;
+    public static final int IMMUNITY = 25;
+    public static final int BLEEDING = 26;
+    public static final int MARK = 27;
+    public static final int DEFERRED = 28;
+    public static final int VERTIGO = 29;
+    public static final int RAGE = 30;
+    public static final int SACRIFICE = 31;
 
-    public static final int SIZE    = 7;
+    public static final int SIZE = 7;
 
     private static BuffIndicator heroInstance;
 
@@ -77,7 +77,7 @@ public class BuffIndicator extends Component {
 
     private Char ch;
 
-    public BuffIndicator( Char ch ) {
+    public BuffIndicator(Char ch) {
         super();
 
         this.ch = ch;
@@ -97,8 +97,8 @@ public class BuffIndicator extends Component {
 
     @Override
     protected void createChildren() {
-        texture = TextureCache.get( Assets.BUFFS_SMALL );
-        film = new TextureFilm( texture, SIZE, SIZE );
+        texture = TextureCache.get(Assets.BUFFS_SMALL);
+        film = new TextureFilm(texture, SIZE, SIZE);
     }
 
     @Override
@@ -110,28 +110,28 @@ public class BuffIndicator extends Component {
         for (Buff buff : ch.buffs()) {
             int icon = buff.icon();
             if (icon != NONE) {
-                Image img = new Image( texture );
-                img.frame( film.get( icon ) );
+                Image img = new Image(texture);
+                img.frame(film.get(icon));
                 img.x = x + members.size() * (SIZE + 2);
                 img.y = y;
-                add( img );
+                add(img);
 
-                newIcons.put( icon, img );
+                newIcons.put(icon, img);
             }
         }
 
         for (Integer key : icons.keyArray()) {
-            if (newIcons.get( key ) == null) {
-                Image icon = icons.get( key );
-                icon.origin.set( SIZE / 2 );
-                add( icon );
-                add( new AlphaTweener( icon, 0, 0.6f ) {
+            if (newIcons.get(key) == null) {
+                Image icon = icons.get(key);
+                icon.origin.set(SIZE / 2);
+                add(icon);
+                add(new AlphaTweener(icon, 0, 0.6f) {
                     @Override
-                    protected void updateValues( float progress ) {
-                        super.updateValues( progress );
-                        image.scale.set( 1 + 5 * progress );
-                    };
-                } );
+                    protected void updateValues(float progress) {
+                        super.updateValues(progress);
+                        image.scale.set(1 + 5 * progress);
+                    }
+                });
             }
         }
 
