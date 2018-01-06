@@ -26,6 +26,8 @@ import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
 
 public class Journal {
 
+    private static final String JOURNAL = "journal";
+
     public enum Feature {
         WELL_OF_HEALTH("Well of Health"),
         WELL_OF_AWARENESS("Well of Awareness"),
@@ -47,8 +49,7 @@ public class Journal {
         }
     }
 
-    // TODO: Consider to make it final
-    public static ArrayList<Record> records;
+    public static final ArrayList<Record> records = new ArrayList<>();
 
     public static class Record implements Comparable<Record>, BundleAble {
 
@@ -58,6 +59,7 @@ public class Journal {
         public Feature feature;
         public int depth;
 
+        // NOTE: This empty constructor is required for restore from Bundle
         public Record() {
         }
 
@@ -85,27 +87,23 @@ public class Journal {
     }
 
     public static void reset() {
-        records = new ArrayList<>();
+        records.clear();
     }
-
-    private static final String JOURNAL = "journal";
 
     public static void storeInBundle(Bundle bundle) {
         bundle.put(JOURNAL, records);
     }
 
     public static void restoreFromBundle(Bundle bundle) {
-        records = new ArrayList<>();
+        records.clear();
         for (BundleAble rec : bundle.getCollection(JOURNAL)) {
             records.add((Record) rec);
         }
     }
 
     public static void add(Feature feature) {
-        int size = records.size();
-        for (int i = 0; i < size; i++) {
-            Record rec = records.get(i);
-            if (rec.feature == feature && rec.depth == Dungeon.depth) {
+        for (Record record : records) {
+            if (record.feature == feature && record.depth == Dungeon.depth) {
                 return;
             }
         }
@@ -114,11 +112,9 @@ public class Journal {
     }
 
     public static void remove(Feature feature) {
-        int size = records.size();
-        for (int i = 0; i < size; i++) {
-            Record rec = records.get(i);
-            if (rec.feature == feature && rec.depth == Dungeon.depth) {
-                records.remove(i);
+        for (Record record : records) {
+            if (record.feature == feature && record.depth == Dungeon.depth) {
+                records.remove(record);
                 return;
             }
         }

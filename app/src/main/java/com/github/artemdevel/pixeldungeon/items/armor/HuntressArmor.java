@@ -74,7 +74,7 @@ public class HuntressArmor extends ClassArmor {
         }
 
         if (targets.size() == 0) {
-            GLog.w(TXT_NO_ENEMIES);
+            GLog.logWarning(TXT_NO_ENEMIES);
             return;
         }
 
@@ -89,7 +89,7 @@ public class HuntressArmor extends ClassArmor {
         if (hero.heroClass == HeroClass.HUNTRESS) {
             return super.doEquip(hero);
         } else {
-            GLog.w(TXT_NOT_HUNTRESS);
+            GLog.logWarning(TXT_NOT_HUNTRESS);
             return false;
         }
     }

@@ -62,7 +62,7 @@ public class RogueArmor extends ClassArmor {
         if (hero.heroClass == HeroClass.ROGUE) {
             return super.doEquip(hero);
         } else {
-            GLog.w(TXT_NOT_ROGUE);
+            GLog.logWarning(TXT_NOT_ROGUE);
             return false;
         }
     }
@@ -82,7 +82,7 @@ public class RogueArmor extends ClassArmor {
                     !(Level.passable[target] || Level.avoid[target]) ||
                     Actor.findChar(target) != null) {
 
-                    GLog.w(TXT_FOV);
+                    GLog.logWarning(TXT_FOV);
                     return;
                 }
 

@@ -78,7 +78,7 @@ public class MageArmor extends ClassArmor {
         if (hero.heroClass == HeroClass.MAGE) {
             return super.doEquip(hero);
         } else {
-            GLog.w(TXT_NOT_MAGE);
+            GLog.logWarning(TXT_NOT_MAGE);
             return false;
         }
     }

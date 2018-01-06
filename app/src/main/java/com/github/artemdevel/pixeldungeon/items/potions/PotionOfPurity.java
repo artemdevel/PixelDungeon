@@ -88,13 +88,13 @@ public class PotionOfPurity extends Potion {
             setKnown();
 
             if (heroAffected) {
-                GLog.p(TXT_FRESHNESS);
+                GLog.logPositive(TXT_FRESHNESS);
             }
         } else {
             super.shatter(cell);
 
             if (heroAffected) {
-                GLog.i(TXT_FRESHNESS);
+                GLog.logInfo(TXT_FRESHNESS);
                 setKnown();
             }
 
@@ -103,7 +103,7 @@ public class PotionOfPurity extends Potion {
 
     @Override
     protected void apply(Hero hero) {
-        GLog.w(TXT_NO_SMELL);
+        GLog.logWarning(TXT_NO_SMELL);
         Buff.prolong(hero, GasesImmunity.class, GasesImmunity.DURATION);
         setKnown();
     }

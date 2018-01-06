@@ -70,7 +70,6 @@ public class Poison extends Buff implements Hero.Doom {
             if ((left -= TICK) <= 0) {
                 detach();
             }
-
         } else {
             detach();
         }
@@ -88,6 +87,6 @@ public class Poison extends Buff implements Hero.Doom {
         Badges.validateDeathFromPoison();
 
         Dungeon.fail(Utils.format(ResultDescriptions.POISON, Dungeon.depth));
-        GLog.n("You died from poison...");
+        GLog.logNegative("You died from poison...");
     }
 }

@@ -109,7 +109,7 @@ public class Shaman extends Mob implements Callback {
                     if (!enemy.isAlive()) {
                         Dungeon.fail(Utils.format(ResultDescriptions.MOB,
                                 Utils.indefinite(name), Dungeon.depth));
-                        GLog.n(TXT_LIGHTNING_KILLED, name);
+                        GLog.logNegative(TXT_LIGHTNING_KILLED, name);
                     }
                 }
             } else {

@@ -103,7 +103,7 @@ public class DM300 extends Mob {
             sprite.emitter().burst(ElmoParticle.FACTORY, 5);
 
             if (Dungeon.visible[step] && Dungeon.hero.isAlive()) {
-                GLog.n("DM-300 repairs itself!");
+                GLog.logNegative("DM-300 repairs itself!");
             }
         }
 

@@ -34,7 +34,7 @@ public class PotionOfStrength extends Potion {
 
         hero.STR++;
         hero.sprite.showStatus(CharSprite.POSITIVE, "+1 str");
-        GLog.p("New found strength surges through your body.");
+        GLog.logPositive("New found strength surges through your body.");
 
         Badges.validateStrengthAttained();
     }

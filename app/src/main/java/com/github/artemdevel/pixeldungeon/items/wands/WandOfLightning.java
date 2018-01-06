@@ -51,7 +51,7 @@ public class WandOfLightning extends Wand {
         // Everything is processed in fx() method
         if (!curUser.isAlive()) {
             Dungeon.fail(Utils.format(ResultDescriptions.WAND, name, Dungeon.depth));
-            GLog.n("You killed yourself with your own Wand of Lightning...");
+            GLog.logNegative("You killed yourself with your own Wand of Lightning...");
         }
     }
 

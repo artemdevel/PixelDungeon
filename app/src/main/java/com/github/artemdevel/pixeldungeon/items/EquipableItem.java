@@ -73,7 +73,7 @@ public abstract class EquipableItem extends Item {
 
     public boolean doUnequip(Hero hero, boolean collect, boolean single) {
         if (cursed) {
-            GLog.w(TXT_UNEQUIP_CURSED, name());
+            GLog.logWarning(TXT_UNEQUIP_CURSED, name());
             return false;
         }
 

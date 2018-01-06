@@ -17,9 +17,14 @@
  */
 package com.github.artemdevel.pixeldungeon.utils;
 
+import android.util.Log;
+
 import java.util.Locale;
 
 public class Utils {
+
+    private static final String VOWELS = "aoeiu";
+    private static final String EX_TAG = "PD";
 
     public static String capitalize(String str) {
         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
@@ -29,8 +34,6 @@ public class Utils {
         return String.format(Locale.ENGLISH, format, args);
     }
 
-    public static String VOWELS = "aoeiu";
-
     public static String indefinite(String noun) {
         if (noun.length() == 0) {
             return "a";
@@ -38,4 +41,9 @@ public class Utils {
             return (VOWELS.indexOf(Character.toLowerCase(noun.charAt(0))) != -1 ? "an " : "a ") + noun;
         }
     }
+
+    public static void reportException(Throwable tr) {
+        Log.e(EX_TAG, Log.getStackTraceString(tr));
+    }
+
 }

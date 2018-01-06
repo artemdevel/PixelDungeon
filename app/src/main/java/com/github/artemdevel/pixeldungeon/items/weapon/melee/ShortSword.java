@@ -103,7 +103,7 @@ public class ShortSword extends MeleeWeapon {
                 ScrollOfUpgrade.upgrade(curUser);
                 evoke(curUser);
 
-                GLog.w(TXT_REFORGED, item.name());
+                GLog.logWarning(TXT_REFORGED, item.name());
 
                 ((MeleeWeapon) item).safeUpgrade();
                 curUser.spendAndNext(TIME_TO_REFORGE);
@@ -111,7 +111,7 @@ public class ShortSword extends MeleeWeapon {
                 Badges.validateItemLevelAcquired(item);
             } else {
                 if (item instanceof Boomerang) {
-                    GLog.w(TXT_NOT_BOOMERANG);
+                    GLog.logWarning(TXT_NOT_BOOMERANG);
                 }
 
                 if (equipped) {

@@ -17,7 +17,6 @@
 
 package com.github.artemdevel.pixeldungeon.game.utils;
 
-// TODO: Does this class really require?
 public class SystemTime {
 
     public static long now;

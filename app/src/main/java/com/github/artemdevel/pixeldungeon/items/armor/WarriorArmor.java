@@ -67,7 +67,7 @@ public class WarriorArmor extends ClassArmor {
         if (hero.heroClass == HeroClass.WARRIOR) {
             return super.doEquip(hero);
         } else {
-            GLog.w(TXT_NOT_WARRIOR);
+            GLog.logWarning(TXT_NOT_WARRIOR);
             return false;
         }
     }

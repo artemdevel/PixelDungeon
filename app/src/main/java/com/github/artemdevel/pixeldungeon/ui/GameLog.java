@@ -31,18 +31,15 @@ import com.github.artemdevel.pixeldungeon.game.utils.Signal;
 public class GameLog extends Component implements Signal.Listener<String> {
 
     private static final int MAX_LINES = 3;
-
     private static final Pattern PUNCTUATION = Pattern.compile(".*[.,;?! ]$");
+    private static final ArrayList<Entry> entries = new ArrayList<>();
 
     private BitmapTextMultiline lastEntry;
     private int lastColor;
 
-    private static ArrayList<Entry> entries = new ArrayList<Entry>();
-
     public GameLog() {
         super();
         GLog.update.add(this);
-
         recreateLines();
     }
 
@@ -75,8 +72,7 @@ public class GameLog extends Component implements Signal.Listener<String> {
             color = CharSprite.NEUTRAL;
         }
 
-        text = Utils.capitalize(text) +
-                (PUNCTUATION.matcher(text).matches() ? "" : ".");
+        text = Utils.capitalize(text) + (PUNCTUATION.matcher(text).matches() ? "" : ".");
 
         if (lastEntry != null && color == lastColor && lastEntry.nLines < MAX_LINES) {
             String lastMessage = lastEntry.text();

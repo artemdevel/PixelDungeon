@@ -85,7 +85,7 @@ public class Sign {
                 CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
                 Sample.INSTANCE.play(Assets.SND_BURNING);
 
-                GLog.w(TXT_BURN);
+                GLog.logWarning(TXT_BURN);
             }
         }
     }

@@ -40,8 +40,7 @@ import com.github.artemdevel.pixeldungeon.game.utils.Rect;
 
 public abstract class RegularLevel extends Level {
 
-    // TODO: Can it be immutable?
-    protected HashSet<Room> rooms;
+    protected final HashSet<Room> rooms = new HashSet<>();
     protected ArrayList<Room.Type> specials;
 
     protected Room roomEntrance;
@@ -148,7 +147,7 @@ public abstract class RegularLevel extends Level {
     }
 
     protected boolean initRooms() {
-        rooms = new HashSet<>();
+        rooms.clear();
         split(new Rect(0, 0, WIDTH - 1, HEIGHT - 1));
 
         if (rooms.size() < 8) {
@@ -636,7 +635,7 @@ public abstract class RegularLevel extends Level {
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
 
-        rooms = new HashSet<>();
+        rooms.clear();
         for (BundleAble item : bundle.getCollection("rooms")) {
             rooms.add((Room) item);
         }

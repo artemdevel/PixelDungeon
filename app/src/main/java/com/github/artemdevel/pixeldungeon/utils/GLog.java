@@ -23,7 +23,7 @@ import android.util.Log;
 
 public class GLog {
 
-    public static final String TAG = "GAME";
+    private static final String TAG = "GAME";
 
     public static final String POSITIVE = "++ ";
     public static final String NEGATIVE = "-- ";
@@ -32,8 +32,7 @@ public class GLog {
 
     public static Signal<String> update = new Signal<>();
 
-    // TODO: Re-factor all these single letter method names
-    public static void i(String text, Object... args) {
+    public static void logInfo(String text, Object... args) {
         if (args.length > 0) {
             text = Utils.format(text, args);
         }
@@ -42,19 +41,19 @@ public class GLog {
         update.dispatch(text);
     }
 
-    public static void p(String text, Object... args) {
-        i(POSITIVE + text, args);
+    public static void logPositive(String text, Object... args) {
+        logInfo(POSITIVE + text, args);
     }
 
-    public static void n(String text, Object... args) {
-        i(NEGATIVE + text, args);
+    public static void logNegative(String text, Object... args) {
+        logInfo(NEGATIVE + text, args);
     }
 
-    public static void w(String text, Object... args) {
-        i(WARNING + text, args);
+    public static void logWarning(String text, Object... args) {
+        logInfo(WARNING + text, args);
     }
 
-    public static void h(String text, Object... args) {
-        i(HIGHLIGHT + text, args);
+    public static void logHighlight(String text, Object... args) {
+        logInfo(HIGHLIGHT + text, args);
     }
 }

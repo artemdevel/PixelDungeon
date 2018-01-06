@@ -74,7 +74,7 @@ abstract public class Weapon extends KindOfWeapon {
         if (!levelKnown) {
             if (--hitsToKnow <= 0) {
                 levelKnown = true;
-                GLog.i(TXT_IDENTIFY, name(), toString());
+                GLog.logInfo(TXT_IDENTIFY, name(), toString());
                 Badges.validateItemLevelAcquired(this);
             }
         }
@@ -146,7 +146,7 @@ abstract public class Weapon extends KindOfWeapon {
     public Item upgrade(boolean enchant) {
         if (enchantment != null) {
             if (!enchant && Random.Int(level()) > 0) {
-                GLog.w(TXT_INCOMPATIBLE);
+                GLog.logWarning(TXT_INCOMPATIBLE);
                 enchant(null);
             }
         } else {

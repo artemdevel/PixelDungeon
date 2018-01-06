@@ -63,7 +63,7 @@ public class Rotberry extends Plant {
                         mob.beckon(Dungeon.hero.pos);
                     }
 
-                    GLog.w("The seed emits a roar that echoes throughout the dungeon!");
+                    GLog.logWarning("The seed emits a roar that echoes throughout the dungeon!");
                     CellEmitter.center(Dungeon.hero.pos).start(Speck.factory(Speck.SCREAM), 0.3f, 3);
                     Sample.INSTANCE.play(Assets.SND_CHALLENGE);
                 }

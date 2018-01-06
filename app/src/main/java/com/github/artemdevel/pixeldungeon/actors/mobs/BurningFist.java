@@ -103,7 +103,7 @@ public class BurningFist extends Mob {
 
                 if (!enemy.isAlive() && enemy == Dungeon.hero) {
                     Dungeon.fail(Utils.format(ResultDescriptions.BOSS, name, Dungeon.depth));
-                    GLog.n(TXT_KILL, name);
+                    GLog.logNegative(TXT_KILL, name);
                 }
                 return true;
 

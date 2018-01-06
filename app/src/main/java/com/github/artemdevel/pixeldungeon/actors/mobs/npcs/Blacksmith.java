@@ -90,7 +90,7 @@ public class Blacksmith extends NPC {
 
                     Pickaxe pick = new Pickaxe();
                     if (pick.doPickUp(Dungeon.hero)) {
-                        GLog.i(Hero.TXT_YOU_NOW_HAVE, pick.name());
+                        GLog.logInfo(Hero.TXT_YOU_NOW_HAVE, pick.name());
                     } else {
                         Dungeon.level.drop(pick, Dungeon.hero.pos).sprite.drop();
                     }
@@ -194,7 +194,7 @@ public class Blacksmith extends NPC {
             ((EquipableItem) first).doUnequip(Dungeon.hero, true);
         }
         first.upgrade();
-        GLog.p(TXT_LOOKS_BETTER, first.name());
+        GLog.logPositive(TXT_LOOKS_BETTER, first.name());
         Dungeon.hero.spendAndNext(2f);
         Badges.validateItemLevelAcquired(first);
 

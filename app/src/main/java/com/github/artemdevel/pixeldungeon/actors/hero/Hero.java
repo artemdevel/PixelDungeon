@@ -521,14 +521,14 @@ public class Hero extends Char {
                                 ((item instanceof PotionOfStrength || item instanceof PotionOfMight) &&
                                 ((Potion) item).isKnown());
                         if (important) {
-                            GLog.p(TXT_YOU_NOW_HAVE, item.name());
+                            GLog.logPositive(TXT_YOU_NOW_HAVE, item.name());
                         } else {
-                            GLog.i(TXT_YOU_NOW_HAVE, item.name());
+                            GLog.logInfo(TXT_YOU_NOW_HAVE, item.name());
                         }
                     }
 
                     if (!heap.isEmpty()) {
-                        GLog.i(TXT_SOMETHING_ELSE);
+                        GLog.logInfo(TXT_SOMETHING_ELSE);
                     }
                     curAction = null;
                 } else {
@@ -559,7 +559,7 @@ public class Hero extends Char {
                     theKey = belongings.getKey(GoldenKey.class, Dungeon.depth);
 
                     if (theKey == null) {
-                        GLog.w(TXT_LOCKED_CHEST);
+                        GLog.logWarning(TXT_LOCKED_CHEST);
                         ready();
                         return false;
                     }
@@ -608,7 +608,7 @@ public class Hero extends Char {
                 sprite.operate(doorCell);
                 Sample.INSTANCE.play(Assets.SND_UNLOCK);
             } else {
-                GLog.w(TXT_LOCKED_DOOR);
+                GLog.logWarning(TXT_LOCKED_DOOR);
                 ready();
             }
 
@@ -907,7 +907,7 @@ public class Hero extends Char {
         }
 
         if (levelUp) {
-            GLog.p(TXT_NEW_LEVEL, lvl);
+            GLog.logPositive(TXT_NEW_LEVEL, lvl);
             sprite.showStatus(CharSprite.POSITIVE, TXT_LEVEL_UP);
             Sample.INSTANCE.play(Assets.SND_LEVELUP);
 
@@ -946,33 +946,33 @@ public class Hero extends Char {
 
         if (sprite != null) {
             if (buff instanceof Burning) {
-                GLog.w("You catch fire!");
+                GLog.logWarning("You catch fire!");
                 interrupt();
             } else if (buff instanceof Paralysis) {
-                GLog.w("You are paralysed!");
+                GLog.logWarning("You are paralysed!");
                 interrupt();
             } else if (buff instanceof Poison) {
-                GLog.w("You are poisoned!");
+                GLog.logWarning("You are poisoned!");
                 interrupt();
             } else if (buff instanceof Ooze) {
-                GLog.w("Caustic ooze eats your flesh. Wash away it!");
+                GLog.logWarning("Caustic ooze eats your flesh. Wash away it!");
             } else if (buff instanceof Roots) {
-                GLog.w("You can't move!");
+                GLog.logWarning("You can't move!");
             } else if (buff instanceof Weakness) {
-                GLog.w("You feel weakened!");
+                GLog.logWarning("You feel weakened!");
             } else if (buff instanceof Blindness) {
-                GLog.w("You are blinded!");
+                GLog.logWarning("You are blinded!");
             } else if (buff instanceof Fury) {
-                GLog.w("You become furious!");
+                GLog.logWarning("You become furious!");
                 sprite.showStatus(CharSprite.POSITIVE, "furious");
             } else if (buff instanceof Charm) {
-                GLog.w("You are charmed!");
+                GLog.logWarning("You are charmed!");
             } else if (buff instanceof Cripple) {
-                GLog.w("You are crippled!");
+                GLog.logWarning("You are crippled!");
             } else if (buff instanceof Bleeding) {
-                GLog.w("You are bleeding!");
+                GLog.logWarning("You are bleeding!");
             } else if (buff instanceof Vertigo) {
-                GLog.w("Everything is spinning around you!");
+                GLog.logWarning("Everything is spinning around you!");
                 interrupt();
             } else if (buff instanceof Light) {
                 sprite.add(CharSprite.State.ILLUMINATED);
@@ -1228,7 +1228,7 @@ public class Hero extends Char {
         }
 
         if (smthFound) {
-            GLog.w(TXT_NOTICED_SMTH);
+            GLog.logWarning(TXT_NOTICED_SMTH);
             Sample.INSTANCE.play(Assets.SND_SECRET);
             interrupt();
         }

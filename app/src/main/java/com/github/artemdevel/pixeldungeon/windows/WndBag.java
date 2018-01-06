@@ -198,13 +198,6 @@ public class WndBag extends WndTabbed {
     }
 
     @Override
-    public void onMenuPressed() {
-        if (listener == null) {
-            hide();
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         if (listener != null) {
             listener.onSelect(null);

@@ -65,7 +65,7 @@ public class ScrollOfWipeOut extends Item {
     public void execute(Hero hero, String action) {
         if (action.equals(AC_READ)) {
             if (hero.buff(Blindness.class) != null) {
-                GLog.w(TXT_BLINDED);
+                GLog.logWarning(TXT_BLINDED);
             } else {
                 curUser = hero;
                 curItem = detach(hero.belongings.backpack);

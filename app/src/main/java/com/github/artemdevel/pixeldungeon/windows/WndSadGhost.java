@@ -46,7 +46,7 @@ public class WndSadGhost extends WndQuest {
 
         Item reward = index == 0 ? Ghost.Quest.weapon : Ghost.Quest.armor;
         if (reward.doPickUp(Dungeon.hero)) {
-            GLog.i(Hero.TXT_YOU_NOW_HAVE, reward.name());
+            GLog.logInfo(Hero.TXT_YOU_NOW_HAVE, reward.name());
         } else {
             Dungeon.level.drop(reward, ghost.pos).sprite.drop();
         }

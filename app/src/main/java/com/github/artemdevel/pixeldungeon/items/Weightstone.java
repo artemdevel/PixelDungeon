@@ -84,10 +84,10 @@ public class Weightstone extends Item {
         weapon.fix();
         if (forSpeed) {
             weapon.imbue = Weapon.Imbue.SPEED;
-            GLog.p(TXT_FAST, weapon.name());
+            GLog.logPositive(TXT_FAST, weapon.name());
         } else {
             weapon.imbue = Weapon.Imbue.ACCURACY;
-            GLog.p(TXT_ACCURATE, weapon.name());
+            GLog.logPositive(TXT_ACCURATE, weapon.name());
         }
 
         curUser.sprite.operate(curUser.pos);

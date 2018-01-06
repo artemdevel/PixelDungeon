@@ -17,15 +17,13 @@
  */
 package com.github.artemdevel.pixeldungeon.actors.blobs;
 
-import java.util.Arrays;
-
 import com.github.artemdevel.pixeldungeon.Dungeon;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
 import com.github.artemdevel.pixeldungeon.effects.BlobEmitter;
 import com.github.artemdevel.pixeldungeon.levels.Level;
 import com.github.artemdevel.pixeldungeon.utils.BArray;
 import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
+import com.github.artemdevel.pixeldungeon.utils.Utils;
 
 public class Blob extends Actor {
 
@@ -94,18 +92,6 @@ public class Blob extends Actor {
                 volume += data[i];
             }
         }
-
-        if (Level.resizingNeeded) {
-            int[] cur = new int[Level.LENGTH];
-            Arrays.fill(cur, 0);
-
-            int loadedMapSize = Level.loadedMapSize;
-            for (int i = 0; i < loadedMapSize; i++) {
-                System.arraycopy(this.cur, i * loadedMapSize, cur, i * Level.WIDTH, loadedMapSize);
-            }
-
-            this.cur = cur;
-        }
     }
 
     @Override
@@ -132,13 +118,11 @@ public class Blob extends Actor {
         boolean[] notBlocking = BArray.not(Level.solid, null);
 
         for (int i = 1; i < HEIGHT - 1; i++) {
-
             int from = i * WIDTH + 1;
             int to = from + WIDTH - 2;
 
             for (int pos = from; pos < to; pos++) {
                 if (notBlocking[pos]) {
-
                     int count = 1;
                     int sum = cur[pos];
 
@@ -196,9 +180,8 @@ public class Blob extends Actor {
             gas.seed(cell, amount);
 
             return gas;
-
         } catch (Exception e) {
-            PixelDungeon.reportException(e);
+            Utils.reportException(e);
             return null;
         }
     }

@@ -46,22 +46,22 @@ public class FrozenCarpaccio extends Food {
         if (action.equals(AC_EAT)) {
             switch (Random.Int(5)) {
                 case 0:
-                    GLog.i("You see your hands turn invisible!");
+                    GLog.logInfo("You see your hands turn invisible!");
                     Buff.affect(hero, Invisibility.class, Invisibility.DURATION);
                     break;
                 case 1:
-                    GLog.i("You feel your skin hardens!");
+                    GLog.logInfo("You feel your skin hardens!");
                     Buff.affect(hero, Barkskin.class).level(hero.HT / 4);
                     break;
                 case 2:
-                    GLog.i("Refreshing!");
+                    GLog.logInfo("Refreshing!");
                     Buff.detach(hero, Poison.class);
                     Buff.detach(hero, Cripple.class);
                     Buff.detach(hero, Weakness.class);
                     Buff.detach(hero, Bleeding.class);
                     break;
                 case 3:
-                    GLog.i("You feel better!");
+                    GLog.logInfo("You feel better!");
                     if (hero.HP < hero.HT) {
                         hero.HP = Math.min(hero.HP + hero.HT / 4, hero.HT);
                         hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);

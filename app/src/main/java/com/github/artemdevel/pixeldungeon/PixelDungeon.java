@@ -19,11 +19,9 @@ package com.github.artemdevel.pixeldungeon;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
@@ -32,6 +30,7 @@ import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
+import com.github.artemdevel.pixeldungeon.utils.Utils;
 
 public class PixelDungeon extends Game {
 
@@ -251,7 +250,7 @@ public class PixelDungeon extends Game {
                                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                                 : 0);
             } catch (Exception e) {
-                reportException(e);
+                Utils.reportException(e);
             }
         }
     }
@@ -330,8 +329,4 @@ public class PixelDungeon extends Game {
         return Preferences.INSTANCE.getBoolean(Preferences.KEY_INTRO, true);
     }
 
-    // TODO: Consideer to move this method in some utils
-    public static void reportException(Throwable tr) {
-        Log.e("PD", Log.getStackTraceString(tr));
-    }
 }

@@ -21,10 +21,8 @@ import java.util.LinkedList;
 
 public class Signal<T> {
 
-    private LinkedList<Listener<T>> listeners = new LinkedList<>();
-
+    private final LinkedList<Listener<T>> listeners = new LinkedList<>();
     private boolean canceled;
-
     private boolean stackMode;
 
     public Signal() {
@@ -54,21 +52,14 @@ public class Signal<T> {
     }
 
     public void dispatch(T t) {
-
-        @SuppressWarnings("unchecked")
-        Listener<T>[] list = listeners.toArray(new Listener[0]);
-
         canceled = false;
-        for (int i = 0; i < list.length; i++) {
-            Listener<T> listener = list[i];
-
+        for (Listener<T> listener : listeners) {
             if (listeners.contains(listener)) {
                 listener.onSignal(t);
                 if (canceled) {
                     return;
                 }
             }
-
         }
     }
 

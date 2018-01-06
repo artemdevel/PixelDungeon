@@ -209,8 +209,8 @@ public class Group extends Gizmo {
 //
 //        int count = 0;
 //
-//        for (int i = 0; i < length; i++) {
-//            Gizmo g = members.get(i);
+//        for (int logInfo = 0; logInfo < length; logInfo++) {
+//            Gizmo g = members.get(logInfo);
 //            if (g != null && !g.alive) {
 //                count++;
 //            }

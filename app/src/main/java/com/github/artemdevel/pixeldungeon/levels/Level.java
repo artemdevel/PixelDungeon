@@ -93,7 +93,6 @@ public abstract class Level implements BundleAble {
 
     private static final String TXT_HIDDEN_PLATE_CLICKS = "A hidden pressure plate clicks!";
 
-    public static boolean resizingNeeded;
     public static int loadedMapSize;
 
     public int[] map;
@@ -144,8 +143,6 @@ public abstract class Level implements BundleAble {
     private static final String BLOBS = "blobs";
 
     public void create() {
-        resizingNeeded = false;
-
         map = new int[LENGTH];
         visited = new boolean[LENGTH];
         Arrays.fill(visited, false);
@@ -231,23 +228,15 @@ public abstract class Level implements BundleAble {
 
         weakFloorCreated = false;
 
-        adjustMapSize();
-
         Collection<BundleAble> collection = bundle.getCollection(HEAPS);
         for (BundleAble h : collection) {
             Heap heap = (Heap) h;
-            if (resizingNeeded) {
-                heap.pos = adjustPos(heap.pos);
-            }
             heaps.put(heap.pos, heap);
         }
 
         collection = bundle.getCollection(PLANTS);
         for (BundleAble p : collection) {
             Plant plant = (Plant) p;
-            if (resizingNeeded) {
-                plant.pos = adjustPos(plant.pos);
-            }
             plants.put(plant.pos, plant);
         }
 
@@ -255,9 +244,6 @@ public abstract class Level implements BundleAble {
         for (BundleAble m : collection) {
             Mob mob = (Mob) m;
             if (mob != null) {
-                if (resizingNeeded) {
-                    mob.pos = adjustPos(mob.pos);
-                }
                 mobs.add(mob);
             }
         }
@@ -287,44 +273,6 @@ public abstract class Level implements BundleAble {
 
     public int tunnelTile() {
         return feeling == Feeling.CHASM ? Terrain.EMPTY_SP : Terrain.EMPTY;
-    }
-
-    private void adjustMapSize() {
-        // TODO: Probably this compat code isn't required now?
-        // For levels saved before 1.6.3
-        if (map.length < LENGTH) {
-
-            resizingNeeded = true;
-            loadedMapSize = (int) Math.sqrt(map.length);
-
-            int[] map = new int[LENGTH];
-            Arrays.fill(map, Terrain.WALL);
-
-            boolean[] visited = new boolean[LENGTH];
-            Arrays.fill(visited, false);
-
-            boolean[] mapped = new boolean[LENGTH];
-            Arrays.fill(mapped, false);
-
-            for (int i = 0; i < loadedMapSize; i++) {
-                System.arraycopy(this.map, i * loadedMapSize, map, i * WIDTH, loadedMapSize);
-                System.arraycopy(this.visited, i * loadedMapSize, visited, i * WIDTH, loadedMapSize);
-                System.arraycopy(this.mapped, i * loadedMapSize, mapped, i * WIDTH, loadedMapSize);
-            }
-
-            this.map = map;
-            this.visited = visited;
-            this.mapped = mapped;
-
-            entrance = adjustPos(entrance);
-            exit = adjustPos(exit);
-        } else {
-            resizingNeeded = false;
-        }
-    }
-
-    public int adjustPos(int pos) {
-        return (pos / loadedMapSize) * WIDTH + (pos % loadedMapSize);
     }
 
     public String tilesTex() {
@@ -611,49 +559,49 @@ public abstract class Level implements BundleAble {
 
         switch (map[cell]) {
             case Terrain.SECRET_TOXIC_TRAP:
-                GLog.i(TXT_HIDDEN_PLATE_CLICKS);
+                GLog.logInfo(TXT_HIDDEN_PLATE_CLICKS);
             case Terrain.TOXIC_TRAP:
                 trap = true;
                 ToxicTrap.trigger(cell, ch);
                 break;
             case Terrain.SECRET_FIRE_TRAP:
-                GLog.i(TXT_HIDDEN_PLATE_CLICKS);
+                GLog.logInfo(TXT_HIDDEN_PLATE_CLICKS);
             case Terrain.FIRE_TRAP:
                 trap = true;
                 FireTrap.trigger(cell, ch);
                 break;
             case Terrain.SECRET_PARALYTIC_TRAP:
-                GLog.i(TXT_HIDDEN_PLATE_CLICKS);
+                GLog.logInfo(TXT_HIDDEN_PLATE_CLICKS);
             case Terrain.PARALYTIC_TRAP:
                 trap = true;
                 ParalyticTrap.trigger(cell, ch);
                 break;
             case Terrain.SECRET_POISON_TRAP:
-                GLog.i(TXT_HIDDEN_PLATE_CLICKS);
+                GLog.logInfo(TXT_HIDDEN_PLATE_CLICKS);
             case Terrain.POISON_TRAP:
                 trap = true;
                 PoisonTrap.trigger(cell, ch);
                 break;
             case Terrain.SECRET_ALARM_TRAP:
-                GLog.i(TXT_HIDDEN_PLATE_CLICKS);
+                GLog.logInfo(TXT_HIDDEN_PLATE_CLICKS);
             case Terrain.ALARM_TRAP:
                 trap = true;
                 AlarmTrap.trigger(cell, ch);
                 break;
             case Terrain.SECRET_LIGHTNING_TRAP:
-                GLog.i(TXT_HIDDEN_PLATE_CLICKS);
+                GLog.logInfo(TXT_HIDDEN_PLATE_CLICKS);
             case Terrain.LIGHTNING_TRAP:
                 trap = true;
                 LightningTrap.trigger(cell, ch);
                 break;
             case Terrain.SECRET_GRIPPING_TRAP:
-                GLog.i(TXT_HIDDEN_PLATE_CLICKS);
+                GLog.logInfo(TXT_HIDDEN_PLATE_CLICKS);
             case Terrain.GRIPPING_TRAP:
                 trap = true;
                 GrippingTrap.trigger(cell, ch);
                 break;
             case Terrain.SECRET_SUMMONING_TRAP:
-                GLog.i(TXT_HIDDEN_PLATE_CLICKS);
+                GLog.logInfo(TXT_HIDDEN_PLATE_CLICKS);
             case Terrain.SUMMONING_TRAP:
                 trap = true;
                 SummoningTrap.trigger(cell, ch);

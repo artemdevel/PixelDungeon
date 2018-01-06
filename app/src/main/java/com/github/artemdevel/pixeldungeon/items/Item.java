@@ -186,7 +186,7 @@ public class Item implements BundleAble {
             Collections.sort(items, itemComparator);
             return true;
         } else {
-            GLog.n(TXT_PACK_FULL, name());
+            GLog.logNegative(TXT_PACK_FULL, name());
             return false;
         }
     }
@@ -284,12 +284,12 @@ public class Item implements BundleAble {
         if (level > 0 && !isBroken()) {
             int threshold = (int) (maxDurability() * DURABILITY_WARNING_LEVEL);
             if (durability-- >= threshold && threshold > durability && levelKnown) {
-                GLog.w(TXT_GONNA_BREAK, name());
+                GLog.logWarning(TXT_GONNA_BREAK, name());
             }
             if (isBroken()) {
                 getBroken();
                 if (levelKnown) {
-                    GLog.n(TXT_BROKEN, name());
+                    GLog.logNegative(TXT_BROKEN, name());
                     Dungeon.hero.interrupt();
 
                     CharSprite sprite = Dungeon.hero.sprite;

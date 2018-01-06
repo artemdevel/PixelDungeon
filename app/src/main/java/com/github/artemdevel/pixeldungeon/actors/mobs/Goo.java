@@ -160,7 +160,7 @@ public class Goo extends Mob {
 
             if (Dungeon.visible[pos]) {
                 sprite.showStatus(CharSprite.NEGATIVE, "!!!");
-                GLog.n("Goo is pumping itself up!");
+                GLog.logNegative("Goo is pumping itself up!");
             }
 
             return true;

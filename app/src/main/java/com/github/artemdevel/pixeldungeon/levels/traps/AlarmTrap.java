@@ -38,7 +38,7 @@ public class AlarmTrap {
         }
 
         if (Dungeon.visible[pos]) {
-            GLog.w("The trap emits a piercing sound that echoes throughout the dungeon!");
+            GLog.logWarning("The trap emits a piercing sound that echoes throughout the dungeon!");
             CellEmitter.center(pos).start(Speck.factory(Speck.SCREAM), 0.3f, 3);
         }
 

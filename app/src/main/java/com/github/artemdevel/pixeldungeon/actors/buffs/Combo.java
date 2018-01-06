@@ -44,7 +44,7 @@ public class Combo extends Buff {
         if (count >= 3) {
             Badges.validateMasteryCombo(count);
 
-            GLog.p(TXT_COMBO, count);
+            GLog.logPositive(TXT_COMBO, count);
             postpone(1.41f - count / 10f);
             return (int) (damage * (count - 2) / 5f);
 

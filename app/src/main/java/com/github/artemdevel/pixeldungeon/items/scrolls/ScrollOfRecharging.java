@@ -40,10 +40,10 @@ public class ScrollOfRecharging extends Scroll {
         Invisibility.dispel();
 
         if (count > 0) {
-            GLog.i("a surge of energy courses through your pack, recharging your wand" + (count > 1 ? "s" : ""));
+            GLog.logInfo("a surge of energy courses through your pack, recharging your wand" + (count > 1 ? "s" : ""));
             SpellSprite.show(curUser, SpellSprite.CHARGE);
         } else {
-            GLog.i("a surge of energy courses through your pack, but nothing happens");
+            GLog.logInfo("a surge of energy courses through your pack, but nothing happens");
         }
         setKnown();
 

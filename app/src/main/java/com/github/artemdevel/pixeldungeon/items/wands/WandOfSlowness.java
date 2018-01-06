@@ -39,7 +39,7 @@ public class WandOfSlowness extends Wand {
         if (ch != null) {
             Buff.affect(ch, Slow.class, Slow.duration(ch) / 3 + power());
         } else {
-            GLog.i("nothing happened");
+            GLog.logInfo("nothing happened");
         }
     }
 

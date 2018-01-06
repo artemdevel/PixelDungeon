@@ -59,13 +59,13 @@ public class ScrollOfTeleportation extends Scroll {
         } while (pos == -1);
 
         if (pos == -1) {
-            GLog.w(TXT_NO_TELEPORT);
+            GLog.logWarning(TXT_NO_TELEPORT);
         } else {
             WandOfBlink.appear(hero, pos);
             Dungeon.level.press(pos, hero);
             Dungeon.observe();
 
-            GLog.i(TXT_TELEPORTED);
+            GLog.logInfo(TXT_TELEPORTED);
         }
     }
 

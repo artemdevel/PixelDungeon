@@ -112,7 +112,7 @@ public class Heap implements BundleAble {
         switch (type) {
             case MIMIC:
                 if (Mimic.spawnAt(pos, items) != null) {
-                    GLog.n(TXT_MIMIC);
+                    GLog.logNegative(TXT_MIMIC);
                     destroy();
                 } else {
                     type = Type.CHEST;

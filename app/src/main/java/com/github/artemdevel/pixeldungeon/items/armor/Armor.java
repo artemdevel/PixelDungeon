@@ -96,7 +96,7 @@ public class Armor extends EquipableItem {
             cursedKnown = true;
             if (cursed) {
                 equipCursed(hero);
-                GLog.n(TXT_EQUIP_CURSED, toString());
+                GLog.logNegative(TXT_EQUIP_CURSED, toString());
             }
 
             ((HeroSprite) hero.sprite).updateArmor();
@@ -143,7 +143,7 @@ public class Armor extends EquipableItem {
     public Item upgrade(boolean inscribe) {
         if (glyph != null) {
             if (!inscribe && Random.Int(level()) > 0) {
-                GLog.w(TXT_INCOMPATIBLE);
+                GLog.logWarning(TXT_INCOMPATIBLE);
                 inscribe(null);
             }
         } else {
@@ -176,7 +176,7 @@ public class Armor extends EquipableItem {
         if (!levelKnown) {
             if (--hitsToKnow <= 0) {
                 levelKnown = true;
-                GLog.w(TXT_IDENTIFY, name(), toString());
+                GLog.logWarning(TXT_IDENTIFY, name(), toString());
                 Badges.validateItemLevelAcquired(this);
             }
         }

@@ -54,13 +54,13 @@ public class ScrollOfTerror extends Scroll {
 
         switch (count) {
             case 0:
-                GLog.i("The scroll emits a brilliant flash of red light");
+                GLog.logInfo("The scroll emits a brilliant flash of red light");
                 break;
             case 1:
-                GLog.i("The scroll emits a brilliant flash of red light and the " + affected.name + " flees!");
+                GLog.logInfo("The scroll emits a brilliant flash of red light and the " + affected.name + " flees!");
                 break;
             default:
-                GLog.i("The scroll emits a brilliant flash of red light and the monsters flee!");
+                GLog.logInfo("The scroll emits a brilliant flash of red light and the monsters flee!");
         }
         setKnown();
 

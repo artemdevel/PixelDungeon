@@ -70,7 +70,7 @@ public class WaterOfAwareness extends WellWater {
 
         Dungeon.hero.interrupt();
 
-        GLog.p(TXT_PROCCED);
+        GLog.logPositive(TXT_PROCCED);
 
         Journal.remove(Feature.WELL_OF_AWARENESS);
 

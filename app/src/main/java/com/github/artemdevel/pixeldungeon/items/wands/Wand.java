@@ -362,7 +362,7 @@ public abstract class Wand extends KindOfWeapon {
         curCharges--;
         if (!isIdentified() && --usagesToKnow <= 0) {
             identify();
-            GLog.w(TXT_IDENTIFY, name());
+            GLog.logWarning(TXT_IDENTIFY, name());
         } else {
             updateQuickSlot();
         }
@@ -419,7 +419,7 @@ public abstract class Wand extends KindOfWeapon {
         public void onSelect(Integer target) {
             if (target != null) {
                 if (target == curUser.pos) {
-                    GLog.i(TXT_SELF_TARGET);
+                    GLog.logInfo(TXT_SELF_TARGET);
                     return;
                 }
 
@@ -446,7 +446,7 @@ public abstract class Wand extends KindOfWeapon {
                     Invisibility.dispel();
                 } else {
                     curUser.spendAndNext(TIME_TO_ZAP);
-                    GLog.w(TXT_FIZZLES);
+                    GLog.logWarning(TXT_FIZZLES);
                     curWand.levelKnown = true;
 
                     curWand.updateQuickSlot();

@@ -46,7 +46,7 @@ public class Ooze extends Buff {
             target.damage(damage, this);
             if (!target.isAlive() && target == Dungeon.hero) {
                 Dungeon.fail(Utils.format(ResultDescriptions.OOZE, Dungeon.depth));
-                GLog.n(TXT_HERO_KILLED, toString());
+                GLog.logNegative(TXT_HERO_KILLED, toString());
             }
             spend(TICK);
         }

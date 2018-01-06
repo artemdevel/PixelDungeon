@@ -99,12 +99,4 @@ public class Rect {
         }
     }
 
-//    public Rect shrink(int d) {
-//        return new Rect(left + d, top + d, right - d, bottom - d);
-//    }
-
-//    public Rect shrink() {
-//        return shrink(1);
-//    }
-
 }

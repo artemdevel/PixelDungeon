@@ -107,9 +107,9 @@ public class WandOfReach extends Wand {
             } else {
                 if (((item instanceof ScrollOfUpgrade || item instanceof ScrollOfEnchantment) && ((Scroll) item).isKnown()) ||
                         ((item instanceof PotionOfStrength || item instanceof PotionOfMight) && ((Potion) item).isKnown())) {
-                    GLog.p(TXT_YOU_NOW_HAVE, item.name());
+                    GLog.logPositive(TXT_YOU_NOW_HAVE, item.name());
                 } else {
-                    GLog.i(TXT_YOU_NOW_HAVE, item.name());
+                    GLog.logInfo(TXT_YOU_NOW_HAVE, item.name());
                 }
             }
         } else {

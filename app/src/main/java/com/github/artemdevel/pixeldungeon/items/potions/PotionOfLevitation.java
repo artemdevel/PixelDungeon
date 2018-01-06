@@ -32,7 +32,7 @@ public class PotionOfLevitation extends Potion {
     protected void apply(Hero hero) {
         setKnown();
         Buff.affect(hero, Levitation.class, Levitation.DURATION);
-        GLog.i("You float into the air!");
+        GLog.logInfo("You float into the air!");
     }
 
     @Override

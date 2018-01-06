@@ -62,7 +62,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
             if (isStarving()) {
                 if (Random.Float() < 0.3f && (target.HP > 1 || !target.paralysed)) {
-                    GLog.n(TXT_STARVING);
+                    GLog.logNegative(TXT_STARVING);
                     hero.damage(1, this);
 
                     hero.interrupt();
@@ -76,11 +76,11 @@ public class Hunger extends Buff implements Hero.Doom {
                 float newLevel = level + STEP - bonus;
                 boolean statusUpdated = false;
                 if (newLevel >= STARVING) {
-                    GLog.n(TXT_STARVING);
+                    GLog.logNegative(TXT_STARVING);
                     statusUpdated = true;
                     hero.interrupt();
                 } else if (newLevel >= HUNGRY && level < HUNGRY) {
-                    GLog.w(TXT_HUNGRY);
+                    GLog.logWarning(TXT_HUNGRY);
                     statusUpdated = true;
                 }
                 level = newLevel;
@@ -140,6 +140,6 @@ public class Hunger extends Buff implements Hero.Doom {
         Badges.validateDeathFromHunger();
 
         Dungeon.fail(Utils.format(ResultDescriptions.HUNGER, Dungeon.depth));
-        GLog.n(TXT_DEATH);
+        GLog.logNegative(TXT_DEATH);
     }
 }

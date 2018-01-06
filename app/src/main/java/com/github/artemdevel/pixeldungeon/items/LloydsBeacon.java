@@ -102,13 +102,13 @@ public class LloydsBeacon extends Item {
         if (action.equals(AC_SET) || action.equals(AC_RETURN)) {
             if (Dungeon.bossLevel()) {
                 hero.spend(LloydsBeacon.TIME_TO_USE);
-                GLog.w(TXT_PREVENTING);
+                GLog.logWarning(TXT_PREVENTING);
                 return;
             }
 
             for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
                 if (Actor.findChar(hero.pos + Level.NEIGHBOURS8[i]) != null) {
-                    GLog.w(TXT_CREATURES);
+                    GLog.logWarning(TXT_CREATURES);
                     return;
                 }
             }
@@ -124,7 +124,7 @@ public class LloydsBeacon extends Item {
             hero.sprite.operate(hero.pos);
             Sample.INSTANCE.play(Assets.SND_BEACON);
 
-            GLog.i(TXT_RETURN);
+            GLog.logInfo(TXT_RETURN);
         } else if (action.equals(AC_RETURN)) {
             if (returnDepth == Dungeon.depth) {
                 reset();

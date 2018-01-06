@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.levels.painters.*;
 import com.github.artemdevel.pixeldungeon.game.utils.BundleAble;
 import com.github.artemdevel.pixeldungeon.game.utils.Bundle;
@@ -32,12 +31,17 @@ import com.github.artemdevel.pixeldungeon.game.utils.Graph;
 import com.github.artemdevel.pixeldungeon.game.utils.Point;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
 import com.github.artemdevel.pixeldungeon.game.utils.Rect;
+import com.github.artemdevel.pixeldungeon.utils.Utils;
 
 public class Room extends Rect implements Graph.Node, BundleAble {
 
     private static final String ROOMS = "rooms";
+    private static final String ROOM_TOP = "top";
+    private static final String ROOM_BOTTOM = "bottom";
+    private static final String ROOM_LEFT = "left";
+    private static final String ROOM_RIGHT = "right";
+    private static final String ROOM_TYPE = "type";
 
-    // TODO: Can it be immutable?
     public HashSet<Room> neighbours = new HashSet<>();
     public HashMap<Room, Door> connected = new HashMap<>();
 
@@ -85,7 +89,7 @@ public class Room extends Rect implements Graph.Node, BundleAble {
             try {
                 paint.invoke(null, level, room);
             } catch (Exception e) {
-                PixelDungeon.reportException(e);
+                Utils.reportException(e);
             }
         }
     }
@@ -121,8 +125,7 @@ public class Room extends Rect implements Graph.Node, BundleAble {
 
     public void addNeighbour(Room other) {
         Rect i = intersect(other);
-        if ((i.width() == 0 && i.height() >= 3) ||
-                (i.height() == 0 && i.width() >= 3)) {
+        if ((i.width() == 0 && i.height() >= 3) || (i.height() == 0 && i.width() >= 3)) {
             neighbours.add(other);
             other.neighbours.add(this);
         }
@@ -178,24 +181,22 @@ public class Room extends Rect implements Graph.Node, BundleAble {
         return neighbours;
     }
 
-    // FIXME: use proper string constants
-
     @Override
     public void storeInBundle(Bundle bundle) {
-        bundle.put("left", left);
-        bundle.put("top", top);
-        bundle.put("right", right);
-        bundle.put("bottom", bottom);
-        bundle.put("type", type.toString());
+        bundle.put(ROOM_LEFT, left);
+        bundle.put(ROOM_TOP, top);
+        bundle.put(ROOM_RIGHT, right);
+        bundle.put(ROOM_BOTTOM, bottom);
+        bundle.put(ROOM_TYPE, type.toString());
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
-        left = bundle.getInt("left");
-        top = bundle.getInt("top");
-        right = bundle.getInt("right");
-        bottom = bundle.getInt("bottom");
-        type = Type.valueOf(bundle.getString("type"));
+        left = bundle.getInt(ROOM_LEFT);
+        top = bundle.getInt(ROOM_TOP);
+        right = bundle.getInt(ROOM_RIGHT);
+        bottom = bundle.getInt(ROOM_BOTTOM);
+        type = Type.valueOf(bundle.getString(ROOM_TYPE));
     }
 
     public static void shuffleTypes() {

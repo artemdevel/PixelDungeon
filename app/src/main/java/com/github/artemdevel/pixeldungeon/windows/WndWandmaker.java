@@ -52,7 +52,7 @@ public class WndWandmaker extends WndQuest {
         Item reward = index == 0 ? Wandmaker.Quest.wand1 : Wandmaker.Quest.wand2;
         reward.identify();
         if (reward.doPickUp(Dungeon.hero)) {
-            GLog.i(Hero.TXT_YOU_NOW_HAVE, reward.name());
+            GLog.logInfo(Hero.TXT_YOU_NOW_HAVE, reward.name());
         } else {
             Dungeon.level.drop(reward, wandmaker.pos).sprite.drop();
         }

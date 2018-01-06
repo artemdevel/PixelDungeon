@@ -58,7 +58,7 @@ public class PhantomFish extends Item {
             Sample.INSTANCE.play(Assets.SND_EAT);
             Sample.INSTANCE.play(Assets.SND_MELD);
 
-            GLog.i("You see your hands turn invisible!");
+            GLog.logInfo("You see your hands turn invisible!");
             Buff.affect(hero, Invisibility.class, Invisibility.DURATION);
 
             hero.spend(TIME_TO_EAT);

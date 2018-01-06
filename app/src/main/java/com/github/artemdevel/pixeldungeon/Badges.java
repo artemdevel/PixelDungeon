@@ -838,16 +838,16 @@ public class Badges {
 
         if (global.contains(badge)) {
             if (!badge.meta) {
-                GLog.h("Badge endorsed: %s", badge.description);
+                GLog.logHighlight("Badge endorsed: %s", badge.description);
             }
         } else {
             global.add(badge);
             saveNeeded = true;
 
             if (badge.meta) {
-                GLog.h("New super badge: %s", badge.description);
+                GLog.logHighlight("New super badge: %s", badge.description);
             } else {
-                GLog.h("New badge: %s", badge.description);
+                GLog.logHighlight("New badge: %s", badge.description);
             }
             PixelScene.showBadge(badge);
         }

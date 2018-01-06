@@ -108,7 +108,7 @@ public class DewVial extends Item {
 
                 updateQuickSlot();
             } else {
-                GLog.w(TXT_EMPTY);
+                GLog.logWarning(TXT_EMPTY);
             }
         } else {
             super.execute(hero, action);
@@ -130,11 +130,11 @@ public class DewVial extends Item {
     }
 
     public void collectDew(Dewdrop dew) {
-        GLog.i(TXT_COLLECTED);
+        GLog.logInfo(TXT_COLLECTED);
         volume += dew.quantity;
         if (volume >= MAX_VOLUME) {
             volume = MAX_VOLUME;
-            GLog.p(TXT_FULL);
+            GLog.logPositive(TXT_FULL);
         }
 
         updateQuickSlot();
@@ -151,7 +151,7 @@ public class DewVial extends Item {
             vial.execute(hero);
             hero.sprite.emitter().start(ShaftParticle.FACTORY, 0.2f, 3);
 
-            GLog.w(TXT_AUTO_DRINK);
+            GLog.logWarning(TXT_AUTO_DRINK);
         }
     }
 

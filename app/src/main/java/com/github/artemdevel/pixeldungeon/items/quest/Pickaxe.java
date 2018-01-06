@@ -85,7 +85,7 @@ public class Pickaxe extends Weapon {
     public void execute(final Hero hero, String action) {
         if (action.equals(AC_MINE)) {
             if (Dungeon.depth < 11 || Dungeon.depth > 15) {
-                GLog.w(TXT_NO_VEIN);
+                GLog.logWarning(TXT_NO_VEIN);
                 return;
             }
 
@@ -108,7 +108,7 @@ public class Pickaxe extends Weapon {
 
                             DarkGold gold = new DarkGold();
                             if (gold.doPickUp(Dungeon.hero)) {
-                                GLog.i(Hero.TXT_YOU_NOW_HAVE, gold.name());
+                                GLog.logInfo(Hero.TXT_YOU_NOW_HAVE, gold.name());
                             } else {
                                 Dungeon.level.drop(gold, hero.pos).sprite.drop();
                             }
@@ -127,7 +127,7 @@ public class Pickaxe extends Weapon {
                 }
             }
 
-            GLog.w(TXT_NO_VEIN);
+            GLog.logWarning(TXT_NO_VEIN);
         } else {
             super.execute(hero, action);
         }

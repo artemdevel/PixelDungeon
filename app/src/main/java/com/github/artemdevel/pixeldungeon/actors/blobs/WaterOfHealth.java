@@ -50,7 +50,7 @@ public class WaterOfHealth extends WellWater {
 
         Dungeon.hero.interrupt();
 
-        GLog.p(TXT_PROCEED);
+        GLog.logPositive(TXT_PROCEED);
 
         Journal.remove(Feature.WELL_OF_HEALTH);
 

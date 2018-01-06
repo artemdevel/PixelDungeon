@@ -122,7 +122,7 @@ public class Viscosity extends Glyph {
                 if (target == Dungeon.hero && !target.isAlive()) {
                     // FIXME
                     Dungeon.fail(Utils.format(ResultDescriptions.GLYPH, "enchantment of viscosity", Dungeon.depth));
-                    GLog.n("The enchantment of viscosity killed you...");
+                    GLog.logNegative("The enchantment of viscosity killed you...");
 
                     Badges.validateDeathFromGlyph();
                 }

@@ -108,18 +108,18 @@ public class SacrificialFire extends Blob {
                 int volume = fire.volume - exp;
                 if (volume > 0) {
                     fire.seed(fire.pos, volume);
-                    GLog.w(TXT_WORTHY);
+                    GLog.logWarning(TXT_WORTHY);
                 } else {
                     fire.seed(fire.pos, 0);
                     Journal.remove(Feature.SACRIFICIAL_FIRE);
 
-                    GLog.w(TXT_REWARD);
+                    GLog.logWarning(TXT_REWARD);
                     GameScene.effect(new Flare(7, 32).color(0x66FFFF, true).show(ch.sprite.parent, DungeonTilemap.tileCenterToWorld(fire.pos), 2f));
                     Dungeon.level.drop(new ScrollOfWipeOut(), fire.pos).sprite.drop();
                 }
             } else {
 
-                GLog.w(TXT_UNWORTHY);
+                GLog.logWarning(TXT_UNWORTHY);
 
             }
         }

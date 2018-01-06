@@ -63,7 +63,7 @@ public class WandOfRegrowth extends Wand {
 
             GameScene.add(Blob.seed(cell, (power() + 2) * 20, Regrowth.class));
         } else {
-            GLog.i("nothing happened");
+            GLog.logInfo("nothing happened");
         }
     }
 

@@ -56,7 +56,7 @@ abstract public class KindOfWeapon extends EquipableItem {
             cursedKnown = true;
             if (cursed) {
                 equipCursed(hero);
-                GLog.n(TXT_EQUIP_CURSED, name());
+                GLog.logNegative(TXT_EQUIP_CURSED, name());
             }
 
             hero.spendAndNext(TIME_TO_EQUIP);

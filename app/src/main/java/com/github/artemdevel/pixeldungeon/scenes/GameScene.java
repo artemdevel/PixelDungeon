@@ -288,29 +288,29 @@ public class GameScene extends PixelScene {
 
         if (InterLevelScene.mode != InterLevelScene.Mode.NONE) {
             if (Dungeon.depth < Statistics.deepestFloor) {
-                GLog.h(TXT_WELCOME_BACK, Dungeon.depth);
+                GLog.logHighlight(TXT_WELCOME_BACK, Dungeon.depth);
             } else {
-                GLog.h(TXT_WELCOME, Dungeon.depth);
+                GLog.logHighlight(TXT_WELCOME, Dungeon.depth);
                 Sample.INSTANCE.play(Assets.SND_DESCEND);
             }
             switch (Dungeon.level.feeling) {
                 case CHASM:
-                    GLog.w(TXT_CHASM);
+                    GLog.logWarning(TXT_CHASM);
                     break;
                 case WATER:
-                    GLog.w(TXT_WATER);
+                    GLog.logWarning(TXT_WATER);
                     break;
                 case GRASS:
-                    GLog.w(TXT_GRASS);
+                    GLog.logWarning(TXT_GRASS);
                     break;
                 default:
             }
             if (Dungeon.level instanceof RegularLevel &&
                     ((RegularLevel) Dungeon.level).secretDoors > Random.IntRange(3, 4)) {
-                GLog.w(TXT_SECRETS);
+                GLog.logWarning(TXT_SECRETS);
             }
             if (Dungeon.nightMode && !Dungeon.bossLevel()) {
-                GLog.w(TXT_NIGHT_MODE);
+                GLog.logWarning(TXT_NIGHT_MODE);
             }
 
             InterLevelScene.mode = InterLevelScene.Mode.NONE;
@@ -359,13 +359,6 @@ public class GameScene extends PixelScene {
     protected void onBackPressed() {
         if (!cancel()) {
             add(new WndGame());
-        }
-    }
-
-    @Override
-    protected void onMenuPressed() {
-        if (Dungeon.hero.ready) {
-            selectItem(null, WndBag.Mode.ALL, null);
         }
     }
 

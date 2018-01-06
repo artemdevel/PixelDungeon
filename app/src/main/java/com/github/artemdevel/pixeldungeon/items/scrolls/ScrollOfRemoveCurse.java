@@ -54,9 +54,9 @@ public class ScrollOfRemoveCurse extends Scroll {
         Weakness.detach(curUser, Weakness.class);
 
         if (processed) {
-            GLog.p(TXT_PROCCED);
+            GLog.logPositive(TXT_PROCCED);
         } else {
-            GLog.i(TXT_NOT_PROCCED);
+            GLog.logInfo(TXT_NOT_PROCCED);
         }
 
         setKnown();

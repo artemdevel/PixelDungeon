@@ -66,7 +66,7 @@ public class ScrollOfMagicMapping extends Scroll {
         }
         Dungeon.observe();
 
-        GLog.i(TXT_LAYOUT);
+        GLog.logInfo(TXT_LAYOUT);
         if (noticed) {
             Sample.INSTANCE.play(Assets.SND_SECRET);
         }

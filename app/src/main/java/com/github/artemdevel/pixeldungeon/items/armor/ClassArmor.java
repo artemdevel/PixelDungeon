@@ -96,9 +96,9 @@ abstract public class ClassArmor extends Armor {
     public void execute(Hero hero, String action) {
         if (action.equals(special())) {
             if (hero.HP < 3) {
-                GLog.w(TXT_LOW_HEALTH);
+                GLog.logWarning(TXT_LOW_HEALTH);
             } else if (!isEquipped(hero)) {
-                GLog.w(TXT_NOT_EQUIPPED);
+                GLog.logWarning(TXT_NOT_EQUIPPED);
             } else {
                 curUser = hero;
                 doSpecial();

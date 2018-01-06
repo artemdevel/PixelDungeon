@@ -54,13 +54,13 @@ public class ScrollOfLullaby extends Scroll {
 
         switch (count) {
             case 0:
-                GLog.i("The scroll utters a soothing melody.");
+                GLog.logInfo("The scroll utters a soothing melody.");
                 break;
             case 1:
-                GLog.i("The scroll utters a soothing melody and the " + affected.name + " falls asleep!");
+                GLog.logInfo("The scroll utters a soothing melody and the " + affected.name + " falls asleep!");
                 break;
             default:
-                GLog.i("The scroll utters a soothing melody and the monsters fall asleep!");
+                GLog.logInfo("The scroll utters a soothing melody and the monsters fall asleep!");
         }
         setKnown();
 

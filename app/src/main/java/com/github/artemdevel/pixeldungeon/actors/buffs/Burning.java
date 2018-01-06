@@ -76,7 +76,7 @@ public class Burning extends Buff implements Hero.Doom {
                 Item item = ((Hero) target).belongings.randomUnequipped();
                 if (item instanceof Scroll) {
                     item = item.detach(((Hero) target).belongings.backpack);
-                    GLog.w(TXT_BURNS_UP, item.toString());
+                    GLog.logWarning(TXT_BURNS_UP, item.toString());
 
                     Heap.burnFX(target.pos);
 
@@ -86,7 +86,7 @@ public class Burning extends Buff implements Hero.Doom {
                     if (!steak.collect(((Hero) target).belongings.backpack)) {
                         Dungeon.level.drop(steak, target.pos).sprite.drop();
                     }
-                    GLog.w(TXT_BURNS_UP, item.toString());
+                    GLog.logWarning(TXT_BURNS_UP, item.toString());
 
                     Heap.burnFX(target.pos);
                 }
@@ -138,6 +138,6 @@ public class Burning extends Buff implements Hero.Doom {
     public void onDeath() {
         Badges.validateDeathFromFire();
         Dungeon.fail(Utils.format(ResultDescriptions.BURNING, Dungeon.depth));
-        GLog.n(TXT_BURNED_TO_DEATH);
+        GLog.logNegative(TXT_BURNED_TO_DEATH);
     }
 }

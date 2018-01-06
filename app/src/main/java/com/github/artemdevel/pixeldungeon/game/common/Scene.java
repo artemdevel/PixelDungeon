@@ -33,9 +33,6 @@ public class Scene extends Group {
                         case Keys.BACK:
                             onBackPressed();
                             break;
-                        case Keys.MENU:
-                            onMenuPressed();
-                            break;
                     }
                 }
             }
@@ -66,9 +63,6 @@ public class Scene extends Group {
 
     protected void onBackPressed() {
         Game.instance.finish();
-    }
-
-    protected void onMenuPressed() {
     }
 
 }

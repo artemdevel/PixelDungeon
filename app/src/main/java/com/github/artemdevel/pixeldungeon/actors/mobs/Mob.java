@@ -349,7 +349,7 @@ public abstract class Mob extends Char {
         }
 
         if (Dungeon.hero.isAlive() && !Dungeon.visible[pos]) {
-            GLog.i(TXT_DIED);
+            GLog.logInfo(TXT_DIED);
         }
     }
 
@@ -396,7 +396,7 @@ public abstract class Mob extends Char {
     }
 
     public void yell(String str) {
-        GLog.n("%s: \"%s\" ", name, str);
+        GLog.logNegative("%s: \"%s\" ", name, str);
     }
 
     public interface AiState {

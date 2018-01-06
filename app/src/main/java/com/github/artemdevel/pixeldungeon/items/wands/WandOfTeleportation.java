@@ -51,15 +51,15 @@ public class WandOfTeleportation extends Wand {
             } while (pos == -1);
 
             if (pos == -1) {
-                GLog.w(ScrollOfTeleportation.TXT_NO_TELEPORT);
+                GLog.logWarning(ScrollOfTeleportation.TXT_NO_TELEPORT);
             } else {
                 ch.pos = pos;
                 ch.sprite.place(ch.pos);
                 ch.sprite.visible = Dungeon.visible[pos];
-                GLog.i(curUser.name + " teleported " + ch.name + " to somewhere");
+                GLog.logInfo(curUser.name + " teleported " + ch.name + " to somewhere");
             }
         } else {
-            GLog.i("nothing happened");
+            GLog.logInfo("nothing happened");
         }
     }
 

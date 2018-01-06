@@ -211,7 +211,7 @@ public class Potion extends Item {
 
     public void shatter(int cell) {
         if (Dungeon.visible[cell]) {
-            GLog.i("The flask shatters and " + color() + " liquid splashes harmlessly");
+            GLog.logInfo("The flask shatters and " + color() + " liquid splashes harmlessly");
             Sample.INSTANCE.play(Assets.SND_SHATTER);
             splash(cell);
         }

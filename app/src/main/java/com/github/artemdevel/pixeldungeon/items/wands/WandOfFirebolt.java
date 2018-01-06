@@ -65,7 +65,7 @@ public class WandOfFirebolt extends Wand {
 
             if (ch == curUser && !ch.isAlive()) {
                 Dungeon.fail(Utils.format(ResultDescriptions.WAND, name, Dungeon.depth));
-                GLog.n("You killed yourself with your own Wand of Firebolt...");
+                GLog.logNegative("You killed yourself with your own Wand of Firebolt...");
             }
         }
     }

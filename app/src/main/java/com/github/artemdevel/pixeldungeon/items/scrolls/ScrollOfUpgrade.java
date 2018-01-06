@@ -45,7 +45,7 @@ public class ScrollOfUpgrade extends InventoryScroll {
         }
 
         upgrade(curUser);
-        GLog.p(TXT_LOOKS_BETTER, item.name());
+        GLog.logPositive(TXT_LOOKS_BETTER, item.name());
 
         Badges.validateItemLevelAcquired(item);
     }

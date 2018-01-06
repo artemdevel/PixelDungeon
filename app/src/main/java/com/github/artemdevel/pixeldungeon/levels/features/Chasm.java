@@ -94,7 +94,7 @@ public class Chasm {
                 Badges.validateDeathFromFalling();
 
                 Dungeon.fail(Utils.format(ResultDescriptions.FALL, Dungeon.depth));
-                GLog.n("You fell to death...");
+                GLog.logNegative("You fell to death...");
             }
         });
     }

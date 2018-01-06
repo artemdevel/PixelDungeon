@@ -110,7 +110,7 @@ public class Warlock extends Mob implements Callback {
             if (!enemy.isAlive() && enemy == Dungeon.hero) {
                 Dungeon.fail(Utils.format(ResultDescriptions.MOB,
                         Utils.indefinite(name), Dungeon.depth));
-                GLog.n(TXT_SHADOWBOLT_KILLED, name);
+                GLog.logNegative(TXT_SHADOWBOLT_KILLED, name);
             }
         } else {
             enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());

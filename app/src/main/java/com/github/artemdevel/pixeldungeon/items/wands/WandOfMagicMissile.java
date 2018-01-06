@@ -74,7 +74,7 @@ public class WandOfMagicMissile extends Wand {
 
             if (ch == curUser && !ch.isAlive()) {
                 Dungeon.fail(Utils.format(ResultDescriptions.WAND, name, Dungeon.depth));
-                GLog.n("You killed yourself with your own Wand of Magic Missile...");
+                GLog.logNegative("You killed yourself with your own Wand of Magic Missile...");
             }
         }
     }
@@ -124,7 +124,7 @@ public class WandOfMagicMissile extends Wand {
                 ScrollOfUpgrade.upgrade(curUser);
                 evoke(curUser);
 
-                GLog.w(TXT_DISENCHANTED, item.name());
+                GLog.logWarning(TXT_DISENCHANTED, item.name());
 
                 item.upgrade();
                 curUser.spendAndNext(TIME_TO_DISENCHANT);

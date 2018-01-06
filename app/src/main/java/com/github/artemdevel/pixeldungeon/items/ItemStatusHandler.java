@@ -33,24 +33,16 @@ public class ItemStatusHandler<T extends Item> {
 
     private Class<? extends T>[] items;
 
-    // TODO: Can it be immutable?
-    private HashMap<Class<? extends T>, Integer> images;
-    private HashMap<Class<? extends T>, String> labels;
-    private HashSet<Class<? extends T>> known;
+    private HashMap<Class<? extends T>, Integer> images = new HashMap<>();
+    private HashMap<Class<? extends T>, String> labels = new HashMap<>();
+    private HashSet<Class<? extends T>> known = new HashSet<>();
 
     public ItemStatusHandler(Class<? extends T>[] items, String[] allLabels, Integer[] allImages) {
         this.items = items;
-
-        this.images = new HashMap<>();
-        this.labels = new HashMap<>();
-        known = new HashSet<>();
-
         ArrayList<String> labelsLeft = new ArrayList<>(Arrays.asList(allLabels));
         ArrayList<Integer> imagesLeft = new ArrayList<>(Arrays.asList(allImages));
 
-        for (int i = 0; i < items.length; i++) {
-            Class<? extends T> item = items[i];
-
+        for (Class<? extends T> item : items) {
             int index = Random.Int(labelsLeft.size());
 
             labels.put(item, labelsLeft.get(index));
@@ -63,20 +55,15 @@ public class ItemStatusHandler<T extends Item> {
 
     public ItemStatusHandler(Class<? extends T>[] items, String[] labels, Integer[] images, Bundle bundle) {
         this.items = items;
-
-        this.images = new HashMap<>();
-        this.labels = new HashMap<>();
-        known = new HashSet<>();
-
         restore(bundle, labels, images);
     }
 
     public void save(Bundle bundle) {
-        for (int i = 0; i < items.length; i++) {
-            String itemName = items[i].toString();
-            bundle.put(itemName + PFX_IMAGE, images.get(items[i]));
-            bundle.put(itemName + PFX_LABEL, labels.get(items[i]));
-            bundle.put(itemName + PFX_KNOWN, known.contains(items[i]));
+        for (Class<? extends T> item : items) {
+            String itemName = item.toString();
+            bundle.put(itemName + PFX_IMAGE, images.get(item));
+            bundle.put(itemName + PFX_LABEL, labels.get(item));
+            bundle.put(itemName + PFX_KNOWN, known.contains(item));
         }
     }
 
@@ -84,8 +71,7 @@ public class ItemStatusHandler<T extends Item> {
         ArrayList<String> labelsLeft = new ArrayList<>(Arrays.asList(allLabels));
         ArrayList<Integer> imagesLeft = new ArrayList<>(Arrays.asList(allImages));
 
-        for (int i = 0; i < items.length; i++) {
-            Class<? extends T> item = items[i];
+        for (Class<? extends T> item : items) {
             String itemName = item.toString();
 
             if (bundle.contains(itemName + PFX_LABEL)) {
@@ -125,13 +111,13 @@ public class ItemStatusHandler<T extends Item> {
     }
 
     @SuppressWarnings("unchecked")
-    public void know(T item) {
-        known.add((Class<? extends T>) item.getClass());
+    public void know(T knownItem) {
+        known.add((Class<? extends T>) knownItem.getClass());
 
         if (known.size() == items.length - 1) {
-            for (int i = 0; i < items.length; i++) {
-                if (!known.contains(items[i])) {
-                    known.add(items[i]);
+            for (Class<? extends T> item : items) {
+                if (!known.contains(item)) {
+                    known.add(item);
                     break;
                 }
             }

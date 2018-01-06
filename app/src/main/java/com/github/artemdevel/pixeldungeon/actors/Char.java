@@ -133,7 +133,7 @@ public abstract class Char extends Actor {
         if (hit(this, enemy, false)) {
 
             if (visibleFight) {
-                GLog.i(TXT_HIT, name, enemy.name);
+                GLog.logInfo(TXT_HIT, name, enemy.name);
             }
 
             // FIXME
@@ -171,10 +171,10 @@ public abstract class Char extends Actor {
                                 Utils.indefinite(name), Dungeon.depth));
                     }
 
-                    GLog.n(TXT_KILL, name);
+                    GLog.logNegative(TXT_KILL, name);
 
                 } else {
-                    GLog.i(TXT_DEFEAT, name, enemy.name);
+                    GLog.logInfo(TXT_DEFEAT, name, enemy.name);
                 }
             }
 
@@ -186,9 +186,9 @@ public abstract class Char extends Actor {
                 String defense = enemy.defenseVerb();
                 enemy.sprite.showStatus(CharSprite.NEUTRAL, defense);
                 if (this == Dungeon.hero) {
-                    GLog.i(TXT_YOU_MISSED, enemy.name, defense);
+                    GLog.logInfo(TXT_YOU_MISSED, enemy.name, defense);
                 } else {
-                    GLog.i(TXT_SMB_MISSED, enemy.name, defense, name);
+                    GLog.logInfo(TXT_SMB_MISSED, enemy.name, defense, name);
                 }
 
                 Sample.INSTANCE.play(Assets.SND_MISS);
@@ -255,7 +255,7 @@ public abstract class Char extends Actor {
             if (Random.Int(dmg) >= Random.Int(HP)) {
                 Buff.detach(this, Paralysis.class);
                 if (Dungeon.visible[pos]) {
-                    GLog.i(TXT_OUT_OF_PARALYSIS, name);
+                    GLog.logInfo(TXT_OUT_OF_PARALYSIS, name);
                 }
             }
         }

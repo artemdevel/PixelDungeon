@@ -45,7 +45,7 @@ public class WandOfAmok extends Wand {
                 Buff.affect(ch, Amok.class, 3f + power());
             }
         } else {
-            GLog.i("nothing happened");
+            GLog.logInfo("nothing happened");
         }
     }
 
