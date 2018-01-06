@@ -31,7 +31,7 @@ import com.github.artemdevel.pixeldungeon.actors.mobs.Mob;
 import com.github.artemdevel.pixeldungeon.levels.RegularLevel;
 import com.github.artemdevel.pixeldungeon.levels.Room;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
-import com.github.artemdevel.pixeldungeon.scenes.InterlevelScene;
+import com.github.artemdevel.pixeldungeon.scenes.InterLevelScene;
 import com.github.artemdevel.pixeldungeon.sprites.MobSprite;
 import com.github.artemdevel.pixeldungeon.utils.GLog;
 import com.github.artemdevel.pixeldungeon.utils.Utils;
@@ -68,14 +68,14 @@ public class Chasm {
 
         if (Dungeon.hero.isAlive()) {
             Dungeon.hero.interrupt();
-            InterlevelScene.mode = InterlevelScene.Mode.FALL;
+            InterLevelScene.mode = InterLevelScene.Mode.FALL;
             if (Dungeon.level instanceof RegularLevel) {
                 Room room = ((RegularLevel) Dungeon.level).room(pos);
-                InterlevelScene.fallIntoPit = room != null && room.type == Room.Type.WEAK_FLOOR;
+                InterLevelScene.fallIntoPit = room != null && room.type == Room.Type.WEAK_FLOOR;
             } else {
-                InterlevelScene.fallIntoPit = false;
+                InterLevelScene.fallIntoPit = false;
             }
-            Game.switchScene(InterlevelScene.class);
+            Game.switchScene(InterLevelScene.class);
         } else {
             Dungeon.hero.sprite.visible = false;
         }

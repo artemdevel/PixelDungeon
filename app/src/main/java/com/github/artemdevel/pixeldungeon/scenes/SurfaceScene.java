@@ -44,6 +44,7 @@ import com.github.artemdevel.pixeldungeon.ui.RedButton;
 import com.github.artemdevel.pixeldungeon.game.utils.Point;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
+// This scene is shown at the very end when someone leaves the dungeon
 public class SurfaceScene extends PixelScene {
 
     private static final int FRAME_WIDTH = 88;

@@ -23,7 +23,7 @@ import com.github.artemdevel.pixeldungeon.Rankings;
 import com.github.artemdevel.pixeldungeon.Statistics;
 import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
 import com.github.artemdevel.pixeldungeon.items.Ankh;
-import com.github.artemdevel.pixeldungeon.scenes.InterlevelScene;
+import com.github.artemdevel.pixeldungeon.scenes.InterLevelScene;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.sprites.ItemSprite;
 import com.github.artemdevel.pixeldungeon.ui.RedButton;
@@ -67,8 +67,8 @@ public class WndResurrect extends Window {
 
                 Statistics.ankhsUsed++;
 
-                InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
-                Game.switchScene(InterlevelScene.class);
+                InterLevelScene.mode = InterLevelScene.Mode.RESURRECT;
+                Game.switchScene(InterLevelScene.class);
             }
         };
         btnYes.setRect(0, message.y + message.height() + GAP, WIDTH, BTN_HEIGHT);

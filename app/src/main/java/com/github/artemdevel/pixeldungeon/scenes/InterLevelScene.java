@@ -34,7 +34,7 @@ import com.github.artemdevel.pixeldungeon.ui.GameLog;
 import com.github.artemdevel.pixeldungeon.windows.WndError;
 import com.github.artemdevel.pixeldungeon.windows.WndStory;
 
-public class InterlevelScene extends PixelScene {
+public class InterLevelScene extends PixelScene {
 
     private static final float TIME_TO_FADE = 0.3f;
 

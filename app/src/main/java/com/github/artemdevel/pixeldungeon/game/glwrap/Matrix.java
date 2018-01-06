@@ -17,6 +17,13 @@
 
 package com.github.artemdevel.pixeldungeon.game.glwrap;
 
+/**
+ * Nice picture about all transformations here
+ * https://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg
+ *
+ * NOTE: Looks like android.opengl.Matrix API didn't use here because it is more complex and covers
+ * more broad cases.
+ */
 public class Matrix {
 
     public static final float G2RAD = 0.01745329251994329576923690768489f;
@@ -62,6 +69,7 @@ public class Matrix {
         m[5] = -m1 * sin + m5 * cos;
     }
 
+    // The only usage of this transformation is on the very last scene with the shaking grass
     public static void skewX(float[] m, float a) {
         double t = Math.tan(a * G2RAD);
         m[4] += -m[0] * t;
@@ -83,7 +91,6 @@ public class Matrix {
         m[5] *= y;
         m[6] *= y;
         m[7] *= y;
-        //    android.opengl.Matrix.scaleM(m, 0, x, y, 1);
     }
 
     public static void translate(float[] m, float x, float y) {
@@ -91,7 +98,4 @@ public class Matrix {
         m[13] += m[1] * x + m[5] * y;
     }
 
-//    public static void multiply(float[] left, float right[], float[] result) {
-//        android.opengl.Matrix.multiplyMM( result, 0, left, 0, right, 0 );
-//    }
 }

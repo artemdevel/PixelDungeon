@@ -112,8 +112,8 @@ public class AmuletScene extends PixelScene {
 
     @Override
     protected void onBackPressed() {
-        InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
-        Game.switchScene(InterlevelScene.class);
+        InterLevelScene.mode = InterLevelScene.Mode.CONTINUE;
+        Game.switchScene(InterLevelScene.class);
     }
 
     private float timer = 0;

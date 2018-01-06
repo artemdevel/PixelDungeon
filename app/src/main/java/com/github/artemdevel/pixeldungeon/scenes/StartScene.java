@@ -146,8 +146,8 @@ public class StartScene extends PixelScene {
         btnLoad = new GameButton(TXT_LOAD) {
             @Override
             protected void onClick() {
-                InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
-                Game.switchScene(InterlevelScene.class);
+                InterLevelScene.mode = InterLevelScene.Mode.CONTINUE;
+                Game.switchScene(InterLevelScene.class);
             }
         };
         add(btnLoad);
@@ -287,13 +287,13 @@ public class StartScene extends PixelScene {
 
     private void startNewGame() {
         Dungeon.hero = null;
-        InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
+        InterLevelScene.mode = InterLevelScene.Mode.DESCEND;
 
         if (PixelDungeon.intro()) {
             PixelDungeon.intro(false);
             Game.switchScene(IntroScene.class);
         } else {
-            Game.switchScene(InterlevelScene.class);
+            Game.switchScene(InterLevelScene.class);
         }
     }
 

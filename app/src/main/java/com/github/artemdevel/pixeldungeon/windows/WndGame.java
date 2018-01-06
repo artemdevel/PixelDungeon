@@ -23,7 +23,7 @@ import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
-import com.github.artemdevel.pixeldungeon.scenes.InterlevelScene;
+import com.github.artemdevel.pixeldungeon.scenes.InterLevelScene;
 import com.github.artemdevel.pixeldungeon.scenes.RankingsScene;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
 import com.github.artemdevel.pixeldungeon.ui.Icons;
@@ -74,9 +74,9 @@ public class WndGame extends Window {
                 protected void onClick() {
                     Dungeon.hero = null;
                     PixelDungeon.challenges(Dungeon.challenges);
-                    InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
-                    InterlevelScene.noStory = true;
-                    Game.switchScene(InterlevelScene.class);
+                    InterLevelScene.mode = InterLevelScene.Mode.DESCEND;
+                    InterLevelScene.noStory = true;
+                    Game.switchScene(InterLevelScene.class);
                 }
             });
             btnStart.icon(Icons.get(Dungeon.hero.heroClass));
@@ -84,7 +84,7 @@ public class WndGame extends Window {
             addButton(new RedButton(TXT_RANKINGS) {
                 @Override
                 protected void onClick() {
-                    InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
+                    InterLevelScene.mode = InterLevelScene.Mode.DESCEND;
                     Game.switchScene(RankingsScene.class);
                 }
             });

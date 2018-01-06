@@ -233,7 +233,7 @@ public class GameScene extends PixelScene {
         busy.y = sb.bottom() + 1;
         add(busy);
 
-        switch (InterlevelScene.mode) {
+        switch (InterLevelScene.mode) {
             case RESURRECT:
                 WandOfBlink.appear(Dungeon.hero, Dungeon.level.entrance);
                 new Flare(8, 32).color(0xFFFF66, true).show(hero, 2f);
@@ -286,7 +286,7 @@ public class GameScene extends PixelScene {
 
         Camera.main.target = hero;
 
-        if (InterlevelScene.mode != InterlevelScene.Mode.NONE) {
+        if (InterLevelScene.mode != InterLevelScene.Mode.NONE) {
             if (Dungeon.depth < Statistics.deepestFloor) {
                 GLog.h(TXT_WELCOME_BACK, Dungeon.depth);
             } else {
@@ -313,7 +313,7 @@ public class GameScene extends PixelScene {
                 GLog.w(TXT_NIGHT_MODE);
             }
 
-            InterlevelScene.mode = InterlevelScene.Mode.NONE;
+            InterLevelScene.mode = InterLevelScene.Mode.NONE;
 
             fadeIn();
         }

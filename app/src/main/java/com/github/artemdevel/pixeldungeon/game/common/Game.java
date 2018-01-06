@@ -106,6 +106,10 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
+        // Google doesn't recommend this in its docs
+        // https://developer.android.com/training/graphics/opengl/environment.html
+        // "... you may be tempted to skip extending it and just create an unmodified GLSurfaceView instance, but don’t do that."
+        // TODO: Create a thin wrapper around GLSurfaceView
         view = new GLSurfaceView(this);
         view.setEGLContextClientVersion(2);
         view.setEGLConfigChooser(false);
@@ -182,7 +186,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     }
 
     @Override
-    public void onDrawFrame(GL10 gl) {
+    public void onDrawFrame(GL10 unused) {
         // The main game loop
         if (width == 0 || height == 0) {
             return;
@@ -202,17 +206,18 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     }
 
     @Override
-    public void onSurfaceChanged(GL10 gl, int width, int height) {
+    public void onSurfaceChanged(GL10 unused, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
         Game.width = width;
         Game.height = height;
     }
 
     @Override
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+    public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         GLES20.glEnable(GL10.GL_BLEND);
         GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         GLES20.glEnable(GL10.GL_SCISSOR_TEST);
+        // To avoid EGL Context Lost
         TextureCache.reload();
     }
 

@@ -96,7 +96,7 @@ import com.github.artemdevel.pixeldungeon.levels.features.Chasm;
 import com.github.artemdevel.pixeldungeon.levels.features.Sign;
 import com.github.artemdevel.pixeldungeon.plants.Earthroot;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
-import com.github.artemdevel.pixeldungeon.scenes.InterlevelScene;
+import com.github.artemdevel.pixeldungeon.scenes.InterLevelScene;
 import com.github.artemdevel.pixeldungeon.scenes.SurfaceScene;
 import com.github.artemdevel.pixeldungeon.sprites.CharSprite;
 import com.github.artemdevel.pixeldungeon.sprites.HeroSprite;
@@ -578,13 +578,11 @@ public class Hero extends Char {
 
                 spend(Key.TIME_TO_UNLOCK);
                 sprite.operate(dst);
-
             } else {
                 ready();
             }
 
             return false;
-
         } else if (getCloser(dst)) {
             return true;
         } else {
@@ -633,8 +631,8 @@ public class Hero extends Char {
                 hunger.satisfy(-Hunger.STARVING / 10);
             }
 
-            InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
-            Game.switchScene(InterlevelScene.class);
+            InterLevelScene.mode = InterLevelScene.Mode.DESCEND;
+            Game.switchScene(InterLevelScene.class);
 
             return false;
         } else if (getCloser(stairs)) {
@@ -664,8 +662,8 @@ public class Hero extends Char {
                     hunger.satisfy(-Hunger.STARVING / 10);
                 }
 
-                InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
-                Game.switchScene(InterlevelScene.class);
+                InterLevelScene.mode = InterLevelScene.Mode.ASCEND;
+                Game.switchScene(InterLevelScene.class);
             }
             return false;
         } else if (getCloser(stairs)) {
@@ -874,7 +872,6 @@ public class Hero extends Char {
                 default:
                     curAction = new HeroAction.OpenChest(cell);
             }
-
         } else if (Dungeon.level.map[cell] == Terrain.LOCKED_DOOR || Dungeon.level.map[cell] == Terrain.LOCKED_EXIT) {
             curAction = new HeroAction.Unlock(cell);
         } else if (cell == Dungeon.level.exit) {
@@ -940,7 +937,7 @@ public class Hero extends Char {
     }
 
     public boolean isStarving() {
-        return ((Hunger) buff(Hunger.class)).isStarving();
+        return buff(Hunger.class).isStarving();
     }
 
     @Override
@@ -1129,7 +1126,6 @@ public class Hero extends Char {
 
             Level.set(doorCell, door == Terrain.LOCKED_DOOR ? Terrain.DOOR : Terrain.UNLOCKED_EXIT);
             GameScene.updateMap(doorCell);
-
         } else if (curAction instanceof HeroAction.OpenChest) {
             if (theKey != null) {
                 theKey.detach(belongings.backpack);
@@ -1241,7 +1237,6 @@ public class Hero extends Char {
     }
 
     public void resurrect(int resetLevel) {
-
         HP = HT;
         Dungeon.gold = 0;
         exp = 0;

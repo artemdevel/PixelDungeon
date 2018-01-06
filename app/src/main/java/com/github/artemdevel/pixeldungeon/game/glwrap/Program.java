@@ -27,10 +27,6 @@ public class Program {
         handle = GLES20.glCreateProgram();
     }
 
-//    public int handle() {
-//        return handle;
-//    }
-
     public void attach(Shader shader) {
         GLES20.glAttachShader(handle, shader.handle());
     }

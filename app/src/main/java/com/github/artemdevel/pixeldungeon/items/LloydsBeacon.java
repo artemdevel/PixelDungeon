@@ -27,7 +27,7 @@ import com.github.artemdevel.pixeldungeon.actors.Actor;
 import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
 import com.github.artemdevel.pixeldungeon.items.wands.WandOfBlink;
 import com.github.artemdevel.pixeldungeon.levels.Level;
-import com.github.artemdevel.pixeldungeon.scenes.InterlevelScene;
+import com.github.artemdevel.pixeldungeon.scenes.InterLevelScene;
 import com.github.artemdevel.pixeldungeon.sprites.ItemSprite.Glowing;
 import com.github.artemdevel.pixeldungeon.sprites.ItemSpriteSheet;
 import com.github.artemdevel.pixeldungeon.utils.GLog;
@@ -132,11 +132,11 @@ public class LloydsBeacon extends Item {
                 Dungeon.level.press(returnPos, hero);
                 Dungeon.observe();
             } else {
-                InterlevelScene.mode = InterlevelScene.Mode.RETURN;
-                InterlevelScene.returnDepth = returnDepth;
-                InterlevelScene.returnPos = returnPos;
+                InterLevelScene.mode = InterLevelScene.Mode.RETURN;
+                InterLevelScene.returnDepth = returnDepth;
+                InterLevelScene.returnPos = returnPos;
                 reset();
-                Game.switchScene(InterlevelScene.class);
+                Game.switchScene(InterLevelScene.class);
             }
         } else {
             super.execute(hero, action);
