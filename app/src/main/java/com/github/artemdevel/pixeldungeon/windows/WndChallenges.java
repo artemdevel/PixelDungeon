@@ -19,9 +19,9 @@ package com.github.artemdevel.pixeldungeon.windows;
 
 import java.util.ArrayList;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.Challenges;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.ui.CheckBox;
 import com.github.artemdevel.pixeldungeon.ui.Window;
@@ -82,7 +82,7 @@ public class WndChallenges extends Window {
                     value |= Challenges.MASKS[i];
                 }
             }
-            PixelDungeon.challenges(value);
+            Preferences.setChallenges(value);
         }
 
         super.onBackPressed();

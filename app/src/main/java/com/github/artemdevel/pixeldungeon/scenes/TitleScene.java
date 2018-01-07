@@ -21,6 +21,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLES20;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
@@ -29,7 +30,6 @@ import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.effects.BannerSprites;
 import com.github.artemdevel.pixeldungeon.effects.Fireball;
 import com.github.artemdevel.pixeldungeon.ui.Arches;
@@ -39,7 +39,7 @@ import com.github.artemdevel.pixeldungeon.ui.PrefsButton;
 public class TitleScene extends PixelScene {
 
     private static final String TXT_PLAY = "Play";
-    private static final String TXT_HIGHSCORES = "Rankings";
+    private static final String TXT_RANKINGS = "Rankings";
     private static final String TXT_BADGES = "Badges";
     private static final String TXT_ABOUT = "About";
 
@@ -55,14 +55,14 @@ public class TitleScene extends PixelScene {
         int w = Camera.main.width;
         int h = Camera.main.height;
 
-        Arches archs = new Arches();
-        archs.setSize(w, h);
-        add(archs);
+        Arches arches = new Arches();
+        arches.setSize(w, h);
+        add(arches);
 
         Image title = BannerSprites.get(BannerSprites.Type.PIXEL_DUNGEON);
         add(title);
 
-        float height = title.height + (PixelDungeon.landscape() ? DashboardItem.SIZE : DashboardItem.SIZE * 2);
+        float height = title.height + (Preferences.getLandscape() ? DashboardItem.SIZE : DashboardItem.SIZE * 2);
 
         title.x = (w - title.width()) / 2;
         title.y = (h - height) / 2;
@@ -93,7 +93,7 @@ public class TitleScene extends PixelScene {
         DashboardItem btnBadges = new DashboardItem(TXT_BADGES, 3) {
             @Override
             protected void onClick() {
-                PixelDungeon.switchNoFade(BadgesScene.class);
+                Game.switchSceneNoFade(BadgesScene.class);
             }
         };
         add(btnBadges);
@@ -101,7 +101,7 @@ public class TitleScene extends PixelScene {
         DashboardItem btnAbout = new DashboardItem(TXT_ABOUT, 1) {
             @Override
             protected void onClick() {
-                PixelDungeon.switchNoFade(AboutScene.class);
+                Game.switchSceneNoFade(AboutScene.class);
             }
         };
         add(btnAbout);
@@ -109,20 +109,20 @@ public class TitleScene extends PixelScene {
         DashboardItem btnPlay = new DashboardItem(TXT_PLAY, 0) {
             @Override
             protected void onClick() {
-                PixelDungeon.switchNoFade(StartScene.class);
+                Game.switchSceneNoFade(StartScene.class);
             }
         };
         add(btnPlay);
 
-        DashboardItem btnHighscores = new DashboardItem(TXT_HIGHSCORES, 2) {
+        DashboardItem btnHighscores = new DashboardItem(TXT_RANKINGS, 2) {
             @Override
             protected void onClick() {
-                PixelDungeon.switchNoFade(RankingsScene.class);
+                Game.switchSceneNoFade(RankingsScene.class);
             }
         };
         add(btnHighscores);
 
-        if (PixelDungeon.landscape()) {
+        if (Preferences.getLandscape()) {
             float y = (h + height) / 2 - DashboardItem.SIZE;
             btnHighscores.setPos(w / 2 - btnHighscores.width(), y);
             btnBadges.setPos(w / 2, y);

@@ -17,10 +17,10 @@
  */
 package com.github.artemdevel.pixeldungeon.windows;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.ui.CheckBox;
 import com.github.artemdevel.pixeldungeon.ui.RedButton;
@@ -46,7 +46,7 @@ public class WndSettings extends Window {
     private static final String TXT_QUICKSLOT = "Second quickslot";
 
     private static final String TXT_SWITCH_PORT = "Switch to portrait";
-    private static final String TXT_SWITCH_LAND = "Switch to landscape";
+    private static final String TXT_SWITCH_LAND = "Switch to setLandscape";
 
     private static final int WIDTH = 112;
     private static final int BTN_HEIGHT = 20;
@@ -92,13 +92,14 @@ public class WndSettings extends Window {
                 @Override
                 protected void onClick() {
                     super.onClick();
-                    PixelDungeon.scaleUp(checked());
+                    Preferences.setScaleUp(checked());
                 }
             };
             btnScaleUp.setRect(0, 0, WIDTH, BTN_HEIGHT);
-            btnScaleUp.checked(PixelDungeon.scaleUp());
+            btnScaleUp.checked(Preferences.getScaleUp());
             add(btnScaleUp);
 
+            // TODO: Add some other options, for example, for debug
             btnImmersive = new CheckBox(TXT_IMMERSIVE) {
                 @Override
                 protected void onClick() {
@@ -107,7 +108,7 @@ public class WndSettings extends Window {
                 }
             };
             btnImmersive.setRect(0, btnScaleUp.bottom() + GAP, WIDTH, BTN_HEIGHT);
-            btnImmersive.checked(PixelDungeon.immersed());
+            btnImmersive.checked(Preferences.getImmersed());
             btnImmersive.enable(android.os.Build.VERSION.SDK_INT >= 19);
             add(btnImmersive);
 
@@ -117,23 +118,23 @@ public class WndSettings extends Window {
             @Override
             protected void onClick() {
                 super.onClick();
-                PixelDungeon.music(checked());
+                Preferences.setMusic(checked());
             }
         };
         btnMusic.setRect(0, (btnImmersive != null ? btnImmersive.bottom() : BTN_HEIGHT) + GAP, WIDTH, BTN_HEIGHT);
-        btnMusic.checked(PixelDungeon.music());
+        btnMusic.checked(Preferences.getMusic());
         add(btnMusic);
 
         CheckBox btnSound = new CheckBox(TXT_SOUND) {
             @Override
             protected void onClick() {
                 super.onClick();
-                PixelDungeon.soundFx(checked());
+                Preferences.setSoundFx(checked());
                 GameSound.INSTANCE.play(Assets.SND_CLICK);
             }
         };
         btnSound.setRect(0, btnMusic.bottom() + GAP, WIDTH, BTN_HEIGHT);
-        btnSound.checked(PixelDungeon.soundFx());
+        btnSound.checked(Preferences.getSoundFx());
         add(btnSound);
 
         if (inGame) {
@@ -141,11 +142,11 @@ public class WndSettings extends Window {
                 @Override
                 protected void onClick() {
                     super.onClick();
-                    PixelDungeon.brightness(checked());
+                    Preferences.setBrightness(checked());
                 }
             };
             btnBrightness.setRect(0, btnSound.bottom() + GAP, WIDTH, BTN_HEIGHT);
-            btnBrightness.checked(PixelDungeon.brightness());
+            btnBrightness.checked(Preferences.getBrightness());
             add(btnBrightness);
 
             CheckBox btnQuickslot = new CheckBox(TXT_QUICKSLOT) {
@@ -164,7 +165,7 @@ public class WndSettings extends Window {
             RedButton btnOrientation = new RedButton(orientationText()) {
                 @Override
                 protected void onClick() {
-                    PixelDungeon.landscape(!PixelDungeon.landscape());
+                    Preferences.setLandscape(!Preferences.getLandscape());
                 }
             };
             btnOrientation.setRect(0, btnSound.bottom() + GAP, WIDTH, BTN_HEIGHT);
@@ -176,7 +177,7 @@ public class WndSettings extends Window {
 
     private void zoom(float value) {
         Camera.main.zoom(value);
-        PixelDungeon.zoom((int) (value - PixelScene.defaultZoom));
+        Preferences.setZoom((int) (value - PixelScene.defaultZoom));
 
         updateEnabled();
     }
@@ -188,6 +189,6 @@ public class WndSettings extends Window {
     }
 
     private String orientationText() {
-        return PixelDungeon.landscape() ? TXT_SWITCH_PORT : TXT_SWITCH_LAND;
+        return Preferences.getLandscape() ? TXT_SWITCH_PORT : TXT_SWITCH_LAND;
     }
 }

@@ -30,6 +30,8 @@ import com.github.artemdevel.pixeldungeon.game.input.Touchscreen;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.utils.BitmapCache;
 import com.github.artemdevel.pixeldungeon.game.utils.SystemTime;
+import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
+import com.github.artemdevel.pixeldungeon.utils.GLog;
 
 import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -52,7 +54,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     public static int height;
 
     // Density: mdpi=1, hdpi=1.5, xhdpi=2...
-    public static float density = 1;
+    public static float density = 1; // affects zoom
 
     public static String version;
 
@@ -97,6 +99,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         density = metrics.density;
+        GLog.logInfo(String.format("W: %d, H: %d, D: %f ", metrics.widthPixels, metrics.heightPixels, metrics.density));
 
         try {
             version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -233,6 +236,11 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     public static void switchScene(Class<? extends Scene> scene) {
         instance.sceneClass = scene;
         instance.requestedReset = true;
+    }
+
+    public static void switchSceneNoFade(Class<? extends PixelScene> c) {
+        PixelScene.noFade = true;
+        switchScene(c);
     }
 
     public static Scene scene() {

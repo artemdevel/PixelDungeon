@@ -22,7 +22,6 @@ import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
 
 public class ExitButton extends Button {
@@ -68,7 +67,7 @@ public class ExitButton extends Button {
         if (Game.scene() instanceof TitleScene) {
             Game.instance.finish();
         } else {
-            PixelDungeon.switchNoFade(TitleScene.class);
+            Game.switchSceneNoFade(TitleScene.class);
         }
     }
 }

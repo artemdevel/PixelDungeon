@@ -21,6 +21,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLES20;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.input.Touchscreen;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText.Font;
@@ -32,7 +33,6 @@ import com.github.artemdevel.pixeldungeon.game.common.Scene;
 import com.github.artemdevel.pixeldungeon.game.common.Visual;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.effects.BadgeBanner;
 import com.github.artemdevel.pixeldungeon.game.utils.BitmapCache;
 
@@ -42,13 +42,15 @@ public class PixelScene extends Scene {
     public static final float MIN_WIDTH_P = 128;
     public static final float MIN_HEIGHT_P = 224;
 
-    // Minimum virtual display size for landscape orientation
+    // Minimum virtual display size for setLandscape orientation
     public static final float MIN_WIDTH_L = 224;
     public static final float MIN_HEIGHT_L = 160;
 
     public static float defaultZoom = 0;
     public static float minZoom;
     public static float maxZoom;
+
+    public static boolean noFade = false;
 
     public static Camera uiCamera;
 
@@ -65,7 +67,7 @@ public class PixelScene extends Scene {
         GameScene.scene = null;
 
         float minWidth, minHeight;
-        if (PixelDungeon.landscape()) {
+        if (Preferences.getLandscape()) {
             minWidth = MIN_WIDTH_L;
             minHeight = MIN_HEIGHT_L;
         } else {
@@ -78,7 +80,7 @@ public class PixelScene extends Scene {
             defaultZoom--;
         }
 
-        if (PixelDungeon.scaleUp()) {
+        if (Preferences.getScaleUp()) {
             while (Game.width / (defaultZoom + 1) >= minWidth && Game.height / (defaultZoom + 1) >= minHeight) {
                 defaultZoom++;
             }
@@ -220,8 +222,6 @@ public class PixelScene extends Scene {
         v.x = align(c, v.x);
         v.y = align(c, v.y);
     }
-
-    public static boolean noFade = false;
 
     protected void fadeIn() {
         if (noFade) {

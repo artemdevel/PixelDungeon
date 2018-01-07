@@ -26,7 +26,6 @@ import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.TouchArea;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.effects.Flare;
 import com.github.artemdevel.pixeldungeon.ui.Arches;
 import com.github.artemdevel.pixeldungeon.ui.ExitButton;
@@ -80,9 +79,9 @@ public class AboutScene extends PixelScene {
 
         new Flare(7, 64).color(0x112233, true).show(wata, 0).angularSpeed = +20;
 
-        Arches archs = new Arches();
-        archs.setSize(Camera.main.width, Camera.main.height);
-        addToBack(archs);
+        Arches arches = new Arches();
+        arches.setSize(Camera.main.width, Camera.main.height);
+        addToBack(arches);
 
         ExitButton btnExit = new ExitButton();
         btnExit.setPos(Camera.main.width - btnExit.width(), 0);
@@ -93,6 +92,6 @@ public class AboutScene extends PixelScene {
 
     @Override
     protected void onBackPressed() {
-        PixelDungeon.switchNoFade(TitleScene.class);
+        Game.switchSceneNoFade(TitleScene.class);
     }
 }

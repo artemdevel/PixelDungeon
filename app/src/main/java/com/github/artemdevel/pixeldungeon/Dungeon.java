@@ -97,7 +97,7 @@ public class Dungeon {
     public static SparseArray<ArrayList<Item>> droppedItems;
 
     public static void init() {
-        challenges = PixelDungeon.challenges();
+        challenges = Preferences.getChallenges();
 
         Actor.clear();
 
@@ -314,7 +314,7 @@ public class Dungeon {
     private static final String RN_DEPTH_FILE = "ranger%d.dat";
 
     private static final String VERSION = "version";
-    private static final String CHALLENGES = "challenges";
+    private static final String CHALLENGES = "setChallenges";
     private static final String HERO = "hero";
     private static final String GOLD = "gold";
     private static final String DEPTH = "depth";

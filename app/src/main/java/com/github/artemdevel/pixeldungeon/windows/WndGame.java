@@ -19,9 +19,9 @@ package com.github.artemdevel.pixeldungeon.windows;
 
 import java.io.IOException;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Dungeon;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
 import com.github.artemdevel.pixeldungeon.scenes.InterLevelScene;
 import com.github.artemdevel.pixeldungeon.scenes.RankingsScene;
@@ -73,7 +73,7 @@ public class WndGame extends Window {
                 @Override
                 protected void onClick() {
                     Dungeon.hero = null;
-                    PixelDungeon.challenges(Dungeon.challenges);
+                    Preferences.setChallenges(Dungeon.challenges);
                     InterLevelScene.mode = InterLevelScene.Mode.DESCEND;
                     InterLevelScene.noStory = true;
                     Game.switchScene(InterLevelScene.class);

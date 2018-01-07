@@ -17,10 +17,10 @@
  */
 package com.github.artemdevel.pixeldungeon.scenes;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.input.Touchscreen.Touch;
 import com.github.artemdevel.pixeldungeon.game.common.TouchArea;
 import com.github.artemdevel.pixeldungeon.DungeonTilemap;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.game.utils.GameMath;
 import com.github.artemdevel.pixeldungeon.game.utils.PointF;
 
@@ -93,7 +93,7 @@ public class CellSelector extends TouchArea {
 
             int zoom = Math.round(camera.zoom);
             camera.zoom(zoom);
-            PixelDungeon.zoom((int) (zoom - PixelScene.defaultZoom));
+            Preferences.setZoom((int) (zoom - PixelScene.defaultZoom));
 
             dragging = true;
             if (t == touch) {

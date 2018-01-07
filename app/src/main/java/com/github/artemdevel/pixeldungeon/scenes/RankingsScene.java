@@ -17,14 +17,15 @@
  */
 package com.github.artemdevel.pixeldungeon.scenes;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapTextMultiline;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.Rankings;
 import com.github.artemdevel.pixeldungeon.effects.Flare;
 import com.github.artemdevel.pixeldungeon.sprites.ItemSprite;
@@ -74,7 +75,7 @@ public class RankingsScene extends PixelScene {
         Rankings.INSTANCE.load();
 
         if (Rankings.INSTANCE.records.size() > 0) {
-            float rowHeight = PixelDungeon.landscape() ? ROW_HEIGHT_L : ROW_HEIGHT_P;
+            float rowHeight = Preferences.getLandscape() ? ROW_HEIGHT_L : ROW_HEIGHT_P;
 
             float left = (w - Math.min(MAX_ROW_WIDTH, w)) / 2 + GAP;
             float top = align((h - rowHeight * Rankings.INSTANCE.records.size()) / 2);
@@ -138,7 +139,7 @@ public class RankingsScene extends PixelScene {
 
     @Override
     protected void onBackPressed() {
-        PixelDungeon.switchNoFade(TitleScene.class);
+        Game.switchSceneNoFade(TitleScene.class);
     }
 
     public static class Record extends Button {

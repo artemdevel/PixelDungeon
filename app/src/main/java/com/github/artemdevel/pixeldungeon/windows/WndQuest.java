@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.windows;
 
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.actors.mobs.npcs.NPC;
 import com.github.artemdevel.pixeldungeon.ui.HighlightedText;
 import com.github.artemdevel.pixeldungeon.ui.RedButton;
@@ -35,7 +35,7 @@ public class WndQuest extends Window {
     public WndQuest(NPC questgiver, String text, String... options) {
         super();
 
-        int width = PixelDungeon.landscape() ? WIDTH_L : WIDTH_P;
+        int width = Preferences.getLandscape() ? WIDTH_L : WIDTH_P;
 
         IconTitle titlebar = new IconTitle(questgiver.sprite(), Utils.capitalize(questgiver.name));
         titlebar.setRect(0, 0, width, 0);

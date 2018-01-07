@@ -20,6 +20,7 @@ package com.github.artemdevel.pixeldungeon.scenes;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
@@ -33,7 +34,6 @@ import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.DungeonTilemap;
 import com.github.artemdevel.pixeldungeon.FogOfWar;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.Statistics;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
 import com.github.artemdevel.pixeldungeon.actors.blobs.Blob;
@@ -119,10 +119,10 @@ public class GameScene extends PixelScene {
         GameMusic.INSTANCE.play(Assets.TUNE, true);
         GameMusic.INSTANCE.volume(1f);
 
-        PixelDungeon.lastClass(Dungeon.hero.heroClass.ordinal());
+        Preferences.setLastClass(Dungeon.hero.heroClass.ordinal());
 
         super.create();
-        Camera.main.zoom(defaultZoom + PixelDungeon.zoom());
+        Camera.main.zoom(defaultZoom + Preferences.getZoom());
 
         scene = this;
 
@@ -188,7 +188,7 @@ public class GameScene extends PixelScene {
         fog.updateVisibility(Dungeon.visible, Dungeon.level.visited, Dungeon.level.mapped);
         add(fog);
 
-        brightness(PixelDungeon.brightness());
+        brightness(Preferences.getBrightness());
 
         spells = new Group();
         add(spells);

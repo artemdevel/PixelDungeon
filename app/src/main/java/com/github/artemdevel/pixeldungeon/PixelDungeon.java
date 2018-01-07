@@ -17,15 +17,11 @@
  */
 package com.github.artemdevel.pixeldungeon;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
-import com.github.artemdevel.pixeldungeon.scenes.GameScene;
-import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
 
 public class PixelDungeon extends Game {
@@ -38,16 +34,8 @@ public class PixelDungeon extends Game {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        instance.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        boolean landscape = metrics.widthPixels > metrics.heightPixels;
-
-        if (Preferences.INSTANCE.getBoolean(Preferences.KEY_LANDSCAPE, false) != landscape) {
-            landscape(!landscape);
-        }
-
-        GameMusic.INSTANCE.enable(music());
-        GameSound.INSTANCE.enable(soundFx());
+        GameMusic.INSTANCE.enable(Preferences.getMusic());
+        GameSound.INSTANCE.enable(Preferences.getSoundFx());
 
         GameSound.INSTANCE.load(
             Assets.SND_CLICK,
@@ -96,94 +84,6 @@ public class PixelDungeon extends Game {
             Assets.SND_BEE,
             Assets.SND_DEGRADE,
             Assets.SND_MIMIC);
-    }
-
-    public static void switchNoFade(Class<? extends PixelScene> c) {
-        PixelScene.noFade = true;
-        switchScene(c);
-    }
-
-    public static void landscape(boolean value) {
-        Game.instance.setRequestedOrientation(value ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Preferences.INSTANCE.put(Preferences.KEY_LANDSCAPE, value);
-    }
-
-    public static boolean landscape() {
-        return width > height;
-    }
-
-    public static boolean immersed() {
-        return Preferences.INSTANCE.getBoolean(Preferences.KEY_IMMERSIVE, false);
-    }
-
-    public static void scaleUp(boolean value) {
-        Preferences.INSTANCE.put(Preferences.KEY_SCALE_UP, value);
-        switchScene(TitleScene.class);
-    }
-
-    public static boolean scaleUp() {
-        return Preferences.INSTANCE.getBoolean(Preferences.KEY_SCALE_UP, true);
-    }
-
-    public static void zoom(int value) {
-        Preferences.INSTANCE.put(Preferences.KEY_ZOOM, value);
-    }
-
-    public static int zoom() {
-        return Preferences.INSTANCE.getInt(Preferences.KEY_ZOOM, 0);
-    }
-
-    public static void music(boolean value) {
-        GameMusic.INSTANCE.enable(value);
-        Preferences.INSTANCE.put(Preferences.KEY_MUSIC, value);
-    }
-
-    public static boolean music() {
-        return Preferences.INSTANCE.getBoolean(Preferences.KEY_MUSIC, true);
-    }
-
-    public static void soundFx(boolean value) {
-        GameSound.INSTANCE.enable(value);
-        Preferences.INSTANCE.put(Preferences.KEY_SOUND_FX, value);
-    }
-
-    public static boolean soundFx() {
-        return Preferences.INSTANCE.getBoolean(Preferences.KEY_SOUND_FX, true);
-    }
-
-    public static void brightness(boolean value) {
-        Preferences.INSTANCE.put(Preferences.KEY_BRIGHTNESS, value);
-        if (scene() instanceof GameScene) {
-            ((GameScene) scene()).brightness(value);
-        }
-    }
-
-    public static boolean brightness() {
-        return Preferences.INSTANCE.getBoolean(Preferences.KEY_BRIGHTNESS, false);
-    }
-
-    public static void lastClass(int value) {
-        Preferences.INSTANCE.put(Preferences.KEY_LAST_CLASS, value);
-    }
-
-    public static int lastClass() {
-        return Preferences.INSTANCE.getInt(Preferences.KEY_LAST_CLASS, 0);
-    }
-
-    public static void challenges(int value) {
-        Preferences.INSTANCE.put(Preferences.KEY_CHALLENGES, value);
-    }
-
-    public static int challenges() {
-        return Preferences.INSTANCE.getInt(Preferences.KEY_CHALLENGES, 0);
-    }
-
-    public static void intro(boolean value) {
-        Preferences.INSTANCE.put(Preferences.KEY_INTRO, value);
-    }
-
-    public static boolean intro() {
-        return Preferences.INSTANCE.getBoolean(Preferences.KEY_INTRO, true);
     }
 
 }

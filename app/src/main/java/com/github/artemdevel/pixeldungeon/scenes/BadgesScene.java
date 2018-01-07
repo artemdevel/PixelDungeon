@@ -19,6 +19,7 @@ package com.github.artemdevel.pixeldungeon.scenes;
 
 import java.util.List;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
@@ -28,7 +29,6 @@ import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.effects.BadgeBanner;
 import com.github.artemdevel.pixeldungeon.ui.Arches;
 import com.github.artemdevel.pixeldungeon.ui.ExitButton;
@@ -57,8 +57,8 @@ public class BadgesScene extends PixelScene {
         archs.setSize(w, h);
         add(archs);
 
-        int pw = (int) Math.min(w, (PixelDungeon.landscape() ? MIN_WIDTH_L : MIN_WIDTH_P) * 3) - 16;
-        int ph = (int) Math.min(h, (PixelDungeon.landscape() ? MIN_HEIGHT_L : MIN_HEIGHT_P) * 3) - 32;
+        int pw = (int) Math.min(w, (Preferences.getLandscape() ? MIN_WIDTH_L : MIN_WIDTH_P) * 3) - 16;
+        int ph = (int) Math.min(h, (Preferences.getLandscape() ? MIN_HEIGHT_L : MIN_HEIGHT_P) * 3) - 32;
 
         float size = (float) Math.sqrt(pw * ph / 27f);
         int nCols = (int) Math.ceil(pw / size);
@@ -100,7 +100,7 @@ public class BadgesScene extends PixelScene {
             @Override
             public void call() {
                 if (Game.scene() == BadgesScene.this) {
-                    PixelDungeon.switchNoFade(BadgesScene.class);
+                    Game.switchSceneNoFade(BadgesScene.class);
                 }
             }
         };
@@ -116,7 +116,7 @@ public class BadgesScene extends PixelScene {
 
     @Override
     protected void onBackPressed() {
-        PixelDungeon.switchNoFade(TitleScene.class);
+        Game.switchSceneNoFade(TitleScene.class);
     }
 
     private static class BadgeButton extends Button {

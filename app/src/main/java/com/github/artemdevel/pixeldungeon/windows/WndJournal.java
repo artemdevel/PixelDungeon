@@ -19,12 +19,12 @@ package com.github.artemdevel.pixeldungeon.windows;
 
 import java.util.Collections;
 
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Component;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.Journal;
-import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.ui.Icons;
 import com.github.artemdevel.pixeldungeon.ui.ScrollPane;
@@ -45,7 +45,7 @@ public class WndJournal extends Window {
 
     public WndJournal() {
         super();
-        resize(WIDTH, PixelDungeon.landscape() ? HEIGHT_L : HEIGHT_P);
+        resize(WIDTH, Preferences.getLandscape() ? HEIGHT_L : HEIGHT_P);
 
         txtTitle = PixelScene.createText(TXT_TITLE, 9);
         txtTitle.hardlight(Window.TITLE_COLOR);

@@ -18,25 +18,120 @@
 package com.github.artemdevel.pixeldungeon;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.scenes.GameScene;
+import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
 
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 
-enum Preferences {
+public enum Preferences {
 
     INSTANCE;
 
-    public static final String KEY_LANDSCAPE = "landscape";
+    public static final String KEY_LANDSCAPE = "setLandscape";
     public static final String KEY_IMMERSIVE = "immersive";
     public static final String KEY_SCALE_UP = "scaleup";
-    public static final String KEY_MUSIC = "music";
+    public static final String KEY_MUSIC = "setMusic";
     public static final String KEY_SOUND_FX = "soundfx";
-    public static final String KEY_ZOOM = "zoom";
+    public static final String KEY_ZOOM = "setZoom";
     public static final String KEY_LAST_CLASS = "last_class";
-    public static final String KEY_CHALLENGES = "challenges";
-    public static final String KEY_INTRO = "intro";
-    public static final String KEY_BRIGHTNESS = "brightness";
+    public static final String KEY_CHALLENGES = "setChallenges";
+    public static final String KEY_INTRO = "setIntro";
+    public static final String KEY_BRIGHTNESS = "setBrightness";
 
     private SharedPreferences prefs;
+
+    public static void setZoom(int value) {
+        INSTANCE.put(KEY_ZOOM, value);
+    }
+
+    public static int getZoom() {
+        return INSTANCE.getInt(KEY_ZOOM, 0);
+    }
+
+    public static void setScaleUp(boolean value) {
+        // TODO: Find out what it actually does
+        INSTANCE.put(KEY_SCALE_UP, value);
+        Game.switchScene(TitleScene.class);
+    }
+
+    public static boolean getScaleUp() {
+        return INSTANCE.getBoolean(KEY_SCALE_UP, true);
+    }
+
+    public static boolean getImmersed() {
+        return INSTANCE.getBoolean(KEY_IMMERSIVE, false);
+    }
+
+    public static void setMusic(boolean value) {
+        GameMusic.INSTANCE.enable(value);
+        INSTANCE.put(KEY_MUSIC, value);
+    }
+
+    public static boolean getMusic() {
+        return INSTANCE.getBoolean(KEY_MUSIC, true);
+    }
+
+    public static void setSoundFx(boolean value) {
+        GameSound.INSTANCE.enable(value);
+        INSTANCE.put(KEY_SOUND_FX, value);
+    }
+
+    public static boolean getSoundFx() {
+        return INSTANCE.getBoolean(KEY_SOUND_FX, true);
+    }
+
+    public static void setBrightness(boolean value) {
+        INSTANCE.put(KEY_BRIGHTNESS, value);
+        if (Game.scene() instanceof GameScene) {
+            ((GameScene) Game.scene()).brightness(value);
+        }
+    }
+
+    public static boolean getBrightness() {
+        return INSTANCE.getBoolean(KEY_BRIGHTNESS, false);
+    }
+
+    public static void setLastClass(int value) {
+        INSTANCE.put(KEY_LAST_CLASS, value);
+    }
+
+    public static int getLastClass() {
+        return INSTANCE.getInt(KEY_LAST_CLASS, 0);
+    }
+
+    public static void setChallenges(int value) {
+        INSTANCE.put(KEY_CHALLENGES, value);
+    }
+
+    public static int getChallenges() {
+        return INSTANCE.getInt(KEY_CHALLENGES, 0);
+    }
+
+    public static void setIntro(boolean value) {
+        INSTANCE.put(KEY_INTRO, value);
+    }
+
+    public static boolean getIntro() {
+        return INSTANCE.getBoolean(KEY_INTRO, true);
+    }
+
+    public static void setLandscape(boolean value) {
+        // TODO: The whole landscape feature must be refactored somehow
+        Game.instance.setRequestedOrientation(value ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        INSTANCE.put(KEY_LANDSCAPE, value);
+    }
+
+    public static boolean getLandscape() {
+        boolean value = INSTANCE.getBoolean(Preferences.KEY_LANDSCAPE, false);
+        boolean landscape = Game.width > Game.height;
+        if (value != landscape) {
+            setLandscape(value);
+        }
+        return value;
+    }
 
     private SharedPreferences get() {
         if (prefs == null) {

@@ -204,7 +204,7 @@ public class Camera extends Gizmo {
 //        Matrix.translate(matrix, -1, +1);
 //        Matrix.scale(matrix, 2f / G.width, -2f / G.height);
 //        Matrix.translate(matrix, x, y);
-//        Matrix.scale(matrix, zoom, zoom);
+//        Matrix.scale(matrix, setZoom, setZoom);
 //        Matrix.translate(matrix, scroll.x, scroll.y);
 
         matrix[0] = +zoom * invW2;
