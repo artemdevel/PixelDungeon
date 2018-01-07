@@ -26,8 +26,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,8 +35,6 @@ import org.json.JSONTokener;
 public class Bundle {
 
     private static final String CLASS_NAME = "__className";
-
-    private static HashMap<String, String> aliases = new HashMap<>();
 
     private JSONObject data;
 
@@ -56,18 +52,6 @@ public class Bundle {
 
     public boolean isNull() {
         return data == null;
-    }
-
-    public ArrayList<String> fields() {
-        ArrayList<String> result = new ArrayList<>();
-
-        @SuppressWarnings("unchecked")
-        Iterator<String> iterator = data.keys();
-        while (iterator.hasNext()) {
-            result.add(iterator.next());
-        }
-
-        return result;
     }
 
     public boolean contains(String key) {
@@ -97,10 +81,6 @@ public class Bundle {
     private BundleAble get() {
         try {
             String clName = getString(CLASS_NAME);
-            if (aliases.containsKey(clName)) {
-                clName = aliases.get(clName);
-            }
-
             Class<?> cl = Class.forName(clName);
             if (cl != null) {
                 BundleAble object = (BundleAble) cl.newInstance();
@@ -110,7 +90,6 @@ public class Bundle {
                 return null;
             }
         } catch (Exception e) {
-            e = null;
             return null;
         }
     }
@@ -335,9 +314,5 @@ public class Bundle {
         } catch (IOException e) {
             return false;
         }
-    }
-
-    public static void addAlias(Class<?> cl, String alias) {
-        aliases.put(alias, cl.getName());
     }
 }
