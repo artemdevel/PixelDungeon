@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
@@ -62,7 +62,7 @@ public abstract class EquipableItem extends Item {
 
     protected static void equipCursed(Hero hero) {
         hero.sprite.emitter().burst(ShadowParticle.CURSE, 6);
-        Sample.INSTANCE.play(Assets.SND_CURSED);
+        GameSound.INSTANCE.play(Assets.SND_CURSED);
     }
 
     protected float time2equip(Hero hero) {

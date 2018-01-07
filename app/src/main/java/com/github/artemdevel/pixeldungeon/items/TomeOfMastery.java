@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -130,7 +130,7 @@ public class TomeOfMastery extends Item {
         curUser.subClass = way;
 
         curUser.sprite.operate(curUser.pos);
-        Sample.INSTANCE.play(Assets.SND_MASTERY);
+        GameSound.INSTANCE.play(Assets.SND_MASTERY);
 
         SpellSprite.show(curUser, SpellSprite.MASTERY);
         curUser.sprite.emitter().burst(Speck.factory(Speck.MASTERY), 12);

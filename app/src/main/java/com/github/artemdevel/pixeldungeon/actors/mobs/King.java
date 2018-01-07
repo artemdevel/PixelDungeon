@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.actors.mobs;
 
 import java.util.HashSet;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -167,7 +167,7 @@ public class King extends Mob {
         nextPedestal = !nextPedestal;
 
         sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
-        Sample.INSTANCE.play(Assets.SND_CHALLENGE);
+        GameSound.INSTANCE.play(Assets.SND_CHALLENGE);
 
         boolean[] passable = Level.passable.clone();
         for (Actor actor : Actor.all()) {

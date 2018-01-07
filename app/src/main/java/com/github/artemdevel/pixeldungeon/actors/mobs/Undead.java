@@ -7,7 +7,7 @@ import com.github.artemdevel.pixeldungeon.actors.Char;
 import com.github.artemdevel.pixeldungeon.actors.blobs.ToxicGas;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Buff;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Paralysis;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
 import com.github.artemdevel.pixeldungeon.items.weapon.enchantments.Death;
 import com.github.artemdevel.pixeldungeon.sprites.UndeadSprite;
@@ -85,7 +85,7 @@ public class Undead extends Mob {
         super.die(cause);
 
         if (Dungeon.visible[pos]) {
-            Sample.INSTANCE.play(Assets.SND_BONES);
+            GameSound.INSTANCE.play(Assets.SND_BONES);
         }
     }
 

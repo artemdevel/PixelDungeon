@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.levels.features;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.levels.Level;
@@ -32,7 +32,7 @@ public class Door {
         Dungeon.observe();
 
         if (Dungeon.visible[pos]) {
-            Sample.INSTANCE.play(Assets.SND_OPEN);
+            GameSound.INSTANCE.play(Assets.SND_OPEN);
         }
     }
 

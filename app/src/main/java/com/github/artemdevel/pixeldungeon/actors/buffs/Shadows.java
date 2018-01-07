@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.actors.buffs;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -46,7 +46,7 @@ public class Shadows extends Invisibility {
     @Override
     public boolean attachTo(Char target) {
         if (super.attachTo(target)) {
-            Sample.INSTANCE.play(Assets.SND_MELD);
+            GameSound.INSTANCE.play(Assets.SND_MELD);
             Dungeon.observe();
             return true;
         } else {

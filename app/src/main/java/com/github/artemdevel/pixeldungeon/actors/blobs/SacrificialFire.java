@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.actors.blobs;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.DungeonTilemap;
@@ -67,7 +67,7 @@ public class SacrificialFire extends Blob {
         if (ch != null) {
             if (Dungeon.visible[pos] && ch.buff(Marked.class) == null) {
                 ch.sprite.emitter().burst(SacrificialParticle.FACTORY, 20);
-                Sample.INSTANCE.play(Assets.SND_BURNING);
+                GameSound.INSTANCE.play(Assets.SND_BURNING);
             }
             Buff.prolong(ch, Marked.class, Marked.DURATION);
         }

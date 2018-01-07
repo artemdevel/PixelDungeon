@@ -24,7 +24,7 @@ import android.opengl.GLES20;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.DungeonTilemap;
 import com.github.artemdevel.pixeldungeon.levels.Level;
@@ -82,7 +82,7 @@ public class Lightning extends Group {
 
         life = DURATION;
 
-        Sample.INSTANCE.play(Assets.SND_LIGHTNING);
+        GameSound.INSTANCE.play(Assets.SND_LIGHTNING);
     }
 
     private static final double A = 180 / Math.PI;

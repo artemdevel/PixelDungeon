@@ -18,7 +18,7 @@
 package com.github.artemdevel.pixeldungeon.windows;
 
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
@@ -37,7 +37,7 @@ public class WndSettings extends Window {
     private static final String TXT_SCALE_UP = "Scale up UI";
     private static final String TXT_IMMERSIVE = "Immersive mode";
 
-    private static final String TXT_MUSIC = "Music";
+    private static final String TXT_MUSIC = "GameMusic";
 
     private static final String TXT_SOUND = "Sound FX";
 
@@ -129,7 +129,7 @@ public class WndSettings extends Window {
             protected void onClick() {
                 super.onClick();
                 PixelDungeon.soundFx(checked());
-                Sample.INSTANCE.play(Assets.SND_CLICK);
+                GameSound.INSTANCE.play(Assets.SND_CLICK);
             }
         };
         btnSound.setRect(0, btnMusic.bottom() + GAP, WIDTH, BTN_HEIGHT);

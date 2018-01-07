@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.tweeners.AlphaTweener;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -74,7 +74,7 @@ public class Honeypot extends Item {
     }
 
     private void shatter(int pos) {
-        Sample.INSTANCE.play(Assets.SND_SHATTER);
+        GameSound.INSTANCE.play(Assets.SND_SHATTER);
 
         if (Dungeon.visible[pos]) {
             Splash.at(pos, 0xffd500, 5);
@@ -107,7 +107,7 @@ public class Honeypot extends Item {
             bee.sprite.alpha(0);
             bee.sprite.parent.add(new AlphaTweener(bee.sprite, 1, 0.15f));
 
-            Sample.INSTANCE.play(Assets.SND_BEE);
+            GameSound.INSTANCE.play(Assets.SND_BEE);
         }
     }
 

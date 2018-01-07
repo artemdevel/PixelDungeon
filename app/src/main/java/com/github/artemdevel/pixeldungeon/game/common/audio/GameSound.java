@@ -18,6 +18,7 @@
 package com.github.artemdevel.pixeldungeon.game.common.audio;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -28,7 +29,7 @@ import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-public enum Sample implements SoundPool.OnLoadCompleteListener {
+public enum GameSound {
 
     INSTANCE;
 
@@ -40,12 +41,11 @@ public enum Sample implements SoundPool.OnLoadCompleteListener {
 
     private boolean enabled = true;
 
+    private LinkedList<String> loadingQueue = new LinkedList<>();
+
     public void reset() {
         pool.release();
-
         pool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0);
-        pool.setOnLoadCompleteListener(this);
-
         ids.clear();
     }
 
@@ -61,12 +61,8 @@ public enum Sample implements SoundPool.OnLoadCompleteListener {
         }
     }
 
-    private LinkedList<String> loadingQueue = new LinkedList<String>();
-
     public void load(String... assets) {
-        for (String asset : assets) {
-            loadingQueue.add(asset);
-        }
+        loadingQueue.addAll(Arrays.asList(assets));
         loadNext();
     }
 
@@ -98,15 +94,6 @@ public enum Sample implements SoundPool.OnLoadCompleteListener {
         }
     }
 
-//    public void unload( Object src ) {
-//
-//        if (ids.containsKey( src )) {
-//
-//            pool.unload( ids.get( src ) );
-//            ids.remove( src );
-//        }
-//    }
-
     public int play(Object id) {
         return play(id, 1, 1, 1);
     }
@@ -125,13 +112,5 @@ public enum Sample implements SoundPool.OnLoadCompleteListener {
 
     public void enable(boolean value) {
         enabled = value;
-    }
-
-//    public boolean isEnabled() {
-//        return enabled;
-//    }
-
-    @Override
-    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
     }
 }

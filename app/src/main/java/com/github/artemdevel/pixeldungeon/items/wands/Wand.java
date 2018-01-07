@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items.wands;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -355,7 +355,7 @@ public abstract class Wand extends KindOfWeapon {
 
     protected void fx(int cell, Callback callback) {
         MagicMissile.blueLight(curUser.sprite.parent, curUser.pos, cell, callback);
-        Sample.INSTANCE.play(Assets.SND_ZAP);
+        GameSound.INSTANCE.play(Assets.SND_ZAP);
     }
 
     protected void wandUsed() {

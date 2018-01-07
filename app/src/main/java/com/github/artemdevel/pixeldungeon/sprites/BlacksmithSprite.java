@@ -18,7 +18,7 @@
 package com.github.artemdevel.pixeldungeon.sprites;
 
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.particles.Emitter;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -75,7 +75,7 @@ public class BlacksmithSprite extends MobSprite {
         if (visible && emitter != null && anim == idle) {
             emitter.burst(Speck.factory(Speck.FORGE), 3);
             float volume = 0.2f / (Level.distance(ch.pos, Dungeon.hero.pos));
-            Sample.INSTANCE.play(Assets.SND_EVOKE, volume, volume, 0.8f);
+            GameSound.INSTANCE.play(Assets.SND_EVOKE, volume, volume, 0.8f);
         }
     }
 

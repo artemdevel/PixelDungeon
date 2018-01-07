@@ -23,7 +23,7 @@ import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.ColorBlock;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.PixelDungeon;
@@ -384,7 +384,7 @@ public class WndBag extends WndTabbed {
         @Override
         protected void onTouchDown() {
             bg.brightness(1.5f);
-            Sample.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
+            GameSound.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
         }
 
         protected void onTouchUp() {

@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.ui;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.PixelDungeon;
@@ -55,7 +55,7 @@ public class ExitButton extends Button {
     @Override
     protected void onTouchDown() {
         image.brightness(1.5f);
-        Sample.INSTANCE.play(Assets.SND_CLICK);
+        GameSound.INSTANCE.play(Assets.SND_CLICK);
     }
 
     @Override

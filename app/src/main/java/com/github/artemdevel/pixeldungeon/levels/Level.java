@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import com.github.artemdevel.pixeldungeon.game.common.Scene;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Challenges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -623,7 +623,7 @@ public abstract class Level implements BundleAble {
         }
 
         if (trap) {
-            Sample.INSTANCE.play(Assets.SND_TRAP);
+            GameSound.INSTANCE.play(Assets.SND_TRAP);
             if (ch == Dungeon.hero) {
                 Dungeon.hero.interrupt();
             }
@@ -679,7 +679,7 @@ public abstract class Level implements BundleAble {
 
         if (trap) {
             if (Dungeon.visible[cell]) {
-                Sample.INSTANCE.play(Assets.SND_TRAP);
+                GameSound.INSTANCE.play(Assets.SND_TRAP);
             }
             set(cell, Terrain.INACTIVE_TRAP);
             GameScene.updateMap(cell);

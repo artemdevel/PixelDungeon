@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.potions;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.blobs.Fire;
@@ -49,7 +49,7 @@ public class PotionOfFrost extends Potion {
 
         if (visible) {
             splash(cell);
-            Sample.INSTANCE.play(Assets.SND_SHATTER);
+            GameSound.INSTANCE.play(Assets.SND_SHATTER);
 
             setKnown();
         }

@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Invisibility;
@@ -39,7 +39,7 @@ public class ScrollOfTeleportation extends Scroll {
 
     @Override
     protected void doRead() {
-        Sample.INSTANCE.play(Assets.SND_READ);
+        GameSound.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         teleportHero(curUser);

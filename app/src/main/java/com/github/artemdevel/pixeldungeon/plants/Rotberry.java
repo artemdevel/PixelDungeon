@@ -1,6 +1,6 @@
 package com.github.artemdevel.pixeldungeon.plants;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -65,7 +65,7 @@ public class Rotberry extends Plant {
 
                     GLog.logWarning("The seed emits a roar that echoes throughout the dungeon!");
                     CellEmitter.center(Dungeon.hero.pos).start(Speck.factory(Speck.SCREAM), 0.3f, 3);
-                    Sample.INSTANCE.play(Assets.SND_CHALLENGE);
+                    GameSound.INSTANCE.play(Assets.SND_CHALLENGE);
                 }
 
                 return true;

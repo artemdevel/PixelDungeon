@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.actors.blobs;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -46,7 +46,7 @@ public class WaterOfAwareness extends WellWater {
     @Override
     protected boolean affectHero(Hero hero) {
 
-        Sample.INSTANCE.play(Assets.SND_DRINK);
+        GameSound.INSTANCE.play(Assets.SND_DRINK);
         emitter.parent.add(new Identification(DungeonTilemap.tileCenterToWorld(pos)));
 
         hero.belongings.observe();

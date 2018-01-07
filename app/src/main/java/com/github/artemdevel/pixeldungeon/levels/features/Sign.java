@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.levels.features;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.effects.CellEmitter;
@@ -83,7 +83,7 @@ public class Sign {
                 GameScene.discoverTile(pos, Terrain.SIGN);
 
                 CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
-                Sample.INSTANCE.play(Assets.SND_BURNING);
+                GameSound.INSTANCE.play(Assets.SND_BURNING);
 
                 GLog.logWarning(TXT_BURN);
             }

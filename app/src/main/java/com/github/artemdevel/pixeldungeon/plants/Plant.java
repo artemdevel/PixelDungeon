@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.plants;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -141,7 +141,7 @@ public class Plant implements BundleAble {
         public Plant couch(int pos) {
             try {
                 if (Dungeon.visible[pos]) {
-                    Sample.INSTANCE.play(Assets.SND_PLANT);
+                    GameSound.INSTANCE.play(Assets.SND_PLANT);
                 }
                 Plant plant = plantClass.newInstance();
                 plant.pos = pos;

@@ -19,6 +19,7 @@ package com.github.artemdevel.pixeldungeon.scenes;
 
 import java.nio.FloatBuffer;
 
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.gltextures.Gradient;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Matrix;
@@ -34,7 +35,6 @@ import com.github.artemdevel.pixeldungeon.game.common.NoosaScript;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
 import com.github.artemdevel.pixeldungeon.game.common.TouchArea;
 import com.github.artemdevel.pixeldungeon.game.common.Visual;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Music;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -67,8 +67,8 @@ public class SurfaceScene extends PixelScene {
     public void create() {
         super.create();
 
-        Music.INSTANCE.play(Assets.HAPPY, true);
-        Music.INSTANCE.volume(1f);
+        GameMusic.INSTANCE.play(Assets.HAPPY, true);
+        GameMusic.INSTANCE.volume(1f);
 
         uiCamera.visible = false;
 

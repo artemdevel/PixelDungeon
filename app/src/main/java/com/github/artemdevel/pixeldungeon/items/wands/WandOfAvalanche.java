@@ -18,7 +18,7 @@
 package com.github.artemdevel.pixeldungeon.items.wands;
 
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.ResultDescriptions;
@@ -49,7 +49,7 @@ public class WandOfAvalanche extends Wand {
 
     @Override
     protected void onZap(int cell) {
-        Sample.INSTANCE.play(Assets.SND_ROCKS);
+        GameSound.INSTANCE.play(Assets.SND_ROCKS);
 
         int level = power();
 
@@ -105,7 +105,7 @@ public class WandOfAvalanche extends Wand {
 
     protected void fx(int cell, Callback callback) {
         MagicMissile.earth(curUser.sprite.parent, curUser.pos, cell, callback);
-        Sample.INSTANCE.play(Assets.SND_ZAP);
+        GameSound.INSTANCE.play(Assets.SND_ZAP);
     }
 
     @Override

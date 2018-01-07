@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
@@ -170,7 +170,7 @@ public class Mimic extends Mob {
 
         if (Dungeon.visible[m.pos]) {
             CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
-            Sample.INSTANCE.play(Assets.SND_MIMIC);
+            GameSound.INSTANCE.play(Assets.SND_MIMIC);
         }
 
         return m;

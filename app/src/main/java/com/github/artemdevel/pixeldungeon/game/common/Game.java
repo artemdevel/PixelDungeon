@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.glscripts.Script;
 import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.input.Keys;
 import com.github.artemdevel.pixeldungeon.game.input.Touchscreen;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Music;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.utils.BitmapCache;
 import com.github.artemdevel.pixeldungeon.game.utils.SystemTime;
 
@@ -125,8 +125,8 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         now = 0;
         view.onResume();
 
-        Music.INSTANCE.resume();
-        Sample.INSTANCE.resume();
+        GameMusic.INSTANCE.resume();
+        GameSound.INSTANCE.resume();
     }
 
     @Override
@@ -140,8 +140,8 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         view.onPause();
         Script.reset();
 
-        Music.INSTANCE.pause();
-        Sample.INSTANCE.pause();
+        GameMusic.INSTANCE.pause();
+        GameSound.INSTANCE.pause();
     }
 
     @Override
@@ -149,8 +149,8 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         super.onDestroy();
         destroyGame();
 
-        Music.INSTANCE.mute();
-        Sample.INSTANCE.reset();
+        GameMusic.INSTANCE.mute();
+        GameSound.INSTANCE.reset();
     }
 
     @Override

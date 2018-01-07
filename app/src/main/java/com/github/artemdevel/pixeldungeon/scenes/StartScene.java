@@ -25,7 +25,7 @@ import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.particles.BitmaskEmitter;
 import com.github.artemdevel.pixeldungeon.game.common.particles.Emitter;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
@@ -424,7 +424,7 @@ public class StartScene extends PixelScene {
             emitter.revive();
             emitter.start(Speck.factory(Speck.LIGHT), 0.05f, 7);
 
-            Sample.INSTANCE.play(Assets.SND_CLICK, 1, 1, 1.2f);
+            GameSound.INSTANCE.play(Assets.SND_CLICK, 1, 1, 1.2f);
             updateClass(cl);
         }
 
@@ -503,7 +503,7 @@ public class StartScene extends PixelScene {
 
         @Override
         protected void onTouchDown() {
-            Sample.INSTANCE.play(Assets.SND_CLICK);
+            GameSound.INSTANCE.play(Assets.SND_CLICK);
         }
     }
 }

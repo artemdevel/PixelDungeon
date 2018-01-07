@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
 import com.github.artemdevel.pixeldungeon.effects.Speck;
@@ -93,7 +93,7 @@ public class ArmorKit extends Item {
         }
 
         curUser.sprite.operate(curUser.pos);
-        Sample.INSTANCE.play(Assets.SND_EVOKE);
+        GameSound.INSTANCE.play(Assets.SND_EVOKE);
     }
 
     @Override

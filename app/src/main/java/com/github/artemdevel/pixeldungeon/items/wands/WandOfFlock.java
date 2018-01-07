@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.wands;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
@@ -93,7 +93,7 @@ public class WandOfFlock extends Wand {
 
     protected void fx(int cell, Callback callback) {
         MagicMissile.wool(curUser.sprite.parent, curUser.pos, cell, callback);
-        Sample.INSTANCE.play(Assets.SND_ZAP);
+        GameSound.INSTANCE.play(Assets.SND_ZAP);
     }
 
     @Override

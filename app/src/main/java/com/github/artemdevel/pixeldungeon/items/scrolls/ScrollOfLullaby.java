@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Buff;
@@ -37,7 +37,7 @@ public class ScrollOfLullaby extends Scroll {
     @Override
     protected void doRead() {
         curUser.sprite.centerEmitter().start(Speck.factory(Speck.NOTE), 0.3f, 5);
-        Sample.INSTANCE.play(Assets.SND_LULLABY);
+        GameSound.INSTANCE.play(Assets.SND_LULLABY);
         Invisibility.dispel();
 
         int count = 0;

@@ -20,7 +20,7 @@ package com.github.artemdevel.pixeldungeon.actors.mobs;
 import java.util.HashSet;
 
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -119,7 +119,7 @@ public class DM300 extends Mob {
         if (Dungeon.visible[cell]) {
             CellEmitter.get(cell).start(Speck.factory(Speck.ROCK), 0.07f, 10);
             Camera.main.shake(3, 0.7f);
-            Sample.INSTANCE.play(Assets.SND_ROCKS);
+            GameSound.INSTANCE.play(Assets.SND_ROCKS);
 
             if (Level.water[cell]) {
                 GameScene.ripple(cell);

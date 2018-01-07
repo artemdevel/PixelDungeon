@@ -25,7 +25,7 @@ import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
-public enum Music implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+public enum GameMusic implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
 
     INSTANCE;
 

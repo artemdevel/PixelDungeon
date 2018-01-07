@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -113,7 +113,7 @@ public class Item implements BundleAble {
     public boolean doPickUp(Hero hero) {
         if (collect(hero.belongings.backpack)) {
             GameScene.pickUp(this);
-            Sample.INSTANCE.play(Assets.SND_ITEM);
+            GameSound.INSTANCE.play(Assets.SND_ITEM);
             hero.spendAndNext(TIME_TO_PICK_UP);
             return true;
         } else {
@@ -303,7 +303,7 @@ public class Item implements BundleAble {
                     } else if (this instanceof Wand) {
                         sprite.parent.add(Degradation.wand(point));
                     }
-                    Sample.INSTANCE.play(Assets.SND_DEGRADE);
+                    GameSound.INSTANCE.play(Assets.SND_DEGRADE);
                 }
             }
         }
@@ -510,7 +510,7 @@ public class Item implements BundleAble {
         user.sprite.zap(cell);
         user.busy();
 
-        Sample.INSTANCE.play(Assets.SND_MISS, 0.6f, 0.6f, 1.5f);
+        GameSound.INSTANCE.play(Assets.SND_MISS, 0.6f, 0.6f, 1.5f);
 
         Char enemy = Actor.findChar(cell);
         QuickSlot.target(this, enemy);

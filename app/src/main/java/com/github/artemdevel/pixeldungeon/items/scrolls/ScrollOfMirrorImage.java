@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items.scrolls;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Invisibility;
@@ -65,7 +65,7 @@ public class ScrollOfMirrorImage extends Scroll {
             setKnown();
         }
 
-        Sample.INSTANCE.play(Assets.SND_READ);
+        GameSound.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         readAnimation();

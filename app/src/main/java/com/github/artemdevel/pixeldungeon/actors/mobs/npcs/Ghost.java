@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.actors.mobs.npcs;
 
 import java.util.HashSet;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.tweeners.AlphaTweener;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Challenges;
@@ -74,7 +74,7 @@ public class Ghost extends NPC {
     public Ghost() {
         super();
 
-        Sample.INSTANCE.load(Assets.SND_GHOST);
+        GameSound.INSTANCE.load(Assets.SND_GHOST);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class Ghost extends NPC {
     @Override
     public void interact() {
         sprite.turnTo(pos, Dungeon.hero.pos);
-        Sample.INSTANCE.play(Assets.SND_GHOST);
+        GameSound.INSTANCE.play(Assets.SND_GHOST);
 
         Quest.type.handler.interact(this);
     }
@@ -427,7 +427,7 @@ public class Ghost extends NPC {
                             Ghost.replace(ghost, d);
 
                             d.sprite.emitter().burst(ShadowParticle.CURSE, 5);
-                            Sample.INSTANCE.play(Assets.SND_GHOST);
+                            GameSound.INSTANCE.play(Assets.SND_GHOST);
 
                             Dungeon.hero.next();
                         } else {

@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
@@ -57,7 +57,7 @@ public class Dewdrop extends Item {
             vial.collectDew(this);
         }
 
-        Sample.INSTANCE.play(Assets.SND_DEWDROP);
+        GameSound.INSTANCE.play(Assets.SND_DEWDROP);
         hero.spendAndNext(TIME_TO_PICK_UP);
 
         return true;

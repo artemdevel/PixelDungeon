@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Invisibility;
 import com.github.artemdevel.pixeldungeon.items.Item;
@@ -76,7 +76,7 @@ public abstract class InventoryScroll extends Scroll {
                 ((InventoryScroll) curItem).onItemSelected(item);
                 ((InventoryScroll) curItem).readAnimation();
 
-                Sample.INSTANCE.play(Assets.SND_READ);
+                GameSound.INSTANCE.play(Assets.SND_READ);
                 Invisibility.dispel();
             } else if (identifiedByUse) {
                 ((InventoryScroll) curItem).confirmCancellation();

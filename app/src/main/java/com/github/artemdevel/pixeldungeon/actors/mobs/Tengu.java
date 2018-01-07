@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.actors.mobs;
 
 import java.util.HashSet;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Statistics;
@@ -169,7 +169,7 @@ public class Tengu extends Mob {
 
         if (Dungeon.visible[newPos]) {
             CellEmitter.get(newPos).burst(Speck.factory(Speck.WOOL), 6);
-            Sample.INSTANCE.play(Assets.SND_PUFF);
+            GameSound.INSTANCE.play(Assets.SND_PUFF);
         }
 
         spend(1 / speed());

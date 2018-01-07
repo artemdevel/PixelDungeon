@@ -21,7 +21,7 @@ import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapTextMultiline;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Music;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.PixelDungeon;
@@ -59,8 +59,8 @@ public class RankingsScene extends PixelScene {
     public void create() {
         super.create();
 
-        Music.INSTANCE.play(Assets.THEME, true);
-        Music.INSTANCE.volume(1f);
+        GameMusic.INSTANCE.play(Assets.THEME, true);
+        GameMusic.INSTANCE.volume(1f);
 
         uiCamera.visible = false;
 

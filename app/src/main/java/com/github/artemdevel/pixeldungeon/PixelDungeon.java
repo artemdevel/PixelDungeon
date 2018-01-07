@@ -22,8 +22,8 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Music;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
@@ -46,10 +46,10 @@ public class PixelDungeon extends Game {
             landscape(!landscape);
         }
 
-        Music.INSTANCE.enable(music());
-        Sample.INSTANCE.enable(soundFx());
+        GameMusic.INSTANCE.enable(music());
+        GameSound.INSTANCE.enable(soundFx());
 
-        Sample.INSTANCE.load(
+        GameSound.INSTANCE.load(
             Assets.SND_CLICK,
             Assets.SND_BADGE,
             Assets.SND_GOLD,
@@ -134,7 +134,7 @@ public class PixelDungeon extends Game {
     }
 
     public static void music(boolean value) {
-        Music.INSTANCE.enable(value);
+        GameMusic.INSTANCE.enable(value);
         Preferences.INSTANCE.put(Preferences.KEY_MUSIC, value);
     }
 
@@ -143,7 +143,7 @@ public class PixelDungeon extends Game {
     }
 
     public static void soundFx(boolean value) {
-        Sample.INSTANCE.enable(value);
+        GameSound.INSTANCE.enable(value);
         Preferences.INSTANCE.put(Preferences.KEY_SOUND_FX, value);
     }
 

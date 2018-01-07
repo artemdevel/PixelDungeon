@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Buff;
@@ -38,7 +38,7 @@ public class ScrollOfTerror extends Scroll {
     protected void doRead() {
 
         new Flare(5, 32).color(0xFF0000, true).show(curUser.sprite, 2f);
-        Sample.INSTANCE.play(Assets.SND_READ);
+        GameSound.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         int count = 0;

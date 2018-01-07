@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -71,7 +71,7 @@ public class Gold extends Item {
         hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, quantity);
         hero.spendAndNext(TIME_TO_PICK_UP);
 
-        Sample.INSTANCE.play(Assets.SND_GOLD, 1, 1, Random.Float(0.9f, 1.1f));
+        GameSound.INSTANCE.play(Assets.SND_GOLD, 1, 1, Random.Float(0.9f, 1.1f));
 
         return true;
     }

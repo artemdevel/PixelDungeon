@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Invisibility;
 import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
@@ -36,7 +36,7 @@ public class ScrollOfRecharging extends Scroll {
         int count = curUser.belongings.charge(true);
         charge(curUser);
 
-        Sample.INSTANCE.play(Assets.SND_READ);
+        GameSound.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         if (count > 0) {

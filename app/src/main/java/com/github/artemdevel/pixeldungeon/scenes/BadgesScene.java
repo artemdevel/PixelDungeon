@@ -23,8 +23,8 @@ import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Music;
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
@@ -45,8 +45,8 @@ public class BadgesScene extends PixelScene {
     public void create() {
         super.create();
 
-        Music.INSTANCE.play(Assets.THEME, true);
-        Music.INSTANCE.volume(1f);
+        GameMusic.INSTANCE.play(Assets.THEME, true);
+        GameMusic.INSTANCE.volume(1f);
 
         uiCamera.visible = false;
 
@@ -155,7 +155,7 @@ public class BadgesScene extends PixelScene {
 
         @Override
         protected void onClick() {
-            Sample.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
+            GameSound.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
             Game.scene().add(new WndBadge(badge));
         }
     }

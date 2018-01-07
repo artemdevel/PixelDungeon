@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.wands;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -45,7 +45,7 @@ public class WandOfPoison extends Wand {
 
     protected void fx(int cell, Callback callback) {
         MagicMissile.poison(curUser.sprite.parent, curUser.pos, cell, callback);
-        Sample.INSTANCE.play(Assets.SND_ZAP);
+        GameSound.INSTANCE.play(Assets.SND_ZAP);
     }
 
     @Override

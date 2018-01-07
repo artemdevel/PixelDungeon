@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
+import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Invisibility;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Weakness;
@@ -41,7 +41,7 @@ public class ScrollOfRemoveCurse extends Scroll {
     @Override
     protected void doRead() {
         new Flare(6, 32).show(curUser.sprite, 2f);
-        Sample.INSTANCE.play(Assets.SND_READ);
+        GameSound.INSTANCE.play(Assets.SND_READ);
         Invisibility.dispel();
 
         boolean processed = uncurse(curUser, curUser.belongings.backpack.items.toArray(new Item[0]));
