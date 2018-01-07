@@ -29,7 +29,7 @@ import com.github.artemdevel.pixeldungeon.Rankings;
 import com.github.artemdevel.pixeldungeon.effects.Flare;
 import com.github.artemdevel.pixeldungeon.sprites.ItemSprite;
 import com.github.artemdevel.pixeldungeon.sprites.ItemSpriteSheet;
-import com.github.artemdevel.pixeldungeon.ui.Archs;
+import com.github.artemdevel.pixeldungeon.ui.Arches;
 import com.github.artemdevel.pixeldungeon.ui.ExitButton;
 import com.github.artemdevel.pixeldungeon.ui.Icons;
 import com.github.artemdevel.pixeldungeon.ui.Window;
@@ -53,7 +53,7 @@ public class RankingsScene extends PixelScene {
 
     private static final float GAP = 4;
 
-    private Archs archs;
+    private Arches archs;
 
     @Override
     public void create() {
@@ -67,7 +67,7 @@ public class RankingsScene extends PixelScene {
         int w = Camera.main.width;
         int h = Camera.main.height;
 
-        archs = new Archs();
+        archs = new Arches();
         archs.setSize(w, h);
         add(archs);
 

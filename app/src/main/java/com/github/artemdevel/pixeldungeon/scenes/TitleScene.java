@@ -32,7 +32,7 @@ import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.effects.BannerSprites;
 import com.github.artemdevel.pixeldungeon.effects.Fireball;
-import com.github.artemdevel.pixeldungeon.ui.Archs;
+import com.github.artemdevel.pixeldungeon.ui.Arches;
 import com.github.artemdevel.pixeldungeon.ui.ExitButton;
 import com.github.artemdevel.pixeldungeon.ui.PrefsButton;
 
@@ -55,15 +55,14 @@ public class TitleScene extends PixelScene {
         int w = Camera.main.width;
         int h = Camera.main.height;
 
-        Archs archs = new Archs();
+        Arches archs = new Arches();
         archs.setSize(w, h);
         add(archs);
 
         Image title = BannerSprites.get(BannerSprites.Type.PIXEL_DUNGEON);
         add(title);
 
-        float height = title.height +
-                (PixelDungeon.landscape() ? DashboardItem.SIZE : DashboardItem.SIZE * 2);
+        float height = title.height + (PixelDungeon.landscape() ? DashboardItem.SIZE : DashboardItem.SIZE * 2);
 
         title.x = (w - title.width()) / 2;
         title.y = (h - height) / 2;

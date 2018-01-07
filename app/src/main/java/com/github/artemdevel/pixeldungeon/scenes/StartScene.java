@@ -38,7 +38,7 @@ import com.github.artemdevel.pixeldungeon.actors.hero.HeroClass;
 import com.github.artemdevel.pixeldungeon.effects.BannerSprites;
 import com.github.artemdevel.pixeldungeon.effects.Speck;
 import com.github.artemdevel.pixeldungeon.effects.BannerSprites.Type;
-import com.github.artemdevel.pixeldungeon.ui.Archs;
+import com.github.artemdevel.pixeldungeon.ui.Arches;
 import com.github.artemdevel.pixeldungeon.ui.ExitButton;
 import com.github.artemdevel.pixeldungeon.ui.Icons;
 import com.github.artemdevel.pixeldungeon.ui.RedButton;
@@ -112,7 +112,7 @@ public class StartScene extends PixelScene {
         float top = (h - height) / 2;
         float bottom = h - top;
 
-        Archs archs = new Archs();
+        Arches archs = new Arches();
         archs.setSize(w, h);
         add(archs);
 

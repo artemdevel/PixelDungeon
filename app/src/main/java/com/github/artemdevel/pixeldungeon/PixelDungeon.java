@@ -17,12 +17,9 @@
  */
 package com.github.artemdevel.pixeldungeon;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.audio.Music;
@@ -30,11 +27,8 @@ import com.github.artemdevel.pixeldungeon.game.common.audio.Sample;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
-import com.github.artemdevel.pixeldungeon.utils.Utils;
 
 public class PixelDungeon extends Game {
-
-    private static boolean immersiveModeChanged = false;
 
     public PixelDungeon() {
         super(TitleScene.class);
@@ -43,8 +37,6 @@ public class PixelDungeon extends Game {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        updateImmersiveMode();
 
         DisplayMetrics metrics = new DisplayMetrics();
         instance.getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -106,70 +98,18 @@ public class PixelDungeon extends Game {
             Assets.SND_MIMIC);
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        if (hasFocus) {
-            updateImmersiveMode();
-        }
-    }
-
     public static void switchNoFade(Class<? extends PixelScene> c) {
         PixelScene.noFade = true;
         switchScene(c);
     }
 
     public static void landscape(boolean value) {
-        Game.instance.setRequestedOrientation(value ?
-                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE :
-                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Game.instance.setRequestedOrientation(value ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Preferences.INSTANCE.put(Preferences.KEY_LANDSCAPE, value);
     }
 
     public static boolean landscape() {
         return width > height;
-    }
-
-    public static void immerse(boolean value) {
-        Preferences.INSTANCE.put(Preferences.KEY_IMMERSIVE, value);
-
-        instance.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updateImmersiveMode();
-                immersiveModeChanged = true;
-            }
-        });
-    }
-
-    @Override
-    public void onSurfaceChanged(GL10 gl, int width, int height) {
-        super.onSurfaceChanged(gl, width, height);
-
-        if (immersiveModeChanged) {
-            requestedReset = true;
-            immersiveModeChanged = false;
-        }
-    }
-
-    public static void updateImmersiveMode() {
-        if (android.os.Build.VERSION.SDK_INT >= 19) {
-            try {
-                // Sometime NullPointerException happens here
-                instance.getWindow().getDecorView().setSystemUiVisibility(
-                        immersed() ?
-                                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                                : 0);
-            } catch (Exception e) {
-                Utils.reportException(e);
-            }
-        }
     }
 
     public static boolean immersed() {

@@ -26,6 +26,7 @@ import com.github.artemdevel.pixeldungeon.ui.CheckBox;
 import com.github.artemdevel.pixeldungeon.ui.RedButton;
 import com.github.artemdevel.pixeldungeon.ui.Toolbar;
 import com.github.artemdevel.pixeldungeon.ui.Window;
+import com.github.artemdevel.pixeldungeon.utils.GLog;
 
 public class WndSettings extends Window {
 
@@ -102,7 +103,7 @@ public class WndSettings extends Window {
                 @Override
                 protected void onClick() {
                     super.onClick();
-                    PixelDungeon.immerse(checked());
+                    GLog.logInfo("Immersive mode was disabled");
                 }
             };
             btnImmersive.setRect(0, btnScaleUp.bottom() + GAP, WIDTH, BTN_HEIGHT);

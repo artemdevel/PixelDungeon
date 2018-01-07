@@ -20,6 +20,7 @@ package com.github.artemdevel.pixeldungeon.game.common;
 import com.github.artemdevel.pixeldungeon.game.input.Keys;
 import com.github.artemdevel.pixeldungeon.game.utils.Signal;
 
+// NOTE: One scene can be active at a time.
 public class Scene extends Group {
 
     private Signal.Listener<Keys.Key> keyListener;

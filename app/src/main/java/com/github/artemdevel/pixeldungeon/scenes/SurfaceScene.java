@@ -39,7 +39,7 @@ import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.hero.HeroClass;
-import com.github.artemdevel.pixeldungeon.ui.Archs;
+import com.github.artemdevel.pixeldungeon.ui.Arches;
 import com.github.artemdevel.pixeldungeon.ui.RedButton;
 import com.github.artemdevel.pixeldungeon.game.utils.Point;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
@@ -75,7 +75,7 @@ public class SurfaceScene extends PixelScene {
         int w = Camera.main.width;
         int h = Camera.main.height;
 
-        Archs archs = new Archs();
+        Arches archs = new Arches();
         archs.reversed = true;
         archs.setSize(w, h);
         add(archs);

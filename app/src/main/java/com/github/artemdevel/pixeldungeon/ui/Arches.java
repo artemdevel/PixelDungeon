@@ -22,7 +22,7 @@ import com.github.artemdevel.pixeldungeon.game.common.SkinnedBlock;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Component;
 import com.github.artemdevel.pixeldungeon.Assets;
 
-public class Archs extends Component {
+public class Arches extends Component {
 
     private static final float SCROLL_SPEED = 20f;
 

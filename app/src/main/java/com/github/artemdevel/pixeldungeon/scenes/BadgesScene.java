@@ -30,7 +30,7 @@ import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.effects.BadgeBanner;
-import com.github.artemdevel.pixeldungeon.ui.Archs;
+import com.github.artemdevel.pixeldungeon.ui.Arches;
 import com.github.artemdevel.pixeldungeon.ui.ExitButton;
 import com.github.artemdevel.pixeldungeon.ui.Window;
 import com.github.artemdevel.pixeldungeon.windows.WndBadge;
@@ -53,7 +53,7 @@ public class BadgesScene extends PixelScene {
         int w = Camera.main.width;
         int h = Camera.main.height;
 
-        Archs archs = new Archs();
+        Arches archs = new Arches();
         archs.setSize(w, h);
         add(archs);
 

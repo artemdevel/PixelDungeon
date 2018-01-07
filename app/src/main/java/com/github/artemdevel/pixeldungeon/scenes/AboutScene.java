@@ -28,7 +28,7 @@ import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.TouchArea;
 import com.github.artemdevel.pixeldungeon.PixelDungeon;
 import com.github.artemdevel.pixeldungeon.effects.Flare;
-import com.github.artemdevel.pixeldungeon.ui.Archs;
+import com.github.artemdevel.pixeldungeon.ui.Arches;
 import com.github.artemdevel.pixeldungeon.ui.ExitButton;
 import com.github.artemdevel.pixeldungeon.ui.Icons;
 import com.github.artemdevel.pixeldungeon.ui.Window;
@@ -80,7 +80,7 @@ public class AboutScene extends PixelScene {
 
         new Flare(7, 64).color(0x112233, true).show(wata, 0).angularSpeed = +20;
 
-        Archs archs = new Archs();
+        Arches archs = new Arches();
         archs.setSize(Camera.main.width, Camera.main.height);
         addToBack(archs);
 
