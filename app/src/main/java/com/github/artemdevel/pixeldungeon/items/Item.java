@@ -282,10 +282,11 @@ public class Item implements BundleAble {
 
     public void use() {
         if (level > 0 && !isBroken()) {
-            int threshold = (int) (maxDurability() * DURABILITY_WARNING_LEVEL);
-            if (durability-- >= threshold && threshold > durability && levelKnown) {
-                GLog.logWarning(TXT_GONNA_BREAK, name());
-            }
+            // TODO: Temporary
+//            int threshold = (int) (maxDurability() * DURABILITY_WARNING_LEVEL);
+//            if (durability-- >= threshold && threshold > durability && levelKnown) {
+//                GLog.logWarning(TXT_GONNA_BREAK, name());
+//            }
             if (isBroken()) {
                 getBroken();
                 if (levelKnown) {
@@ -310,7 +311,9 @@ public class Item implements BundleAble {
     }
 
     public boolean isBroken() {
-        return durability <= 0;
+        // TODO: Temporary
+//        return durability <= 0;
+        return false;
     }
 
     public void getBroken() {
