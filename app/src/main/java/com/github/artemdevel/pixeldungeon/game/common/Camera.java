@@ -66,18 +66,18 @@ public class Camera {
         invW2 = 2f / Game.width;
         invH2 = 2f / Game.height;
 
-        int length = all.size();
-        for (int i = 0; i < length; i++) {
-            all.get(i).destroy();
+        for (Camera camera : all) {
+            camera.destroy();
         }
         all.clear();
+        add(newCamera);
+        main = newCamera;
 
-        return main = add(newCamera);
+        return main;
     }
 
-    public static Camera add(Camera camera) {
+    public static void add(Camera camera) {
         all.add(camera);
-        return camera;
     }
 
     public static Camera remove(Camera camera) {
