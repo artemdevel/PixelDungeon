@@ -71,7 +71,6 @@ public class FogOfWar extends Image {
     }
 
     public void updateVisibility(boolean[] visible, boolean[] visited, boolean[] mapped) {
-
         if (pixels == null) {
             pixels = new int[width2 * height2];
             Arrays.fill(pixels, INVISIBLE);

@@ -93,8 +93,6 @@ public abstract class Level implements BundleAble {
 
     private static final String TXT_HIDDEN_PLATE_CLICKS = "A hidden pressure plate clicks!";
 
-    public static int loadedMapSize;
-
     public int[] map;
     public boolean[] visited;
     public boolean[] mapped;
@@ -118,11 +116,10 @@ public abstract class Level implements BundleAble {
     public int entrance;
     public int exit;
 
-    // TODO: Can all of this be immutable?
-    public HashSet<Mob> mobs;
-    public SparseArray<Heap> heaps;
-    public HashMap<Class<? extends Blob>, Blob> blobs;
-    public SparseArray<Plant> plants;
+    public final HashSet<Mob> mobs = new HashSet<>();
+    public final HashMap<Class<? extends Blob>, Blob> blobs = new HashMap<>();
+    public final SparseArray<Heap> heaps = new SparseArray<>();
+    public final SparseArray<Plant> plants = new SparseArray<>();
 
     protected ArrayList<Item> itemsToSpawn = new ArrayList<>();
 
@@ -149,10 +146,10 @@ public abstract class Level implements BundleAble {
         mapped = new boolean[LENGTH];
         Arrays.fill(mapped, false);
 
-        mobs = new HashSet<>();
-        heaps = new SparseArray<>();
-        blobs = new HashMap<>();
-        plants = new SparseArray<>();
+        mobs.clear();
+        blobs.clear();
+        heaps.clear();
+        plants.clear();
 
         if (!Dungeon.bossLevel()) {
             addItemToSpawn(Generator.random(Generator.Category.FOOD));
@@ -204,7 +201,7 @@ public abstract class Level implements BundleAble {
     }
 
     public void reset() {
-        for (Mob mob : mobs.toArray(new Mob[0])) {
+        for (Mob mob : mobs) {
             if (!mob.reset()) {
                 mobs.remove(mob);
             }
@@ -214,10 +211,10 @@ public abstract class Level implements BundleAble {
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
-        mobs = new HashSet<>();
-        heaps = new SparseArray<>();
-        blobs = new HashMap<>();
-        plants = new SparseArray<>();
+        mobs.clear();
+        blobs.clear();
+        heaps.clear();
+        plants.clear();
 
         map = bundle.getIntArray(MAP);
         visited = bundle.getBooleanArray(VISITED);

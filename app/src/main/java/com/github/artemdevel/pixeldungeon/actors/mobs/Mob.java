@@ -49,12 +49,12 @@ public abstract class Mob extends Char {
     protected static final String TXT_RAGE = "#$%^";
     protected static final String TXT_EXP = "%+dEXP";
 
-    public AiState SLEEPEING = new Sleeping();
+    public AiState SLEEPING = new Sleeping();
     public AiState HUNTING = new Hunting();
     public AiState WANDERING = new Wandering();
     public AiState FLEEING = new Fleeing();
     public AiState PASSIVE = new Passive();
-    public AiState state = SLEEPEING;
+    public AiState state = SLEEPING;
 
     public Class<? extends CharSprite> spriteClass;
 
@@ -83,7 +83,7 @@ public abstract class Mob extends Char {
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
 
-        if (state == SLEEPEING) {
+        if (state == SLEEPING) {
             bundle.put(STATE, Sleeping.TAG);
         } else if (state == WANDERING) {
             bundle.put(STATE, Wandering.TAG);
@@ -103,7 +103,7 @@ public abstract class Mob extends Char {
 
         String state = bundle.getString(STATE);
         if (state.equals(Sleeping.TAG)) {
-            this.state = SLEEPEING;
+            this.state = SLEEPING;
         } else if (state.equals(Wandering.TAG)) {
             this.state = WANDERING;
         } else if (state.equals(Hunting.TAG)) {
@@ -151,8 +151,7 @@ public abstract class Mob extends Char {
     protected Char chooseEnemy() {
         if (buff(Amok.class) != null) {
             if (enemy == Dungeon.hero || enemy == null) {
-
-                HashSet<Mob> enemies = new HashSet<Mob>();
+                HashSet<Mob> enemies = new HashSet<>();
                 for (Mob mob : Dungeon.level.mobs) {
                     if (mob != this && Level.fieldOfView[mob.pos]) {
                         enemies.add(mob);
@@ -200,7 +199,7 @@ public abstract class Mob extends Char {
             if (sprite != null) {
                 new Flare(4, 32).color(0x44ffff, true).show(sprite, 2f);
             }
-            state = SLEEPEING;
+            state = SLEEPING;
             postpone(Sleep.SWS);
         }
     }
@@ -223,9 +222,7 @@ public abstract class Mob extends Char {
             return false;
         }
 
-        int step = Dungeon.findPath(this, pos, target,
-                Level.passable,
-                Level.fieldOfView);
+        int step = Dungeon.findPath(this, pos, target, Level.passable, Level.fieldOfView);
         if (step != -1) {
             move(step);
             return true;
@@ -299,7 +296,7 @@ public abstract class Mob extends Char {
     public void damage(int dmg, Object src) {
         Terror.recover(this);
 
-        if (state == SLEEPEING) {
+        if (state == SLEEPING) {
             state = WANDERING;
         }
         alerted = true;
@@ -358,17 +355,11 @@ public abstract class Mob extends Char {
         if (loot != null && Random.Float() < lootChance) {
             Item item = null;
             if (loot instanceof Generator.Category) {
-
                 item = Generator.random((Generator.Category) loot);
-
             } else if (loot instanceof Class<?>) {
-
                 item = Generator.random((Class<? extends Item>) loot);
-
             } else {
-
                 item = (Item) loot;
-
             }
             Dungeon.level.drop(item, pos).sprite.drop();
         }
@@ -427,7 +418,6 @@ public abstract class Mob extends Char {
                 }
 
                 spend(TIME_TO_WAKE_UP);
-
             } else {
                 enemySeen = false;
 

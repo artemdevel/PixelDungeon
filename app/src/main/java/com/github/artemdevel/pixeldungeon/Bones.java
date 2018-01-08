@@ -38,7 +38,6 @@ public class Bones {
     private static Item item;
 
     public static void leave() {
-
         item = null;
         switch (Random.Int(4)) {
             case 0:
@@ -91,7 +90,6 @@ public class Bones {
             } catch (IOException e) {
                 return null;
             }
-
         } else {
             if (depth == Dungeon.depth) {
                 Game.instance.deleteFile(BONES_FILE);

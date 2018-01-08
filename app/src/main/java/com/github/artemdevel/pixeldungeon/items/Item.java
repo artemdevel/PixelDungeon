@@ -104,7 +104,7 @@ public class Item implements BundleAble {
     };
 
     public ArrayList<String> actions(Hero hero) {
-        ArrayList<String> actions = new ArrayList<String>();
+        ArrayList<String> actions = new ArrayList<>();
         actions.add(AC_DROP);
         actions.add(AC_THROW);
         return actions;

@@ -66,7 +66,6 @@ public class DungeonTilemap extends Tilemap {
     }
 
     public void discover(int pos, int oldValue) {
-
         final Image tile = tile(oldValue);
         tile.point(tileToWorld(pos));
 
@@ -80,8 +79,6 @@ public class DungeonTilemap extends Tilemap {
                 tile.killAndErase();
                 killAndErase();
             }
-
-            ;
         });
     }
 
