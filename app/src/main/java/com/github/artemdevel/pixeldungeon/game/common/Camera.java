@@ -24,7 +24,7 @@ import com.github.artemdevel.pixeldungeon.game.utils.Point;
 import com.github.artemdevel.pixeldungeon.game.utils.PointF;
 import com.github.artemdevel.pixeldungeon.game.utils.Random;
 
-public class Camera extends Gizmo {
+public class Camera {
 
     protected static ArrayList<Camera> all = new ArrayList<>();
 
@@ -47,6 +47,8 @@ public class Camera extends Gizmo {
 
     public PointF scroll;
     public Visual target;
+
+    public boolean visible;
 
     private float shakeMagX = 10f;
     private float shakeMagY = 10f;
@@ -84,12 +86,8 @@ public class Camera extends Gizmo {
     }
 
     public static void updateAll() {
-        int length = all.size();
-        for (int i = 0; i < length; i++) {
-            Camera c = all.get(i);
-            if (c.exists && c.active) {
-                c.update();
-            }
+        for (Camera camera : all) {
+            camera.update();
         }
     }
 
@@ -109,6 +107,8 @@ public class Camera extends Gizmo {
         this.height = height;
         this.zoom = zoom;
 
+        visible = true;
+
         screenWidth = (int) (width * zoom);
         screenHeight = (int) (height * zoom);
 
@@ -118,10 +118,10 @@ public class Camera extends Gizmo {
         Matrix.setIdentity(matrix);
     }
 
-    @Override
     public void destroy() {
         target = null;
         matrix = null;
+        visible = false;
     }
 
     public void zoom(float value) {
@@ -143,10 +143,7 @@ public class Camera extends Gizmo {
         screenHeight = (int) (height * zoom);
     }
 
-    @Override
     public void update() {
-        super.update();
-
         if (target != null) {
             focusOn(target);
         }
@@ -166,10 +163,6 @@ public class Camera extends Gizmo {
     public PointF center() {
         return new PointF(width / 2, height / 2);
     }
-
-//    public boolean hitTest( float x, float y ) {
-//        return x >= this.x && y >= this.y && x < this.x + screenWidth && y < this.y + screenHeight;
-//    }
 
     public void focusOn(float x, float y) {
         scroll.set(x - width / 2, y - height / 2);
