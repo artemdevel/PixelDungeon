@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.github.artemdevel.pixeldungeon.BuildConfig;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.glscripts.Script;
 import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
@@ -31,20 +32,18 @@ import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.utils.BitmapCache;
 import com.github.artemdevel.pixeldungeon.game.utils.SystemTime;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
-import com.github.artemdevel.pixeldungeon.utils.GLog;
 
 import android.app.Activity;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioManager;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
+// Global game state
 public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTouchListener {
 
     public static Game instance;
@@ -56,7 +55,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     // Density: mdpi=1, hdpi=1.5, xhdpi=2...
     public static float density = 1; // affects zoom
 
-    public static String version;
+    public static String version = BuildConfig.VERSION_NAME;
 
     // Current scene
     protected Scene scene;
@@ -99,13 +98,6 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         density = metrics.density;
-        GLog.logInfo(String.format("W: %d, H: %d, D: %f ", metrics.widthPixels, metrics.heightPixels, metrics.density));
-
-        try {
-            version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-        } catch (NameNotFoundException e) {
-            version = "???";
-        }
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -202,7 +194,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
 
         step();
 
-        NoosaScript.get().resetCamera();
+        GameScript.get().resetCamera();
         GLES20.glScissor(0, 0, width, height);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         draw();
@@ -294,7 +286,4 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         Camera.updateAll();
     }
 
-    public static void vibrate(int milliseconds) {
-        ((Vibrator) instance.getSystemService(VIBRATOR_SERVICE)).vibrate(milliseconds);
-    }
 }

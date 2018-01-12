@@ -37,6 +37,7 @@ public class BitmapCache {
         opts.inDither = false;
     }
 
+    // TODO: Refactor this
     public static Context context;
 
     public static Bitmap get(String assetName) {

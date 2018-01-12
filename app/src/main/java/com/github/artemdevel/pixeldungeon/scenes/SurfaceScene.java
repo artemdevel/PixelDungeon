@@ -31,7 +31,7 @@ import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.MovieClip;
-import com.github.artemdevel.pixeldungeon.game.common.NoosaScript;
+import com.github.artemdevel.pixeldungeon.game.common.GameScript;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
 import com.github.artemdevel.pixeldungeon.game.common.TouchArea;
 import com.github.artemdevel.pixeldungeon.game.common.Visual;
@@ -231,7 +231,7 @@ public class SurfaceScene extends PixelScene {
         public void draw() {
             super.draw();
 
-            NoosaScript script = NoosaScript.get();
+            GameScript script = GameScript.get();
 
             texture.bind();
 

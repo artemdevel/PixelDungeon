@@ -76,7 +76,7 @@ public class BitmapText extends Visual {
     public void draw() {
         super.draw();
 
-        NoosaScript script = NoosaScript.get();
+        GameScript script = GameScript.get();
 
         font.texture.bind();
 

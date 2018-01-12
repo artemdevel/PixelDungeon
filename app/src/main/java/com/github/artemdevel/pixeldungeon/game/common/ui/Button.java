@@ -20,6 +20,7 @@ package com.github.artemdevel.pixeldungeon.game.common.ui;
 import com.github.artemdevel.pixeldungeon.game.input.Touchscreen.Touch;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.TouchArea;
+import com.github.artemdevel.pixeldungeon.utils.Utils;
 
 public class Button extends Component {
 
@@ -73,7 +74,7 @@ public class Button extends Component {
                     processed = true;
                     onTouchUp();
 
-                    Game.vibrate(50);
+                    Utils.vibrate(50);
                 }
             }
         }

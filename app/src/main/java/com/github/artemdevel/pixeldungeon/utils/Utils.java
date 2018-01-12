@@ -17,7 +17,11 @@
  */
 package com.github.artemdevel.pixeldungeon.utils;
 
+import android.content.Context;
+import android.os.Vibrator;
 import android.util.Log;
+
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 
 import java.util.Locale;
 
@@ -46,4 +50,7 @@ public class Utils {
         Log.e(EX_TAG, Log.getStackTraceString(tr));
     }
 
+    public static void vibrate(int milliseconds) {
+        ((Vibrator) Game.instance.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(milliseconds);
+    }
 }

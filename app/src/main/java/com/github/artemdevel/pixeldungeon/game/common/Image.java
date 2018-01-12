@@ -142,7 +142,7 @@ public class Image extends Visual {
     public void draw() {
         super.draw();
 
-        NoosaScript script = NoosaScript.get();
+        GameScript script = GameScript.get();
 
         texture.bind();
 

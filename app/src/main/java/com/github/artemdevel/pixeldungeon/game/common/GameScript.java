@@ -27,8 +27,7 @@ import com.github.artemdevel.pixeldungeon.game.glwrap.Attribute;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Quad;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Uniform;
 
-// WTF is Noosa?
-public class NoosaScript extends Script {
+public class GameScript extends Script {
 
     public Uniform uCamera;
     public Uniform uModel;
@@ -40,7 +39,7 @@ public class NoosaScript extends Script {
 
     private Camera lastCamera;
 
-    public NoosaScript() {
+    public GameScript() {
         super();
         compile(shader());
 
@@ -124,8 +123,8 @@ public class NoosaScript extends Script {
         }
     }
 
-    public static NoosaScript get() {
-        return Script.use(NoosaScript.class);
+    public static GameScript get() {
+        return Script.use(GameScript.class);
     }
 
 

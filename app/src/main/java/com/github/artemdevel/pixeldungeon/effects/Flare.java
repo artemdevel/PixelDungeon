@@ -30,7 +30,7 @@ import com.github.artemdevel.pixeldungeon.game.gltextures.Gradient;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
-import com.github.artemdevel.pixeldungeon.game.common.NoosaScript;
+import com.github.artemdevel.pixeldungeon.game.common.GameScript;
 import com.github.artemdevel.pixeldungeon.game.common.Visual;
 import com.github.artemdevel.pixeldungeon.game.utils.PointF;
 
@@ -156,7 +156,7 @@ public class Flare extends Visual {
     }
 
     private void drawRays() {
-        NoosaScript script = NoosaScript.get();
+        GameScript script = GameScript.get();
 
         texture.bind();
 

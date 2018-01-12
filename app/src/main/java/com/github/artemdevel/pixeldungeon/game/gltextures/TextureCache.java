@@ -31,6 +31,7 @@ import com.github.artemdevel.pixeldungeon.game.glwrap.Texture;
 
 public class TextureCache {
 
+    // TODO: Refactor this
     public static Context context;
 
     private static HashMap<Object, SmartTexture> all = new HashMap<>();
