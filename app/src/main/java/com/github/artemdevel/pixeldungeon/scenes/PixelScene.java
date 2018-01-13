@@ -62,6 +62,13 @@ public class PixelScene extends Scene {
     public void create() {
         super.create();
 
+        // this is required for now to avoid broken caches
+        font1x = null;
+        font15x = null;
+        font2x = null;
+        font25x = null;
+        font3x = null;
+
         GameScene.scene = null;
 
         float minWidth, minHeight;
