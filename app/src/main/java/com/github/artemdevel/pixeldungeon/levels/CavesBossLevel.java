@@ -18,8 +18,8 @@
 package com.github.artemdevel.pixeldungeon.levels;
 
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Scene;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Bones;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -228,7 +228,7 @@ public class CavesBossLevel extends Level {
 
             CellEmitter.get(arenaDoor).start(Speck.factory(Speck.ROCK), 0.07f, 10);
             Camera.main.shake(3, 0.7f);
-            GameSound.INSTANCE.play(Assets.SND_ROCKS);
+            Game.sound.play(Assets.SND_ROCKS);
         }
     }
 

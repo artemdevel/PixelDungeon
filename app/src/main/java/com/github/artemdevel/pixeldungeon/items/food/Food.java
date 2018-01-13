@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items.food;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Statistics;
@@ -81,7 +81,7 @@ public class Food extends Item {
             hero.sprite.operate(hero.pos);
             hero.busy();
             SpellSprite.show(hero, SpellSprite.FOOD);
-            GameSound.INSTANCE.play(Assets.SND_EAT);
+            Game.sound.play(Assets.SND_EAT);
 
             hero.spend(TIME_TO_EAT);
 

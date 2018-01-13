@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.ResultDescriptions;
@@ -49,7 +49,7 @@ public class Bomb extends Item {
         if (Level.pit[cell]) {
             super.onThrow(cell);
         } else {
-            GameSound.INSTANCE.play(Assets.SND_BLAST, 2);
+            Game.sound.play(Assets.SND_BLAST, 2);
 
             if (Dungeon.visible[cell]) {
                 CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);

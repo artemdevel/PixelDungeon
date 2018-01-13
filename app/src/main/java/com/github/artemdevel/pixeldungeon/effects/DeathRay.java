@@ -23,7 +23,6 @@ import android.opengl.GLES20;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.game.utils.PointF;
 
@@ -48,7 +47,7 @@ public class DeathRay extends Image {
         angle = (float) (Math.atan2(dy, dx) * A);
         scale.x = (float) Math.sqrt(dx * dx + dy * dy) / width;
 
-        GameSound.INSTANCE.play(Assets.SND_RAY);
+        Game.sound.play(Assets.SND_RAY);
 
         timeLeft = DURATION;
     }

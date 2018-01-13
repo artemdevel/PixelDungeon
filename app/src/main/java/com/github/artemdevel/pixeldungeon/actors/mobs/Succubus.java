@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.actors.mobs;
 
 import java.util.HashSet;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -79,7 +79,7 @@ public class Succubus extends Mob {
         if (Random.Int(3) == 0) {
             Buff.affect(enemy, Charm.class, Charm.durationFactor(enemy) * Random.IntRange(3, 7)).object = id();
             enemy.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
-            GameSound.INSTANCE.play(Assets.SND_CHARMS);
+            Game.sound.play(Assets.SND_CHARMS);
         }
 
         return damage;

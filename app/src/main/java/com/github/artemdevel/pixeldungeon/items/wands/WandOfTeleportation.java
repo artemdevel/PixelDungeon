@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.wands;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
@@ -65,7 +65,7 @@ public class WandOfTeleportation extends Wand {
 
     protected void fx(int cell, Callback callback) {
         MagicMissile.coldLight(curUser.sprite.parent, curUser.pos, cell, callback);
-        GameSound.INSTANCE.play(Assets.SND_ZAP);
+        Game.sound.play(Assets.SND_ZAP);
     }
 
     @Override

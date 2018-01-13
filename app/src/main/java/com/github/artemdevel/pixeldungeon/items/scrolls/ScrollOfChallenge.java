@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Buff;
@@ -59,7 +59,7 @@ public class ScrollOfChallenge extends Scroll {
         setKnown();
 
         curUser.sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.3f, 3);
-        GameSound.INSTANCE.play(Assets.SND_CHALLENGE);
+        Game.sound.play(Assets.SND_CHALLENGE);
         Invisibility.dispel();
 
         readAnimation();

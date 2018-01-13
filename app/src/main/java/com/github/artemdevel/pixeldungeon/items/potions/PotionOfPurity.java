@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.potions;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.blobs.Blob;
@@ -82,7 +82,7 @@ public class PotionOfPurity extends Potion {
         if (procd) {
             if (Dungeon.visible[cell]) {
                 splash(cell);
-                GameSound.INSTANCE.play(Assets.SND_SHATTER);
+                Game.sound.play(Assets.SND_SHATTER);
             }
 
             setKnown();

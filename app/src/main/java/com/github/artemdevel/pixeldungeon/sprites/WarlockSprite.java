@@ -17,8 +17,8 @@
  */
 package com.github.artemdevel.pixeldungeon.sprites;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.mobs.Warlock;
 import com.github.artemdevel.pixeldungeon.effects.MagicMissile;
@@ -61,7 +61,7 @@ public class WarlockSprite extends MobSprite {
                         ((Warlock) ch).onZapComplete();
                     }
                 });
-        GameSound.INSTANCE.play(Assets.SND_ZAP);
+        Game.sound.play(Assets.SND_ZAP);
     }
 
     @Override

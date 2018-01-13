@@ -20,7 +20,6 @@ package com.github.artemdevel.pixeldungeon.effects;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.game.utils.PointF;
 
@@ -65,7 +64,7 @@ public class BadgeBanner extends Image {
         state = State.FADE_IN;
         time = FADE_IN_TIME;
 
-        GameSound.INSTANCE.play(Assets.SND_BADGE);
+        Game.sound.play(Assets.SND_BADGE);
     }
 
     @Override

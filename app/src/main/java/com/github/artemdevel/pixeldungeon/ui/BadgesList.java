@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Component;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
@@ -110,7 +109,7 @@ public class BadgesList extends ScrollPane {
 
         public boolean onClick(float x, float y) {
             if (inside(x, y)) {
-                GameSound.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
+                Game.sound.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
                 Game.scene().add(new WndBadge(badge));
                 return true;
             } else {

@@ -23,7 +23,6 @@ import java.util.HashSet;
 
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Bones;
@@ -567,13 +566,13 @@ public class Hero extends Char {
 
                 switch (heap.type) {
                     case TOMB:
-                        GameSound.INSTANCE.play(Assets.SND_TOMB);
+                        Game.sound.play(Assets.SND_TOMB);
                         Camera.main.shake(1, 0.5f);
                         break;
                     case SKELETON:
                         break;
                     default:
-                        GameSound.INSTANCE.play(Assets.SND_UNLOCK);
+                        Game.sound.play(Assets.SND_UNLOCK);
                 }
 
                 spend(Key.TIME_TO_UNLOCK);
@@ -606,7 +605,7 @@ public class Hero extends Char {
             if (theKey != null) {
                 spend(Key.TIME_TO_UNLOCK);
                 sprite.operate(doorCell);
-                GameSound.INSTANCE.play(Assets.SND_UNLOCK);
+                Game.sound.play(Assets.SND_UNLOCK);
             } else {
                 GLog.logWarning(TXT_LOCKED_DOOR);
                 ready();
@@ -909,7 +908,7 @@ public class Hero extends Char {
         if (levelUp) {
             GLog.logPositive(TXT_NEW_LEVEL, lvl);
             sprite.showStatus(CharSprite.POSITIVE, TXT_LEVEL_UP);
-            GameSound.INSTANCE.play(Assets.SND_LEVELUP);
+            Game.sound.play(Assets.SND_LEVELUP);
 
             Badges.validateLevelReached();
         }
@@ -1085,9 +1084,9 @@ public class Hero extends Char {
 
         if (!flying) {
             if (Level.water[pos]) {
-                GameSound.INSTANCE.play(Assets.SND_WATER, 1, 1, Random.Float(0.8f, 1.25f));
+                Game.sound.play(Assets.SND_WATER, 1, 1, Random.Float(0.8f, 1.25f));
             } else {
-                GameSound.INSTANCE.play(Assets.SND_STEP);
+                Game.sound.play(Assets.SND_STEP);
             }
             Dungeon.level.press(pos, this);
         }
@@ -1134,7 +1133,7 @@ public class Hero extends Char {
 
             Heap heap = Dungeon.level.heaps.get(((HeroAction.OpenChest) curAction).dst);
             if (heap.type == Type.SKELETON) {
-                GameSound.INSTANCE.play(Assets.SND_BONES);
+                Game.sound.play(Assets.SND_BONES);
             }
             heap.open(this);
         }
@@ -1229,7 +1228,7 @@ public class Hero extends Char {
 
         if (smthFound) {
             GLog.logWarning(TXT_NOTICED_SMTH);
-            GameSound.INSTANCE.play(Assets.SND_SECRET);
+            Game.sound.play(Assets.SND_SECRET);
             interrupt();
         }
 

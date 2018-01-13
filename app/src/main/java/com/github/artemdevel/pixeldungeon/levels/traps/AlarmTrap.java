@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.levels.traps;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -42,6 +42,6 @@ public class AlarmTrap {
             CellEmitter.center(pos).start(Speck.factory(Speck.SCREAM), 0.3f, 3);
         }
 
-        GameSound.INSTANCE.play(Assets.SND_ALERT);
+        Game.sound.play(Assets.SND_ALERT);
     }
 }

@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items.quest;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -101,7 +101,7 @@ public class Pickaxe extends Weapon {
                         public void call() {
 
                             CellEmitter.center(pos).burst(Speck.factory(Speck.STAR), 7);
-                            GameSound.INSTANCE.play(Assets.SND_EVOKE);
+                            Game.sound.play(Assets.SND_EVOKE);
 
                             Level.set(pos, Terrain.WALL);
                             GameScene.updateMap(pos);

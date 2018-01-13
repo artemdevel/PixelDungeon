@@ -19,7 +19,6 @@ package com.github.artemdevel.pixeldungeon.levels.features;
 
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -64,7 +63,7 @@ public class Chasm {
     public static void heroFall(int pos) {
         jumpConfirmed = false;
 
-        GameSound.INSTANCE.play(Assets.SND_FALLING);
+        Game.sound.play(Assets.SND_FALLING);
 
         if (Dungeon.hero.isAlive()) {
             Dungeon.hero.interrupt();

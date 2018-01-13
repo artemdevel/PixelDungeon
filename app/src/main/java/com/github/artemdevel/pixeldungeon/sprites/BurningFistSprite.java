@@ -17,8 +17,8 @@
  */
 package com.github.artemdevel.pixeldungeon.sprites;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.effects.MagicMissile;
 import com.github.artemdevel.pixeldungeon.game.utils.Callback;
@@ -58,7 +58,7 @@ public class BurningFistSprite extends MobSprite {
     @Override
     public void onComplete(Animation anim) {
         if (anim == attack) {
-            GameSound.INSTANCE.play(Assets.SND_ZAP);
+            Game.sound.play(Assets.SND_ZAP);
             MagicMissile.shadow(parent, ch.pos, posToShoot,
                     new Callback() {
                         @Override

@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items.weapon.melee;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
@@ -99,7 +99,7 @@ public class ShortSword extends MeleeWeapon {
         @Override
         public void onSelect(Item item) {
             if (item != null && !(item instanceof Boomerang)) {
-                GameSound.INSTANCE.play(Assets.SND_EVOKE);
+                Game.sound.play(Assets.SND_EVOKE);
                 ScrollOfUpgrade.upgrade(curUser);
                 evoke(curUser);
 

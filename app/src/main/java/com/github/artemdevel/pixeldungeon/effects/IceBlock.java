@@ -19,7 +19,6 @@ package com.github.artemdevel.pixeldungeon.effects;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Gizmo;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.sprites.CharSprite;
 
@@ -53,7 +52,7 @@ public class IceBlock extends Gizmo {
 
         if (visible) {
             Splash.at(target.center(), 0xFFB2D6FF, 5);
-            GameSound.INSTANCE.play(Assets.SND_SHATTER);
+            Game.sound.play(Assets.SND_SHATTER);
         }
     }
 

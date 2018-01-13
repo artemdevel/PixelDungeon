@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.actors.mobs.npcs;
 
 import java.util.Collection;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -186,7 +186,7 @@ public class Blacksmith extends NPC {
             second = item2;
         }
 
-        GameSound.INSTANCE.play(Assets.SND_EVOKE);
+        Game.sound.play(Assets.SND_EVOKE);
         ScrollOfUpgrade.upgrade(Dungeon.hero);
         Item.evoke(Dungeon.hero);
 

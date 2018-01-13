@@ -25,7 +25,6 @@ import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
 import com.github.artemdevel.pixeldungeon.game.common.SkinnedBlock;
 import com.github.artemdevel.pixeldungeon.game.common.Visual;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.particles.Emitter;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
@@ -289,7 +288,7 @@ public class GameScene extends PixelScene {
                 GLog.logHighlight(TXT_WELCOME_BACK, Dungeon.depth);
             } else {
                 GLog.logHighlight(TXT_WELCOME, Dungeon.depth);
-                GameSound.INSTANCE.play(Assets.SND_DESCEND);
+                Game.sound.play(Assets.SND_DESCEND);
             }
             switch (Dungeon.level.feeling) {
                 case CHASM:
@@ -545,7 +544,7 @@ public class GameScene extends PixelScene {
         gameOver.show(0x000000, 1f);
         scene.showBanner(gameOver);
 
-        GameSound.INSTANCE.play(Assets.SND_DEATH);
+        Game.sound.play(Assets.SND_DEATH);
     }
 
     public static void bossSlain() {
@@ -554,7 +553,7 @@ public class GameScene extends PixelScene {
             bossSlain.show(0xFFFFFF, 0.3f, 5f);
             scene.showBanner(bossSlain);
 
-            GameSound.INSTANCE.play(Assets.SND_BOSS);
+            Game.sound.play(Assets.SND_BOSS);
         }
     }
 

@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.hero.Hero;
 import com.github.artemdevel.pixeldungeon.effects.Speck;
@@ -103,7 +103,7 @@ public class DewVial extends Item {
                 hero.spend(TIME_TO_DRINK);
                 hero.busy();
 
-                GameSound.INSTANCE.play(Assets.SND_DRINK);
+                Game.sound.play(Assets.SND_DRINK);
                 hero.sprite.operate(hero.pos);
 
                 updateQuickSlot();

@@ -22,26 +22,26 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import com.github.artemdevel.pixeldungeon.game.common.Game;
-
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-public enum GameSound {
+public final class GameSound {
 
-    INSTANCE;
+    private static final int MAX_STREAMS = 8;
 
-    public static final int MAX_STREAMS = 8;
+    private final Context context;
 
-    protected SoundPool pool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0);
-
-    protected HashMap<Object, Integer> ids = new HashMap<>();
+    private SoundPool pool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0);
+    private HashMap<Object, Integer> ids = new HashMap<>();
+    private LinkedList<String> loadingQueue = new LinkedList<>();
 
     private boolean enabled = true;
 
-    private LinkedList<String> loadingQueue = new LinkedList<>();
+    public GameSound(Context context) {
+        this.context = context;
+    }
 
     public void reset() {
         pool.release();
@@ -49,13 +49,13 @@ public enum GameSound {
         ids.clear();
     }
 
-    public void pause() {
+    public void onPause() {
         if (pool != null) {
             pool.autoPause();
         }
     }
 
-    public void resume() {
+    public void onResume() {
         if (pool != null) {
             pool.autoResume();
         }
@@ -78,14 +78,13 @@ public enum GameSound {
                         }
                     });
 
-                    AssetManager manager = Game.instance.getAssets();
-                    AssetFileDescriptor fd = manager.openFd(asset);
-                    int streamID = pool.load(fd, 1);
+                    AssetFileDescriptor afd = context.getAssets().openFd(asset);
+                    int streamID = pool.load(afd, 1);
                     ids.put(asset, streamID);
-                    fd.close();
-                } catch (IOException e) {
+                    afd.close();
+                } catch (IOException ex) {
                     loadNext();
-                } catch (NullPointerException e) {
+                } catch (NullPointerException ex) {
                     // Do nothing (stop loading sounds)
                 }
             } else {

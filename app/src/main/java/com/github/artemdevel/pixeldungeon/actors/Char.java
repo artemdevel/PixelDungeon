@@ -20,7 +20,7 @@ package com.github.artemdevel.pixeldungeon.actors;
 import java.util.HashSet;
 
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.ResultDescriptions;
@@ -148,7 +148,7 @@ public abstract class Char extends Actor {
             enemy.damage(effectiveDamage, this);
 
             if (visibleFight) {
-                GameSound.INSTANCE.play(Assets.SND_HIT, 1, 1, Random.Float(0.8f, 1.25f));
+                Game.sound.play(Assets.SND_HIT, 1, 1, Random.Float(0.8f, 1.25f));
             }
 
             if (enemy == Dungeon.hero) {
@@ -186,7 +186,7 @@ public abstract class Char extends Actor {
                     GLog.logInfo(TXT_SMB_MISSED, enemy.name, defense, name);
                 }
 
-                GameSound.INSTANCE.play(Assets.SND_MISS);
+                Game.sound.play(Assets.SND_MISS);
             }
 
             return false;

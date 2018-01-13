@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Blindness;
@@ -38,7 +38,7 @@ public class ScrollOfPsionicBlast extends Scroll {
     protected void doRead() {
         GameScene.flash(0xFFFFFF);
 
-        GameSound.INSTANCE.play(Assets.SND_BLAST);
+        Game.sound.play(Assets.SND_BLAST);
         Invisibility.dispel();
 
         for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {

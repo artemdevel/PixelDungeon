@@ -24,7 +24,6 @@ import com.github.artemdevel.pixeldungeon.game.common.ColorBlock;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
@@ -349,10 +348,8 @@ public class WndRanking extends WndTabbed {
         @Override
         protected void onTouchDown() {
             bg.brightness(1.5f);
-            GameSound.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
+            Game.sound.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
         }
-
-        ;
 
         protected void onTouchUp() {
             bg.brightness(1.0f);

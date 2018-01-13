@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items;
 
 import java.util.LinkedList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.tweeners.AlphaTweener;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
@@ -129,7 +129,7 @@ public class Heap implements BundleAble {
                             hero.sprite.emitter().burst(ShadowParticle.CURSE, 6);
                             hero.damage(hero.HP / 2, this);
                         }
-                        GameSound.INSTANCE.play(Assets.SND_CURSED);
+                        Game.sound.play(Assets.SND_CURSED);
                         break;
                     }
                 }
@@ -295,7 +295,7 @@ public class Heap implements BundleAble {
 
         if (count >= SEEDS_TO_POTION) {
             CellEmitter.get(pos).burst(Speck.factory(Speck.WOOL), 6);
-            GameSound.INSTANCE.play(Assets.SND_PUFF);
+            Game.sound.play(Assets.SND_PUFF);
 
             if (Random.Int(count) == 0) {
                 CellEmitter.center(pos).burst(Speck.factory(Speck.EVOKE), 3);
@@ -332,7 +332,7 @@ public class Heap implements BundleAble {
 
     public static void burnFX(int pos) {
         CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
-        GameSound.INSTANCE.play(Assets.SND_BURNING);
+        Game.sound.play(Assets.SND_BURNING);
     }
 
     public static void evaporateFX(int pos) {

@@ -25,7 +25,6 @@ import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.effects.BannerSprites;
@@ -201,7 +200,7 @@ public class TitleScene extends PixelScene {
         @Override
         protected void onTouchDown() {
             image.brightness(1.5f);
-            GameSound.INSTANCE.play(Assets.SND_CLICK, 1, 1, 0.8f);
+            Game.sound.play(Assets.SND_CLICK, 1, 1, 0.8f);
         }
 
         @Override

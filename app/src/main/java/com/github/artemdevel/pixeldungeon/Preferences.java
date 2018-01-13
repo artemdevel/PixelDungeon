@@ -18,8 +18,6 @@
 package com.github.artemdevel.pixeldungeon;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
 
@@ -83,7 +81,7 @@ public final class Preferences {
 
     public void setSoundFx(boolean value) {
         put(KEY_SOUND_FX, value);
-        GameSound.INSTANCE.enable(value);
+        Game.sound.enable(value);
     }
 
     public boolean getBrightness() {

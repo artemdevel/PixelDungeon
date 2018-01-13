@@ -35,9 +35,9 @@ public class PixelDungeon extends Game {
         super.onCreate(savedInstanceState);
 
         Game.music.enable(Game.prefs.getMusic());
-        GameSound.INSTANCE.enable(Game.prefs.getSoundFx());
+        Game.sound.enable(Game.prefs.getSoundFx());
 
-        GameSound.INSTANCE.load(
+        Game.sound.load(
             Assets.SND_CLICK,
             Assets.SND_BADGE,
             Assets.SND_GOLD,

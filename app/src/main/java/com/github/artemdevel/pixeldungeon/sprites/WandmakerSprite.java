@@ -23,7 +23,6 @@ import android.opengl.GLES20;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.Char;
 import com.github.artemdevel.pixeldungeon.effects.Halo;
@@ -72,7 +71,7 @@ public class WandmakerSprite extends MobSprite {
         emitter().start(ElmoParticle.FACTORY, 0.03f, 60);
 
         if (visible) {
-            GameSound.INSTANCE.play(Assets.SND_BURNING);
+            Game.sound.play(Assets.SND_BURNING);
         }
     }
 

@@ -19,7 +19,6 @@ package com.github.artemdevel.pixeldungeon.effects;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Visual;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
@@ -47,7 +46,7 @@ public class Swap extends Actor {
 
         eff1 = new Effect(ch1.sprite, ch1.pos, ch2.pos);
         eff2 = new Effect(ch2.sprite, ch2.pos, ch1.pos);
-        GameSound.INSTANCE.play(Assets.SND_TELEPORT);
+        Game.sound.play(Assets.SND_TELEPORT);
     }
 
     @Override

@@ -18,9 +18,9 @@
 package com.github.artemdevel.pixeldungeon.ui;
 
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.NinePatch;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Chrome;
@@ -70,7 +70,7 @@ public class RedButton extends Button {
     @Override
     protected void onTouchDown() {
         bg.brightness(1.2f);
-        GameSound.INSTANCE.play(Assets.SND_CLICK);
+        Game.sound.play(Assets.SND_CLICK);
     }
 
     @Override

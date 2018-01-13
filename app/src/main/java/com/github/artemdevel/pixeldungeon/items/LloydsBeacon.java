@@ -20,7 +20,6 @@ package com.github.artemdevel.pixeldungeon.items;
 import java.util.ArrayList;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
@@ -122,7 +121,7 @@ public class LloydsBeacon extends Item {
             hero.busy();
 
             hero.sprite.operate(hero.pos);
-            GameSound.INSTANCE.play(Assets.SND_BEACON);
+            Game.sound.play(Assets.SND_BEACON);
 
             GLog.logInfo(TXT_RETURN);
         } else if (action.equals(AC_RETURN)) {

@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items.quest;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Buff;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Invisibility;
@@ -55,8 +55,8 @@ public class PhantomFish extends Item {
 
             hero.sprite.operate(hero.pos);
             hero.busy();
-            GameSound.INSTANCE.play(Assets.SND_EAT);
-            GameSound.INSTANCE.play(Assets.SND_MELD);
+            Game.sound.play(Assets.SND_EAT);
+            Game.sound.play(Assets.SND_MELD);
 
             GLog.logInfo("You see your hands turn invisible!");
             Buff.affect(hero, Invisibility.class, Invisibility.DURATION);

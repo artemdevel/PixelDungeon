@@ -17,13 +17,13 @@
  */
 package com.github.artemdevel.pixeldungeon.ui;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.input.Touchscreen.Touch;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.NinePatch;
 import com.github.artemdevel.pixeldungeon.game.common.TouchArea;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.particles.BitmaskEmitter;
 import com.github.artemdevel.pixeldungeon.game.common.particles.Emitter;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
@@ -266,7 +266,7 @@ public class StatusPane extends Component {
         @Override
         protected void onTouchDown() {
             image.brightness(1.5f);
-            GameSound.INSTANCE.play(Assets.SND_CLICK);
+            Game.sound.play(Assets.SND_CLICK);
         }
 
         @Override

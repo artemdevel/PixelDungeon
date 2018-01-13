@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.armor;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.Actor;
@@ -98,7 +98,7 @@ public class RogueArmor extends ClassArmor {
 
                 WandOfBlink.appear(curUser, target);
                 CellEmitter.get(target).burst(Speck.factory(Speck.WOOL), 10);
-                GameSound.INSTANCE.play(Assets.SND_PUFF);
+                Game.sound.play(Assets.SND_PUFF);
                 Dungeon.level.press(target, curUser);
                 Dungeon.observe();
 

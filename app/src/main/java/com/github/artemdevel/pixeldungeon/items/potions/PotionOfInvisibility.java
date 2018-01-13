@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.potions;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.tweeners.AlphaTweener;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -39,7 +39,7 @@ public class PotionOfInvisibility extends Potion {
         setKnown();
         Buff.affect(hero, Invisibility.class, Invisibility.DURATION);
         GLog.logInfo("You see your hands turn invisible!");
-        GameSound.INSTANCE.play(Assets.SND_MELD);
+        Game.sound.play(Assets.SND_MELD);
     }
 
     @Override

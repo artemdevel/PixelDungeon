@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.actors.mobs;
 
 import java.util.HashSet;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.ResultDescriptions;
@@ -76,7 +76,7 @@ public class Skeleton extends Mob {
         }
 
         if (Dungeon.visible[pos]) {
-            GameSound.INSTANCE.play(Assets.SND_BONES);
+            Game.sound.play(Assets.SND_BONES);
         }
 
         if (heroKilled) {

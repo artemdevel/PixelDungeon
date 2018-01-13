@@ -19,7 +19,6 @@ package com.github.artemdevel.pixeldungeon.windows;
 
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.ui.CheckBox;
@@ -130,7 +129,7 @@ public class WndSettings extends Window {
             protected void onClick() {
                 super.onClick();
                 Game.prefs.setSoundFx(checked());
-                GameSound.INSTANCE.play(Assets.SND_CLICK);
+                Game.sound.play(Assets.SND_CLICK);
             }
         };
         btnSound.setRect(0, btnMusic.bottom() + GAP, WIDTH, BTN_HEIGHT);

@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.actors.blobs;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.Journal;
@@ -40,7 +40,7 @@ public class WaterOfHealth extends WellWater {
     @Override
     protected boolean affectHero(Hero hero) {
 
-        GameSound.INSTANCE.play(Assets.SND_DRINK);
+        Game.sound.play(Assets.SND_DRINK);
 
         PotionOfHealing.heal(hero);
         hero.belongings.uncurseEquipped();

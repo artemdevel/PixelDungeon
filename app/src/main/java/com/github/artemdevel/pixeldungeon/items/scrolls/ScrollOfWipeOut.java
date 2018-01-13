@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.items.scrolls;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Blindness;
@@ -83,7 +83,7 @@ public class ScrollOfWipeOut extends Item {
 
         for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
             if (!Bestiary.isBoss(mob)) {
-                GameSound.INSTANCE.play(Assets.SND_CURSED, 0.3f, 0.3f, Random.Float(0.6f, 0.9f));
+                Game.sound.play(Assets.SND_CURSED, 0.3f, 0.3f, Random.Float(0.6f, 0.9f));
                 mob.die(this);
             }
         }
@@ -99,7 +99,7 @@ public class ScrollOfWipeOut extends Item {
                 case MIMIC:
                     heap.type = Type.HEAP;
                     heap.sprite.link();
-                    GameSound.INSTANCE.play(Assets.SND_CURSED, 0.3f, 0.3f, Random.Float(0.6f, 0.9f));
+                    Game.sound.play(Assets.SND_CURSED, 0.3f, 0.3f, Random.Float(0.6f, 0.9f));
                     break;
                 default:
             }

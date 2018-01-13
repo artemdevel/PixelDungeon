@@ -22,7 +22,6 @@ import android.graphics.Bitmap;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.MovieClip;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.DungeonTilemap;
@@ -121,7 +120,7 @@ public class ItemSprite extends MovieClip {
 
         if (visible && heap != null && heap.peek() instanceof Gold) {
             CellEmitter.center(heap.pos).burst(Speck.factory(Speck.COIN), 5);
-            GameSound.INSTANCE.play(Assets.SND_GOLD, 1, 1, Random.Float(0.9f, 1.1f));
+            Game.sound.play(Assets.SND_GOLD, 1, 1, Random.Float(0.9f, 1.1f));
         }
     }
 
@@ -171,7 +170,7 @@ public class ItemSprite extends MovieClip {
                 }
 
                 if (!(heap.peek() instanceof Gold)) {
-                    GameSound.INSTANCE.play(water ? Assets.SND_WATER : Assets.SND_STEP, 0.8f, 0.8f, 1.2f);
+                    Game.sound.play(water ? Assets.SND_WATER : Assets.SND_STEP, 0.8f, 0.8f, 1.2f);
                 }
             }
         }

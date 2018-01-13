@@ -20,7 +20,6 @@ package com.github.artemdevel.pixeldungeon.sprites;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.MovieClip;
 import com.github.artemdevel.pixeldungeon.game.common.Visual;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.particles.Emitter;
 import com.github.artemdevel.pixeldungeon.game.common.tweeners.PosTweener;
 import com.github.artemdevel.pixeldungeon.game.common.tweeners.Tweener;
@@ -254,7 +253,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
                 burning = emitter();
                 burning.pour(FlameParticle.FACTORY, 0.06f);
                 if (visible) {
-                    GameSound.INSTANCE.play(Assets.SND_BURNING);
+                    Game.sound.play(Assets.SND_BURNING);
                 }
                 break;
             case LEVITATING:

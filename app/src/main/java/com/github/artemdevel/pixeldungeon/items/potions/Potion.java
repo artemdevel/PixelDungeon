@@ -21,7 +21,7 @@ package com.github.artemdevel.pixeldungeon.items.potions;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -189,7 +189,7 @@ public class Potion extends Item {
         hero.busy();
         onThrow(hero.pos);
 
-        GameSound.INSTANCE.play(Assets.SND_DRINK);
+        Game.sound.play(Assets.SND_DRINK);
 
         hero.sprite.operate(hero.pos);
     }
@@ -212,7 +212,7 @@ public class Potion extends Item {
     public void shatter(int cell) {
         if (Dungeon.visible[cell]) {
             GLog.logInfo("The flask shatters and " + color() + " liquid splashes harmlessly");
-            GameSound.INSTANCE.play(Assets.SND_SHATTER);
+            Game.sound.play(Assets.SND_SHATTER);
             splash(cell);
         }
     }

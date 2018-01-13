@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.items.scrolls;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
 import com.github.artemdevel.pixeldungeon.actors.buffs.Invisibility;
@@ -68,11 +68,11 @@ public class ScrollOfMagicMapping extends Scroll {
 
         GLog.logInfo(TXT_LAYOUT);
         if (noticed) {
-            GameSound.INSTANCE.play(Assets.SND_SECRET);
+            Game.sound.play(Assets.SND_SECRET);
         }
 
         SpellSprite.show(curUser, SpellSprite.MAP);
-        GameSound.INSTANCE.play(Assets.SND_READ);
+        Game.sound.play(Assets.SND_READ);
         Invisibility.dispel();
 
         setKnown();
