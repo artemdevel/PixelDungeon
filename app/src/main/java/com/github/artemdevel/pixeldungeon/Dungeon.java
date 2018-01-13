@@ -96,6 +96,8 @@ public class Dungeon {
 
     public static SparseArray<ArrayList<Item>> droppedItems;
 
+    private static boolean[] passable = new boolean[Level.LENGTH];
+
     public static void init() {
         challenges = Game.prefs.getChallenges();
 
@@ -406,9 +408,7 @@ public class Dungeon {
             OutputStream output = Game.instance.openFileOutput(fileName, Game.MODE_PRIVATE);
             Bundle.write(bundle, output);
             output.close();
-
         } catch (Exception e) {
-
             GamesInProgress.setUnknown(hero.heroClass);
         }
     }
@@ -424,18 +424,14 @@ public class Dungeon {
 
     public static void saveAll() throws IOException {
         if (hero.isAlive()) {
-
             Actor.fixTime();
             saveGame(gameFile(hero.heroClass));
             saveLevel();
 
             GamesInProgress.set(hero.heroClass, depth, hero.lvl, challenges != 0);
-
         } else if (WndResurrect.instance != null) {
-
             WndResurrect.instance.hide();
             Hero.reallyDie(WndResurrect.causeOfDeath);
-
         }
     }
 
@@ -448,7 +444,6 @@ public class Dungeon {
     }
 
     public static void loadGame(String fileName, boolean fullLoad) throws IOException {
-
         Bundle bundle = gameBundle(fileName);
 
         Dungeon.challenges = bundle.getInt(CHALLENGES);
@@ -504,8 +499,6 @@ public class Dungeon {
 
         QuickSlot.restore(bundle);
 
-//        String version = bundle.getString(VERSION);
-
         hero = null;
         hero = (Hero) bundle.get(HERO);
 
@@ -530,7 +523,6 @@ public class Dungeon {
     }
 
     public static Level loadLevel(HeroClass cl) throws IOException {
-
         Dungeon.level = null;
         Actor.clear();
 
@@ -542,7 +534,6 @@ public class Dungeon {
     }
 
     public static void deleteGame(HeroClass cl, boolean deleteLevels) {
-
         Game.instance.deleteFile(gameFile(cl));
 
         if (deleteLevels) {
@@ -556,7 +547,6 @@ public class Dungeon {
     }
 
     public static Bundle gameBundle(String fileName) throws IOException {
-
         InputStream input = Game.instance.openFileInput(fileName);
         Bundle bundle = Bundle.read(input);
         input.close();
@@ -581,7 +571,6 @@ public class Dungeon {
     }
 
     public static void win(String desc) {
-
         hero.belongings.identify();
 
         if (challenges != 0) {
@@ -593,7 +582,6 @@ public class Dungeon {
     }
 
     public static void observe() {
-
         if (level == null) {
             return;
         }
@@ -606,10 +594,7 @@ public class Dungeon {
         GameScene.afterObserve();
     }
 
-    private static boolean[] passable = new boolean[Level.LENGTH];
-
     public static int findPath(Char ch, int from, int to, boolean pass[], boolean[] visible) {
-
         if (Level.adjacent(from, to)) {
             return Actor.findChar(to) == null && (pass[to] || Level.avoid[to]) ? to : -1;
         }
@@ -634,7 +619,6 @@ public class Dungeon {
     }
 
     public static int flee(Char ch, int cur, int from, boolean pass[], boolean[] visible) {
-
         if (ch.flying) {
             BArray.or(pass, Level.avoid, passable);
         } else {
@@ -652,7 +636,6 @@ public class Dungeon {
         passable[cur] = true;
 
         return PathFinder.getStepBack(cur, from, passable);
-
     }
 
 }
