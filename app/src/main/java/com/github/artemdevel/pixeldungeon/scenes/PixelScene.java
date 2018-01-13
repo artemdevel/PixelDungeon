@@ -33,7 +33,6 @@ import com.github.artemdevel.pixeldungeon.game.common.Visual;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Badges;
 import com.github.artemdevel.pixeldungeon.effects.BadgeBanner;
-import com.github.artemdevel.pixeldungeon.game.utils.BitmapCache;
 
 public class PixelScene extends Scene {
 
@@ -95,27 +94,27 @@ public class PixelScene extends Scene {
 
         if (font1x == null) {
             // 3x5 (6)
-            font1x = Font.colorMarked(BitmapCache.get(Assets.FONTS1X), 0x00000000, BitmapText.Font.LATIN_FULL);
+            font1x = Font.colorMarked(Game.bitmapCache.get(Assets.FONTS1X), 0x00000000, BitmapText.Font.LATIN_FULL);
             font1x.baseLine = 6;
             font1x.tracking = -1;
 
             // 5x8 (10)
-            font15x = Font.colorMarked(BitmapCache.get(Assets.FONTS15X), 12, 0x00000000, BitmapText.Font.LATIN_FULL);
+            font15x = Font.colorMarked(Game.bitmapCache.get(Assets.FONTS15X), 12, 0x00000000, BitmapText.Font.LATIN_FULL);
             font15x.baseLine = 9;
             font15x.tracking = -1;
 
             // 6x10 (12)
-            font2x = Font.colorMarked(BitmapCache.get(Assets.FONTS2X), 14, 0x00000000, BitmapText.Font.LATIN_FULL);
+            font2x = Font.colorMarked(Game.bitmapCache.get(Assets.FONTS2X), 14, 0x00000000, BitmapText.Font.LATIN_FULL);
             font2x.baseLine = 11;
             font2x.tracking = -1;
 
             // 7x12 (15)
-            font25x = Font.colorMarked(BitmapCache.get(Assets.FONTS25X), 17, 0x00000000, BitmapText.Font.LATIN_FULL);
+            font25x = Font.colorMarked(Game.bitmapCache.get(Assets.FONTS25X), 17, 0x00000000, BitmapText.Font.LATIN_FULL);
             font25x.baseLine = 13;
             font25x.tracking = -1;
 
             // 9x15 (18)
-            font3x = Font.colorMarked(BitmapCache.get(Assets.FONTS3X), 22, 0x00000000, BitmapText.Font.LATIN_FULL);
+            font3x = Font.colorMarked(Game.bitmapCache.get(Assets.FONTS3X), 22, 0x00000000, BitmapText.Font.LATIN_FULL);
             font3x.baseLine = 17;
             font3x.tracking = -2;
         }

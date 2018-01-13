@@ -52,6 +52,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     public static Game instance;
     public static Preferences prefs;
     public static TextureCache textureCache;
+    public static BitmapCache bitmapCache;
 
     // Actual size of the screen
     public static int width;
@@ -96,7 +97,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BitmapCache.context = this;
+        bitmapCache = new BitmapCache(this);
         textureCache = new TextureCache(this);
         instance = this;
         prefs = ((PixelDungeonApp) getApplication()).getPreferences();

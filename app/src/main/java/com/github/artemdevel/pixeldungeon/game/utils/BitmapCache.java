@@ -25,26 +25,24 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-public class BitmapCache {
+public final class BitmapCache {
 
     private static final String DEFAULT = "__default";
 
-    private static HashMap<String, Layer> layers = new HashMap<>();
+    private final HashMap<String, Layer> layers = new HashMap<>();
+    private final BitmapFactory.Options options = new BitmapFactory.Options();
+    private final Context context;
 
-    private static BitmapFactory.Options opts = new BitmapFactory.Options();
-
-    static {
-        opts.inDither = false;
+    public BitmapCache(Context context) {
+        this.context = context;
+        options.inDither = false;
     }
 
-    // TODO: Refactor this
-    public static Context context;
-
-    public static Bitmap get(String assetName) {
+    public Bitmap get(String assetName) {
         return get(DEFAULT, assetName);
     }
 
-    public static Bitmap get(String layerName, String assetName) {
+    public Bitmap get(String layerName, String assetName) {
         Layer layer;
         if (!layers.containsKey(layerName)) {
             layer = new Layer();
@@ -58,7 +56,7 @@ public class BitmapCache {
         } else {
             try {
                 InputStream stream = context.getResources().getAssets().open(assetName);
-                Bitmap bmp = BitmapFactory.decodeStream(stream, null, opts);
+                Bitmap bmp = BitmapFactory.decodeStream(stream, null, options);
                 layer.put(assetName, bmp);
                 return bmp;
             } catch (IOException e) {
@@ -67,11 +65,11 @@ public class BitmapCache {
         }
     }
 
-    public static Bitmap get(int resID) {
+    public Bitmap get(int resID) {
         return get(DEFAULT, resID);
     }
 
-    public static Bitmap get(String layerName, int resID) {
+    public Bitmap get(String layerName, int resID) {
         Layer layer;
         if (!layers.containsKey(layerName)) {
             layer = new Layer();
@@ -89,14 +87,14 @@ public class BitmapCache {
         }
     }
 
-    public static void clear(String layerName) {
+    public void clear(String layerName) {
         if (layers.containsKey(layerName)) {
             layers.get(layerName).clear();
             layers.remove(layerName);
         }
     }
 
-    public static void clear() {
+    public void clear() {
         for (Layer layer : layers.values()) {
             layer.clear();
         }
