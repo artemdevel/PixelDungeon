@@ -19,21 +19,23 @@ package com.github.artemdevel.pixeldungeon.game.common.audio;
 
 import java.io.IOException;
 
-import com.github.artemdevel.pixeldungeon.game.common.Game;
-
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
-public enum GameMusic implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+public final class GameMusic implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
 
-    INSTANCE;
+    private final Context context;
 
     private MediaPlayer player;
-
     private String lastPlayed;
     private boolean lastLooping;
     private boolean enabled = true;
+
+    public GameMusic(Context context) {
+        this.context = context;
+    }
 
     public void play(String assetName, boolean looping) {
         if (isPlaying() && lastPlayed.equals(assetName)) {
@@ -41,18 +43,14 @@ public enum GameMusic implements MediaPlayer.OnPreparedListener, MediaPlayer.OnE
         }
 
         stop();
-
         lastPlayed = assetName;
         lastLooping = looping;
-
         if (!enabled || assetName == null) {
             return;
         }
 
         try {
-            AssetFileDescriptor afd = Game.instance.getAssets().openFd(assetName);
-//            AssetFileDescriptor afd = Game.activity.getAssets().openFd(assetName);
-
+            AssetFileDescriptor afd = context.getAssets().openFd(assetName);
             player = new MediaPlayer();
             player.setAudioStreamType(AudioManager.STREAM_MUSIC);
             player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
@@ -85,23 +83,15 @@ public enum GameMusic implements MediaPlayer.OnPreparedListener, MediaPlayer.OnE
         return true;
     }
 
-    public void pause() {
+    public void onPause() {
         if (player != null) {
             player.pause();
         }
     }
 
-    public void resume() {
+    public void onResume() {
         if (player != null) {
             player.start();
-        }
-    }
-
-    public void stop() {
-        if (player != null) {
-            player.stop();
-            player.release();
-            player = null;
         }
     }
 
@@ -109,10 +99,6 @@ public enum GameMusic implements MediaPlayer.OnPreparedListener, MediaPlayer.OnE
         if (player != null) {
             player.setVolume(value, value);
         }
-    }
-
-    public boolean isPlaying() {
-        return player != null && player.isPlaying();
     }
 
     public void enable(boolean value) {
@@ -123,4 +109,17 @@ public enum GameMusic implements MediaPlayer.OnPreparedListener, MediaPlayer.OnE
             play(lastPlayed, lastLooping);
         }
     }
+
+    private boolean isPlaying() {
+        return player != null && player.isPlaying();
+    }
+
+    private void stop() {
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
+        }
+    }
+
 }

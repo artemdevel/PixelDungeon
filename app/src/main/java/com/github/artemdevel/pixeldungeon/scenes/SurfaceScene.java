@@ -19,7 +19,6 @@ package com.github.artemdevel.pixeldungeon.scenes;
 
 import java.nio.FloatBuffer;
 
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.gltextures.Gradient;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Matrix;
@@ -67,18 +66,18 @@ public class SurfaceScene extends PixelScene {
     public void create() {
         super.create();
 
-        GameMusic.INSTANCE.play(Assets.HAPPY, true);
-        GameMusic.INSTANCE.volume(1f);
+        Game.music.play(Assets.HAPPY, true);
+        Game.music.volume(1f);
 
         uiCamera.visible = false;
 
         int w = Camera.main.width;
         int h = Camera.main.height;
 
-        Arches archs = new Arches();
-        archs.reversed = true;
-        archs.setSize(w, h);
-        add(archs);
+        Arches arches = new Arches();
+        arches.reversed = true;
+        arches.setSize(w, h);
+        add(arches);
 
         float vx = align((w - SKY_WIDTH) / 2);
         float vy = align((h - SKY_HEIGHT - BUTTON_HEIGHT) / 2);

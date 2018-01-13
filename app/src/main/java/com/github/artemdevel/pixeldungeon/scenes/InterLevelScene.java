@@ -22,7 +22,6 @@ import java.io.FileNotFoundException;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -184,7 +183,7 @@ public class InterLevelScene extends PixelScene {
             case FADE_OUT:
                 message.alpha(p);
                 if (mode == Mode.CONTINUE || (mode == Mode.DESCEND && Dungeon.depth == 1)) {
-                    GameMusic.INSTANCE.volume(p);
+                    Game.music.volume(p);
                 }
                 if ((timeLeft -= Game.elapsed) <= 0) {
                     Game.switchScene(GameScene.class);

@@ -53,6 +53,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     public static Preferences prefs;
     public static TextureCache textureCache;
     public static BitmapCache bitmapCache;
+    public static GameMusic music;
 
     // Actual size of the screen
     public static int width;
@@ -101,6 +102,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         textureCache = new TextureCache(this);
         instance = this;
         prefs = ((PixelDungeonApp) getApplication()).getPreferences();
+        music = ((PixelDungeonApp) getApplication()).getGameMusic();
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -123,26 +125,23 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     @Override
     public void onResume() {
         super.onResume();
-
         now = 0;
         view.onResume();
+        music.onResume();
 
-        GameMusic.INSTANCE.resume();
         GameSound.INSTANCE.resume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
         if (scene != null) {
             scene.pause();
         }
-
         view.onPause();
         Script.reset();
+        music.onPause();
 
-        GameMusic.INSTANCE.pause();
         GameSound.INSTANCE.pause();
     }
 
@@ -150,8 +149,8 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
     public void onDestroy() {
         super.onDestroy();
         destroyGame();
+        music.mute();
 
-        GameMusic.INSTANCE.mute();
         GameSound.INSTANCE.reset();
     }
 

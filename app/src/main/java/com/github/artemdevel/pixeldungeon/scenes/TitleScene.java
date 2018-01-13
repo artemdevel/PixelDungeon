@@ -25,7 +25,6 @@ import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
@@ -46,8 +45,8 @@ public class TitleScene extends PixelScene {
     public void create() {
         super.create();
 
-        GameMusic.INSTANCE.play(Assets.THEME, true);
-        GameMusic.INSTANCE.volume(1f);
+        Game.music.play(Assets.THEME, true);
+        Game.music.volume(1f);
 
         uiCamera.visible = false;
 

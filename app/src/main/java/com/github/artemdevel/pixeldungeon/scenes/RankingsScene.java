@@ -22,7 +22,6 @@ import com.github.artemdevel.pixeldungeon.game.common.BitmapTextMultiline;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.Rankings;
@@ -53,23 +52,23 @@ public class RankingsScene extends PixelScene {
 
     private static final float GAP = 4;
 
-    private Arches archs;
+    private Arches arches;
 
     @Override
     public void create() {
         super.create();
 
-        GameMusic.INSTANCE.play(Assets.THEME, true);
-        GameMusic.INSTANCE.volume(1f);
+        Game.music.play(Assets.THEME, true);
+        Game.music.volume(1f);
 
         uiCamera.visible = false;
 
         int w = Camera.main.width;
         int h = Camera.main.height;
 
-        archs = new Arches();
-        archs.setSize(w, h);
-        add(archs);
+        arches = new Arches();
+        arches.setSize(w, h);
+        add(arches);
 
         Rankings.INSTANCE.load();
 

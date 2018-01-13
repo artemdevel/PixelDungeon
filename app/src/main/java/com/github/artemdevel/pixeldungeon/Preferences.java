@@ -74,7 +74,7 @@ public final class Preferences {
 
     public void setMusic(boolean value) {
         put(KEY_MUSIC, value);
-        GameMusic.INSTANCE.enable(value);
+        Game.music.enable(value);
     }
 
     public boolean getSoundFx() {

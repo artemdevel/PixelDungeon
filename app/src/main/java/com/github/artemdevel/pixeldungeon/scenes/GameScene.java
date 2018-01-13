@@ -25,7 +25,6 @@ import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
 import com.github.artemdevel.pixeldungeon.game.common.SkinnedBlock;
 import com.github.artemdevel.pixeldungeon.game.common.Visual;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.game.common.particles.Emitter;
 import com.github.artemdevel.pixeldungeon.Assets;
@@ -115,8 +114,8 @@ public class GameScene extends PixelScene {
 
     @Override
     public void create() {
-        GameMusic.INSTANCE.play(Assets.TUNE, true);
-        GameMusic.INSTANCE.volume(1f);
+        Game.music.play(Assets.TUNE, true);
+        Game.music.volume(1f);
 
         Game.prefs.setLastClass(Dungeon.hero.heroClass.ordinal());
 
