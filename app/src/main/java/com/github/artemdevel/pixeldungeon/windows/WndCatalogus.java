@@ -19,8 +19,8 @@ package com.github.artemdevel.pixeldungeon.windows;
 
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Component;
 import com.github.artemdevel.pixeldungeon.items.Item;
 import com.github.artemdevel.pixeldungeon.items.potions.Potion;
@@ -59,7 +59,7 @@ public class WndCatalogus extends WndTabbed {
 
         super();
 
-        if (Preferences.getLandscape()) {
+        if (Game.prefs.getLandscape()) {
             resize(WIDTH_L, HEIGHT_L);
         } else {
             resize(WIDTH_P, HEIGHT_P);

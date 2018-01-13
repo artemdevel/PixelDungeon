@@ -19,7 +19,6 @@ package com.github.artemdevel.pixeldungeon.scenes;
 
 import java.util.List;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
@@ -57,8 +56,8 @@ public class BadgesScene extends PixelScene {
         archs.setSize(w, h);
         add(archs);
 
-        int pw = (int) Math.min(w, (Preferences.getLandscape() ? MIN_WIDTH_L : MIN_WIDTH_P) * 3) - 16;
-        int ph = (int) Math.min(h, (Preferences.getLandscape() ? MIN_HEIGHT_L : MIN_HEIGHT_P) * 3) - 32;
+        int pw = (int) Math.min(w, (Game.prefs.getLandscape() ? MIN_WIDTH_L : MIN_WIDTH_P) * 3) - 16;
+        int ph = (int) Math.min(h, (Game.prefs.getLandscape() ? MIN_HEIGHT_L : MIN_HEIGHT_P) * 3) - 32;
 
         float size = (float) Math.sqrt(pw * ph / 27f);
         int nCols = (int) Math.ceil(pw / size);

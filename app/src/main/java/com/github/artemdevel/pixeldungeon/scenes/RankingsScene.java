@@ -17,7 +17,6 @@
  */
 package com.github.artemdevel.pixeldungeon.scenes;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapTextMultiline;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
@@ -75,7 +74,7 @@ public class RankingsScene extends PixelScene {
         Rankings.INSTANCE.load();
 
         if (Rankings.INSTANCE.records.size() > 0) {
-            float rowHeight = Preferences.getLandscape() ? ROW_HEIGHT_L : ROW_HEIGHT_P;
+            float rowHeight = Game.prefs.getLandscape() ? ROW_HEIGHT_L : ROW_HEIGHT_P;
 
             float left = (w - Math.min(MAX_ROW_WIDTH, w)) / 2 + GAP;
             float top = align((h - rowHeight * Rankings.INSTANCE.records.size()) / 2);

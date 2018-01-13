@@ -19,8 +19,8 @@ package com.github.artemdevel.pixeldungeon.windows;
 
 import java.util.Collections;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Component;
 import com.github.artemdevel.pixeldungeon.Dungeon;
@@ -45,7 +45,7 @@ public class WndJournal extends Window {
 
     public WndJournal() {
         super();
-        resize(WIDTH, Preferences.getLandscape() ? HEIGHT_L : HEIGHT_P);
+        resize(WIDTH, Game.prefs.getLandscape() ? HEIGHT_L : HEIGHT_P);
 
         txtTitle = PixelScene.createText(TXT_TITLE, 9);
         txtTitle.hardlight(Window.TITLE_COLOR);

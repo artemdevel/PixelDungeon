@@ -21,7 +21,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLES20;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.input.Touchscreen;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText.Font;
@@ -67,7 +66,7 @@ public class PixelScene extends Scene {
         GameScene.scene = null;
 
         float minWidth, minHeight;
-        if (Preferences.getLandscape()) {
+        if (Game.prefs.getLandscape()) {
             minWidth = MIN_WIDTH_L;
             minHeight = MIN_HEIGHT_L;
         } else {
@@ -80,7 +79,7 @@ public class PixelScene extends Scene {
             defaultZoom--;
         }
 
-        if (Preferences.getScaleUp()) {
+        if (Game.prefs.getScaleUp()) {
             while (Game.width / (defaultZoom + 1) >= minWidth && Game.height / (defaultZoom + 1) >= minHeight) {
                 defaultZoom++;
             }

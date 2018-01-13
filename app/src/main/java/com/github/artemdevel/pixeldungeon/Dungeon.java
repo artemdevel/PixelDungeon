@@ -97,7 +97,7 @@ public class Dungeon {
     public static SparseArray<ArrayList<Item>> droppedItems;
 
     public static void init() {
-        challenges = Preferences.getChallenges();
+        challenges = Game.prefs.getChallenges();
 
         Actor.clear();
 

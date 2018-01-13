@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.windows;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Component;
 import com.github.artemdevel.pixeldungeon.ui.HighlightedText;
@@ -37,7 +37,7 @@ public class WndTitledMessage extends Window {
     public WndTitledMessage(Component titlebar, String message) {
         super();
 
-        int width = Preferences.getLandscape() ? WIDTH_L : WIDTH_P;
+        int width = Game.prefs.getLandscape() ? WIDTH_L : WIDTH_P;
 
         titlebar.setRect(0, 0, width, 0);
         add(titlebar);

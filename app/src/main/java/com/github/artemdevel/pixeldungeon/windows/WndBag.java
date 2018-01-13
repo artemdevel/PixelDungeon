@@ -19,7 +19,7 @@ package com.github.artemdevel.pixeldungeon.windows;
 
 import android.graphics.RectF;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.ColorBlock;
@@ -99,7 +99,7 @@ public class WndBag extends WndTabbed {
         lastMode = mode;
         lastBag = bag;
 
-        nCols = Preferences.getLandscape() ? COLS_L : COLS_P;
+        nCols = Game.prefs.getLandscape() ? COLS_L : COLS_P;
         nRows = (Belongings.BACKPACK_SIZE + 4 + 1) / nCols + ((Belongings.BACKPACK_SIZE + 4 + 1) % nCols > 0 ? 1 : 0);
 
         int slotsWidth = SLOT_SIZE * nCols + SLOT_MARGIN * (nCols - 1);

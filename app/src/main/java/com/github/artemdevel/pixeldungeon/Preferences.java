@@ -23,109 +23,106 @@ import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 
-public enum Preferences {
+public final class Preferences {
 
-    INSTANCE;
-
-    public static final String KEY_LANDSCAPE = "setLandscape";
-    public static final String KEY_IMMERSIVE = "immersive";
-    public static final String KEY_SCALE_UP = "scaleup";
-    public static final String KEY_MUSIC = "setMusic";
-    public static final String KEY_SOUND_FX = "soundfx";
-    public static final String KEY_ZOOM = "setZoom";
-    public static final String KEY_LAST_CLASS = "last_class";
-    public static final String KEY_CHALLENGES = "setChallenges";
-    public static final String KEY_INTRO = "setIntro";
-    public static final String KEY_BRIGHTNESS = "setBrightness";
+    private static final String PREFS_NAME = "PREFS";
+    private static final String KEY_LANDSCAPE = "setLandscape";
+    private static final String KEY_IMMERSIVE = "immersive";
+    private static final String KEY_SCALE_UP = "scaleup";
+    private static final String KEY_MUSIC = "setMusic";
+    private static final String KEY_SOUND_FX = "soundfx";
+    private static final String KEY_ZOOM = "setZoom";
+    private static final String KEY_LAST_CLASS = "last_class";
+    private static final String KEY_CHALLENGES = "setChallenges";
+    private static final String KEY_INTRO = "setIntro";
+    private static final String KEY_BRIGHTNESS = "setBrightness";
 
     private SharedPreferences prefs;
 
-    public static void setZoom(int value) {
-        INSTANCE.put(KEY_ZOOM, value);
+    Preferences(Context context) {
+        prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    public static int getZoom() {
-        return INSTANCE.getInt(KEY_ZOOM, 0);
+    public int getZoom() {
+        return getInt(KEY_ZOOM, 0);
     }
 
-    public static void setScaleUp(boolean value) {
-        // TODO: Find out what it actually does
-        INSTANCE.put(KEY_SCALE_UP, value);
+    public void setZoom(int value) {
+        put(KEY_ZOOM, value);
+    }
+
+    public boolean getScaleUp() {
+        return getBoolean(KEY_SCALE_UP, true);
+    }
+
+    public void setScaleUp(boolean value) {
+        put(KEY_SCALE_UP, value);
         Game.switchScene(TitleScene.class);
     }
 
-    public static boolean getScaleUp() {
-        return INSTANCE.getBoolean(KEY_SCALE_UP, true);
+    public boolean getImmersed() {
+        return getBoolean(KEY_IMMERSIVE, false);
     }
 
-    public static boolean getImmersed() {
-        return INSTANCE.getBoolean(KEY_IMMERSIVE, false);
+    public boolean getMusic() {
+        return getBoolean(KEY_MUSIC, true);
     }
 
-    public static void setMusic(boolean value) {
+    public void setMusic(boolean value) {
+        put(KEY_MUSIC, value);
         GameMusic.INSTANCE.enable(value);
-        INSTANCE.put(KEY_MUSIC, value);
     }
 
-    public static boolean getMusic() {
-        return INSTANCE.getBoolean(KEY_MUSIC, true);
+    public boolean getSoundFx() {
+        return getBoolean(KEY_SOUND_FX, true);
     }
 
-    public static void setSoundFx(boolean value) {
+    public void setSoundFx(boolean value) {
+        put(KEY_SOUND_FX, value);
         GameSound.INSTANCE.enable(value);
-        INSTANCE.put(KEY_SOUND_FX, value);
     }
 
-    public static boolean getSoundFx() {
-        return INSTANCE.getBoolean(KEY_SOUND_FX, true);
+    public boolean getBrightness() {
+        return getBoolean(KEY_BRIGHTNESS, false);
     }
 
-    public static void setBrightness(boolean value) {
-        INSTANCE.put(KEY_BRIGHTNESS, value);
+    public void setBrightness(boolean value) {
+        put(KEY_BRIGHTNESS, value);
         if (Game.scene() instanceof GameScene) {
             ((GameScene) Game.scene()).brightness(value);
         }
     }
 
-    public static boolean getBrightness() {
-        return INSTANCE.getBoolean(KEY_BRIGHTNESS, false);
+    public int getLastClass() {
+        return getInt(KEY_LAST_CLASS, 0);
     }
 
-    public static void setLastClass(int value) {
-        INSTANCE.put(KEY_LAST_CLASS, value);
+    public void setLastClass(int value) {
+        put(KEY_LAST_CLASS, value);
     }
 
-    public static int getLastClass() {
-        return INSTANCE.getInt(KEY_LAST_CLASS, 0);
+    public int getChallenges() {
+        return getInt(KEY_CHALLENGES, 0);
     }
 
-    public static void setChallenges(int value) {
-        INSTANCE.put(KEY_CHALLENGES, value);
+    public void setChallenges(int value) {
+        put(KEY_CHALLENGES, value);
     }
 
-    public static int getChallenges() {
-        return INSTANCE.getInt(KEY_CHALLENGES, 0);
+    public boolean getIntro() {
+        return getBoolean(KEY_INTRO, true);
     }
 
-    public static void setIntro(boolean value) {
-        INSTANCE.put(KEY_INTRO, value);
+    public void setIntro(boolean value) {
+        put(KEY_INTRO, value);
     }
 
-    public static boolean getIntro() {
-        return INSTANCE.getBoolean(KEY_INTRO, true);
-    }
-
-    public static void setLandscape(boolean value) {
-        // TODO: The whole landscape feature must be refactored somehow
-        Game.instance.setRequestedOrientation(value ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        INSTANCE.put(KEY_LANDSCAPE, value);
-    }
-
-    public static boolean getLandscape() {
-        boolean value = INSTANCE.getBoolean(Preferences.KEY_LANDSCAPE, false);
+    public boolean getLandscape() {
+        boolean value = getBoolean(KEY_LANDSCAPE, false);
         boolean landscape = Game.width > Game.height;
         if (value != landscape) {
             setLandscape(value);
@@ -133,27 +130,26 @@ public enum Preferences {
         return value;
     }
 
-    private SharedPreferences get() {
-        if (prefs == null) {
-            prefs = Game.instance.getPreferences(Game.MODE_PRIVATE);
-        }
-        return prefs;
+    public void setLandscape(boolean value) {
+        // TODO: The whole landscape feature must be refactored somehow
+        put(KEY_LANDSCAPE, value);
+        Game.instance.setRequestedOrientation(value ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    int getInt(String key, int defValue) {
-        return get().getInt(key, defValue);
+    private int getInt(String key, int defValue) {
+        return prefs.getInt(key, defValue);
     }
 
-    boolean getBoolean(String key, boolean defValue) {
-        return get().getBoolean(key, defValue);
+    private boolean getBoolean(String key, boolean defValue) {
+        return prefs.getBoolean(key, defValue);
     }
 
-    void put(String key, int value) {
-        get().edit().putInt(key, value).apply();
+    private void put(String key, int value) {
+        prefs.edit().putInt(key, value).apply();
     }
 
-    void put(String key, boolean value) {
-        get().edit().putBoolean(key, value).apply();
+    private void put(String key, boolean value) {
+        prefs.edit().putBoolean(key, value).apply();
     }
 
 }

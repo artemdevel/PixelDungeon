@@ -21,7 +21,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLES20;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
@@ -62,7 +61,7 @@ public class TitleScene extends PixelScene {
         Image title = BannerSprites.get(BannerSprites.Type.PIXEL_DUNGEON);
         add(title);
 
-        float height = title.height + (Preferences.getLandscape() ? DashboardItem.SIZE : DashboardItem.SIZE * 2);
+        float height = title.height + (Game.prefs.getLandscape() ? DashboardItem.SIZE : DashboardItem.SIZE * 2);
 
         title.x = (w - title.width()) / 2;
         title.y = (h - height) / 2;
@@ -122,7 +121,7 @@ public class TitleScene extends PixelScene {
         };
         add(btnHighscores);
 
-        if (Preferences.getLandscape()) {
+        if (Game.prefs.getLandscape()) {
             float y = (h + height) / 2 - DashboardItem.SIZE;
             btnHighscores.setPos(w / 2 - btnHighscores.width(), y);
             btnBadges.setPos(w / 2, y);

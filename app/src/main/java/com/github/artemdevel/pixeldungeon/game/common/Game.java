@@ -23,6 +23,8 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.github.artemdevel.pixeldungeon.BuildConfig;
+import com.github.artemdevel.pixeldungeon.PixelDungeonApp;
+import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.glscripts.Script;
 import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
@@ -47,6 +49,7 @@ import android.view.View;
 public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTouchListener {
 
     public static Game instance;
+    public static Preferences prefs;
 
     // Actual size of the screen
     public static int width;
@@ -94,6 +97,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         BitmapCache.context = this;
         TextureCache.context = this;
         instance = this;
+        prefs = ((PixelDungeonApp) getApplication()).getPreferences();
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);

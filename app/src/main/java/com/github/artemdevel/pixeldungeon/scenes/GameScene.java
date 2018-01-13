@@ -20,7 +20,6 @@ package com.github.artemdevel.pixeldungeon.scenes;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
@@ -119,10 +118,10 @@ public class GameScene extends PixelScene {
         GameMusic.INSTANCE.play(Assets.TUNE, true);
         GameMusic.INSTANCE.volume(1f);
 
-        Preferences.setLastClass(Dungeon.hero.heroClass.ordinal());
+        Game.prefs.setLastClass(Dungeon.hero.heroClass.ordinal());
 
         super.create();
-        Camera.main.zoom(defaultZoom + Preferences.getZoom());
+        Camera.main.zoom(defaultZoom + Game.prefs.getZoom());
 
         scene = this;
 
@@ -188,7 +187,7 @@ public class GameScene extends PixelScene {
         fog.updateVisibility(Dungeon.visible, Dungeon.level.visited, Dungeon.level.mapped);
         add(fog);
 
-        brightness(Preferences.getBrightness());
+        brightness(Game.prefs.getBrightness());
 
         spells = new Group();
         add(spells);

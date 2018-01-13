@@ -51,6 +51,7 @@ public enum GameMusic implements MediaPlayer.OnPreparedListener, MediaPlayer.OnE
 
         try {
             AssetFileDescriptor afd = Game.instance.getAssets().openFd(assetName);
+//            AssetFileDescriptor afd = Game.activity.getAssets().openFd(assetName);
 
             player = new MediaPlayer();
             player.setAudioStreamType(AudioManager.STREAM_MUSIC);

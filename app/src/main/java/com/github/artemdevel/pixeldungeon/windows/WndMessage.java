@@ -17,8 +17,8 @@
  */
 package com.github.artemdevel.pixeldungeon.windows;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapTextMultiline;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.scenes.PixelScene;
 import com.github.artemdevel.pixeldungeon.ui.Window;
 
@@ -33,7 +33,7 @@ public class WndMessage extends Window {
         super();
 
         BitmapTextMultiline info = PixelScene.createMultiline(text, 6);
-        info.maxWidth = (Preferences.getLandscape() ? WIDTH_L : WIDTH_P) - MARGIN * 2;
+        info.maxWidth = (Game.prefs.getLandscape() ? WIDTH_L : WIDTH_P) - MARGIN * 2;
         info.measure();
         info.x = info.y = MARGIN;
         add(info);

@@ -19,7 +19,6 @@ package com.github.artemdevel.pixeldungeon.scenes;
 
 import java.util.HashMap;
 
-import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapTextMultiline;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
@@ -100,7 +99,7 @@ public class StartScene extends PixelScene {
         int h = Camera.main.height;
 
         float width, height;
-        if (Preferences.getLandscape()) {
+        if (Game.prefs.getLandscape()) {
             width = WIDTH_L;
             height = HEIGHT_L;
         } else {
@@ -165,7 +164,7 @@ public class StartScene extends PixelScene {
             shields.put(cl, shield);
             add(shield);
         }
-        if (Preferences.getLandscape()) {
+        if (Game.prefs.getLandscape()) {
             float shieldW = width / 4;
             float shieldH = Math.min(centralHeight, shieldW);
             top = title.y + title.height + (centralHeight - shieldH) / 2;
@@ -221,7 +220,7 @@ public class StartScene extends PixelScene {
         add(btnExit);
 
         curClass = null;
-        updateClass(HeroClass.values()[Preferences.getLastClass()]);
+        updateClass(HeroClass.values()[Game.prefs.getLastClass()]);
 
         fadeIn();
 
@@ -289,8 +288,8 @@ public class StartScene extends PixelScene {
         Dungeon.hero = null;
         InterLevelScene.mode = InterLevelScene.Mode.DESCEND;
 
-        if (Preferences.getIntro()) {
-            Preferences.setIntro(false);
+        if (Game.prefs.getIntro()) {
+            Game.prefs.setIntro(false);
             Game.switchScene(IntroScene.class);
         } else {
             Game.switchScene(InterLevelScene.class);
@@ -474,7 +473,7 @@ public class StartScene extends PixelScene {
         protected void createChildren() {
             super.createChildren();
 
-            image = Icons.get(Preferences.getChallenges() > 0 ? Icons.CHALLENGE_ON : Icons.CHALLENGE_OFF);
+            image = Icons.get(Game.prefs.getChallenges() > 0 ? Icons.CHALLENGE_ON : Icons.CHALLENGE_OFF);
             add(image);
         }
 
@@ -489,11 +488,10 @@ public class StartScene extends PixelScene {
         @Override
         protected void onClick() {
             if (Badges.isUnlocked(Badges.Badge.VICTORY)) {
-                StartScene.this.add(new WndChallenges(Preferences.getChallenges(), true) {
+                StartScene.this.add(new WndChallenges(Game.prefs.getChallenges(), true) {
                     public void onBackPressed() {
                         super.onBackPressed();
-                        image.copy(Icons.get(Preferences.getChallenges() > 0 ?
-                                Icons.CHALLENGE_ON : Icons.CHALLENGE_OFF));
+                        image.copy(Icons.get(Game.prefs.getChallenges() > 0 ? Icons.CHALLENGE_ON : Icons.CHALLENGE_OFF));
                     }
                 });
             } else {
