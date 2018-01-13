@@ -21,8 +21,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 
 public class Halo extends Image {
@@ -37,7 +37,7 @@ public class Halo extends Image {
     public Halo() {
         super();
 
-        if (!TextureCache.contains(CACHE_KEY)) {
+        if (!Game.textureCache.contains(CACHE_KEY)) {
             Bitmap bmp = Bitmap.createBitmap(RADIUS * 2, RADIUS * 2, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bmp);
             Paint paint = new Paint();
@@ -45,7 +45,7 @@ public class Halo extends Image {
             canvas.drawCircle(RADIUS, RADIUS, RADIUS * 0.75f, paint);
             paint.setColor(0x88FFFFFF);
             canvas.drawCircle(RADIUS, RADIUS, RADIUS, paint);
-            TextureCache.add(CACHE_KEY, new SmartTexture(bmp));
+            Game.textureCache.add(CACHE_KEY, new SmartTexture(bmp));
         }
 
         texture(CACHE_KEY);

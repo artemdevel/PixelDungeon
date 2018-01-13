@@ -21,8 +21,8 @@ import java.util.Arrays;
 
 import android.graphics.Bitmap;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Texture;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.scenes.GameScene;
@@ -103,7 +103,7 @@ public class FogOfWar extends Image {
         public FogTexture() {
             super(Bitmap.createBitmap(width2, height2, Bitmap.Config.ARGB_8888));
             filter(Texture.LINEAR, Texture.LINEAR);
-            TextureCache.add(FogOfWar.class, this);
+            Game.textureCache.add(FogOfWar.class, this);
         }
 
         @Override

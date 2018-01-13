@@ -19,8 +19,8 @@ package com.github.artemdevel.pixeldungeon.windows;
 
 import java.util.Locale;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.Group;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
@@ -59,7 +59,7 @@ public class WndHero extends WndTabbed {
     public WndHero() {
         super();
 
-        icons = TextureCache.get(Assets.BUFFS_LARGE);
+        icons = Game.textureCache.get(Assets.BUFFS_LARGE);
         film = new TextureFilm(icons, 16, 16);
 
         stats = new StatsTab();

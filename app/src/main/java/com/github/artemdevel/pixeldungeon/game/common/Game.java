@@ -48,8 +48,10 @@ import android.view.View;
 // Global game state
 public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTouchListener {
 
+    // TODO: Refactor all of this
     public static Game instance;
     public static Preferences prefs;
+    public static TextureCache textureCache;
 
     // Actual size of the screen
     public static int width;
@@ -95,7 +97,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         super.onCreate(savedInstanceState);
 
         BitmapCache.context = this;
-        TextureCache.context = this;
+        textureCache = new TextureCache(this);
         instance = this;
         prefs = ((PixelDungeonApp) getApplication()).getPreferences();
 
@@ -217,7 +219,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         GLES20.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         GLES20.glEnable(GL10.GL_SCISSOR_TEST);
         // To avoid EGL Context Lost
-        TextureCache.reload();
+        textureCache.reload();
     }
 
     protected void destroyGame() {

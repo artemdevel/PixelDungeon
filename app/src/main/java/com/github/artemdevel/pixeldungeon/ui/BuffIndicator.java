@@ -17,8 +17,8 @@
  */
 package com.github.artemdevel.pixeldungeon.ui;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
 import com.github.artemdevel.pixeldungeon.game.common.tweeners.AlphaTweener;
@@ -97,7 +97,7 @@ public class BuffIndicator extends Component {
 
     @Override
     protected void createChildren() {
-        texture = TextureCache.get(Assets.BUFFS_SMALL);
+        texture = Game.textureCache.get(Assets.BUFFS_SMALL);
         film = new TextureFilm(texture, SIZE, SIZE);
     }
 

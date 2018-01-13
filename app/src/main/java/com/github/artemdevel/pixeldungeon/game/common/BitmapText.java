@@ -20,7 +20,6 @@ package com.github.artemdevel.pixeldungeon.game.common;
 import java.nio.FloatBuffer;
 
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Matrix;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Quad;
 
@@ -306,13 +305,13 @@ public class BitmapText extends Visual {
         }
 
         public static Font colorMarked(Bitmap bmp, int color, String chars) {
-            Font font = new Font(TextureCache.get(bmp));
+            Font font = new Font(Game.textureCache.get(bmp));
             font.splitBy(bmp, bmp.getHeight(), color, chars);
             return font;
         }
 
         public static Font colorMarked(Bitmap bmp, int height, int color, String chars) {
-            Font font = new Font(TextureCache.get(bmp));
+            Font font = new Font(Game.textureCache.get(bmp));
             font.splitBy(bmp, height, color, chars);
             return font;
         }

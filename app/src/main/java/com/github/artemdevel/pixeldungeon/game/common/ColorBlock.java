@@ -17,12 +17,10 @@
 
 package com.github.artemdevel.pixeldungeon.game.common;
 
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
-
 public class ColorBlock extends Image implements Resizable {
 
     public ColorBlock(float width, float height, int color) {
-        super(TextureCache.createSolid(color));
+        super(Game.textureCache.createSolid(color));
         scale.set(width, height);
         origin.set(0, 0);
     }

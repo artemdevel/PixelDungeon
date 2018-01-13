@@ -21,7 +21,6 @@ import java.nio.FloatBuffer;
 
 import android.graphics.RectF;
 
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Quad;
 
@@ -61,7 +60,7 @@ public class Image extends Visual {
     }
 
     public void texture(Object tx) {
-        texture = tx instanceof SmartTexture ? (SmartTexture) tx : TextureCache.get(tx);
+        texture = tx instanceof SmartTexture ? (SmartTexture) tx : Game.textureCache.get(tx);
         frame(new RectF(0, 0, 1, 1));
     }
 

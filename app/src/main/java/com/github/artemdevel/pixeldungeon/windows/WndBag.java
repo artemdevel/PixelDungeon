@@ -20,7 +20,6 @@ package com.github.artemdevel.pixeldungeon.windows;
 import android.graphics.RectF;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.BitmapText;
 import com.github.artemdevel.pixeldungeon.game.common.ColorBlock;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
@@ -338,7 +337,7 @@ public class WndBag extends WndTabbed {
             super.item(item);
             if (item != null) {
 
-                bg.texture(TextureCache.createSolid(item.isEquipped(Dungeon.hero) ? EQUIPPED : NORMAL));
+                bg.texture(Game.textureCache.createSolid(item.isEquipped(Dungeon.hero) ? EQUIPPED : NORMAL));
                 if (item.cursed && item.cursedKnown) {
                     bg.ra = +0.2f;
                     bg.ga = -0.1f;

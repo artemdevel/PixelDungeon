@@ -19,7 +19,6 @@ package com.github.artemdevel.pixeldungeon.sprites;
 
 import android.graphics.Bitmap;
 
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.MovieClip;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
@@ -196,7 +195,7 @@ public class ItemSprite extends MovieClip {
     }
 
     public static int pick(int index, int x, int y) {
-        Bitmap bmp = TextureCache.get(Assets.ITEMS).bitmap;
+        Bitmap bmp = Game.textureCache.get(Assets.ITEMS).bitmap;
         int rows = bmp.getWidth() / SIZE;
         int row = index / rows;
         int col = index % rows;

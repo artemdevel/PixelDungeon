@@ -17,7 +17,6 @@
  */
 package com.github.artemdevel.pixeldungeon.effects;
 
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.DungeonTilemap;
@@ -27,7 +26,7 @@ public class CheckedCell extends Image {
     private float alpha;
 
     public CheckedCell(int pos) {
-        super(TextureCache.createSolid(0xFF55AAFF));
+        super(Game.textureCache.createSolid(0xFF55AAFF));
 
         origin.set(0.5f);
 

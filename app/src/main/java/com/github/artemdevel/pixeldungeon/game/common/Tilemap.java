@@ -20,7 +20,6 @@ package com.github.artemdevel.pixeldungeon.game.common;
 import java.nio.FloatBuffer;
 
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.glwrap.Quad;
 import com.github.artemdevel.pixeldungeon.game.utils.Rect;
 
@@ -47,7 +46,7 @@ public class Tilemap extends Visual {
     public Tilemap(Object tx, TextureFilm tileset) {
         super(0, 0, 0, 0);
 
-        this.texture = TextureCache.get(tx);
+        this.texture = Game.textureCache.get(tx);
         this.tileset = tileset;
 
         RectF r = tileset.get(0);

@@ -22,93 +22,73 @@ import java.util.HashMap;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.Shader.TileMode;
 
 import com.github.artemdevel.pixeldungeon.game.glwrap.Texture;
 
-public class TextureCache {
+import static com.github.artemdevel.pixeldungeon.utils.Utils.reportException;
 
-    // TODO: Refactor this
-    public static Context context;
+public final class TextureCache {
 
-    private static HashMap<Object, SmartTexture> all = new HashMap<>();
+    private final Context context;
+    private final HashMap<Object, SmartTexture> cache = new HashMap<>();
+    private final BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 
-    // No dithering, no scaling, 32 bits per pixel
-    private static BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-
-    static {
+    public TextureCache(Context context) {
+        this.context = context;
+        // No dithering, no scaling, 32 bits per pixel
         bitmapOptions.inScaled = false;
         bitmapOptions.inDither = false;
         bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;
     }
 
-    public static SmartTexture createSolid(int color) {
+    public SmartTexture createSolid(int color) {
         final String key = "1x1:" + color;
 
-        if (all.containsKey(key)) {
-            return all.get(key);
+        if (cache.containsKey(key)) {
+            return cache.get(key);
         } else {
             Bitmap bmp = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
             bmp.eraseColor(color);
-
-            SmartTexture tx = new SmartTexture(bmp);
-            all.put(key, tx);
-
-            return tx;
+            SmartTexture texture = new SmartTexture(bmp);
+            cache.put(key, texture);
+            return texture;
         }
     }
 
-//    public static SmartTexture createGradient( int width, int height, int... colors ) {
-//        final String key = "" + width + "x" + height + ":" + colors;
-//
-//        if (all.containsKey( key )) {
-//            return all.get( key );
-//        } else {
-//            Bitmap bmp = Bitmap.createBitmap( width, height, Bitmap.Config.ARGB_8888 );
-//            Canvas canvas = new Canvas( bmp );
-//            Paint paint = new Paint();
-//            paint.setShader( new LinearGradient( 0, 0, 0, height, colors, null, TileMode.CLAMP ) );
-//            canvas.drawPaint( paint );
-//
-//            SmartTexture tx = new SmartTexture( bmp );
-//            all.put( key, tx );
-//            return tx;
-//        }
-//    }
-
-    public static void add(Object key, SmartTexture tx) {
-        all.put(key, tx);
+    public void add(Object key, SmartTexture texture) {
+        cache.put(key, texture);
     }
 
-    public static SmartTexture get(Object src) {
-        if (all.containsKey(src)) {
-            return all.get(src);
+    public SmartTexture get(Object src) {
+        if (cache.containsKey(src)) {
+            return cache.get(src);
         } else if (src instanceof SmartTexture) {
             return (SmartTexture) src;
         } else {
-            SmartTexture tx = new SmartTexture(getBitmap(src));
-            all.put(src, tx);
-            return tx;
+            SmartTexture texture = new SmartTexture(getBitmap(src));
+            cache.put(src, texture);
+            return texture;
         }
     }
 
-    public static void clear() {
-        for (Texture txt : all.values()) {
-            txt.delete();
+    public void clear() {
+        for (Texture texture : cache.values()) {
+            texture.delete();
         }
-        all.clear();
+        cache.clear();
     }
 
-    public static void reload() {
-        for (SmartTexture tx : all.values()) {
-            tx.reload();
+    public void reload() {
+        for (SmartTexture texture : cache.values()) {
+            texture.reload();
         }
     }
 
-    public static Bitmap getBitmap(Object src) {
+    public boolean contains(Object key) {
+        return cache.containsKey(key);
+    }
+
+    private Bitmap getBitmap(Object src) {
         try {
             if (src instanceof Integer) {
                 return BitmapFactory.decodeResource(context.getResources(), (Integer) src, bitmapOptions);
@@ -119,14 +99,10 @@ public class TextureCache {
             } else {
                 return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            reportException(ex);
             return null;
         }
-    }
-
-    public static boolean contains(Object key) {
-        return all.containsKey(key);
     }
 
 }

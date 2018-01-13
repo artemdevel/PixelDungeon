@@ -19,8 +19,8 @@ package com.github.artemdevel.pixeldungeon.sprites;
 
 import android.graphics.RectF;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 import com.github.artemdevel.pixeldungeon.game.common.Camera;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.TextureFilm;
@@ -126,7 +126,7 @@ public class HeroSprite extends CharSprite {
 
     public static TextureFilm tiers() {
         if (tiers == null) {
-            SmartTexture texture = TextureCache.get(Assets.ROGUE);
+            SmartTexture texture = Game.textureCache.get(Assets.ROGUE);
             tiers = new TextureFilm(texture, texture.width, FRAME_HEIGHT);
         }
 

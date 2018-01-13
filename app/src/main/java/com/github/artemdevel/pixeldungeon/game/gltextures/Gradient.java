@@ -19,6 +19,8 @@ package com.github.artemdevel.pixeldungeon.game.gltextures;
 
 import android.graphics.Bitmap;
 
+import com.github.artemdevel.pixeldungeon.game.common.Game;
+
 public class Gradient extends SmartTexture {
 
     public Gradient(int colors[]) {
@@ -32,6 +34,6 @@ public class Gradient extends SmartTexture {
         filter(LINEAR, LINEAR);
         wrap(CLAMP, CLAMP);
 
-        TextureCache.add(Gradient.class, this);
+        Game.textureCache.add(Gradient.class, this);
     }
 }

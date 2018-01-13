@@ -17,7 +17,7 @@
  */
 package com.github.artemdevel.pixeldungeon.ui;
 
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
+import com.github.artemdevel.pixeldungeon.game.common.Game;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Component;
 import com.github.artemdevel.pixeldungeon.actors.Char;
@@ -42,11 +42,11 @@ public class HealthIndicator extends Component {
 
     @Override
     protected void createChildren() {
-        bg = new Image(TextureCache.createSolid(0xFFcc0000));
+        bg = new Image(Game.textureCache.createSolid(0xFFcc0000));
         bg.scale.y = HEIGHT;
         add(bg);
 
-        level = new Image(TextureCache.createSolid(0xFF00cc00));
+        level = new Image(Game.textureCache.createSolid(0xFF00cc00));
         level.scale.y = HEIGHT;
         add(level);
     }

@@ -20,7 +20,6 @@ package com.github.artemdevel.pixeldungeon.game.common;
 import java.util.HashMap;
 
 import com.github.artemdevel.pixeldungeon.game.gltextures.SmartTexture;
-import com.github.artemdevel.pixeldungeon.game.gltextures.TextureCache;
 
 import android.graphics.RectF;
 
@@ -34,7 +33,7 @@ public class TextureFilm {
     protected HashMap<Object, RectF> frames = new HashMap<>();
 
     public TextureFilm(Object tx) {
-        SmartTexture texture = TextureCache.get(tx);
+        SmartTexture texture = Game.textureCache.get(tx);
 
         texWidth = texture.width;
         texHeight = texture.height;
@@ -47,7 +46,7 @@ public class TextureFilm {
     }
 
     public TextureFilm(Object tx, int width, int height) {
-        SmartTexture texture = TextureCache.get(tx);
+        SmartTexture texture = Game.textureCache.get(tx);
 
         texWidth = texture.width;
         texHeight = texture.height;
