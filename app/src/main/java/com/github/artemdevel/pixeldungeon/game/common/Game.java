@@ -167,7 +167,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
             return false;
         }
 
-        synchronized (motionEvents) {
+        synchronized (keysEvents) {
             keysEvents.add(event);
         }
         return true;
@@ -179,7 +179,7 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
             return false;
         }
 
-        synchronized (motionEvents) {
+        synchronized (keysEvents) {
             keysEvents.add(event);
         }
         return true;
