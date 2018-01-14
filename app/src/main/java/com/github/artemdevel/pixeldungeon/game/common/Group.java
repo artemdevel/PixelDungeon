@@ -21,8 +21,7 @@ import java.util.ArrayList;
 
 public class Group extends Gizmo {
 
-    // Accessing it is a little faster,
-    // than calling members.getSize()
+    // Accessing it is a little faster, than calling members.getSize()
     public int length;
     protected ArrayList<Gizmo> members;
 
@@ -33,8 +32,7 @@ public class Group extends Gizmo {
 
     @Override
     public void destroy() {
-        for (int i = 0; i < length; i++) {
-            Gizmo g = members.get(i);
+        for (Gizmo g : members) {
             if (g != null) {
                 g.destroy();
             }
@@ -47,6 +45,10 @@ public class Group extends Gizmo {
 
     @Override
     public void update() {
+        // NOTE: Can't use the iterator here because of ConcurrentModificationException when
+        // update a collection during the iteration
+        // https://developer.android.com/reference/java/util/ConcurrentModificationException.html
+        // This happens, for example, after a long click on an item which suits to a quick slot.
         for (int i = 0; i < length; i++) {
             Gizmo g = members.get(i);
             if (g != null && g.exists && g.active) {
@@ -57,8 +59,7 @@ public class Group extends Gizmo {
 
     @Override
     public void draw() {
-        for (int i = 0; i < length; i++) {
-            Gizmo g = members.get(i);
+        for (Gizmo g : members) {
             if (g != null && g.exists && g.visible) {
                 g.draw();
             }
@@ -67,10 +68,8 @@ public class Group extends Gizmo {
 
     @Override
     public void kill() {
-        // A killed group keeps all its members,
-        // but they get killed too
-        for (int i = 0; i < length; i++) {
-            Gizmo g = members.get(i);
+        // A killed group keeps all its members, but they get killed too
+        for (Gizmo g : members) {
             if (g != null && g.exists) {
                 g.kill();
             }
@@ -78,10 +77,6 @@ public class Group extends Gizmo {
 
         super.kill();
     }
-
-//    public int indexOf(Gizmo g) {
-//        return members.indexOf(g);
-//    }
 
     public Gizmo add(Gizmo g) {
         if (g.parent == this) {
@@ -93,12 +88,11 @@ public class Group extends Gizmo {
         }
 
         // Trying to find an empty space for a new member
-        for (int i = 0; i < length; i++) {
-            if (members.get(i) == null) {
-                members.set(i, g);
-                g.parent = this;
-                return g;
-            }
+        int index = members.indexOf(null);
+        if (index != -1) {
+            members.set(index, g);
+            g.parent = this;
+            return g;
         }
 
         members.add(g);
@@ -169,21 +163,8 @@ public class Group extends Gizmo {
         }
     }
 
-    public Gizmo replace(Gizmo oldOne, Gizmo newOne) {
-        int index = members.indexOf(oldOne);
-        if (index != -1) {
-            members.set(index, newOne);
-            newOne.parent = this;
-            oldOne.parent = null;
-            return newOne;
-        } else {
-            return null;
-        }
-    }
-
     public Gizmo getFirstAvailable(Class<? extends Gizmo> c) {
-        for (int i = 0; i < length; i++) {
-            Gizmo g = members.get(i);
+        for (Gizmo g : members) {
             if (g != null && !g.exists && ((c == null) || g.getClass() == c)) {
                 return g;
             }
@@ -195,8 +176,7 @@ public class Group extends Gizmo {
     public int countLiving() {
         int count = 0;
 
-        for (int i = 0; i < length; i++) {
-            Gizmo g = members.get(i);
+        for (Gizmo g : members) {
             if (g != null && g.exists && g.alive) {
                 count++;
             }
@@ -205,22 +185,9 @@ public class Group extends Gizmo {
         return count;
     }
 
-//    public int countDead() {
-//
-//        int count = 0;
-//
-//        for (int logInfo = 0; logInfo < length; logInfo++) {
-//            Gizmo g = members.get(logInfo);
-//            if (g != null && !g.alive) {
-//                count++;
-//            }
-//        }
-//
-//        return count;
-//    }
-
     public Gizmo random() {
         if (length > 0) {
+            // TODO: Is it the source of poor randomness?
             return members.get((int) (Math.random() * length));
         } else {
             return null;
@@ -228,8 +195,7 @@ public class Group extends Gizmo {
     }
 
     public void clear() {
-        for (int i = 0; i < length; i++) {
-            Gizmo g = members.get(i);
+        for (Gizmo g : members) {
             if (g != null) {
                 g.parent = null;
             }
