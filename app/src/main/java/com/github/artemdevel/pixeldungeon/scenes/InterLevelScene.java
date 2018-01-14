@@ -144,6 +144,7 @@ public class InterLevelScene extends PixelScene {
                     }
 
                     if ((Dungeon.depth % 5) == 0) {
+                        // TODO: Check if it is really required now
                         Game.sound.load(Assets.SND_BOSS);
                     }
                 } catch (FileNotFoundException e) {

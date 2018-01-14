@@ -74,6 +74,7 @@ public class Ghost extends NPC {
     public Ghost() {
         super();
 
+        // TODO: Check if it is really required now
         Game.sound.load(Assets.SND_GHOST);
     }
 
