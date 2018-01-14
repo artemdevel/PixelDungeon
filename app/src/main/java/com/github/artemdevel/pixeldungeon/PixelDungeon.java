@@ -20,8 +20,6 @@ package com.github.artemdevel.pixeldungeon;
 import android.os.Bundle;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
-import com.github.artemdevel.pixeldungeon.game.common.audio.GameSound;
 import com.github.artemdevel.pixeldungeon.scenes.TitleScene;
 
 public class PixelDungeon extends Game {
