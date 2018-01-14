@@ -36,41 +36,38 @@ public class Touchscreen {
     public static boolean touched;
 
     public static void processTouchEvents(ArrayList<MotionEvent> events) {
-        int size = events.size();
-        for (int i = 0; i < size; i++) {
-            MotionEvent e = events.get(i);
+        for (MotionEvent event : events) {
             Touch touch;
-
-            switch (e.getAction() & MotionEvent.ACTION_MASK) {
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
                     touched = true;
-                    touch = new Touch(e, 0);
-                    pointers.put(e.getPointerId(0), touch);
-                    event.dispatch(touch);
+                    touch = new Touch(event, 0);
+                    pointers.put(event.getPointerId(0), touch);
+                    Touchscreen.event.dispatch(touch);
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    int index = e.getActionIndex();
-                    touch = new Touch(e, index);
-                    pointers.put(e.getPointerId(index), touch);
-                    event.dispatch(touch);
+                    int index = event.getActionIndex();
+                    touch = new Touch(event, index);
+                    pointers.put(event.getPointerId(index), touch);
+                    Touchscreen.event.dispatch(touch);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    int count = e.getPointerCount();
+                    int count = event.getPointerCount();
                     for (int j = 0; j < count; j++) {
-                        pointers.get(e.getPointerId(j)).update(e, j);
+                        pointers.get(event.getPointerId(j)).update(event, j);
                     }
-                    event.dispatch(null);
+                    Touchscreen.event.dispatch(null);
                     break;
                 case MotionEvent.ACTION_POINTER_UP:
-                    event.dispatch(pointers.remove(e.getPointerId(e.getActionIndex())).up());
+                    Touchscreen.event.dispatch(pointers.remove(event.getPointerId(event.getActionIndex())).up());
                     break;
                 case MotionEvent.ACTION_UP:
                     touched = false;
-                    event.dispatch(pointers.remove(e.getPointerId(0)).up());
+                    Touchscreen.event.dispatch(pointers.remove(event.getPointerId(0)).up());
                     break;
             }
 
-            e.recycle();
+            event.recycle();
         }
     }
 
@@ -80,18 +77,17 @@ public class Touchscreen {
         public PointF current;
         public boolean down;
 
-        public Touch(MotionEvent e, int index) {
-            float x = e.getX(index);
-            float y = e.getY(index);
+        public Touch(MotionEvent event, int index) {
+            float x = event.getX(index);
+            float y = event.getY(index);
 
             start = new PointF(x, y);
             current = new PointF(x, y);
-
             down = true;
         }
 
-        public void update(MotionEvent e, int index) {
-            current.set(e.getX(index), e.getY(index));
+        public void update(MotionEvent event, int index) {
+            current.set(event.getX(index), event.getY(index));
         }
 
         public Touch up() {
