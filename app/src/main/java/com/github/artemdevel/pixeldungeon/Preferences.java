@@ -41,7 +41,7 @@ public final class Preferences {
 
     private SharedPreferences prefs;
 
-    Preferences(Context context) {
+    public Preferences(Context context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 

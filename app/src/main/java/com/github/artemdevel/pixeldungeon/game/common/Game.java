@@ -23,7 +23,6 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.github.artemdevel.pixeldungeon.BuildConfig;
-import com.github.artemdevel.pixeldungeon.PixelDungeonApp;
 import com.github.artemdevel.pixeldungeon.Preferences;
 import com.github.artemdevel.pixeldungeon.game.common.audio.GameMusic;
 import com.github.artemdevel.pixeldungeon.game.glscripts.Script;
@@ -102,9 +101,9 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
         bitmapCache = new BitmapCache(this);
         textureCache = new TextureCache(this);
         instance = this;
-        prefs = ((PixelDungeonApp) getApplication()).getPreferences();
-        music = ((PixelDungeonApp) getApplication()).getGameMusic();
-        sound = ((PixelDungeonApp) getApplication()).getGameSound();
+        prefs = new Preferences(getApplicationContext());
+        music = new GameMusic(getApplicationContext());
+        sound = new GameSound(getApplicationContext());
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
