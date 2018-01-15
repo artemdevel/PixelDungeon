@@ -18,11 +18,11 @@
 package com.github.artemdevel.pixeldungeon.effects;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.Gizmo;
+import com.github.artemdevel.pixeldungeon.game.common.Entity;
 import com.github.artemdevel.pixeldungeon.Assets;
 import com.github.artemdevel.pixeldungeon.sprites.CharSprite;
 
-public class IceBlock extends Gizmo {
+public class IceBlock extends Entity {
 
     private float phase;
 

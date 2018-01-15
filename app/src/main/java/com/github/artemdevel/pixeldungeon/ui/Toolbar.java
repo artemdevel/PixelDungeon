@@ -18,7 +18,7 @@
 package com.github.artemdevel.pixeldungeon.ui;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.Gizmo;
+import com.github.artemdevel.pixeldungeon.game.common.Entity;
 import com.github.artemdevel.pixeldungeon.game.common.Image;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Button;
 import com.github.artemdevel.pixeldungeon.game.common.ui.Component;
@@ -146,7 +146,7 @@ public class Toolbar extends Component {
         if (lastEnabled != Dungeon.hero.ready) {
             lastEnabled = Dungeon.hero.ready;
 
-            for (Gizmo tool : members) {
+            for (Entity tool : members) {
                 if (tool instanceof Tool) {
                     ((Tool) tool).enable(lastEnabled);
                 }

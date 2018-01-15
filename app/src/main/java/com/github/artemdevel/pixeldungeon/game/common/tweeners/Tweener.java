@@ -18,18 +18,18 @@
 package com.github.artemdevel.pixeldungeon.game.common.tweeners;
 
 import com.github.artemdevel.pixeldungeon.game.common.Game;
-import com.github.artemdevel.pixeldungeon.game.common.Gizmo;
+import com.github.artemdevel.pixeldungeon.game.common.Entity;
 
-abstract public class Tweener extends Gizmo {
+abstract public class Tweener extends Entity {
 
-    public Gizmo target;
+    public Entity target;
 
     public float interval;
     public float elapsed;
 
     public Listener listener;
 
-    public Tweener(Gizmo target, float interval) {
+    public Tweener(Entity target, float interval) {
         super();
 
         this.target = target;

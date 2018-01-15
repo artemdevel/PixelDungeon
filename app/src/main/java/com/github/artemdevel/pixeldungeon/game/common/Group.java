@@ -19,11 +19,11 @@ package com.github.artemdevel.pixeldungeon.game.common;
 
 import java.util.ArrayList;
 
-public class Group extends Gizmo {
+public class Group extends Entity {
 
     // Accessing it is a little faster, than calling members.getSize()
     public int length;
-    protected ArrayList<Gizmo> members;
+    protected ArrayList<Entity> members;
 
     public Group() {
         members = new ArrayList<>();
@@ -32,9 +32,9 @@ public class Group extends Gizmo {
 
     @Override
     public void destroy() {
-        for (Gizmo g : members) {
-            if (g != null) {
-                g.destroy();
+        for (Entity entity : members) {
+            if (entity != null) {
+                entity.destroy();
             }
         }
 
@@ -50,18 +50,18 @@ public class Group extends Gizmo {
         // https://developer.android.com/reference/java/util/ConcurrentModificationException.html
         // This happens, for example, after a long click on an item which suits to a quick slot.
         for (int i = 0; i < length; i++) {
-            Gizmo g = members.get(i);
-            if (g != null && g.exists && g.active) {
-                g.update();
+            Entity entity = members.get(i);
+            if (entity != null && entity.exists && entity.active) {
+                entity.update();
             }
         }
     }
 
     @Override
     public void draw() {
-        for (Gizmo g : members) {
-            if (g != null && g.exists && g.visible) {
-                g.draw();
+        for (Entity entity : members) {
+            if (entity != null && entity.exists && entity.visible) {
+                entity.draw();
             }
         }
     }
@@ -69,69 +69,69 @@ public class Group extends Gizmo {
     @Override
     public void kill() {
         // A killed group keeps all its members, but they get killed too
-        for (Gizmo g : members) {
-            if (g != null && g.exists) {
-                g.kill();
+        for (Entity entity : members) {
+            if (entity != null && entity.exists) {
+                entity.kill();
             }
         }
 
         super.kill();
     }
 
-    public Gizmo add(Gizmo g) {
-        if (g.parent == this) {
-            return g;
+    public Entity add(Entity entity) {
+        if (entity.parent == this) {
+            return entity;
         }
 
-        if (g.parent != null) {
-            g.parent.remove(g);
+        if (entity.parent != null) {
+            entity.parent.remove(entity);
         }
 
         // Trying to find an empty space for a new member
         int index = members.indexOf(null);
         if (index != -1) {
-            members.set(index, g);
-            g.parent = this;
-            return g;
+            members.set(index, entity);
+            entity.parent = this;
+            return entity;
         }
 
-        members.add(g);
-        g.parent = this;
+        members.add(entity);
+        entity.parent = this;
         length++;
-        return g;
+        return entity;
     }
 
-    public Gizmo addToBack(Gizmo g) {
-        if (g.parent == this) {
-            sendToBack(g);
-            return g;
+    public Entity addToBack(Entity entity) {
+        if (entity.parent == this) {
+            sendToBack(entity);
+            return entity;
         }
 
-        if (g.parent != null) {
-            g.parent.remove(g);
+        if (entity.parent != null) {
+            entity.parent.remove(entity);
         }
 
         if (members.get(0) == null) {
-            members.set(0, g);
-            g.parent = this;
-            return g;
+            members.set(0, entity);
+            entity.parent = this;
+            return entity;
         }
 
-        members.add(0, g);
-        g.parent = this;
+        members.add(0, entity);
+        entity.parent = this;
         length++;
-        return g;
+        return entity;
     }
 
-    public Gizmo recycle(Class<? extends Gizmo> c) {
-        Gizmo g = getFirstAvailable(c);
-        if (g != null) {
-            return g;
-        } else if (c == null) {
+    public Entity recycle(Class<? extends Entity> entityClass) {
+        Entity entity = getFirstAvailable(entityClass);
+        if (entity != null) {
+            return entity;
+        } else if (entityClass == null) {
             return null;
         } else {
             try {
-                return add(c.newInstance());
+                return add(entityClass.newInstance());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -141,32 +141,32 @@ public class Group extends Gizmo {
     }
 
     // Fast removal - replacing with null
-    public Gizmo erase(Gizmo g) {
-        int index = members.indexOf(g);
+    public Entity erase(Entity entity) {
+        int index = members.indexOf(entity);
         if (index != -1) {
             members.set(index, null);
-            g.parent = null;
-            return g;
+            entity.parent = null;
+            return entity;
         } else {
             return null;
         }
     }
 
     // Real removal
-    public Gizmo remove(Gizmo g) {
-        if (members.remove(g)) {
+    public Entity remove(Entity entity) {
+        if (members.remove(entity)) {
             length--;
-            g.parent = null;
-            return g;
+            entity.parent = null;
+            return entity;
         } else {
             return null;
         }
     }
 
-    public Gizmo getFirstAvailable(Class<? extends Gizmo> c) {
-        for (Gizmo g : members) {
-            if (g != null && !g.exists && ((c == null) || g.getClass() == c)) {
-                return g;
+    public Entity getFirstAvailable(Class<? extends Entity> entityClass) {
+        for (Entity entity : members) {
+            if (entity != null && !entity.exists && ((entityClass == null) || entity.getClass() == entityClass)) {
+                return entity;
             }
         }
 
@@ -176,8 +176,8 @@ public class Group extends Gizmo {
     public int countLiving() {
         int count = 0;
 
-        for (Gizmo g : members) {
-            if (g != null && g.exists && g.alive) {
+        for (Entity entity : members) {
+            if (entity != null && entity.exists && entity.alive) {
                 count++;
             }
         }
@@ -185,7 +185,7 @@ public class Group extends Gizmo {
         return count;
     }
 
-    public Gizmo random() {
+    public Entity random() {
         if (length > 0) {
             // TODO: Is it the source of poor randomness?
             return members.get((int) (Math.random() * length));
@@ -195,30 +195,30 @@ public class Group extends Gizmo {
     }
 
     public void clear() {
-        for (Gizmo g : members) {
-            if (g != null) {
-                g.parent = null;
+        for (Entity entity : members) {
+            if (entity != null) {
+                entity.parent = null;
             }
         }
         members.clear();
         length = 0;
     }
 
-    public Gizmo bringToFront(Gizmo g) {
-        if (members.contains(g)) {
-            members.remove(g);
-            members.add(g);
-            return g;
+    public Entity bringToFront(Entity entity) {
+        if (members.contains(entity)) {
+            members.remove(entity);
+            members.add(entity);
+            return entity;
         } else {
             return null;
         }
     }
 
-    public Gizmo sendToBack(Gizmo g) {
-        if (members.contains(g)) {
-            members.remove(g);
-            members.add(0, g);
-            return g;
+    public Entity sendToBack(Entity entity) {
+        if (members.contains(entity)) {
+            members.remove(entity);
+            members.add(0, entity);
+            return entity;
         } else {
             return null;
         }

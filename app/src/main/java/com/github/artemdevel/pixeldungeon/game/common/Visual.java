@@ -22,7 +22,7 @@ import com.github.artemdevel.pixeldungeon.game.utils.GameMath;
 import com.github.artemdevel.pixeldungeon.game.utils.Point;
 import com.github.artemdevel.pixeldungeon.game.utils.PointF;
 
-public class Visual extends Gizmo {
+public class Visual extends Entity {
 
     public float x;
     public float y;
@@ -147,11 +147,6 @@ public class Visual extends Gizmo {
     public float alpha() {
         return am + aa;
     }
-
-//    public void invert() {
-//        rm = gm = bm = -1f;
-//        ra = ga = ba = +1f;
-//    }
 
     public void lightness(float value) {
         if (value < 0.5f) {

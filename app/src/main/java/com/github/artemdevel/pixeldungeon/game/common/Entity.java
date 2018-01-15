@@ -17,7 +17,7 @@
 
 package com.github.artemdevel.pixeldungeon.game.common;
 
-public class Gizmo {
+public class Entity {
 
     public boolean exists;
     public boolean alive;
@@ -28,7 +28,7 @@ public class Gizmo {
 
     public Camera camera;
 
-    public Gizmo() {
+    public Entity() {
         exists = true;
         alive = true;
         active = true;
